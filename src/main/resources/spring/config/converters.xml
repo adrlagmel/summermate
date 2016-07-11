@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * converters.xml
+ *
+ * Copyright (C) 2014 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
+	">
+
+	<util:list id="converters">
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.AdministradorToStringConverter" />
+		<bean class="converters.CalendarioNegocioToStringConverter" />
+		<bean class="converters.CarpetaToStringConverter" />
+		<bean class="converters.ClienteToStringConverter" />
+		<bean class="converters.DenunciaValoracionToStringConverter" />
+		<bean class="converters.EmpresarioToStringConverter" />
+		<bean class="converters.EventoToStringConverter" />
+		<bean class="converters.MensajeToStringConverter" />
+		<bean class="converters.MesaToStringConverter" />
+		<bean class="converters.NegocioToStringConverter" />
+		<bean class="converters.PagoToStringConverter" />
+		<bean class="converters.PeticionNegocioToStringConverter" />
+		<bean class="converters.PlayaToStringConverter" />
+		<bean class="converters.PreguntaToStringConverter" />
+		<bean class="converters.ReservaToStringConverter" />
+		<bean class="converters.UsuarioToStringConverter" />
+		<bean class="converters.ValoracionNegocioToStringConverter" />
+		<bean class="converters.ValoracionPlayaToStringConverter" />
+	
+		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.StringToAdministradorConverter" />
+		<bean class="converters.StringToCalendarioNegocioConverter" />
+		<bean class="converters.StringToCarpetaConverter" />
+		<bean class="converters.StringToClienteConverter" />
+		<bean class="converters.StringToDenunciaValoracionConverter" />
+		<bean class="converters.StringToEmpresarioConverter" />
+		<bean class="converters.StringToEventoConverter" />
+		<bean class="converters.StringToMensajeConverter" />
+		<bean class="converters.StringToMesaConverter" />
+		<bean class="converters.StringToNegocioConverter" />
+		<bean class="converters.StringToPagoConverter" />
+		<bean class="converters.StringToPeticionNegocioConverter" />
+		<bean class="converters.StringToPlayaConverter" />
+		<bean class="converters.StringToPreguntaConverter" />
+		<bean class="converters.StringToReservaConverter" />
+		<bean class="converters.StringToUsuarioConverter" />
+		<bean class="converters.StringToValoracionNegocioConverter" />
+		<bean class="converters.StringToValoracionPlayaConverter" />
+		
+
+	</util:list>
+	
+</beans>

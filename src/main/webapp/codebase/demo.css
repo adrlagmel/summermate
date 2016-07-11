@@ -1,0 +1,15 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #67846C;
+  background-image: url('./demo/bookingtable_bg.png');
+}
+
+.content {
+	width: 100%;
+    margin-bottom: 190px;
+}
+.scheduler {
+	width: 1000px;
+	margin: 0 auto;
+}

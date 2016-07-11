@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2015 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	
+	<definition name="negocio/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de Negocios" />
+		<put-attribute name="body" value="/views/negocio/list.jsp" />
+	</definition>
+	
+	<definition name="negocio/display" extends="master.page">	
+		<put-attribute name="title" value="Display commerce" />
+		<put-attribute name="body" value="/views/negocio/display.jsp" />
+	</definition>
+	
+	<definition name="negocio/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit commerce" />
+		<put-attribute name="body" value="/views/negocio/edit.jsp" />
+	</definition>
+	
+	<definition name="negocio/register" extends="master.page">	
+		<put-attribute name="title" value="Register a commerce" />
+		<put-attribute name="body" value="/views/negocio/register.jsp" />
+	</definition>
+	
+	<!-- <definition name="negocio/nearToMe" extends="master.page">	
+		<put-attribute name="title" value="Sport Center near me" />
+		<put-attribute name="body" value="/views/negocio/nearToMe.jsp" />
+	</definition> -->
+
+</tiles-definitions>
