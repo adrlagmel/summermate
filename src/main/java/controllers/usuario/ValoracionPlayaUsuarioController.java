@@ -17,7 +17,6 @@ import services.PlayaService;
 import services.ValoracionPlayaService;
 
 import controllers.AbstractController;
-import domain.Negocio;
 import domain.Playa;
 import domain.ValoracionPlaya;
 

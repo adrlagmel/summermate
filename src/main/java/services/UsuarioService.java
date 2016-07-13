@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 
+
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -12,9 +13,9 @@ import org.springframework.util.Assert;
 import domain.Carpeta;
 import domain.DenunciaValoracion;
 import domain.Evento;
-import domain.Pregunta;
 import domain.Reserva;
 import domain.Usuario;
+import domain.ValoracionPlaya;
 import forms.UsuarioRegistroForm;
 
 import repositories.UsuarioRepository;
@@ -57,15 +58,15 @@ public class UsuarioService {
 		
 		Collection<Reserva> reservas	= new ArrayList<Reserva>();
 		Collection<Evento> eventos		= new ArrayList<Evento>();
-		Collection<Pregunta> preguntas	= new ArrayList<Pregunta>();
 		Collection<Carpeta> carpetas	= new ArrayList<Carpeta>();
-		Collection<DenunciaValoracion> denuncias = new ArrayList<DenunciaValoracion>();
+		Collection<DenunciaValoracion> denuncias 	= new ArrayList<DenunciaValoracion>();
+		Collection<ValoracionPlaya> valoracionPlaya = new ArrayList<ValoracionPlaya>();
 		
 		usuario.setReservas(reservas);
-		usuario.setEventos(eventos);	
-		usuario.setPreguntas(preguntas);	
+		usuario.setEventos(eventos);		
 		usuario.setCarpetas(carpetas);
 		usuario.setDenuncias(denuncias);
+		usuario.setValoracionPlayas(valoracionPlaya);	
 		
 		return usuario;
 	}

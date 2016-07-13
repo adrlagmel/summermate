@@ -25,7 +25,9 @@
 
 	<acme:password code="register.password" path="password"/>
 	<acme:password code="register.verify.password" path="verifyPassword"/>
-		
+	
+	<form:errors path="registrationForm" cssClass="error" />
+	
 	<acme:textbox code="register.name" path="nombre"/>
 	<acme:textbox code="register.surname" path="apellidos"/>
 	<acme:textbox code="register.email" path="email"/>

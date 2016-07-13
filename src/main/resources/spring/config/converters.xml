@@ -32,7 +32,6 @@
 		<bean class="converters.PagoToStringConverter" />
 		<bean class="converters.PeticionNegocioToStringConverter" />
 		<bean class="converters.PlayaToStringConverter" />
-		<bean class="converters.PreguntaToStringConverter" />
 		<bean class="converters.ReservaToStringConverter" />
 		<bean class="converters.UsuarioToStringConverter" />
 		<bean class="converters.ValoracionNegocioToStringConverter" />
@@ -52,7 +51,6 @@
 		<bean class="converters.StringToPagoConverter" />
 		<bean class="converters.StringToPeticionNegocioConverter" />
 		<bean class="converters.StringToPlayaConverter" />
-		<bean class="converters.StringToPreguntaConverter" />
 		<bean class="converters.StringToReservaConverter" />
 		<bean class="converters.StringToUsuarioConverter" />
 		<bean class="converters.StringToValoracionNegocioConverter" />

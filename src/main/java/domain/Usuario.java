@@ -54,7 +54,6 @@ public class Usuario extends Cliente{
 		
 		private Collection <Reserva> reservas;
 		private Collection <Evento> eventos;
-		private Collection <Pregunta> preguntas;
 		
 		@NotNull
 		@Valid
@@ -78,15 +77,5 @@ public class Usuario extends Cliente{
 			this.eventos = eventos;
 		}
 		
-		@NotNull
-		@Valid
-		@OneToMany(mappedBy="usuario")
-		public Collection<Pregunta> getPreguntas() {
-			return preguntas;
-		}
-
-		public void setPreguntas(Collection<Pregunta> preguntas) {
-			this.preguntas = preguntas;
-		}
 		
 }

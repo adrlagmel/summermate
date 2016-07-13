@@ -537,11 +537,7 @@
                    <ref bean="evento3" />        
               </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+        
 		<property name="carpetas">
                         <list>
                                <ref bean="carpeta9" />  
@@ -582,12 +578,7 @@
                   <ref bean="evento1" />    
             </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                               
-                        </list>
-                </property>
+       
 		<property name="carpetas">
             <list>
                    <ref bean="carpeta5" />  
@@ -628,11 +619,7 @@
                		<ref bean="evento4" />   
                </list>
         </property>
-        <property name="preguntas">
-               <list>
-                      
-               </list>
-                </property>
+        
 		<property name="carpetas">
               <list>
                      <ref bean="carpeta13" />  
@@ -673,11 +660,7 @@
               		<ref bean="evento5"/>
               </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+        
 		<property name="carpetas">
                         <list>
                                <ref bean="carpeta23" />  
@@ -718,11 +701,7 @@
                		<ref bean="evento6"/>
                </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+        
 		<property name="carpetas">
                         <list>
                                <ref bean="carpeta25" />  
@@ -762,11 +741,7 @@
                         <list>
                         </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+     
 		<property name="carpetas">
               <list>
                   <ref bean="carpeta27" />  
@@ -806,11 +781,7 @@
                         <list>
                         </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+        
 		<property name="carpetas">
                         <list>
                                <ref bean="carpeta29" />  
@@ -849,11 +820,7 @@
                         <list>
                         </list>
         </property>
-        <property name="preguntas">
-                        <list>
-                                
-                        </list>
-                </property>
+        
 		<property name="carpetas">
                         <list>
                                <ref bean="carpeta31" />  

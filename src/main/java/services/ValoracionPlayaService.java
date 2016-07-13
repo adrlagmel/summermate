@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.ValoracionPlayaRepository;
 
-import domain.Negocio;
 import domain.Playa;
 import domain.Usuario;
 import domain.ValoracionPlaya;
@@ -52,8 +52,7 @@ public class ValoracionPlayaService {
 	
 	public ValoracionPlaya findOne(int id) {
 
-		ValoracionPlaya vp = valoracionPlayaRepository
-				.findOne(id);
+		ValoracionPlaya vp = valoracionPlayaRepository.findOne(id);
 
 		return vp;
 
