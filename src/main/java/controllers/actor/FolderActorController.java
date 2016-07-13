@@ -3,6 +3,7 @@ package controllers.actor;
 import java.util.Collection;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,17 +12,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CarpetaService;
+
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Carpeta;
+
 
 @Controller
 @RequestMapping("/carpeta/actor")
 public class FolderActorController extends AbstractController{
 	
 	// Services -------------------------------------------------------------------
-	
-		
 		@Autowired
 		private CarpetaService folderService;
 		
@@ -33,7 +34,6 @@ public class FolderActorController extends AbstractController{
 		public FolderActorController(){
 			super();
 		}
-		
 		
 		// Listing methods -----------------------------------------------------------
 		
@@ -51,10 +51,8 @@ public class FolderActorController extends AbstractController{
 			result.addObject("requestURI", "carpeta/actor/lista.do");
 			
 			return result;
-			
 		}
 		
-
 		// Ancillary methods ---------------------------------------------------------
 		
 		protected ModelAndView createEditModelAndView(Carpeta carpeta, String selectView){
@@ -82,6 +80,4 @@ public class FolderActorController extends AbstractController{
 			return result;
 		}
 		
-		
-
 }

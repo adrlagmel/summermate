@@ -1,10 +1,9 @@
 package services;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,7 @@ import repositories.ValoracionNegocioRepository;
 
 import domain.DenunciaValoracion;
 import domain.Reserva;
-import domain.Usuario;
 import domain.ValoracionNegocio;
-import domain.ValoracionPlaya;
 
 @Service
 @Transactional
@@ -26,9 +23,6 @@ public class ValoracionNegocioService {
 	
 	@Autowired
 	private ValoracionNegocioRepository valoracionNegocioRepository;
-	
-	@Autowired
-	private UsuarioService usuarioService;
 	
 	public ValoracionNegocioService() {
 
