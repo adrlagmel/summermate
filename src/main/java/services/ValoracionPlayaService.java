@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.ValoracionPlayaRepository;
 
+import domain.Negocio;
 import domain.Playa;
 import domain.Usuario;
 import domain.ValoracionPlaya;
@@ -55,6 +57,16 @@ public class ValoracionPlayaService {
 
 		return vp;
 
+	}
+	
+	public Collection<ValoracionPlaya> valoracionesDeUsuario(){
+		Usuario u = usuarioService.findByPrincipal();
+		int id = u.getId();
+		Collection<ValoracionPlaya> result = valoracionPlayaRepository.findValoracionPlayaByUsuario(id);
+		Assert.notNull(result);
+		
+		return result;
+		
 	}
 
 }

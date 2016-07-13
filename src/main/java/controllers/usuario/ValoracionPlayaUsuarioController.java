@@ -1,5 +1,7 @@
 package controllers.usuario;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import services.PlayaService;
 import services.ValoracionPlayaService;
 
 import controllers.AbstractController;
+import domain.Negocio;
 import domain.Playa;
 import domain.ValoracionPlaya;
 
@@ -34,6 +37,23 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 
 	public ValoracionPlayaUsuarioController() {
 		super();
+	}
+	
+	@RequestMapping(value="/list", method = RequestMethod.GET)
+	public ModelAndView list(){
+		
+		ModelAndView result;
+		Collection<ValoracionPlaya> vPlayas = null;
+				
+		vPlayas = valoracionPlayaService.valoracionesDeUsuario();
+		
+		result = new ModelAndView("valoracionPlaya/list");
+
+		result.addObject("vPlayas", vPlayas);
+		result.addObject("requestURI", "valoracionPlaya/usuario/list.do");
+
+		return result;
+		
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -63,7 +83,7 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 		} else {
 			try {
 				valoracionPlayaService.save(vp);
-				result = new ModelAndView("redirect:../../playa/usuario/list.do");
+				result = new ModelAndView("redirect:../../valoracionPlaya/usuario/list.do");
 			} catch (Throwable oops) {
 				result = createModelAndView(vp, "valoracionPlaya.commit.error");
 			}

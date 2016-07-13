@@ -28,6 +28,8 @@
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/negocio/tiles.xml</value>
 		<value>/views/mesa/tiles.xml</value>
+		<value>/views/valoracionPlaya/tiles.xml</value>
+		<value>/views/valoracionNegocio/tiles.xml</value>
 		
 	</util:list>
 

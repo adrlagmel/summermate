@@ -69,6 +69,7 @@
 		
 		<security:authorize access="hasRole('USUARIO')">
 			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="valoracionPlaya/usuario/list.do"><spring:message code="master.page.valoracionPlaya.listUsuarioValoraciones" /></a></li>
 			
 			
 			<li class="dropdown">

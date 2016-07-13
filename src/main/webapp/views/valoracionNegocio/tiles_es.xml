@@ -1,0 +1,14 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+	
+	<definition name="valoracionNegocio/edit" extends="master.page">	
+		<put-attribute name="title" value="Calificar Reserva" />
+		<put-attribute name="body" value="/views/valoracionNegocio/edit.jsp" />
+	</definition>
+	
+	
+	 
+</tiles-definitions>

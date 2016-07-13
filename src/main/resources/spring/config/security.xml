@@ -78,6 +78,13 @@
 
 		<security:intercept-url pattern="/carpeta/actor/list.do" access="isAuthenticated()" /> 
 		
+		<security:intercept-url pattern="/valoracionPlaya/usuario/create.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/edit.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/create.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/edit.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/list.do" access="hasRole('USUARIO')"/>
+		
+		
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 

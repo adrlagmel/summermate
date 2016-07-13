@@ -48,8 +48,18 @@
 		<a href="playa/admin/edit.do?playaId=${row.id}">
 			<spring:message code="playa.editar"/>
 		</a>
+		
 		</jstl:if>
-	</display:column>	
+		</display:column>
+		<security:authorize access="hasRole('USUARIO')">
+		<spring:message code="valoracionPlaya.valoracionPlaya" var="valorarPlaya" />
+		<display:column title="${valorarPlaya}" sortable="false">
+		<a href="valoracionPlaya/usuario/create.do?playaId=${row.id}"> 
+					<spring:message code="valoracionPlaya.valoracionPlaya" />
+					   </a>	
+		</display:column>
+		</security:authorize>
+		
 	
 </display:table>
 </div>

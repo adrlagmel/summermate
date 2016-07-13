@@ -32,7 +32,8 @@
 		<value>/views/booking/messages</value>
 		<value>/views/negocio/messages</value>
 		<value>/views/mesa/messages</value>
-		
+		<value>/views/valoracionPlaya/messages</value>
+		<value>/views/valoracionNegocio/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/folder/messages</value>
 	</util:list>
