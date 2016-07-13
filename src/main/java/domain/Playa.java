@@ -3,6 +3,7 @@ package domain;
 import java.util.Collection;
 
 
+
 import javax.persistence.Access;
 
 import javax.persistence.AccessType;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,11 +27,42 @@ public class Playa extends DomainEntity{
 
 	// Attributes ----------------------------
 	
-	private String 		nombre;
-	private String 		provincia;
-	private String 		municipio;
-	private TipoPlaya 	tipoPlaya;
-	private String 		descripcion;
+	private String 	nombre;
+	private String 	descripcion;
+	private String 	composicion;
+	private String 	servicios;
+	private Integer	extension;
+	private Localizacion localizacion;
+	
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getComposicion() {
+		return composicion;
+	}
+
+	public void setComposicion(String composicion) {
+		this.composicion = composicion;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(String servicios) {
+		this.servicios = servicios;
+	}
+	
+	@NotNull
+	@Min(0)
+	public Integer getExtension() {
+		return extension;
+	}
+	
+	public void setExtension(Integer extension) {
+		this.extension = extension;
+	}	
 	
 	@NotBlank
 	@SafeHtml(whitelistType=WhiteListType.NONE)
@@ -51,40 +84,19 @@ public class Playa extends DomainEntity{
 		this.descripcion = descripcion;
 	}
 	
-	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
-	public String getProvincia() {
-		return provincia;
-	}
-	
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-	
-	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
-	public String getMunicipio() {
-		return municipio;
-	}
-	
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-	
 	@NotNull
 	@Valid
-	public TipoPlaya getTipoPlaya() {
-		return tipoPlaya;
+	public Localizacion getLocalizacion() {
+		return localizacion;
 	}
 	
-	public void setTipoPlaya(TipoPlaya tipoPlaya) {
-		this.tipoPlaya = tipoPlaya;
+	public void setLocalizacion(Localizacion localizacion) {
+		this.localizacion = localizacion;
 	}
-	
 	
 	// Relationships -------------------------
 	
-	private Administrador 		administrador;
+	private Administrador 				administrador;
 	private Collection<ValoracionPlaya> valoracionPlayas;
 
 	@NotNull

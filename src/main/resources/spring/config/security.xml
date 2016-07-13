@@ -45,11 +45,10 @@
 
 		<security:intercept-url pattern="/usuario/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/empresario/register.do" access="isAnonymous()" /> 
-		<security:intercept-url pattern="/playa/list.do" access="isAnonymous()" /> 
-		<security:intercept-url pattern="/playa/usuario/list.do" access="hasRole('USUARIO')" /> 
-		<security:intercept-url pattern="/playa/empresario/list.do" access="hasRole('EMPRESARIO')" /> 
-		<security:intercept-url pattern="/playa/admin/list.do" access="hasRole('ADMINISTRADOR')"/> 
+		<security:intercept-url pattern="/playa/list.do" access="permitAll"/> 
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/display.do" access="permitAll"/>
 	
 		
 		<security:intercept-url pattern="/mensaje/actor/lista.do" access="isAuthenticated()" />

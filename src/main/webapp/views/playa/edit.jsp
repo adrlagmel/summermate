@@ -7,67 +7,43 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${requestURI}" enctype="multipart/form-data" method="post"  modelAttribute="playa">
-		
+<form:form modelAttribute="playa" action="playa/admin/edit.do" >	
 		
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<form:hidden path="administrador"/>
+	<form:hidden path="valoracionPlayas"/>
+	<form:hidden path="localizacion.latitud" id="lat"/>
+	<form:hidden path="localizacion.longitud" id="lon"/>
+	 	
+ 	<acme:textarea code="playa.nombre" path="nombre" />
+	<acme:textarea code="playa.descripcion" path="descripcion" />
+	<acme:textarea code="playa.composicion" path="composicion" />	
+	<acme:textarea code="playa.servicios" path="servicios" />	
+	<acme:textbox  code="playa.extension" path="extension" />	
 	
-	<jstl:if test="${createanddelete==true}">
- 	
-	<acme:textbox code="playa.nombre" path="nombre" readonly="false"/>	
-	<acme:textbox code="playa.provincia" path="provincia" readonly="false"/>	
-	<acme:textbox code="playa.municipio" path="municipio" readonly="false"/>	
-	<acme:textarea code="playa.descripcion" path="descripcion" readonly="false"/>	
-	<acme:textarea code="playa.composicion" path="tipoPlaya.composicion" readonly="false"/>	
-	<acme:textarea code="playa.condiciones" path="tipoPlaya.condiciones" readonly="false"/>	
-	<acme:textarea code="playa.ocupacion" path="tipoPlaya." readonly="false"/>	
-	<acme:textarea code="playa.servicios" path="tipoPlaya.servicios" readonly="false"/>	
-	<acme:textarea code="playa.transporte" path="tipoPlaya.transporte" readonly="false"/>	
-	<acme:textarea code="playa.acceso" path="tipoPlaya.acceso" readonly="false"/>	
-	<acme:textbox code="playa.longitud" path="tipoPlaya.longitud" readonly="false"/>	
-	<acme:textbox code="playa.anchura" path="tipoPlaya.anchura" readonly="false"/>	
-	<acme:textarea code="playa.paseoMaritimo" path="tipoPlaya.paseoMaritimo" readonly="false"/>	
-	<acme:textarea code="playa.zonaFondeo" path="tipoPlaya.zonaFondeo" readonly="false"/>	
-	<acme:textarea code="playa.vegetacion" path="tipoPlaya.vegetacion" readonly="false"/>	
-	<acme:textarea code="playa.espacioProtegido" path="tipoPlaya.espacioProtegido" readonly="false"/>	
-	
+	<fieldset>
+	<legend><spring:message code="playa.localizacion" /></legend>
+		<acme:textbox code="playa.localizacion.tipoVia" path="localizacion.via" />
+		<acme:textbox code="playa.localizacion.nombreVia" path="localizacion.nombreVia" />
+		<acme:textbox code="playa.localizacion.numero" path="localizacion.numeroVia" />
+		<acme:textbox code="playa.localizacion.codigoPostal" path="localizacion.codigoPostal" />
+		<acme:textbox code="playa.localizacion.ciudad" path="localizacion.ciudad" />
+		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" />
+	</fieldset>
 
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
+	<script>
+		var x = document.getElementById("lat");
+		var y = document.getElementById("lon");
+   		
+      			navigator.geolocation.getCurrentPosition();
+      			x.value = position.coords.latitude;
+			y.value = position.coords.longitude;
+   		
+   	</script> -->
+   	
 	<acme:submit name="save" code="playa.save"/>
-	<acme:cancel code="playa.atras" url="/playa/admin/list.do" />
+	<acme:cancel code="playa.atras" url="/playa/list.do" />
 	
-	
-	</jstl:if>
-	<jstl:if test="${createanddelete==false}">
-	
-	<acme:textarea code="playa.composicion" path="tipoPlaya.composicion" readonly="true"/>	
-	<acme:textarea code="playa.condiciones" path="tipoPlaya.condiciones" readonly="true"/>	
-	<acme:textarea code="playa.ocupacion" path="tipoPlaya." readonly="true"/>	
-	<acme:textarea code="playa.servicios" path="tipoPlaya.servicios" readonly="true"/>	
-	<acme:textarea code="playa.transporte" path="tipoPlaya.transporte" readonly="true"/>	
-	<acme:textarea code="playa.acceso" path="tipoPlaya.acceso" readonly="true"/>	
-	<acme:textbox code="playa.longitud" path="tipoPlaya.longitud" readonly="true"/>	
-	<acme:textbox code="playa.anchura" path="tipoPlaya.anchura" readonly="true"/>	
-	<acme:textarea code="playa.paseoMaritimo" path="tipoPlaya.paseoMaritimo" readonly="true"/>	
-	<acme:textarea code="playa.zonaFondeo" path="tipoPlaya.zonaFondeo" readonly="true"/>	
-	<acme:textarea code="playa.vegetacion" path="tipoPlaya.vegetacion" readonly="true"/>	
-	<acme:textarea code="playa.espacioProtegido" path="tipoPlaya.espacioProtegido" readonly="true"/>	
-	
-	<security:authorize access="hasRole('USUARIO')">
- 	<acme:cancel code="playa.atras" url="/playa/usuario/list.do" />
-	</security:authorize>
-			
-	<security:authorize access="isAnonymous()">
- 	<acme:cancel code="playa.atras" url="/playa/list.do" />
-	</security:authorize>
-	
-	<security:authorize access="hasRole('EMPRESARIO')">
- 	<acme:cancel code="playa.atras" url="/playa/empresario/list.do" />
-	</security:authorize>
-	
-	<security:authorize access="hasRole('ADMINISTRADOR')">
- 	<acme:cancel code="playa.atras" url="/playa/admin/list.do" />
-	</security:authorize>
-	
-	</jstl:if>
 </form:form>

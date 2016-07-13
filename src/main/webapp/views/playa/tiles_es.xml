@@ -27,10 +27,14 @@
 	</definition>
 	
 	<definition name="playa/create" extends="master.page">	
-		<put-attribute name="title" value="Crear Playa" />
-		<put-attribute name="body" value="/views/playa/create.jsp" />
+		<put-attribute name="title" value="Detalles Playa" />
+		<put-attribute name="body" value="/views/playa/edit.jsp" />
 	</definition>
 	
+	<definition name="playa/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar Playa" />
+		<put-attribute name="body" value="/views/playa/display.jsp" />
+	</definition>
 	
 	
 </tiles-definitions>

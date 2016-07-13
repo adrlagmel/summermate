@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Usuario extends Cliente{
@@ -20,6 +23,7 @@ public class Usuario extends Cliente{
 		private Integer nivelColaborador;
 		private Integer puntos; 
 		
+		@SafeHtml(whitelistType = WhiteListType.NONE)
 		public String getEstadoActual() {
 			return estadoActual;
 		}

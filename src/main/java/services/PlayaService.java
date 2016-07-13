@@ -1,8 +1,8 @@
 package services;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
-import java.util.HashSet;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.PlayaRepository;
+import security.LoginService;
+import security.UserAccount;
 
+import domain.Administrador;
 import domain.Playa;
 import domain.ValoracionPlaya;
 
@@ -21,49 +24,58 @@ public class PlayaService {
 	@Autowired
 	private PlayaRepository playaRepository;
 	
+	@Autowired
+	private AdministradorService administradorService;
+	
 	
 	public PlayaService(){
 		super();
 	}
 	
 	public Playa create() {
-
-		Playa p = new Playa();
+		Playa playa = new Playa();
+		Administrador administrador 				= administradorService.findByPrincipal();	
+		Collection<ValoracionPlaya> valoracionPlayas = new ArrayList<ValoracionPlaya>();
 		
-		Collection<ValoracionPlaya> valoracionPlayas = new HashSet<>();
-		p.setValoracionPlayas(valoracionPlayas);
+		playa.setValoracionPlayas(valoracionPlayas);
+		playa.setAdministrador(administrador);
 		
-		
-		return p;
-
+		return playa;
 	}
 	
-	public Collection<Playa> findPlayaForNoAuthenticate(){
-		
-		Collection<Playa> playas = playaRepository.findPlayaForNoAuthenticate();
+	public Collection<Playa> findAllBeaches(){
+		Collection<Playa> playas = playaRepository.findAll();
 		
 		return playas;
 	}
 
 	public Playa findOneToEdit(int playaId) {
-		Playa result;
-			
-		result = playaRepository.findOne(playaId);		
+		Playa result = playaRepository.findOne(playaId);
+					
 		return result;
 	}
 	
-public void save(Playa playa){
-		
-		Assert.notNull(playa);
+	public Playa findOne(int playaId) {
+		Playa result = playaRepository.findOne(playaId);
+					
+		return result;
+	}
+	
+	public void save(Playa playa){	
+		checkPrincipal(playa);
 		
 		playaRepository.save(playa);
-		
 	}
 
-public void delete(Playa playa){
-	Assert.notNull(playa);
-	playaRepository.delete(playa);
-}
+	public void delete(Playa playa){
+		Assert.notNull(playa);
+		playaRepository.delete(playa);
+	}
 	
-	
+	public void checkPrincipal(Playa playa) {
+		Assert.notNull(playa);
+		
+		UserAccount userAccount = LoginService.getPrincipal();
+		Assert.isTrue(playa.getAdministrador().getUserAccount().equals(userAccount));
+	}
 }

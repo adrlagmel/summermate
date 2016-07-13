@@ -39,7 +39,7 @@
 		
 		<security:authorize access="hasRole('EMPRESARIO')">
 			
-			<li><a href="playa/empresario/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.negocios" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
@@ -68,7 +68,7 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USUARIO')">
-			<li><a href="playa/usuario/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
 			
 			
 			<li class="dropdown">
@@ -83,9 +83,13 @@
 		
 		
 		<security:authorize access="hasRole('ADMINISTRADOR')">
-			
-			<li><a href="playa/admin/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
-			<li><a href="playa/admin/edit.do"><spring:message code="master.page.playa.create" /></a></li>
+			<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.playa" /><span class="caret"></span></a>
+              <ul class="dropdown-menu" >
+					<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+					<li><a href="playa/admin/create.do"><spring:message code="master.page.playa.create" /></a></li>
+			  </ul>
+			</li>
 			
 		</security:authorize>
 		

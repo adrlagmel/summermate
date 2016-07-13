@@ -25,25 +25,31 @@
 	<display:column property="nombre" title="${nombre}"
 		sortable="true" />
 
-	<spring:message code="playa.provincia" var="provincia" />
-	<display:column property="provincia" title="${provincia}"
+	<spring:message code="playa.localizacion.provincia" var="provincia" />
+	<display:column property="localizacion.provincia" title="${provincia}"
 		sortable="true" />
 		
-		<spring:message code="playa.municipio" var="municipio" />
-	<display:column property="municipio" title="${municipio}"
+	<spring:message code="playa.localizacion.ciudad" var="ciudad" />
+	<display:column property="localizacion.ciudad" title="${ciudad}"
 		sortable="true" />
 		
-		<spring:message code="playa.descripcion" var="descripcion" />
+	<spring:message code="playa.descripcion" var="descripcion" />
 	<display:column property="descripcion" title="${descripcion}"
 		sortable="true" />
+		
 	<spring:message code="playa.detallePlaya" var="detallePlaya" />
 		<display:column title="${detallePlaya}" sortable="false">
-		
-					<a href="playa/edit.do?playaId=${row.id}"> 
-					<spring:message code="playa.detallePlaya" />
-					   </a>					
+			<a href="playa/display.do?playaId=${row.id}"> <spring:message code="playa.detallePlaya" />  </a>					
+	</display:column>
 	
-		</display:column>
+	<security:authentication var="user" property="principal.id" />
+	<display:column>
+		<jstl:if test="${row.administrador.userAccount.id == user}">
+		<a href="playa/admin/edit.do?playaId=${row.id}">
+			<spring:message code="playa.editar"/>
+		</a>
+		</jstl:if>
+	</display:column>	
 	
 </display:table>
 </div>

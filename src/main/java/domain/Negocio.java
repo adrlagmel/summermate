@@ -1,6 +1,5 @@
 package domain;
 
-
 import java.util.Collection;
 
 import javax.persistence.Access;
@@ -17,14 +16,12 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Negocio extends DomainEntity{
 		
 	private String 			nombre;
 	private String 			tipo;
-	private String 			sector;
 	private String 			descripcion;
 	private String 			telefono;
 	private Localizacion 	localizacion;
@@ -60,16 +57,6 @@ public class Negocio extends DomainEntity{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-	
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getSector() {
-		return sector;
-	}
-
-	public void setSector(String sector) {
-		this.sector = sector;
 	}
 	
 	@NotBlank

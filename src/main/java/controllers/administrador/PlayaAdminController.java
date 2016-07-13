@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +26,6 @@ public class PlayaAdminController extends AbstractController {
 	@Autowired
 	private PlayaService playaService;
 	
-	
-
 	// Constructors -----------------------------------------------------------
 
 	public PlayaAdminController() {
@@ -36,95 +33,101 @@ public class PlayaAdminController extends AbstractController {
 	}
 
 	// Index ------------------------------------------------------------------
-
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 
 		ModelAndView result;
-		Collection<Playa> playas = playaService.findPlayaForNoAuthenticate();
+		Collection<Playa> playas = playaService.findAllBeaches();
 
 		result = new ModelAndView("playa/list");
 		result.addObject("playas", playas);
-		result.addObject("requestURI", "playa/admin/list.do");
+		result.addObject("requestURI", "playa/list.do");
 		return result;
 	}
 	
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView create() {
+	@RequestMapping(value="/create", method = RequestMethod.GET)
+	public ModelAndView create(){
+							
 		ModelAndView result;
-		Playa p;
-		p = playaService.create();
-		result = createModelAndView(p);
-		result.addObject("playa", p);
-		result.addObject("createanddelete",true);
-		result.addObject("requestURI", "playa/admin/edit.do");
+					
+			Playa playa = playaService.create();
+			
+			result =  createEditModelAndView(playa, "create");
+			
+			return result;
+	}
+	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int playaId){
+							
+			ModelAndView result;
+			
+			Playa playa = playaService.findOne(playaId);
+			
+			result = createEditModelAndView(playa, "display");
+			
+			return result;
+					
+	}
+	
+	@RequestMapping(value="/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int playaId){
+							
+			ModelAndView result;
+			
+			Playa playa = playaService.findOneToEdit(playaId);
+			
+			result = createEditModelAndView(playa, "edit");
+			
+			return result;
+					
+	}
+	
+	@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute("playa") @Valid Playa playa, BindingResult binding){
 		
-		return result;
-	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView create(@ModelAttribute("p") @Valid Playa p, BindingResult binding) {
-		ModelAndView result;
-		if (binding.hasErrors()) {
-			result = createModelAndView(p);
-		} else {
-			try {				
-				playaService.save(p);
-				result = new ModelAndView("redirect:../../playa/admin/list.do");
-			} catch (Throwable oops) {
-
-				result= createModelAndView(p,"message.commit.error");
+	ModelAndView result;
+		if(binding.hasErrors()){
+			result = createEditModelAndView(playa, "edit");
+			
+		}else{
+			try{
+				playaService.save(playa);
+				result = new ModelAndView("redirect://list.do");
 				
-			}
+			}catch(Throwable oops){
+				result = createEditModelAndView(playa, "edit", "playa.commit.error");
+			}		
 		}
-		return result;
+			
+	return result;
 	}
+
 	
-	@RequestMapping(value="/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView edit(@ModelAttribute("p") @Valid Playa p, BindingResult binding){
+	
+	protected ModelAndView createEditModelAndView(Playa playa, String selectView){
 		
 		ModelAndView result;
-		
-		
-		playaService.delete(p);
-		result = new ModelAndView("redirect:../../playa/admin/list.do");
+			
+		result = createEditModelAndView(playa, selectView, null);
 			
 		return result;
+	}
 		
-	}
-	
-		//Consultar detalles
-//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-//	public ModelAndView edit2(@RequestParam int playaId){
-//		ModelAndView result;
-//		Playa p = playaService.findOneToEdit(playaId);
-//		
-//		Assert.notNull(p);
-//		result = createModelAndView(p);
-//		result.addObject("createanddelete",false);
-//		result.addObject("requestURI", "playa/admin/edit.do?playaId="+p.getId());
-//		return result;
-//	}
-	
-	protected ModelAndView createModelAndView(Playa playa) {
+	protected ModelAndView createEditModelAndView(Playa playa, String selectView, String message){
+
 		ModelAndView result;
+			
+		result = new ModelAndView("playa/"+selectView);
 
-		result = createModelAndView(playa, null);
-
-		return result;
-	}
-
-	protected ModelAndView createModelAndView(Playa playa, String message) {
-		ModelAndView result;
-		result = new ModelAndView("playa/edit");
 		result.addObject("playa", playa);
+		result.addObject("message", null);
 
-		
-		result.addObject("message", message);
-	
 		return result;
-		}
+	}	
+	
 	
 
 }

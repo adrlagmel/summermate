@@ -38,8 +38,7 @@ public class PlayaController extends AbstractController {
 	public ModelAndView list() {
 
 		ModelAndView result;
-		Collection<Playa> playas = playaService
-				.findPlayaForNoAuthenticate();
+		Collection<Playa> playas = playaService.findAllBeaches();
 
 		result = new ModelAndView("playa/list");
 		result.addObject("playas", playas);
@@ -47,8 +46,19 @@ public class PlayaController extends AbstractController {
 		return result;
 	}
 	
-	
-	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int playaId){
+							
+			ModelAndView result;
+			
+			Playa playa = playaService.findOne(playaId);
+			
+			result = new ModelAndView("playa/display");
+			result = createEditModelAndView(playa, "display");
+			
+			return result;
+					
+	}
 	
 		//Consultar detalles
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -81,6 +91,27 @@ public class PlayaController extends AbstractController {
 	
 		return result;
 		}
+	
+	protected ModelAndView createEditModelAndView(Playa playa, String selectView){
+		
+		ModelAndView result;
+			
+		result = createEditModelAndView(playa, selectView, null);
+			
+		return result;
+	}
+		
+	protected ModelAndView createEditModelAndView(Playa playa, String selectView, String message){
+
+		ModelAndView result;
+			
+		result = new ModelAndView("playa/"+selectView);
+
+		result.addObject("playa", playa);
+		result.addObject("message", null);
+
+		return result;
+	}	
 	
 
 }

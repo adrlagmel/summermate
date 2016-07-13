@@ -31,7 +31,6 @@
 	
 	<acme:textbox code="negocio.nombre" path="nombre" />
 	<acme:textbox code="negocio.tipo" path="tipo" />
-	<acme:textbox code="negocio.sector" path="sector" />
 	<acme:textbox code="negocio.descripcion" path="descripcion" />
 	<acme:textbox code="negocio.telefono" path="telefono" />
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" />

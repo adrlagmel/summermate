@@ -1169,10 +1169,11 @@
 	<!-- PLAYA -->
 	<bean id="playa1" class="domain.Playa">
 		<property name="nombre" value="Matalascañas" />
-		<property name="municipio" value="Matalascañas" />
-		<property name="provincia" value="Huelva" />
-		<property name="descripcion" value="Playa bastante buena" />
-		<property name="tipoPlaya" ref="tipoPlaya1" />
+		<property name="descripcion" value="La playa de Matalascañas es continua a la de Mazagón hacia el sureste de la Costa de la Luz en Huelva, también es muy larga ( más de 10 Km.), llega hasta los límites del parque nacional de Doñana con la desembocadura del Guadalquivir." />
+		<property name="composicion" value="Arenosa" />
+		<property name="servicios" value="Agua para aclararse, chiringuitos, etc. Autobuses urbanos y taxis." />
+		<property name="extension" value="2000" />
+		<property name="localizacion" ref="localizacion7" />
 		<property name="administrador" ref="administrador1" />
 		<property name="valoracionPlayas">
 			<list>
@@ -1183,14 +1184,17 @@
 	
 	<bean id="playa2" class="domain.Playa">
 		<property name="nombre" value="Playa de Regla" />
-		<property name="municipio" value="Chipiona" />
-		<property name="provincia" value="Cádiz" />
 		<property name="descripcion" value="Playa cosmopolita ubicada en pleno centro urbano de Chipiona 
 											junto al Monasterio de Nuestra Señora de Regla, 
 											con una gran oferta para el ocio Playa galardonada 
 											con bandera azul 2015." />
-		<property name="tipoPlaya" ref="tipoPlaya2" />
+		<property name="composicion" value="Arena dorada" />
+		<property name="servicios" value="La playa la regla dispone de servicios habituales como autobús, 
+											escaso aparcamiento, aseos, duchas, teléfono, alquiler de sombrillas, 
+											alquiler de hamacas y tumbonas, deportes náuticos, club náutico." />
+		<property name="extension" value="1250" />
 		<property name="administrador" ref="administrador1" />
+		<property name="localizacion" ref="localizacion8" />
 		<property name="valoracionPlayas">
 			<list>
 				
@@ -1201,14 +1205,16 @@
 	
 	<bean id="playa3" class="domain.Playa">
 		<property name="nombre" value="Calas de Poniente" />
-		<property name="municipio" value="Conil" />
-		<property name="provincia" value="Cádiz" />
 		<property name="descripcion" value="Como Calas de Poniente se conocen a siete calas de reducido 
 											tamaño en estado virgen: Cala Encendida, Cala Aspero, Cala Pato, 
 											Cala Medina y Cala Frailecillo, todas ellas de gran belleza y 
 											características similares." />
-		<property name="tipoPlaya" ref="tipoPlaya3" />
+		<property name="composicion" value="Arena dorada" />
+		<property name="servicios" value="La playa 'Calas de Poniente' dispone de servicios habituales como autobús 
+											interurbano, aparcamiento (no vigilado/ más de 100 plazas)." />
+		<property name="extension" value="600" />
 		<property name="administrador" ref="administrador1" />
+		<property name="localizacion" ref="localizacion9" />
 		<property name="valoracionPlayas">
 			<list>
 				
@@ -1218,13 +1224,14 @@
 	
 	<bean id="playa4" class="domain.Playa">
 		<property name="nombre" value="La Caleta" />
-		<property name="municipio" value="Cádiz" />
-		<property name="provincia" value="Cádiz" />
 		<property name="descripcion" value="Se trata de la única playa de la ciudad localizada en el casco histórico, 
 												muy popular entre los gaditanos. Presenta características de playa urbana 
 												y destaca por su por su belleza singular." />
-		<property name="tipoPlaya" ref="tipoPlaya4" />
+		<property name="composicion" value="Arena dorada" />
+		<property name="servicios" value="Cuenta con un equipamiento y servicio muy completo para el usuario." />
+		<property name="extension" value="495" />	
 		<property name="administrador" ref="administrador2" />
+		<property name="localizacion" ref="localizacion10" />
 		<property name="valoracionPlayas">
 			<list>
 				
@@ -1234,136 +1241,45 @@
 	
 	<bean id="playa5" class="domain.Playa">
 		<property name="nombre" value="La Malagueta" />
-		<property name="municipio" value="Málaga" />
-		<property name="provincia" value="Málaga" />
 		<property name="descripcion" value="Playa urbana muy espaciosa junto al dique de Levante 
 										del puerto de Málaga y que, tradicionalmente, ha constituido 
 										el punto de encuentro donde los pescadores lugareños sacan el copo." />
-		<property name="tipoPlaya" ref="tipoPlaya5" />
+		<property name="composicion" value="Arena oscura" />
+		<property name="servicios" value="Recomendado para familias. 
+											Ubicado en zona urbana. Zona de costa" />
+		<property name="extension" value="1200" />	
 		<property name="administrador" ref="administrador2" />
+		<property name="localizacion" ref="localizacion11" />
 		<property name="valoracionPlayas">
 			<list>
-				
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="playa6" class="domain.Playa">
 		<property name="nombre" value="De Nueva Almeria" />
-		<property name="municipio" value="Almeria" />
-		<property name="provincia" value="Almeria" />
 		<property name="descripcion" value="Playa situada en la la capital almeriense, enfrente de la 
 											barriada de Nueva Almería, a levante de la ciudad." />
-		<property name="tipoPlaya" ref="tipoPlaya6" />
+		<property name="composicion" value="Arena oscura / Grava " />
+		<property name="servicios" value="Aseos, Duchas, Papeleras, Servicios de limpieza, Alquiler de hamacas y sombrillas y pasarelas de acceso" />
+		<property name="extension" value="1500" />		
 		<property name="administrador" ref="administrador2" />
+		<property name="localizacion" ref="localizacion12" />
 		<property name="valoracionPlayas">
 			<list>
-				
 			</list>
 		</property>
 	</bean>
 	
 	
 	<!-- TIPO PLAYA -->
-	<bean id="tipoPlaya1" class="domain.TipoPlaya">
-		<property name="composicion" value="Arenosa" />
-		<property name="condiciones" value="En verano temperaturas perfectas" />
-		<property name="ocupacion" value="Media - Alta" />
-		<property name="servicios" value="Agua para aclararse, chiringuitos, etc" />
-		<property name="transporte" value="Autobuses urbanos y taxis" />
-		<property name="acceso" value="Muchos accesos no se forman muchos atascos" />
-		<property name="longitud" value="2000.0" />
-		<property name="anchura" value="300.0" />
-		<property name="paseoMaritimo" value="true" />
-		<property name="zonaFondeo" value="false" />
-		<property name="vegetacion" value="true" />
-		<property name="espacioProtegido" value="true" />
-	</bean>	
 		
-	<bean id="tipoPlaya2" class="domain.TipoPlaya">
-		<property name="composicion" value="Arena dorada" />
-		<property name="condiciones" value="El estado habitual de la mar es aguas tranquilas." />
-		<property name="ocupacion" value="Alta" />
-		<property name="servicios" value="La playa la regla dispone de servicios habituales como autobús, 
-											escaso aparcamiento, aseos, duchas, teléfono, alquiler de sombrillas, 
-											alquiler de hamacas y tumbonas, deportes náuticos, club náutico." />
-		<property name="transporte" value="Taxis - Autobús interurbano a 1 Km." />
-		<property name="acceso" value="Acceso a pie fácil y con coche, acceso para minusválidos" />
-		<property name="longitud" value="1250.0" />
-		<property name="anchura" value="60.0" />
-		<property name="paseoMaritimo" value="true" />
-		<property name="zonaFondeo" value="true" />
-		<property name="vegetacion" value="false" />
-		<property name="espacioProtegido" value="true" />
-	</bean>
-		
-	<bean id="tipoPlaya3" class="domain.TipoPlaya">
-		<property name="composicion" value="Arena dorada" />
-		<property name="condiciones" value="El estado habitual de la mar es oleaje moderado." />
-		<property name="ocupacion" value="Medio" />
-		<property name="servicios" value="La playa 'Calas de Poniente' dispone de servicios habituales como autobús 
-											interurbano, aparcamiento (no vigilado/ más de 100 plazas)." />
-		<property name="transporte" value="Autobuses urbanos y taxis" />
-		<property name="acceso" value="Acceso a pié dificil" />
-		<property name="longitud" value="600.0" />
-		<property name="anchura" value="20.0" />
-		<property name="paseoMaritimo" value="false" />
-		<property name="zonaFondeo" value="true" />
-		<property name="vegetacion" value="true" />
-		<property name="espacioProtegido" value="true" />		
-	</bean>
-	
-	<bean id="tipoPlaya4" class="domain.TipoPlaya">
-		<property name="composicion" value="Arena dorada" />
-		<property name="condiciones" value="El estado habitual de la mar es oleaje moderado." />
-		<property name="ocupacion" value="Alto" />
-		<property name="servicios" value="Cuenta con un equipamiento y servicio muy completo para el usuario." />
-		<property name="transporte" value="Autobuses urbanos y taxis." />
-		<property name="acceso" value="Acceso a pié facil." />
-		<property name="longitud" value="495.0" />
-		<property name="anchura" value="50.0" />
-		<property name="paseoMaritimo" value="false" />
-		<property name="zonaFondeo" value="true" />
-		<property name="vegetacion" value="false" />
-		<property name="espacioProtegido" value="true" />		
-	</bean>
-	
-	<bean id="tipoPlaya5" class="domain.TipoPlaya">
-		<property name="composicion" value="Arena oscura" />
-		<property name="condiciones" value="El estado habitual de la mar es oleaje moderado." />
-		<property name="ocupacion" value="Medio" />
-		<property name="servicios" value="Recomendado para familias. 
-											Ubicado en zona urbana. Zona de costa" />
-		<property name="transporte" value="Aparcamiento propio gratuito. Autobús urbano." />
-		<property name="acceso" value="Adaptado a personas con discapacidad." />
-		<property name="longitud" value="1200.0" />
-		<property name="anchura" value="45.0" />
-		<property name="paseoMaritimo" value="true" />
-		<property name="zonaFondeo" value="true" />
-		<property name="vegetacion" value="true" />
-		<property name="espacioProtegido" value="true" />		
-	</bean>
-	
-	<bean id="tipoPlaya6" class="domain.TipoPlaya">
-		<property name="composicion" value="Arena oscura / Grava " />
-		<property name="condiciones" value="El estado habitual de la mar es oleaje moderado." />
-		<property name="ocupacion" value="Alto" />
-		<property name="servicios" value="Aseos, Duchas, Papeleras, Servicios de limpieza, Alquiler de hamacas y sombrillas y pasarelas de acceso" />
-		<property name="acceso" value="Acceso a pié facil. Acceso para minusválidos" />
-		<property name="longitud" value="1500.0" />
-		<property name="anchura" value="40.0" />
-		<property name="paseoMaritimo" value="true" />
-		<property name="zonaFondeo" value="true" />
-		<property name="vegetacion" value="true" />
-		<property name="espacioProtegido" value="false" />		
-	</bean>
 	
 	
 	<!-- NEGOCIO -->
 	<bean id="negocio1" class="domain.Negocio">
 		<property name="nombre" value="Comida Fast" />
 		<property name="tipo" value="Restaurante" />
-		<property name="sector" value="Alimentario" />
 		<property name="descripcion" value="Restaurante de comida rápida de muy buena calidad" />
 		<property name="telefono" value="+34622323132" />
 		<property name="localizacion" ref="localizacion1" />
@@ -1402,7 +1318,6 @@
 	<bean id="negocio2" class="domain.Negocio">
 		<property name="nombre" value="La vie est bella" />
 		<property name="tipo" value="Pizzeria" />
-		<property name="sector" value="Alimentario" />
 		<property name="descripcion" value="Pizzeria italiana" />
 		<property name="telefono" value="+34622323138" />
 		<property name="localizacion" ref="localizacion1" />
@@ -1440,7 +1355,6 @@
 	<bean id="negocio3" class="domain.Negocio">
 		<property name="nombre" value="El Faro" />
 		<property name="tipo" value="Restaurante" />
-		<property name="sector" value="Alimentario" />
 		<property name="descripcion" value="Restaurante - Taperia en la zona costera de Chipiona" />
 		<property name="telefono" value="+34652363138" />
 		<property name="localizacion" ref="localizacion2" />
@@ -1475,7 +1389,6 @@
 	<bean id="negocio4" class="domain.Negocio">
 		<property name="nombre" value="Heladeria Fran" />
 		<property name="tipo" value="Restaurante" />
-		<property name="sector" value="Alimentario" />
 		<property name="descripcion" value="Heladeria Fran es una empresa del sector con más de 50 años en el sector de 
 											las hosteleria, pasando por más de 3 generaciones" />
 		<property name="telefono" value="+34652363138" />
@@ -1510,10 +1423,8 @@
 	
 	<bean id="negocio5" class="domain.Negocio">
 		<property name="nombre" value="Ultramarinos Malagueta" />
-		<property name="tipo" value="Ultramarinos" />
-		<property name="sector" value="Hosteleria" />
-		<property name="descripcion" value="Ultramarinos Malagueta se encuentra junto a la playa de la Malagueta, 
-											tenemos a su disposición todos los productos necesarios para acudir a una jornada de playa" />
+		<property name="tipo" value="Chiringuito" />
+		<property name="descripcion" value="Chiringhito en la playa de la Malagueta, para que te olvides de la nevera y disfrutes de una buena jornada de playa" />
 		<property name="telefono" value="+34652363138" />
 		<property name="localizacion" ref="localizacion5" />
 		<property name="empresario" ref="empresario6" />
@@ -1528,6 +1439,16 @@
 		</property>
 		<property name="mesas">
 			<list>
+					<ref bean="mesa41" />  
+					<ref bean="mesa42" /> 
+					<ref bean="mesa43" />  
+					<ref bean="mesa44" /> 
+					<ref bean="mesa45" />  
+					<ref bean="mesa46" /> 
+					<ref bean="mesa47" />  
+					<ref bean="mesa48" /> 
+					<ref bean="mesa49" />  
+					<ref bean="mesa50" /> 
 			</list>
 		</property>
 	</bean>
@@ -1605,6 +1526,8 @@
         <property name="nombre" value="Pesca Deportiva"/>
         <property name="descripcion" value="Curso de pesca deportiva para principiantes"/>
         <property name="precio" value="150.0"/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio1"/>
 		<property name="usuario" ref="usuario1"/>
@@ -1614,6 +1537,8 @@
         <property name="codigo" value="0002-evento"/>
         <property name="nombre" value="Travesía a nado - Chipiona"/>
         <property name="descripcion" value="Travesía a nada por las playas de Chipiona. Inscripciones abiertas."/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="10.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
@@ -1624,6 +1549,8 @@
         <property name="codigo" value="0003-evento"/>
         <property name="nombre" value="XI Torneo Ajedrez"/>
         <property name="descripcion" value="Undécima edición del Torneo de Ajedrez. ¿Te lo vas a perder?"/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="5.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
@@ -1634,6 +1561,8 @@
         <property name="codigo" value="0004-evento"/>
         <property name="nombre" value="Travesía a nado - Chipiona"/>
         <property name="descripcion" value="Travesía a nada por las playas de Chipiona. Inscripciones abiertas."/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="10.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio4"/>
@@ -1644,6 +1573,8 @@
         <property name="codigo" value="0005-evento"/>
         <property name="nombre" value="Degustación pescaito frito"/>
         <property name="descripcion" value="Degustación pescaito frito en nuestro restaurante. No te lo puedes perder!"/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="0.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio3"/>
@@ -1654,6 +1585,8 @@
         <property name="codigo" value="0006-evento"/>
         <property name="nombre" value="I Torneo Voleibol Costa de Malaga"/>
         <property name="descripcion" value="Torneo de Voleibol sobre la playa de la Malagueta. Inscripciones abiertas."/>
+        <property name="fechaRegistro" value="06/06/2016 12:00"/>
+        <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="15.0"/>
         <property name="imagen" value=""/>
         <property name="negocio" ref="negocio5"/>
@@ -1967,7 +1900,7 @@
 		</property>
 	</bean>
 	
-		<bean id="mesa21" class="domain.Mesa">
+	<bean id="mesa21" class="domain.Mesa">
 		<property name="nombre" value="mesa 1" />
 		<property name="personas" value= "2" />
 		<property name="fumadores" value="true" />
@@ -2206,6 +2139,126 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="mesa41" class="domain.Mesa">
+		<property name="nombre" value="mesa 1" />
+		<property name="personas" value= "2" />
+		<property name="fumadores" value="true" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+    
+    <bean id="mesa42" class="domain.Mesa">
+		<property name="nombre" value="mesa 2" />
+		<property name="personas" value= "2" />
+		<property name="fumadores" value="false" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa43" class="domain.Mesa">
+		<property name="nombre" value="mesa 3" />
+		<property name="personas" value= "4" />
+		<property name="fumadores" value="true" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa44" class="domain.Mesa">
+		<property name="nombre" value="mesa 4" />
+		<property name="personas" value= "4" />
+		<property name="fumadores" value="false" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa45" class="domain.Mesa">
+		<property name="nombre" value="mesa 5" />
+		<property name="personas" value= "6" />
+		<property name="fumadores" value="false" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa46" class="domain.Mesa">
+		<property name="nombre" value="mesa 6" />
+		<property name="personas" value= "6" />
+		<property name="fumadores" value="true" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa47" class="domain.Mesa">
+		<property name="nombre" value="mesa 7" />
+		<property name="personas" value= "8" />
+		<property name="fumadores" value="true" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa48" class="domain.Mesa">
+		<property name="nombre" value="mesa 8" />
+		<property name="personas" value= "8" />
+		<property name="fumadores" value="false" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa49" class="domain.Mesa">
+		<property name="nombre" value="mesa 9" />
+		<property name="personas" value= "10" />
+		<property name="fumadores" value="true" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mesa50" class="domain.Mesa">
+		<property name="nombre" value="mesa 10" />
+		<property name="personas" value= "10" />
+		<property name="fumadores" value="false" />
+		<property name="disponible" value="true"/>
+		<property name="negocio" ref="negocio5" />
+		<property name="calendarioNegocios">
+			<list>
+			</list>
+		</property>
+	</bean>
         
 	<!-- LOCALIZACION -->
 	<bean id="localizacion1" class="domain.Localizacion">
@@ -2273,6 +2326,68 @@
 		<property name="latitud" value="36.825039"/>
 		<property name="longitud" value="-2.447086"/>   
 	</bean>
+	
+	<bean id="localizacion7" class="domain.Localizacion">
+		<property name="via" value="Avenida" />
+		<property name="nombreVia" value="Sector N" />
+		<property name="codigoPostal" value="21760" />
+		<property name="ciudad" value="Matalascañas" />
+		<property name="provincia" value="Huelva" />
+		<property name="latitud" value="36.992590"/>
+		<property name="longitud" value="-6.54247"/>   
+	</bean>
+	
+	<bean id="localizacion8" class="domain.Localizacion">
+		<property name="via" value="Paseo" />
+		<property name="nombreVia" value="Costa de la luz" />
+		<property name="codigoPostal" value="11550" />
+		<property name="ciudad" value="Chipiona" />
+		<property name="provincia" value="Cádiz" />
+		<property name="latitud" value="36.734838"/>
+		<property name="longitud" value="-6.441144"/>   
+	</bean>
+	
+	<bean id="localizacion9" class="domain.Localizacion">
+		<property name="via" value="Carretera" />
+		<property name="nombreVia" value="CA-4202" />
+		<property name="codigoPostal" value="11140" />
+		<property name="ciudad" value="Conil" />
+		<property name="provincia" value="Cádiz" />
+		<property name="latitud" value="36.298889"/>
+		<property name="longitud" value="-6.144164"/>   
+	</bean>
+	
+	<bean id="localizacion10" class="domain.Localizacion">
+		<property name="via" value="Avenida" />
+		<property name="nombreVia" value="Duque de Nájera" />
+		<property name="codigoPostal" value="11070" />
+		<property name="ciudad" value="Cadiz" />
+		<property name="provincia" value="Cádiz" />
+		<property name="latitud" value="36.530933"/>
+		<property name="longitud" value="-6.304980"/>   
+	</bean>
+	
+	<bean id="localizacion11" class="domain.Localizacion">
+		<property name="via" value="Paseo marítimo" />
+		<property name="nombreVia" value="Ciudad de Melilla" />
+		<property name="codigoPostal" value="29016" />
+		<property name="ciudad" value="Málaga" />
+		<property name="provincia" value="Málaga" />
+		<property name="latitud" value="36.717268"/>
+		<property name="longitud" value="-4.410057"/>   
+	</bean>
+	
+	
+	<bean id="localizacion12" class="domain.Localizacion">
+		<property name="via" value="Paseo marítimo" />
+		<property name="nombreVia" value="Carmen de Burgos" />
+		<property name="codigoPostal" value="04070" />
+		<property name="ciudad" value="Almeria" />
+		<property name="provincia" value="Almeria" />
+		<property name="latitud" value="36.825985"/>
+		<property name="longitud" value="-2.450185"/>   
+	</bean>
+		
 		
 		
 	<!-- VALORACION NEGOCIO -->

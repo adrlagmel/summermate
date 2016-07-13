@@ -15,7 +15,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -37,6 +40,8 @@ public class ValoracionNegocio extends DomainEntity{
 	private String 	comentario;
 	private Integer 	comentarioUtil;
 	
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitulo() {
 		return titulo;
 	}
@@ -64,6 +69,8 @@ public class ValoracionNegocio extends DomainEntity{
 		this.puntuacion = puntuacion;
 	}
 	
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getComentario() {
 		return comentario;
 	}
@@ -80,11 +87,9 @@ public class ValoracionNegocio extends DomainEntity{
 		this.comentarioUtil = comentarioUtil;
 	}
 	
-	
 	// Relationships ------------------------------------------------
 	
 	
-
 	private Reserva reserva;
 	private Collection <DenunciaValoracion> denuncias;
 	

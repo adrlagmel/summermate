@@ -1,17 +1,22 @@
 package domain;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -23,6 +28,8 @@ public class Evento extends DomainEntity{
 	private String 			descripcion;
 	private Double 			precio;
 	private byte[]			imagen;
+	private Date 			fechaRegistro;
+	private Date 			fechaCelebracion;
 		
 	
 	@NotBlank
@@ -71,6 +78,28 @@ public class Evento extends DomainEntity{
 		this.imagen= imagen;
 	}
 	
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+	
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+	
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	public Date getFechaCelebracion() {
+		return fechaCelebracion;
+	}
+	
+	public void setFechaCelebracion(Date fechaCelebracion) {
+		this.fechaCelebracion = fechaCelebracion;
+	}
+	
 	
 	// Relationships -------------------------
 		
@@ -98,5 +127,5 @@ public class Evento extends DomainEntity{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-		
+	
 }

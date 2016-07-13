@@ -47,7 +47,6 @@ public class Localizacion{
 		this.nombreVia = nombreVia;
 	}
 	
-	@NotNull
 	@Min(0)
 	public Integer getNumeroVia() {
 		return numeroVia;
