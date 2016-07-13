@@ -1,0 +1,93 @@
+package controllers.usuario;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import services.PlayaService;
+import services.ValoracionPlayaService;
+
+import controllers.AbstractController;
+import domain.Playa;
+import domain.ValoracionPlaya;
+
+
+
+@Controller
+@RequestMapping("/valoracionPlaya/usuario")
+public class ValoracionPlayaUsuarioController extends AbstractController {
+
+	
+	
+	@Autowired
+	private PlayaService playaService;
+	
+	@Autowired
+	private ValoracionPlayaService valoracionPlayaService;
+
+	public ValoracionPlayaUsuarioController() {
+		super();
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam int playaId) {
+		ModelAndView result;
+		ValoracionPlaya vp;
+		Playa p;
+
+		p = playaService.findOneToEdit(playaId);
+		vp = valoracionPlayaService.create(p);
+		
+		result = createModelAndView(vp);
+		result.addObject("playa", p);
+		
+
+		return result;
+	}
+
+
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid @ModelAttribute ValoracionPlaya vp, BindingResult bindingResult) {
+		ModelAndView result;
+
+		if (bindingResult.hasErrors()) {
+			result = createModelAndView(vp);
+		} else {
+			try {
+				valoracionPlayaService.save(vp);
+				result = new ModelAndView("redirect:../../playa/usuario/list.do");
+			} catch (Throwable oops) {
+				result = createModelAndView(vp, "valoracionPlaya.commit.error");
+			}
+		}
+		return result;
+	}
+	
+	protected ModelAndView createModelAndView(ValoracionPlaya vp) {
+		ModelAndView result;
+
+		result = createModelAndView(vp, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(ValoracionPlaya vp, String message) {
+		ModelAndView result;
+		
+		result = new ModelAndView("valoracionPlaya/edit");
+		result.addObject("valoracionPlaya", vp);
+		result.addObject("message", message);
+
+		return result;
+	}
+
+}
+
