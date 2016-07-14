@@ -65,7 +65,7 @@ public class CarpetaService {
 	public void createDefaultCarpetas(Actor actor) {
 		Carpeta inbox = create();
 		Carpeta outbox = create();
-		Carpeta trashbox = create();
+//		Carpeta trashbox = create();
 
 		inbox.setNombre("Entrada");
 		inbox.setActor(actor);
@@ -75,9 +75,9 @@ public class CarpetaService {
 		outbox.setActor(actor);
 		save(outbox);                
 
-		trashbox.setNombre("Papelera");
-		trashbox.setActor(actor);
-		save(trashbox);
+//		trashbox.setNombre("Papelera");
+//		trashbox.setActor(actor);
+//		save(trashbox);
 		
        }
 
@@ -99,9 +99,7 @@ public class CarpetaService {
 		return carpeta;
 
 	}
-
 	
-
 	public Carpeta findEnviadosActor(Actor actor){
 		Assert.notNull(actor);
 
@@ -120,6 +118,5 @@ public class CarpetaService {
 
 		return carpetas;
 
-	}
-	
+	}	
 }

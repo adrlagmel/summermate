@@ -50,7 +50,15 @@
 	<acme:textbox code="register.birthDate" path="registroForm.fechaNacimiento" />
 	<acme:textbox code="register.nacionality" path="registroForm.nacionalidad" />
 	<acme:textbox code="register.address" path="registroForm.direccion" />
-	<acme:textbox code="register.sex" path="registroForm.sexo" />
+	<spring:message code="register.sex" />
+	<div style="width:30%;">
+		<form:select path="registroForm.sexo" code="register.sex" cssClass="form-control">
+			<form:option value="HOMBRE" label="HOMBRE" />		
+			<form:option value="MUJER" label="MUJER" />
+		</form:select>
+	</div>
+	
+	<%-- <acme:textbox code="register.sex" path="registroForm.sexo" /> --%>
 	</jstl:if>
 	<jstl:if test="${isEmpresario==true}">
 	<acme:textbox code="register.cif" path="cif" />
@@ -58,8 +66,6 @@
 	
 	<jstl:if test="${isUsuario==true}">
 	<acme:textbox code="register.actualstate" path="estadoActual" />
-	<acme:textbox code="register.levelC" path="nivelColaborador" />
-	<acme:textbox code="register.points" path="puntos" />
 	</jstl:if>
 	
 	<jstl:if test="${isAdministrador==false}">
