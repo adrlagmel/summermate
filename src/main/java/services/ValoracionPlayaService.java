@@ -49,14 +49,30 @@ public class ValoracionPlayaService {
 		valoracionPlayaRepository.save(vp);
 	}
 	
+	public void delete(ValoracionPlaya vPlaya){
+
+		valoracionPlayaRepository.delete(vPlaya);
+
+	}
+	
+	
 	
 	public ValoracionPlaya findOne(int id) {
 
-		ValoracionPlaya vp = valoracionPlayaRepository.findOne(id);
+		ValoracionPlaya vp = valoracionPlayaRepository
+				.findOne(id);
 
 		return vp;
 
 	}
+	
+	public ValoracionPlaya findOneToEdit(int valoracionPlayaId) {
+		ValoracionPlaya result = valoracionPlayaRepository.findOne(valoracionPlayaId);
+		return result;
+	}
+
+
+
 	
 	public Collection<ValoracionPlaya> valoracionesDeUsuario(){
 		Usuario u = usuarioService.findByPrincipal();
@@ -66,6 +82,12 @@ public class ValoracionPlayaService {
 		
 		return result;
 		
+	}
+	public Collection<ValoracionPlaya> findValoracionPlayaByPlaya(int playaId){
+		
+		Collection<ValoracionPlaya> result = valoracionPlayaRepository.findValoracionPlayaByPlaya(playaId);
+		Assert.notNull(result);
+		return result;
 	}
 
 }
