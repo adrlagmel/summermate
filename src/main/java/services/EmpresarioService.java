@@ -55,10 +55,10 @@ public class EmpresarioService {
 		userAccount.addAuthority(authority);
 		e.setUserAccount(userAccount);
 		
-		Collection<Negocio> negocios  	= new ArrayList<Negocio>();
-		Collection<Carpeta> carpetas	= new ArrayList<Carpeta>();
+		Collection<Negocio> negocios  				= new ArrayList<Negocio>();
+		Collection<Carpeta> carpetas				= new ArrayList<Carpeta>();
 		Collection<DenunciaValoracion> denuncias	= new ArrayList<DenunciaValoracion>();
-		Collection<Pago> pagos	= new ArrayList<Pago>();
+		Collection<Pago> pagos						= new ArrayList<Pago>();
 	
 		e.setNegocios(negocios);
 		e.setCarpetas(carpetas);
@@ -70,6 +70,7 @@ public class EmpresarioService {
 	
 	public void save(Empresario empresario){
 		Assert.notNull(empresario);
+		//Assert.isTrue(empresario.get)
 		
 		String password = empresario.getUserAccount().getPassword();
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();

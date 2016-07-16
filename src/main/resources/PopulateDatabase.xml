@@ -229,6 +229,18 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount18" class="security.UserAccount">
+		<property name="username" value="empresario7" />
+		<property name="password" value="0aaae582522713072307d57b027081a4" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="EMPRESARIO" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Other domain beans come here -->	
 	
 	<!-- ADMINISTRADOR -->
@@ -513,6 +525,41 @@
 		<property name="pagos">
                         <list>
                                 <ref bean="pago6" />      
+                        </list>
+        </property>
+	</bean>
+	
+	<bean id="empresario7" class="domain.Empresario">
+	    <property name="userAccount" ref="userAccount18" />
+		<property name="nombre" value="Marcos" />
+		<property name="apellidos" value="Lorenzo Hernández" />
+		<property name="email" value="andreslorenzo@gmail.com" />
+		<property name="telefono" value="+34667635777" />
+		<property name="fechaNacimiento" value="07/09/1990" />
+		<property name="nacionalidad" value="Española" />
+		<property name="direccion" value="C/ Segovia nº32" />
+		<property name="sexo" value="HOMBRE" />
+		<property name="cif" value="B27997743" />
+		<property name="negocios">
+                        <list>
+                        </list>
+        </property>
+        <property name="denuncias">
+                        <list>
+                        </list>
+                </property>
+		<property name="carpetas">
+                        <list>
+                              <ref bean="carpeta33" />  
+                              <ref bean="carpeta34" />                                 
+                        </list>
+        </property>
+        <property name="valoracionPlayas">
+			<list>
+			</list>
+		</property>
+		<property name="pagos">
+                        <list>      
                         </list>
         </property>
 	</bean>
@@ -1126,6 +1173,24 @@
         <bean id="carpeta32" class="domain.Carpeta">
                 <property name="nombre" value="Enviados"/>
                 <property name="actor" ref="usuario8"/>
+                <property name="mensajes">
+                <list>
+                </list>
+                </property>
+        </bean>
+        
+        <bean id="carpeta33" class="domain.Carpeta">
+                <property name="nombre" value="entrada"/>
+                <property name="actor" ref="empresario7"/>
+                <property name="mensajes">
+                <list>
+                </list>
+                </property>
+        </bean>
+        
+        <bean id="carpeta34" class="domain.Carpeta">
+                <property name="nombre" value="Enviados"/>
+                <property name="actor" ref="empresario7"/>
                 <property name="mensajes">
                 <list>
                 </list>

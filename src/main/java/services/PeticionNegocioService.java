@@ -49,7 +49,7 @@ public class PeticionNegocioService {
 	public PeticionNegocio create(){
 		empresarioService.checkPrincipal();
 		Empresario empresario = empresarioService.findByPrincipal();
-		Assert.isTrue(canCreateSportPartnerRequest());
+		Assert.isTrue(canCreatePeticionNegocio());
 
 		PeticionNegocio res = new PeticionNegocio();
 		
@@ -64,17 +64,17 @@ public class PeticionNegocioService {
 		return res;
 	}
 	
-	public PeticionNegocio save(PeticionNegocio sportPartnerRequest){
+	public PeticionNegocio save(PeticionNegocio peticionNegocio){
 		
-		checkPrincipal(sportPartnerRequest);
+		checkPrincipal(peticionNegocio);
 		
-		if(sportPartnerRequest.getId() == 0){
-			Assert.isTrue(canCreateSportPartnerRequest());
-			sportPartnerRequest.setFecha(new Date(System.currentTimeMillis()-1000));
-			sportPartnerRequest.setEstado("PENDIENTE");
+		if(peticionNegocio.getId() == 0){
+			Assert.isTrue(canCreatePeticionNegocio());
+			peticionNegocio.setFecha(new Date(System.currentTimeMillis()-1000));
+			peticionNegocio.setEstado("PENDIENTE");
 		}
 		
-		return peticionNegocioRepository.save(sportPartnerRequest);
+		return peticionNegocioRepository.save(peticionNegocio);
 	}
 	
 	public void delete(PeticionNegocio peticionNegocio){
@@ -90,21 +90,21 @@ public class PeticionNegocioService {
 		return peticionNegocio;
 	}
 	
-	public PeticionNegocio findOneToChangeStatus(int sportPartnerRequestId){
-		PeticionNegocio sportPartnerRequest = peticionNegocioRepository.findOne(sportPartnerRequestId);
-		administradorService.checkPrincipal(sportPartnerRequest.getAdministrador());
-		return sportPartnerRequest;
+	public PeticionNegocio findOneToChangeStatus(int peticionNegocioId){
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findOne(peticionNegocioId);
+		administradorService.checkPrincipal(peticionNegocio.getAdministrador());
+		return peticionNegocio;
 	}
 	
 	
 	// Other business Methods -----------------------------------------
-	public Boolean canCreateSportPartnerRequest(){
+	public Boolean canCreatePeticionNegocio(){
 		Boolean result = false;
-		Empresario sportPartner = empresarioService.findByPrincipal();
+		Empresario empresario = empresarioService.findByPrincipal();
 		
-		PeticionNegocio sportPartnerRequest = peticionNegocioRepository.findByEmpresarioId(sportPartner.getId());
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findByEmpresarioId(empresario.getId());
 		
-		if(sportPartnerRequest == null)
+		if(peticionNegocio == null)
 			result = true;
 				
 		return result;
@@ -112,27 +112,27 @@ public class PeticionNegocioService {
 	
 	public Boolean canPublish(){
 		Boolean result = false;
-		Empresario sportPartner = empresarioService.findByPrincipal();
+		Empresario empresario = empresarioService.findByPrincipal();
 		
-		PeticionNegocio sportPartnerRequest = peticionNegocioRepository.findByEmpresarioId(sportPartner.getId());
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findByEmpresarioId(empresario.getId());
 		
-		if(sportPartnerRequest != null && sportPartnerRequest.getEstado().equals("ACEPTADO"))
+		if(peticionNegocio != null && peticionNegocio.getEstado().equals("ACEPTADO"))
 			result = true;
 				
 		return result;
 		
 	}
 
-	public PeticionNegocio manageSportPartnerRequestByAdministrator(PeticionNegocio sportPartnerRequest){
+	public PeticionNegocio manageNegociosByAdministrator(PeticionNegocio peticionNegocio){
 		administradorService.checkPrincipal();
 		Administrador administrador = administradorService.findByPrincipal();
 		
-		sportPartnerRequest.setAdministrador(administrador);
+		peticionNegocio.setAdministrador(administrador);
 				
-		return sportPartnerRequest;
+		return peticionNegocio;
 	}
 	
-	public PeticionNegocio findSportPartnerRequestsBySportPartner(Empresario empresario){
+	public PeticionNegocio findPeticionNegocioPorEmpresario(Empresario empresario){
 		empresarioService.checkPrincipal(empresario);
 		return peticionNegocioRepository.findByEmpresarioId(empresario.getId());
 	}
@@ -163,26 +163,24 @@ public class PeticionNegocioService {
 	}
 	
 	public PeticionNegocio assignAdministrator(PeticionNegocio peticionNegocio){
-
-		
 		administradorService.checkPrincipal();
 
 		Assert.isNull(peticionNegocio.getAdministrador());
 
 		PeticionNegocio result;
-		Administrador administrator = administradorService.findByPrincipal();
+		Administrador administrador = administradorService.findByPrincipal();
 
-		peticionNegocio.setAdministrador(administrator);
+		peticionNegocio.setAdministrador(administrador);
 
 		result = peticionNegocioRepository.save(peticionNegocio);
 
 		return result;
 	}
 	
-	public PeticionNegocio findBySportPartnerId(int peticionNegocioId){
+	public PeticionNegocio findByEmpresarioId(int peticionNegocioId){
 		
-		PeticionNegocio sportPartnerRequest = peticionNegocioRepository.findByEmpresarioId(peticionNegocioId);
-		return sportPartnerRequest;
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findByEmpresarioId(peticionNegocioId);
+		return peticionNegocio;
 	}
 
 	

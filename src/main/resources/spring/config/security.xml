@@ -71,6 +71,12 @@
 		<security:intercept-url pattern="/mesa/empresario/edit.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/mesa/empresario/display.do" access="permitAll"/>
 		
+		<security:intercept-url pattern="/peticionNegocio/administrador/listapendiente.do" access="hasRole('ADMINISTRADOR')" />
+		<security:intercept-url pattern="/peticionNegocio/administrador/aceptar.do" access="hasRole('ADMINISTRADOR')" />
+		<security:intercept-url pattern="/peticionNegocio/administrador/rechazar.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/peticionNegocio/empresario/list.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/peticionNegocio/empresario/enviar.do" access="hasRole('EMPRESARIO')" />
+		
 		<security:intercept-url pattern="/carpeta/actor/lista.do" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/reserva/usuario/lista.do" access="hasRole('USUARIO')" />

@@ -53,8 +53,8 @@ public class NegocioService {
 		
 		Empresario principal = empresarioService.findByPrincipal();
 		
-		PeticionNegocio sportPartnerRequest = peticionNegocioService.findBySportPartnerId(principal.getId());
-		Assert.notNull(sportPartnerRequest);
+		PeticionNegocio peticionNegocio = peticionNegocioService.findByEmpresarioId(principal.getId());
+		Assert.notNull(peticionNegocio);
 		
 		result.setReservas(new ArrayList<Reserva>());
 		result.setLocalizacion(new Localizacion());
@@ -67,7 +67,7 @@ public class NegocioService {
 	public void save(Negocio negocio){
 		checkPrincipal(negocio);
 		
-		PeticionNegocio peticionNegocio = peticionNegocioService.findBySportPartnerId(negocio.getEmpresario().getId());
+		PeticionNegocio peticionNegocio = peticionNegocioService.findByEmpresarioId(negocio.getEmpresario().getId());
 		Assert.notNull(peticionNegocio);
 		
 		if(peticionNegocio != null)
@@ -75,9 +75,7 @@ public class NegocioService {
 		
 		negocioRepository.save(negocio);
 		
-		
 	}
-	
 	
 	public Collection<Negocio> findAll(){
 		

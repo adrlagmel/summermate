@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,8 +105,8 @@ public class NegocioEmpresarioController extends AbstractController{
 						
 		}
 		
-		@RequestMapping(value="/edit", method = RequestMethod.POST)
-		public ModelAndView save(@Valid Negocio negocio, BindingResult binding){
+		@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
+		public ModelAndView save(@ModelAttribute("negocio") @Valid Negocio negocio, BindingResult binding){
 			
 		ModelAndView result;
 		if(binding.hasErrors()){

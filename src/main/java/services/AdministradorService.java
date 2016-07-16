@@ -110,7 +110,7 @@ public class AdministradorService {
 		Collection<Authority> authorities = userAccount.getAuthorities();
 		
 		Authority auth = new Authority();
-		auth.setAuthority("ADMINISTRATOR");
+		auth.setAuthority("ADMINISTRADOR");
 		
 		Assert.isTrue(authorities.contains(auth));
 	}
