@@ -41,7 +41,12 @@
 	<display:column title="${comment}" maxLength="20">
 	<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
 	</display:column>
-		
+	<spring:message code="valoracionNegocio.create" var="valoracionNegocio" />
+	<display:column>
+	<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}">
+			<spring:message code="valoracionNegocio.create"/>
+		</a> 
+	</display:column>	
 </display:table>
 </div>
 
@@ -50,4 +55,5 @@
 		<a href="reserva/usuario/create.do">
 			<spring:message code="booking.create"/>
 		</a> <br/>	
+		
 	</security:authorize>

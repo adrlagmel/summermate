@@ -32,7 +32,19 @@
 	<display:column property="playa.nombre" title="${playa}"
 		sortable="true" />
 		
+	<spring:message code="valoracionPlaya.editar" var="editar" />
+	<display:column>
+		<a href="valoracionPlaya/usuario/edit.do?valoracionPlayaId=${row.id}">
+			<spring:message code="valoracionPlaya.editar"/>
+		</a>
+	</display:column>
 	
+	<spring:message code="valoracionPlaya.borrar" var="borrar" />
+	<display:column>
+	<input type="button" value="<spring:message code="valoracionPlaya.borrar" />"
+				onclick="javascript: location.replace('valoracionPlaya/usuario/borrar.do?valoracionPlayaId=${row.id}');
+				javascript: return confirm('<spring:message code="msg.delete.valoracion" />')" />
+	</display:column>
 	
 </display:table>
 </div>
