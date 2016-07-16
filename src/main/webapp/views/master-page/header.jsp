@@ -45,8 +45,10 @@
               <ul class="dropdown-menu" >
               		<li><a href="negocio/register.do"><spring:message code="master.page.negocio.register" /></a></li>
 					<li><a href="negocio/empresario/list.do"><spring:message code="master.page.negocio.list" /></a></li>
+					<li><a href="peticionNegocio/empresario/list.do"><spring:message code="master.page.peticionnegocio.empresario.list" /></a></li>
 				</ul>
 			</li>	
+			
 			
 		</security:authorize>
 		
@@ -89,9 +91,15 @@
               <ul class="dropdown-menu" >
 					<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
 					<li><a href="playa/admin/create.do"><spring:message code="master.page.playa.create" /></a></li>
+					
 			  </ul>
 			</li>
-			
+			<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.negocios" /><span class="caret"></span></a>
+              <ul class="dropdown-menu" >
+					<li><a href="peticionNegocio/administrador/listapendiente.do"><spring:message code="master.page.peticionnegocio.listAll" /></a></li>
+			  </ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">			
