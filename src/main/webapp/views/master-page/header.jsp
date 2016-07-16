@@ -40,6 +40,8 @@
 		<security:authorize access="hasRole('EMPRESARIO')">
 			
 			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="denunciaValoracion/empresario/list.do"><spring:message code="master.page.denuncia.listAll" /></a></li>
+			
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.negocios" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
@@ -71,8 +73,13 @@
 		
 		<security:authorize access="hasRole('USUARIO')">
 			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
-			<li><a href="valoracionPlaya/usuario/list.do"><spring:message code="master.page.valoracionPlaya.listUsuarioValoraciones" /></a></li>
-			
+			<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.valoraciones" /><b class="caret"></b></a>
+              <ul class="dropdown-menu" >
+					<li><a href="valoracionPlaya/usuario/list.do"><spring:message code="master.page.valoracionPlaya.listUsuarioValoraciones" /></a></li>
+					<li><a href="valoracionNegocio/usuario/list.do"><spring:message code="master.page.valoracionNegocio.listUsuarioValoraciones" /></a></li>
+			</ul>
+			</li>	
 			
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.reservas" /><b class="caret"></b></a>
