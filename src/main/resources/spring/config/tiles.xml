@@ -12,6 +12,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
 	">
 
+	
 	<util:list id="tiles">
 		<value>/views/master-page/tiles.xml</value>		
 		<value>/views/misc/tiles.xml</value>		
@@ -31,6 +32,7 @@
 		<value>/views/peticionNegocio/empresario/tiles.xml</value>
 		<value>/views/valoracionPlaya/tiles.xml</value>
 		<value>/views/valoracionNegocio/tiles.xml</value>
+		<value>/views/denunciaValoracion/tiles.xml</value>
 		
 	</util:list>
 
