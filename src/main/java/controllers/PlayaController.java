@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.util.Assert;
 
 import services.PlayaService;
+import services.ValoracionPlayaService;
 
 import domain.Playa;
+import domain.ValoracionPlaya;
 
 @Controller
 @RequestMapping("/playa")
@@ -23,8 +25,8 @@ public class PlayaController extends AbstractController {
 
 	@Autowired
 	private PlayaService playaService;
-	
-	
+	@Autowired
+	private ValoracionPlayaService valoracionPlayaService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -104,9 +106,11 @@ public class PlayaController extends AbstractController {
 	protected ModelAndView createEditModelAndView(Playa playa, String selectView, String message){
 
 		ModelAndView result;
-			
+		Collection<ValoracionPlaya> valoracionesPlayas;
+		valoracionesPlayas = valoracionPlayaService.findValoracionPlayaByPlaya(playa.getId());
 		result = new ModelAndView("playa/"+selectView);
-
+		
+		result.addObject("vPlayas", valoracionesPlayas);
 		result.addObject("playa", playa);
 		result.addObject("message", null);
 
