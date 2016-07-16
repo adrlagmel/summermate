@@ -1,9 +1,12 @@
 package controllers.usuario;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,7 @@ import services.ValoracionNegocioService;
 import controllers.AbstractController;
 import domain.Reserva;
 import domain.ValoracionNegocio;
+import domain.ValoracionPlaya;
 
 
 @Controller
@@ -33,6 +37,24 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 
 	public ValoracionNegocioUsuarioController() {
 		super();
+	}
+	
+	
+	@RequestMapping(value="/list", method = RequestMethod.GET)
+	public ModelAndView list(){
+		
+		ModelAndView result;
+		Collection<ValoracionNegocio> vNegocios = null;
+				
+		vNegocios = valoracionNegocioService.valoracionesNegocioDeUsuario();
+		
+		result = new ModelAndView("valoracionNegocio/list");
+
+		result.addObject("vNegocios", vNegocios);
+		result.addObject("requestURI", "valoracionNegocio/usuario/list.do");
+
+		return result;
+		
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -52,6 +74,17 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int valoracionNegocioId){
+		ModelAndView result;
+		ValoracionNegocio vNegocio = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
+		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
+		
+		Assert.notNull(vNegocio);
+		result = createModelAndView(vNegocio);
+		result.addObject("requestURI", "valoracionNegocio/usuario/edit.do?valoracionNegocioId="+vNegocio.getId());
+		return result;
+	}
 
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
@@ -63,12 +96,27 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		} else {
 			try {
 				valoracionNegocioService.save(vn);
-				result = new ModelAndView("redirect:../../reserva/usuario/lista.do");
+				result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
 			} catch (Throwable oops) {
 				result = createModelAndView(vn, "valoracionNegocio.commit.error");
 			}
 		}
 		return result;
+	}
+	
+	@RequestMapping(value="/borrar", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int valoracionNegocioId){
+		
+		ModelAndView result;
+		
+		ValoracionNegocio vNegocio = valoracionNegocioService.findOne(valoracionNegocioId);
+		Assert.notNull(vNegocio);
+	
+		valoracionNegocioService.delete(vNegocio);
+		result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
+
+		return result;
+		
 	}
 	
 	protected ModelAndView createModelAndView(ValoracionNegocio vn) {
