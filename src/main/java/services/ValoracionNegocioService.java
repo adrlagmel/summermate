@@ -14,6 +14,7 @@ import repositories.ValoracionNegocioRepository;
 
 import domain.DenunciaValoracion;
 import domain.Reserva;
+import domain.Usuario;
 import domain.ValoracionNegocio;
 
 @Service
@@ -23,6 +24,9 @@ public class ValoracionNegocioService {
 	
 	@Autowired
 	private ValoracionNegocioRepository valoracionNegocioRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	public ValoracionNegocioService() {
 
@@ -45,6 +49,11 @@ public class ValoracionNegocioService {
 		valoracionNegocioRepository.save(vn);
 	}
 	
+	public void delete(ValoracionNegocio vNegocio){
+
+		valoracionNegocioRepository.delete(vNegocio);
+
+	}
 	
 	public ValoracionNegocio findOne(int id) {
 
@@ -53,6 +62,31 @@ public class ValoracionNegocioService {
 
 		return vn;
 
+	}
+	
+	public ValoracionNegocio findOneToEdit(int valoracionNegocioId) {
+		ValoracionNegocio result = valoracionNegocioRepository.findOne(valoracionNegocioId);
+		return result;
+	}
+
+	
+	public Collection<ValoracionNegocio> valoracionesNegocioDeUsuario(){
+		Usuario u = usuarioService.findByPrincipal();
+		int id = u.getId();
+		Collection<ValoracionNegocio> result = valoracionNegocioRepository.findValoracionNegocioByUsuario(id);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
+	public Collection<ValoracionNegocio> valoracionesNegocioDeUnNegocio(int negocioId){
+		
+		Collection<ValoracionNegocio> result = valoracionNegocioRepository.findValoracionNegocioByNegocio(negocioId);
+		Assert.notNull(result);
+		
+		return result;
+		
 	}
 
 }

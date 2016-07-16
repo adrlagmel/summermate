@@ -103,7 +103,7 @@ public class ValoracionNegocio extends DomainEntity{
 		this.reserva = reserva;
 	}
 	
-	@NotNull
+	
 	@Valid
 	@OneToMany(mappedBy="valoracionNegocio")
 	public Collection<DenunciaValoracion> getDenuncias() {

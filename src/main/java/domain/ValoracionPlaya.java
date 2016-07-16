@@ -83,7 +83,7 @@ public class ValoracionPlaya extends DomainEntity{
 	
 	@NotNull
 	@Valid
-	@OneToOne(optional=false)
+	@ManyToOne(optional=false)
 	public Playa getPlaya() {
 		return playa;
 	}
