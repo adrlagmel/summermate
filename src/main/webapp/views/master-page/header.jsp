@@ -45,16 +45,13 @@
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.negocios" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
-              		<li><a href="negocio/register.do"><spring:message code="master.page.negocio.register" /></a></li>
-					<li><a href="negocio/empresario/list.do"><spring:message code="master.page.negocio.list" /></a></li>
+              		<li><a href="negocio/empresario/register.do"><spring:message code="master.page.negocio.register" /></a></li>
+					<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
+					<li><a href="negocio/empresario/list.do"><spring:message code="master.page.negocio.mylist" /></a></li>
 					<li><a href="peticionNegocio/empresario/list.do"><spring:message code="master.page.peticionnegocio.empresario.list" /></a></li>
 				</ul>
-			</li>	
-			
-			
+			</li>				
 		</security:authorize>
-		
-		
 		
 		
 		<security:authorize access="isAnonymous()">
@@ -68,7 +65,6 @@
 					</ul>
 			</li>
 			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
-				
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USUARIO')">
@@ -80,7 +76,7 @@
 					<li><a href="valoracionNegocio/usuario/list.do"><spring:message code="master.page.valoracionNegocio.listUsuarioValoraciones" /></a></li>
 			</ul>
 			</li>	
-			
+			<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.reservas" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
@@ -104,6 +100,7 @@
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.negocios" /><span class="caret"></span></a>
               <ul class="dropdown-menu" >
+              		<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
 					<li><a href="peticionNegocio/administrador/listapendiente.do"><spring:message code="master.page.peticionnegocio.listAll" /></a></li>
 			  </ul>
 			</li>
@@ -117,7 +114,6 @@
 					<li><a href="mensaje/actor/enviar.do"><spring:message code="master.page.messages.send" /></a></li>
 			  </ul>
 			</li>
-			<li><a href="negocio/list.do"><spring:message code="master.page.negocio.mylist" /></a></li>
 			
 			<li class="dropdown">
 	              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.profile" /><span class="caret"></span></a>

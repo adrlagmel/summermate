@@ -25,11 +25,43 @@
 	<form:hidden path="negocio"/>
 	<form:hidden path="calendarioNegocios"/>
 	
-	<acme:textbox code="mesa.nombre" path="nombre" />
-	<acme:textbox code="mesa.disponible" path="disponible" />
-	<acme:textbox code="mesa.fumadores" path="fumadores" />
-	<acme:textbox code="mesa.personas" path="personas" />
-	
+	<acme:textbox code="mesa.nombre" path="nombre" /><br>
+	<spring:message code="mesa.afirmativo" var="positivo" />
+	<spring:message code="mesa.negativo" var="negativo" />
+	<spring:message code="mesa.disponible" /><br>
+	<div style="width:30%;">
+		<form:select path="disponible" cssClass="form-control">
+			<form:option value = "true" label = "${positivo}" />		
+			<form:option value = "false" label = "${negativo}"/>
+		</form:select>
+	</div><br>
+	<spring:message code="mesa.fumadores" />
+	<div style="width:30%;">
+		<form:select path="fumadores" cssClass="form-control">
+			<form:option value= "true" label = "${positivo}" />		
+			<form:option value= "false" label = "${negativo}"/>
+		</form:select>
+	</div><br>
+	<spring:message code="mesa.personas" />
+	<div style="width:30%;">
+		<form:select path="personas" cssClass="form-control">
+			<form:option value= "1" label = "1" />		
+			<form:option value= "2" label = "2"/>
+			<form:option value= "3" label = "3" />		
+			<form:option value= "4" label = "4"/>
+			<form:option value= "5" label = "5" />		
+			<form:option value= "6" label = "6"/>
+			<form:option value= "7" label = "7" />		
+			<form:option value= "8" label = "8"/>
+			<form:option value= "9" label = "9" />		
+			<form:option value= "10" label = "10"/>
+			<form:option value= "11" label = "11" />		
+			<form:option value= "12" label = "12"/>
+			<form:option value= "13" label = "13"/>
+			<form:option value= "14" label = "14" />		
+			<form:option value= "15" label = "15"/>
+		</form:select>
+	</div><br>
 	<acme:submit name="save" code="mesa.save"/>
 	<acme:cancel code="mesa.cancel" url="/mesa/empresario/list.do" /> 
 	
