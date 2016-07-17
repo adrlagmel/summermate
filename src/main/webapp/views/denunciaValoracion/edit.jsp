@@ -7,20 +7,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="valoracionNegocio/usuario/edit.do" modelAttribute="valoracionNegocio">		
+<form:form action="denunciaValoracion/empresario/edit.do" modelAttribute="denunciaValoracion">		
 		
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="reserva"/>
+	<form:hidden path="valoracionNegocio"/>
 	
-	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	
-	<acme:textbox code="valoracionNegocio.fecha" path="fecha" />	
-	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	
-	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" />	
-	<acme:textbox code="valoracionNegocio.comentarioUtil" path="comentarioUtil" />	
+	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	
+	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	
+	<acme:textbox code="denunciaValoracion.tipo" path="tipo" />	
+	<acme:select items="${tiposDenuncia}" itemLabel="tipo" code="denunciaValoracion.tipo" path="tipo" onchange="cargarMiniPlanner()"/>
 	
-	<acme:submit name="save" code="valoracionNegocio.save"/>
-	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/list.do" />
+	
+	<acme:submit name="save" code="denunciaValoracion.save"/>
+	<acme:cancel code="denunciaValoracion.atras" url="/denunciaValoracion/empresario/list.do" />
 	
 	
 </form:form>

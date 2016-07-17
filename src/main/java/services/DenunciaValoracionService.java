@@ -35,15 +35,14 @@ public class DenunciaValoracionService {
 		super();
 
 	}
-//	public ValoracionNegocio create(Reserva r){
-//		ValoracionNegocio vn= new ValoracionNegocio();
-//		Collection<DenunciaValoracion> denuncias = new ArrayList<DenunciaValoracion>();
-//		
-//		vn.setDenuncias(denuncias);
-//		vn.setFecha(new Date());
-//		vn.setReserva(r);
-//		return vn;
-//	}
+	public DenunciaValoracion create(ValoracionNegocio vn){
+		Empresario empresario = empresarioService.findByPrincipal();
+		DenunciaValoracion dv= new DenunciaValoracion();
+		dv.setCliente(empresario);
+		dv.setValoracionNegocio(vn);
+			
+		return dv;
+	}
 //	
 //	public void save(ValoracionNegocio vn) {   
 //		Assert.notNull(vn);

@@ -1,5 +1,6 @@
 package controllers.empresario;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -32,6 +33,9 @@ public class DenunciaEmpresarioController extends AbstractController {
 	
 	@Autowired
 	private DenunciaValoracionService denunciaValoracionService;
+	
+	@Autowired
+	private ValoracionNegocioService valoracionNegocioService;
 
 	public DenunciaEmpresarioController() {
 		super();
@@ -46,7 +50,7 @@ public class DenunciaEmpresarioController extends AbstractController {
 				
 		vDenuncias = denunciaValoracionService.denunciasDelEmpresario();
 		
-		result = new ModelAndView("DenunciaValoracion/list");
+		result = new ModelAndView("denunciaValoracion/list");
 
 		result.addObject("vDenuncias", vDenuncias);
 		result.addObject("requestURI", "denunciaValoracion/empresario/list.do");
@@ -54,23 +58,23 @@ public class DenunciaEmpresarioController extends AbstractController {
 		return result;
 		
 	}
-//	
-//	@RequestMapping(value = "/create", method = RequestMethod.GET)
-//	public ModelAndView create(@RequestParam int reservaId) {
-//		ModelAndView result;
-//		ValoracionNegocio vn;
-//		Reserva r;
-//		
-//
-//		r = reservaService.findOneToEdit(reservaId);
-//		vn = valoracionNegocioService.create(r);
-//		
-//		result = createModelAndView(vn);
-//		result.addObject("reserva", r);
-//		
-//
-//		return result;
-//	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam int valoracionNegocioId) {
+		ModelAndView result;
+		DenunciaValoracion dv;
+		ValoracionNegocio vn;
+		
+
+		vn = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
+		dv = denunciaValoracionService.create(vn);
+		
+		result = createModelAndView(dv);
+		result.addObject("reserva", vn);
+		
+
+		return result;
+	}
 //
 //	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 //	public ModelAndView edit(@RequestParam int valoracionNegocioId){
@@ -128,8 +132,14 @@ public class DenunciaEmpresarioController extends AbstractController {
 	protected ModelAndView createModelAndView(DenunciaValoracion dv, String message) {
 		ModelAndView result;
 		
+		ArrayList<String> tiposDenuncia = new ArrayList<String>();
+		tiposDenuncia.add("FALSEDAD"); 
+		tiposDenuncia.add("RECHAZO");
+		tiposDenuncia.add("BURLA");
+		
 		result = new ModelAndView("denunciaValoracion/edit");
-		result.addObject("DenunciaValoracion", dv);
+		result.addObject("tiposDenuncia", tiposDenuncia);
+		result.addObject("denunciaValoracion", dv);
 		result.addObject("message", message);
 
 		return result;
