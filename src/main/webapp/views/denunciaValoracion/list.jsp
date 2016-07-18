@@ -24,6 +24,22 @@
 	<display:column property="tipo" title="${tipo}" 
 		sortable="true" />
 		
+	<security:authorize access="hasRole('EMPRESARIO')">	
+	<spring:message code="denunciaValoracion.editar" var="editar" />
+	<display:column>
+		<a href="denunciaValoracion/empresario/edit.do?denunciaValoracionId=${row.id}">
+			<spring:message code="valoracionNegocio.editar"/>
+		</a>
+	</display:column>
+	
+	<spring:message code="denunciaValoracion.borrar" var="borrar" />
+	<display:column>
+	<input type="button" value="<spring:message code="valoracionNegocio.borrar" />"
+				onclick="javascript: location.replace('denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}');
+				javascript: return confirm('<spring:message code="msg.delete.denunciaValoracion" />')" />
+	</display:column>
+	</security:authorize>	
+		
 		
 </display:table>
 </div>

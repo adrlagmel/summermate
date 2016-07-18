@@ -94,7 +94,11 @@
 		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasRole('USUARIO')"/>
 		
 		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/create.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/edit.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/borrar.do" access="hasRole('EMPRESARIO')"/>
 		
+		<security:intercept-url pattern="/valoracionNegocio/empresario/listValoraciones.do" access="hasRole('EMPRESARIO')"/>
 		
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 

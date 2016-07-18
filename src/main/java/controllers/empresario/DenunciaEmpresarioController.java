@@ -16,14 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.DenunciaValoracionService;
-import services.ReservaService;
 import services.ValoracionNegocioService;
 
 import controllers.AbstractController;
 import domain.DenunciaValoracion;
-import domain.Reserva;
 import domain.ValoracionNegocio;
-import domain.ValoracionPlaya;
 
 
 @Controller
@@ -75,52 +72,52 @@ public class DenunciaEmpresarioController extends AbstractController {
 
 		return result;
 	}
-//
-//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-//	public ModelAndView edit(@RequestParam int valoracionNegocioId){
-//		ModelAndView result;
-//		ValoracionNegocio vNegocio = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
-//		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
-//		
-//		Assert.notNull(vNegocio);
-//		result = createModelAndView(vNegocio);
-//		result.addObject("requestURI", "valoracionNegocio/usuario/edit.do?valoracionNegocioId="+vNegocio.getId());
-//		return result;
-//	}
-//
-//	
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-//	public ModelAndView save(@Valid @ModelAttribute ValoracionNegocio vn, BindingResult bindingResult) {
-//		ModelAndView result;
-//
-//		if (bindingResult.hasErrors()) {
-//			result = createModelAndView(vn);
-//		} else {
-//			try {
-//				valoracionNegocioService.save(vn);
-//				result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
-//			} catch (Throwable oops) {
-//				result = createModelAndView(vn, "valoracionNegocio.commit.error");
-//			}
-//		}
-//		return result;
-//	}
-//	
-//	@RequestMapping(value="/borrar", method = RequestMethod.GET)
-//	public ModelAndView delete(@RequestParam int valoracionNegocioId){
-//		
-//		ModelAndView result;
-//		
-//		ValoracionNegocio vNegocio = valoracionNegocioService.findOne(valoracionNegocioId);
-//		Assert.notNull(vNegocio);
-//	
-//		valoracionNegocioService.delete(vNegocio);
-//		result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
-//
-//		return result;
-//		
-//	}
-//	
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int denunciaValoracionId){
+		ModelAndView result;
+		DenunciaValoracion dv = denunciaValoracionService.findOneToEdit(denunciaValoracionId);
+		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
+		
+		Assert.notNull(dv);
+		result = createModelAndView(dv);
+		result.addObject("requestURI", "denunciaValoracion/empresario/edit.do?denunciaValoracionId="+dv.getId());
+		return result;
+	}
+
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid @ModelAttribute DenunciaValoracion dv, BindingResult bindingResult) {
+		ModelAndView result;
+
+		if (bindingResult.hasErrors()) {
+			result = createModelAndView(dv);
+		} else {
+			try {
+				denunciaValoracionService.save(dv);
+				result = new ModelAndView("redirect:../../denunciaValoracion/empresario/list.do");
+			} catch (Throwable oops) {
+				result = createModelAndView(dv, "denunciaValoracion.commit.error");
+			}
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/borrar", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int denunciaValoracionId){
+		
+		ModelAndView result;
+		
+		DenunciaValoracion dv = denunciaValoracionService.findOne(denunciaValoracionId);
+		Assert.notNull(dv);
+	
+		denunciaValoracionService.delete(dv);
+		result = new ModelAndView("redirect:../../denunciaValoracion/empresario/list.do");
+
+		return result;
+		
+	}
+	
 	protected ModelAndView createModelAndView(DenunciaValoracion dv) {
 		ModelAndView result;
 

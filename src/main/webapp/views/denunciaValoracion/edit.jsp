@@ -12,12 +12,19 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="valoracionNegocio"/>
+	<form:hidden path="cliente"/>
 	
 	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	
 	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	
-	<acme:textbox code="denunciaValoracion.tipo" path="tipo" />	
-	<acme:select items="${tiposDenuncia}" itemLabel="tipo" code="denunciaValoracion.tipo" path="tipo" onchange="cargarMiniPlanner()"/>
 	
+	<spring:message code="denunciaValoracion.tipo" />
+	<div style="width:30%;">
+		<form:select path="tipo" cssClass="form-control">
+			<form:option value= "FALSEDAD" label = "FALSEDAD" />		
+			<form:option value= "RECHAZO" label = "RECHAZO"/>
+			<form:option value= "BURLA" label = "BURLA" />		
+		</form:select>
+	</div><br>
 	
 	<acme:submit name="save" code="denunciaValoracion.save"/>
 	<acme:cancel code="denunciaValoracion.atras" url="/denunciaValoracion/empresario/list.do" />

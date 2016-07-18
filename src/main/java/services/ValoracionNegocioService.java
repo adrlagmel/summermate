@@ -50,7 +50,7 @@ public class ValoracionNegocioService {
 	}
 	
 	public void delete(ValoracionNegocio vNegocio){
-
+		Assert.notNull(vNegocio);
 		valoracionNegocioRepository.delete(vNegocio);
 
 	}

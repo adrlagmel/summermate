@@ -69,7 +69,7 @@
 	<display:column>
 	<security:authentication var="user" property="principal.id" />
 		<jstl:if test="${row.empresario.userAccount.id == user}">
-		<a href="negocio/empresario/list.do?negocioId=${row.id}"><spring:message code="negocio.reservas.list" /></a>
+		<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}"><spring:message code="negocio.valoracionesNegocio.list" /></a>
 	</jstl:if>
 	</display:column>
 	

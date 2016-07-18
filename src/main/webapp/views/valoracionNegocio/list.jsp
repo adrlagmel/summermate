@@ -28,6 +28,10 @@
 	<display:column property="puntuacion" title="${puntuacion}"
 		sortable="true" />
 		
+		<spring:message code="valoracionNegocio.comentarioUtil" var="comentarioUtil" />
+	<display:column property="comentarioUtil" title="${comentarioUtil}"
+		sortable="true" />
+		
 	<spring:message code="valoracionNegocio.reserva" var="reserva" />
 	<display:column property="reserva.codigo" title="${reserva}"
 		sortable="true" />
@@ -35,7 +39,7 @@
 	<spring:message code="valoracionNegocio.negocio" var="negocio" />
 	<display:column property="reserva.negocio.nombre" title="${negocio}"
 		sortable="true" />
-		
+	<security:authorize access="hasRole('USUARIO')">	
 	<spring:message code="valoracionNegocio.editar" var="editar" />
 	<display:column>
 		<a href="valoracionNegocio/usuario/edit.do?valoracionNegocioId=${row.id}">
@@ -49,6 +53,16 @@
 				onclick="javascript: location.replace('valoracionNegocio/usuario/borrar.do?valoracionNegocioId=${row.id}');
 				javascript: return confirm('<spring:message code="msg.delete.valoracionNegocio" />')" />
 	</display:column>
+	</security:authorize>
 	
-</display:table>
+	<security:authorize access="hasRole('EMPRESARIO')">	
+	<spring:message code="denunciaValoracion.create" var="create" />
+	<display:column>
+	<a href="denunciaValoracion/empresario/create.do?valoracionNegocioId=${row.id}">
+			<spring:message code="denunciaValoracion.create"/>
+		</a> 
+	</display:column>
+	</security:authorize>	
+	</display:table>
+
 </div>

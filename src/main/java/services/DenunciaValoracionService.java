@@ -1,9 +1,6 @@
 package services;
 
-import java.util.ArrayList;
-
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.DenunciaValoracionRepository;
-import repositories.ValoracionNegocioRepository;
 
 import domain.DenunciaValoracion;
 import domain.Empresario;
-import domain.Reserva;
-import domain.Usuario;
 import domain.ValoracionNegocio;
 
 @Service
@@ -37,38 +31,39 @@ public class DenunciaValoracionService {
 	}
 	public DenunciaValoracion create(ValoracionNegocio vn){
 		Empresario empresario = empresarioService.findByPrincipal();
+		
 		DenunciaValoracion dv= new DenunciaValoracion();
 		dv.setCliente(empresario);
 		dv.setValoracionNegocio(vn);
 			
 		return dv;
 	}
-//	
-//	public void save(ValoracionNegocio vn) {   
-//		Assert.notNull(vn);
-//		
-//		valoracionNegocioRepository.save(vn);
-//	}
-//	
-//	public void delete(ValoracionNegocio vNegocio){
-//
-//		valoracionNegocioRepository.delete(vNegocio);
-//
-//	}
-//	
-//	public ValoracionNegocio findOne(int id) {
-//
-//		ValoracionNegocio vn = valoracionNegocioRepository
-//				.findOne(id);
-//
-//		return vn;
-//
-//	}
-//	
-//	public ValoracionNegocio findOneToEdit(int valoracionNegocioId) {
-//		ValoracionNegocio result = valoracionNegocioRepository.findOne(valoracionNegocioId);
-//		return result;
-//	}
+	
+	public void save(DenunciaValoracion dv) {   
+		Assert.notNull(dv);
+		
+		denunciaValoracionRepository.save(dv);
+	}
+	
+	public void delete(DenunciaValoracion dv){
+
+		denunciaValoracionRepository.delete(dv);
+
+	}
+	
+	public DenunciaValoracion findOne(int id) {
+
+		DenunciaValoracion dv = denunciaValoracionRepository
+				.findOne(id);
+
+		return dv;
+
+	}
+	
+	public DenunciaValoracion findOneToEdit(int denunciaValoracionId) {
+		DenunciaValoracion result = denunciaValoracionRepository.findOne(denunciaValoracionId);
+		return result;
+	}
 
 	
 	public Collection<DenunciaValoracion> denunciasDelEmpresario(){
