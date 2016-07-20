@@ -36,5 +36,7 @@
 	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/>
 	</fieldset>
 	
+	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/>
+	
 	<acme:cancel code="negocio.return" url="/negocio/list.do" /> 
 </form:form>

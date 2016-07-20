@@ -98,6 +98,7 @@ public class Playa extends DomainEntity{
 	
 	private Administrador 				administrador;
 	private Collection<ValoracionPlaya> valoracionPlayas;
+	private Collection<Negocio>		    negocios;
 
 	@NotNull
 	@Valid
@@ -119,6 +120,17 @@ public class Playa extends DomainEntity{
 
 	public void setValoracionPlayas(Collection<ValoracionPlaya> valoracionPlayas) {
 		this.valoracionPlayas = valoracionPlayas;
+	}
+	
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy="playa", cascade = CascadeType.ALL)
+	public Collection<Negocio> getNegocios() {
+		return negocios;
+	}
+
+	public void setNegocios(Collection<Negocio> negocios) {
+		this.negocios = negocios;
 	}
 
 }

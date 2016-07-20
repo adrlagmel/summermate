@@ -12,6 +12,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="administrador"/>
+	<form:hidden path="negocios"/>
 	<form:hidden path="valoracionPlayas"/>
 	<form:hidden path="localizacion.latitud" id="lat"/>
 	<form:hidden path="localizacion.longitud" id="lon"/>

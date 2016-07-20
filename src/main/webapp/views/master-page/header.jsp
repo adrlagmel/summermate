@@ -29,7 +29,7 @@
 					<img src="images/logo.png" width='40%' height='auto' />
 				</a>
 			</div>
-<div id="navbar" class="navbar-collapse collapse">
+<div id="navbar" class="navbar-collapse inverse">
   <ul class="nav navbar-nav">
 
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
@@ -55,16 +55,17 @@
 		
 		
 		<security:authorize access="isAnonymous()">
-			<li><a href="security/login.do"><spring:message code="master.page.login" /></a></li>
+		  	<ul class="nav navbar-nav navbar-right">
+		  		<li class="dropdown">
+	      			<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><spring:message code="master.page.registro" /></a>
+	      				<ul class="dropdown-menu">	
+							<li><a href="usuario/register.do"><spring:message code="master.page.register.usuario" /></a></li>
+							<li><a href="empresario/register.do"><spring:message code="master.page.register.empresario" /></a></li>
+						</ul>
+				</li>
+      			<li><a href="security/login.do"><span class="glyphicon glyphicon-log-in"></span><spring:message code="master.page.login" /></a></li>
+    		</ul>
 						
-			<li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message code="master.page.register" /><span class="caret"></span></a>
-              <ul class="dropdown-menu">	
-					<li><a href="usuario/register.do"><spring:message code="master.page.register.usuario" /></a></li>
-					<li><a href="empresario/register.do"><spring:message code="master.page.register.empresario" /></a></li>
-					</ul>
-			</li>
-			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USUARIO')">
@@ -108,7 +109,7 @@
 		
 		<security:authorize access="isAuthenticated()">			
 			<li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.messages" /><span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
               <ul class="dropdown-menu" >
 					<li><a href="carpeta/actor/lista.do"><spring:message code="master.page.folders.list" /></a></li>
 					<li><a href="mensaje/actor/enviar.do"><spring:message code="master.page.messages.send" /></a></li>

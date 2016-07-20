@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.NegocioService;
+import services.PlayaService;
 import controllers.AbstractController;
 import domain.Negocio;
+import domain.Playa;
 
 @Controller
 @RequestMapping("/negocio/empresario")
@@ -25,6 +27,9 @@ public class NegocioEmpresarioController extends AbstractController{
 	
 		@Autowired
 		private NegocioService negocioService;
+		
+		@Autowired
+		private PlayaService playaService;
 		
 		// Constructors ---------------------------------------------------------------
 		
@@ -137,10 +142,12 @@ public class NegocioEmpresarioController extends AbstractController{
 			
 		protected ModelAndView createEditModelAndView(Negocio negocio, String selectView, String message){
 			ModelAndView result;
+			Collection<Playa> playas = playaService.findAllBeaches();
 				
 			result = new ModelAndView("negocio/"+selectView);
 
 			result.addObject("negocio", negocio);
+			result.addObject("playas", playas);
 			result.addObject("message", null);
 
 			return result;

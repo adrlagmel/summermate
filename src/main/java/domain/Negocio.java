@@ -93,6 +93,7 @@ public class Negocio extends DomainEntity{
 	private Collection<Evento> 		      eventos;
 	private Collection<Reserva> 		  reservas;
 	private Collection<Mesa> 			  mesas;
+	private Playa 					  	  playa;
 		
 	@Valid
 	@ManyToOne(optional = true)
@@ -132,5 +133,15 @@ public class Negocio extends DomainEntity{
 
 	public void setMesas(Collection<Mesa> mesas) {
 		this.mesas = mesas;
+	}
+	
+	@Valid
+	@ManyToOne(optional = true)
+	public Playa getPlaya() {
+		return playa;
+	}
+
+	public void setPlaya(Playa playa) {
+		this.playa = playa;
 	}
 }

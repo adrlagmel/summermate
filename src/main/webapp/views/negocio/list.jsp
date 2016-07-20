@@ -65,6 +65,9 @@
 	<spring:message code="negocio.ciudad" var="ciudad" />
 	<display:column property="localizacion.ciudad" title="${ciudad}" sortable="true" />
 		
+	<spring:message code="negocio.playa" var="playa" />
+	<display:column property="playa.nombre" title="${playa}" sortable="true" />
+	
 	<security:authorize access="hasRole('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />

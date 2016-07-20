@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 
 import domain.Administrador;
+import domain.Negocio;
 import domain.Playa;
 import domain.ValoracionPlaya;
 
@@ -37,6 +39,7 @@ public class PlayaService {
 		Administrador administrador 				= administradorService.findByPrincipal();	
 		Collection<ValoracionPlaya> valoracionPlayas = new ArrayList<ValoracionPlaya>();
 		
+		playa.setNegocios(new ArrayList<Negocio>());
 		playa.setValoracionPlayas(valoracionPlayas);
 		playa.setAdministrador(administrador);
 		

@@ -45,6 +45,8 @@
 	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" />
 	</fieldset>
 		
+	<acme:select items="${playas}" itemLabel="nombre" code="negocio.playa" path="playa"/>
+	
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
 	

@@ -1212,6 +1212,11 @@
 				
 			</list>
 		</property>
+		<property name="negocios">
+			<list>
+				<ref bean="negocio1" />  
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="playa2" class="domain.Playa">
@@ -1230,6 +1235,11 @@
 		<property name="valoracionPlayas">
 			<list>
 				
+			</list>
+		</property>
+		<property name="negocios">
+			<list>
+				<ref bean="negocio3" />  
 			</list>
 		</property>
 			
@@ -1252,6 +1262,11 @@
 				
 			</list>
 		</property>
+		<property name="negocios">
+			<list>
+				<ref bean="negocio2" />  
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="playa4" class="domain.Playa">
@@ -1267,6 +1282,11 @@
 		<property name="valoracionPlayas">
 			<list>
 				
+			</list>
+		</property>
+		<property name="negocios">
+			<list>
+				<ref bean="negocio4" />  
 			</list>
 		</property>
 	</bean>
@@ -1286,6 +1306,11 @@
 			<list>
 			</list>
 		</property>
+		<property name="negocios">
+			<list>
+				<ref bean="negocio5" />  
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="playa6" class="domain.Playa">
@@ -1301,6 +1326,11 @@
 			<list>
 			</list>
 		</property>
+		<property name="negocios">
+			<list>
+				
+			</list>
+		</property>
 	</bean>
 	
 	
@@ -1311,12 +1341,13 @@
 	<!-- NEGOCIO -->
 	<bean id="negocio1" class="domain.Negocio">
 		<property name="nombre" value="Comida Fast" />
-		<property name="tipo" value="Restaurante" />
+		<property name="tipo" value="Comida rápida" />
 		<property name="descripcion" value="Restaurante de comida rápida de muy buena calidad" />
 		<property name="telefono" value="+34622323132" />
 		<property name="localizacion" ref="localizacion1" />
 		<property name="paginaWeb" value="http://www.comidafast.com" />
 		<property name="empresario" ref="empresario1" />
+		<property name="playa" ref="playa1" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento1" />  
@@ -1352,9 +1383,10 @@
 		<property name="tipo" value="Pizzeria" />
 		<property name="descripcion" value="Pizzeria italiana" />
 		<property name="telefono" value="+34622323138" />
-		<property name="localizacion" ref="localizacion1" />
+		<property name="localizacion" ref="localizacion3" />
 		<property name="paginaWeb" value="http://www.italianbella.com" />
 		<property name="empresario" ref="empresario2" />
+		<property name="playa" ref="playa2" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento2" />
@@ -1392,6 +1424,7 @@
 		<property name="localizacion" ref="localizacion2" />
 		<property name="paginaWeb" value="http://www.restauranteelfaro.com" />
 		<property name="empresario" ref="empresario2" />
+		<property name="playa" ref="playa2" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento5"/>
@@ -1426,6 +1459,7 @@
 		<property name="telefono" value="+34652363138" />
 		<property name="localizacion" ref="localizacion4" />
 		<property name="empresario" ref="empresario5" />
+		<property name="playa" ref="playa4" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento4"/>
@@ -1460,6 +1494,7 @@
 		<property name="telefono" value="+34652363138" />
 		<property name="localizacion" ref="localizacion5" />
 		<property name="empresario" ref="empresario6" />
+		<property name="playa" ref="playa5" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento6"/>
@@ -1547,8 +1582,7 @@
   		<property name="comentarios" value="Nos ponemos en contacto con vosotros para dar relance 
   											a nuestro negocio de Heladeria en Cádiz, concretamente 
   											en la playa de la Caleta Un saludo." /> 
-  		<property name="empresario" ref="empresario6" /> 
-  		<property name="administrador" ref="administrador2" /> 
+  		<property name="empresario" ref="empresario6" />
   	</bean>
 	
 	
@@ -2343,7 +2377,7 @@
 		<property name="numeroVia" value="3" />
 		<property name="codigoPostal" value="28001" />
 		<property name="ciudad" value="Málaga" />
-		<property name="provincia" value="Cádiz" />
+		<property name="provincia" value="Málaga" />
 		<property name="latitud" value="36.691486"/>
 		<property name="longitud" value="-4.443723"/>   
 	</bean>
@@ -2354,7 +2388,7 @@
 		<property name="numeroVia" value="177" />
 		<property name="codigoPostal" value="04070" />
 		<property name="ciudad" value="Almeria" />
-		<property name="provincia" value="Cádiz" />
+		<property name="provincia" value="Almeria" />
 		<property name="latitud" value="36.825039"/>
 		<property name="longitud" value="-2.447086"/>   
 	</bean>
