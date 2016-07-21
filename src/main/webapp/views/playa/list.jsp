@@ -51,6 +51,19 @@
 		
 		</jstl:if>
 		</display:column>
+		<security:authorize access="hasRole('ADMINISTRADOR')">
+		<display:column>
+			<jstl:if test="${row.foto==null}">
+				<a href="playa/admin/uploadImage.do?playaId=${row.id}"><spring:message code="playa.uploadImage" /></a>
+			</jstl:if>
+		</display:column>
+		<spring:message code="playa.delete" var="borrar" />
+			<display:column>
+			<input type="button" value="<spring:message code="playa.delete" />"
+						onclick="javascript: location.replace('playa/admin/borrar.do?playaId=${row.id}');
+						javascript: return confirm('<spring:message code="playa.confirmDelete" />')" />
+			</display:column>
+		</security:authorize>
 		<security:authorize access="hasRole('USUARIO')">
 		<spring:message code="valoracionPlaya.valoracionPlaya" var="valorarPlaya" />
 		<display:column title="${valorarPlaya}" sortable="false">

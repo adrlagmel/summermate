@@ -81,4 +81,17 @@ public class PlayaService {
 		UserAccount userAccount = LoginService.getPrincipal();
 		Assert.isTrue(playa.getAdministrador().getUserAccount().equals(userAccount));
 	}
+	
+	public void addImageToFoto(int playaId, byte[] bytes) {
+		System.out.println("metodo de add");
+		Playa p = findOne(playaId);
+		if(bytes.length==0){
+		
+			p.setFoto(null);
+		}else{
+			p.setFoto(bytes);
+		}
+		
+		save(p);
+	}
 }

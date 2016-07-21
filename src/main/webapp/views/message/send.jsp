@@ -27,7 +27,7 @@
 	
 	<jstl:if test="${m.beneficiario == null}">
 	
-		<acme:select items="${actors}" itemLabel="nombre" code="msg.recipient" path="beneficiario"/>
+		<acme:select items="${actors}" itemLabel="email" code="msg.recipient" path="beneficiario"/>
 	
 	</jstl:if>
 	

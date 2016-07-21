@@ -8,6 +8,7 @@ import javax.persistence.Access;
 
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -33,6 +34,7 @@ public class Playa extends DomainEntity{
 	private String 	servicios;
 	private Integer	extension;
 	private Localizacion localizacion;
+	private byte[] foto;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -92,6 +94,15 @@ public class Playa extends DomainEntity{
 	
 	public void setLocalizacion(Localizacion localizacion) {
 		this.localizacion = localizacion;
+	}
+	
+	@Column(columnDefinition = "LONGBLOB")
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto= foto;
 	}
 	
 	// Relationships -------------------------

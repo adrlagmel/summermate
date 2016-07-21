@@ -36,20 +36,20 @@
 
 	<div class="col-md-7  col-md-offset-2">
 	
-		<form:form action="incidence/insuredPerson/uploadImage.do?incidenceId=${incidenceId}" modelAttribute="file" enctype="multipart/form-data">
+		<form:form action="playa/admin/uploadImage.do?playaId=${playaId}" modelAttribute="file" enctype="multipart/form-data">
 		
 		<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
 		</jstl:if>
 		<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="image" src="photo/displayImage.do?incidenceId=${incidenceId}" height="350" width="590"/><br /><br />
+		<img class="img-responsive img-rounded" id="image" src="foto/displayImage.do?playaId=${playaId}" height="350" width="590"/><br /><br />
  		</jstl:if>
  		
  		<input type="file" name="image" onchange="readURL(this);" />
 		
 			<div class="pull-right saveimic">
-			<acme:submit code="incidence.save" name="save" />
-			<acme:cancel code="incidence.cancel" url="/incidence/insuredPerson/list.do?status=PENDING" />
+			<acme:submit code="playa.save" name="saveFoto" />
+			<acme:cancel code="playa.atras" url="/playa/list.do" />
 			</div>
 		</form:form>
 	

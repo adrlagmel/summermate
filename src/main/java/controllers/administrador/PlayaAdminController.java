@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.PlayaService;
@@ -105,7 +106,48 @@ public class PlayaAdminController extends AbstractController {
 	return result;
 	}
 
-	
+	// Ancillary methods ---------------------------------------------------------
+			@RequestMapping(value="/uploadImage", method=RequestMethod.GET)
+			public ModelAndView uploadImage (@RequestParam int playaId){
+				ModelAndView result;
+				System.out.println("ADADADADADADADAD");
+				Playa p = playaService.findOne(playaId);
+				boolean hasimage=true;
+
+				if(p.getFoto()==null){
+					hasimage=false;
+				}
+				
+				result = new ModelAndView("playa/uploadImage");
+				result.addObject("playaId", playaId);
+				result.addObject("hasimage",hasimage);
+				
+				
+				return result;
+			}
+			
+			@RequestMapping (value="/uploadImage" ,method=RequestMethod.POST,params="saveFoto")
+			public ModelAndView addFotoIncidence (@RequestParam int playaId, @RequestParam ("image")MultipartFile file){
+				ModelAndView result;
+				Playa p = playaService.findOne(playaId);
+				System.out.println("entra en controladoe upload save");
+
+				try{
+					System.out.println("en try??");
+					playaService.addImageToFoto(playaId, file.getBytes());
+					result = new ModelAndView("redirect:../../playa/list.do");
+				}catch(Throwable oops){
+					
+					result= createEditModelAndView(p,"playa.commit.error");
+
+					
+				}
+				
+				
+				return result;
+			}
+			
+
 	
 	protected ModelAndView createEditModelAndView(Playa playa, String selectView){
 		

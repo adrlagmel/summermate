@@ -49,7 +49,9 @@
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/display.do" access="permitAll"/>
-	
+		<security:intercept-url pattern="/playa/admin/uploadImage.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/foto/displayImage.do" access="hasRole('ADMINISTRADOR')"/>
+		
 		
 		<security:intercept-url pattern="/mensaje/actor/lista.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/mensaje/actor/mostrar.do" access="isAuthenticated()" />
