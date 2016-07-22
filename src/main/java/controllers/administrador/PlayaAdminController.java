@@ -65,10 +65,10 @@ public class PlayaAdminController extends AbstractController {
 							
 			ModelAndView result;
 			
-			Playa playa = playaService.findOne(playaId);
+			Playa playa 	 = playaService.findOne(playaId);
 			
 			result = createEditModelAndView(playa, "display");
-			
+	
 			return result;
 					
 	}
@@ -99,6 +99,7 @@ public class PlayaAdminController extends AbstractController {
 				result = new ModelAndView("redirect://list.do");
 				
 			}catch(Throwable oops){
+				
 				result = createEditModelAndView(playa, "edit", "playa.commit.error");
 			}		
 		}
@@ -110,15 +111,15 @@ public class PlayaAdminController extends AbstractController {
 			@RequestMapping(value="/uploadImage", method=RequestMethod.GET)
 			public ModelAndView uploadImage (@RequestParam int playaId){
 				ModelAndView result;
-				System.out.println("ADADADADADADADAD");
 				Playa p = playaService.findOne(playaId);
+				
 				boolean hasimage=true;
 
 				if(p.getFoto()==null){
 					hasimage=false;
 				}
 				
-				result = new ModelAndView("playa/uploadImage");
+				result = createEditModelAndView(p, "uploadImage");
 				result.addObject("playaId", playaId);
 				result.addObject("hasimage",hasimage);
 				
@@ -126,23 +127,31 @@ public class PlayaAdminController extends AbstractController {
 				return result;
 			}
 			
-			@RequestMapping (value="/uploadImage" ,method=RequestMethod.POST,params="saveFoto")
-			public ModelAndView addFotoIncidence (@RequestParam int playaId, @RequestParam ("image")MultipartFile file){
+			
+			
+			@RequestMapping (value="/uploadImage", method=RequestMethod.POST, params="save")
+			public ModelAndView addFotoIncidence(@RequestParam int playaId, @RequestParam("foto") MultipartFile file){
 				ModelAndView result;
 				Playa p = playaService.findOne(playaId);
-				System.out.println("entra en controladoe upload save");
 
 				try{
-					System.out.println("en try??");
+					
 					playaService.addImageToFoto(playaId, file.getBytes());
 					result = new ModelAndView("redirect:../../playa/list.do");
+					
 				}catch(Throwable oops){
-					
-					result= createEditModelAndView(p,"playa.commit.error");
+					boolean hasimage=true;
 
+					if(p.getFoto()==null){
+						hasimage=false;
+					}
 					
+					result = createEditModelAndView(p, "uploadImage");
+					result.addObject("playaId", playaId);
+					result.addObject("hasimage", hasimage);
+					result.addObject("message", "playa.commit.error");
+									
 				}
-				
 				
 				return result;
 			}
@@ -161,15 +170,19 @@ public class PlayaAdminController extends AbstractController {
 	protected ModelAndView createEditModelAndView(Playa playa, String selectView, String message){
 
 		ModelAndView result;
-			
+		boolean hasimage = true;
+		
+		if(playa.getFoto() == null){
+			hasimage = false;
+		}
+		
 		result = new ModelAndView("playa/"+selectView);
 
 		result.addObject("playa", playa);
 		result.addObject("message", null);
+		result.addObject("hasimage", hasimage);
 
 		return result;
 	}	
 	
-	
-
 }

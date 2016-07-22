@@ -53,10 +53,16 @@ public class PlayaController extends AbstractController {
 							
 			ModelAndView result;
 			
-			Playa playa = playaService.findOne(playaId);
+			Playa playa 	 = playaService.findOne(playaId);
+			boolean hasimage = true;
+			
+			if(playa.getFoto() == null){
+				hasimage = false;
+			}
 			
 			result = new ModelAndView("playa/display");
 			result = createEditModelAndView(playa, "display");
+			result.addObject("hasimage", hasimage);
 			
 			return result;
 					

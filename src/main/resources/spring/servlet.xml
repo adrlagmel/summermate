@@ -163,5 +163,12 @@
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 	    <property name="caches" ref="cacheSet" />	        
 	</bean>
+	
+	<!-- Upload files -->
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<!-- Maximum file size in bytes -->
+    	<property name="maxUploadSize" value="3000000"/>
+	</bean>
 
 </beans>

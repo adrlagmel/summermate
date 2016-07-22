@@ -17,6 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+
 <form:form modelAttribute="negocio" action="negocio/empresario/edit.do">
 
 	<form:hidden path="id"/>
@@ -45,8 +46,6 @@
 	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" />
 	</fieldset>
 		
-	<acme:select items="${playas}" itemLabel="nombre" code="negocio.playa" path="playa"/>
-	
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
 	

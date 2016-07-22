@@ -36,7 +36,7 @@
 
 	<div class="col-md-7  col-md-offset-2">
 	
-		<form:form action="playa/admin/uploadImage.do?playaId=${playaId}" modelAttribute="file" enctype="multipart/form-data">
+		<form:form action="playa/admin/uploadImage.do?playaId=${playaId}" enctype="multipart/form-data">
 		
 		<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
@@ -45,10 +45,10 @@
 		<img class="img-responsive img-rounded" id="image" src="foto/displayImage.do?playaId=${playaId}" height="350" width="590"/><br /><br />
  		</jstl:if>
  		
- 		<input type="file" name="image" onchange="readURL(this);" />
+ 		<input type="file" name="foto" onchange="readURL(this);" />
 		
 			<div class="pull-right saveimic">
-			<acme:submit code="playa.save" name="saveFoto" />
+			<acme:submit code="playa.save" name="save" />
 			<acme:cancel code="playa.atras" url="/playa/list.do" />
 			</div>
 		</form:form>

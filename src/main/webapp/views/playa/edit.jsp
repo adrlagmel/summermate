@@ -44,6 +44,15 @@
    		
    	</script> -->
    	
+   	<jstl:if test="${!hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
+	</jstl:if>
+	
+	<jstl:if test="${hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="foto/displayImage.do?playaId=${playa.id}" height="30%" width="30%"/><br /><br />
+ 	</jstl:if>
+ 	
+   	
 	<acme:submit name="save" code="playa.save"/>
 	<acme:cancel code="playa.atras" url="/playa/list.do" />
 	

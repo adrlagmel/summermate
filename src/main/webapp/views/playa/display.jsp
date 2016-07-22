@@ -27,6 +27,14 @@
 		<acme:textbox code="playa.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/>
 		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" readonly="true"/>
 	</fieldset>
+	
+	<jstl:if test="${!hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
+	</jstl:if>
+	
+	<jstl:if test="${hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="foto/displayImage.do?playaId=${id}" height="30%" width="30%"/><br /><br />
+ 	</jstl:if>
 		
 	<%-- <security:authorize access="hasRole('ADMINISTRADOR')">
 		<jstl:if test="${valoracionPlayas.size() = 0}">
