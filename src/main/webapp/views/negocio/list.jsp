@@ -93,6 +93,14 @@
 			<a href="negocio/empresario/display.do?negocioId=${row.id}"><spring:message code="negocio.display" /></a>
 	</display:column>
 	
+	<security:authorize access="hasRole('EMPRESARIO')">
+		<display:column>
+			<jstl:if test="${row.imagen==null}">
+				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}"><spring:message code="negocio.uploadImage" /></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 <%-- 	<display:column>
 		<a href="negocio/planner.do?negocioId=${row.id}"><spring:message code="negocio.displayPlanner" /></a>
 	</display:column> --%>

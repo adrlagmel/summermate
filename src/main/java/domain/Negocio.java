@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,6 +27,7 @@ public class Negocio extends DomainEntity{
 	private String 			telefono;
 	private Localizacion 	localizacion;
 	private String 			paginaWeb;
+	private byte[]          imagen;
 		
 	
 	@NotBlank
@@ -87,6 +89,14 @@ public class Negocio extends DomainEntity{
 		this.localizacion = localizacion;
 	}
 		
+	@Column(columnDefinition = "LONGBLOB")
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
 	// Relationships -------------------------
 
 	private Empresario 					  empresario;

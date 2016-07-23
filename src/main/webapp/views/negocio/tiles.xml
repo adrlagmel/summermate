@@ -36,6 +36,11 @@
 		<put-attribute name="body" value="/views/negocio/register.jsp" />
 	</definition>
 	
+	<definition name="negocio/uploadImage" extends="master.page">	
+		<put-attribute name="title" value="Upload Image Commerce" />
+		<put-attribute name="body" value="/views/negocio/uploadImage.jsp" />
+	</definition>
+	
 	<!-- <definition name="negocio/nearToMe" extends="master.page">	
 		<put-attribute name="title" value="Sport Center near me" />
 		<put-attribute name="body" value="/views/negocio/nearToMe.jsp" />

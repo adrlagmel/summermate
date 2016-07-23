@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.NegocioService;
@@ -130,6 +131,57 @@ public class NegocioEmpresarioController extends AbstractController{
 		return result;
 	}
 		
+		
+		// Ancillary methods ---------------------------------------------------------
+					@RequestMapping(value="/uploadImageNegocio", method=RequestMethod.GET)
+					public ModelAndView uploadImage (@RequestParam int negocioId){
+						ModelAndView result;
+						Negocio n = negocioService.findOneToEdit(negocioId);
+						
+						boolean hasimage=true;
+
+						if(n.getImagen()==null){
+							hasimage=false;
+						}
+						
+						result = createEditModelAndView(n, "uploadImage");
+						result.addObject("negocioId", negocioId);
+						result.addObject("hasimage",hasimage);
+						
+						
+						return result;
+					}
+					
+					
+					
+					@RequestMapping (value="/uploadImageNegocio", method=RequestMethod.POST, params="save")
+					public ModelAndView addImagenNegocio(@RequestParam int negocioId, @RequestParam("foto") MultipartFile file){
+						ModelAndView result;
+						Negocio n = negocioService.findOneToEdit(negocioId);
+
+						try{
+							
+							negocioService.addImageToNegocio(negocioId, file.getBytes());
+							result = new ModelAndView("redirect:../../negocio/empresario/list.do");
+							
+						}catch(Throwable oops){
+							boolean hasimage=true;
+
+							if(n.getImagen()==null){
+								hasimage=false;
+							}
+							
+							result = createEditModelAndView(n, "uploadImage");
+							result.addObject("negocioId", negocioId);
+							result.addObject("hasimage", hasimage);
+							result.addObject("message", "negocio.commit.error");
+											
+						}
+						
+						return result;
+					}
+					
+
 		// Ancillary methods ---------------------------------------------------------
 		
 		protected ModelAndView createEditModelAndView(Negocio negocio, String selectView){
@@ -143,12 +195,19 @@ public class NegocioEmpresarioController extends AbstractController{
 		protected ModelAndView createEditModelAndView(Negocio negocio, String selectView, String message){
 			ModelAndView result;
 			Collection<Playa> playas = playaService.findAllBeaches();
-				
+			boolean hasimage = true;
+			
+			if(negocio.getImagen() == null){
+				hasimage = false;
+			}
+			
 			result = new ModelAndView("negocio/"+selectView);
 
 			result.addObject("negocio", negocio);
 			result.addObject("playas", playas);
 			result.addObject("message", null);
+			result.addObject("hasimage", hasimage);
+			
 
 			return result;
 		}

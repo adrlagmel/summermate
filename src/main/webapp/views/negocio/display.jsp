@@ -25,6 +25,13 @@
 	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/>
 	
+	<jstl:if test="${!hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
+	</jstl:if>
+	
+	<jstl:if test="${hasimage}">
+		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageNegocio.do?negocioId=${id}" height="30%" width="30%"/><br /><br />
+ 	</jstl:if>
 	<fieldset>
 	<legend><spring:message code="negocio.localizacion" /></legend>
 	

@@ -189,4 +189,17 @@ public class NegocioService {
 		return (rad * 180 / Math.PI);
 
 	}
+	
+	public void addImageToNegocio(int negocioId, byte[] bytes) {
+		
+		Negocio n  = findOneToEdit(negocioId);
+		if(bytes.length==0){
+		
+			n.setImagen(null);
+		}else{
+			n.setImagen(bytes);
+		}
+		
+		save(n);
+	}
 }

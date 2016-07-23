@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import services.NegocioService;
 import services.PlayaService;
 
 @Controller
@@ -18,6 +19,8 @@ public class FotoController extends AbstractController {
 	
 	@Autowired
 	private PlayaService playaService;
+	@Autowired
+	private NegocioService negocioService;
 
 	// Constructor
 	public FotoController() {
@@ -41,6 +44,19 @@ public class FotoController extends AbstractController {
 	public void displayImage(HttpServletResponse response,@RequestParam int playaId) throws IOException{
 
 	    byte[] image = playaService.findOne(playaId).getImagen();
+	    
+	    response.setContentType("image/jpeg");
+	    OutputStream o = response.getOutputStream();
+	       o.write(image);
+	       o.flush(); 
+	       o.close();
+	    
+	    
+	}
+	@RequestMapping(value = "/displayImageNegocio")
+	public void displayImageNegocio(HttpServletResponse response,@RequestParam int negocioId) throws IOException{
+
+	    byte[] image = negocioService.findOneToEdit(negocioId).getImagen();
 	    
 	    response.setContentType("image/jpeg");
 	    OutputStream o = response.getOutputStream();
