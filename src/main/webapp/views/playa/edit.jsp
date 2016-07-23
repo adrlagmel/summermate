@@ -44,14 +44,14 @@
    		
    	</script> -->
    	
-   	<jstl:if test="${!hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
+   	<jstl:if test="${playa.imagen != null}">
+		<b><spring:message code="playa.foto" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${row.id}" height="350" width="590" />
 	</jstl:if>
-	
-	<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="foto/displayImage.do?playaId=${playa.id}" height="30%" width="30%"/><br /><br />
- 	</jstl:if>
- 	
+	<jstl:if test="${playa.imagen == null}">
+		<b><spring:message code="playa.foto" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
+	</jstl:if>
    	
 	<acme:submit name="save" code="playa.save"/>
 	<acme:cancel code="playa.atras" url="/playa/list.do" />

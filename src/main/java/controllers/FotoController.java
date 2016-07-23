@@ -40,7 +40,7 @@ public class FotoController extends AbstractController {
 	@RequestMapping(value = "/displayImage")
 	public void displayImage(HttpServletResponse response,@RequestParam int playaId) throws IOException{
 
-	    byte[] image = playaService.findOne(playaId).getFoto();
+	    byte[] image = playaService.findOne(playaId).getImagen();
 	    
 	    response.setContentType("image/jpeg");
 	    OutputStream o = response.getOutputStream();

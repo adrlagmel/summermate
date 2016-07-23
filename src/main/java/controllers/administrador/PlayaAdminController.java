@@ -115,7 +115,7 @@ public class PlayaAdminController extends AbstractController {
 				
 				boolean hasimage=true;
 
-				if(p.getFoto()==null){
+				if(p.getImagen()==null){
 					hasimage=false;
 				}
 				
@@ -142,7 +142,7 @@ public class PlayaAdminController extends AbstractController {
 				}catch(Throwable oops){
 					boolean hasimage=true;
 
-					if(p.getFoto()==null){
+					if(p.getImagen()==null){
 						hasimage=false;
 					}
 					
@@ -172,7 +172,7 @@ public class PlayaAdminController extends AbstractController {
 		ModelAndView result;
 		boolean hasimage = true;
 		
-		if(playa.getFoto() == null){
+		if(playa.getImagen() == null){
 			hasimage = false;
 		}
 		

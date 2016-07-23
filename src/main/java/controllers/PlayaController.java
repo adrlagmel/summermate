@@ -56,7 +56,7 @@ public class PlayaController extends AbstractController {
 			Playa playa 	 = playaService.findOne(playaId);
 			boolean hasimage = true;
 			
-			if(playa.getFoto() == null){
+			if(playa.getImagen() == null){
 				hasimage = false;
 			}
 			

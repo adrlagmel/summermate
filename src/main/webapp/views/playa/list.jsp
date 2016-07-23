@@ -53,7 +53,7 @@
 		</display:column>
 		<security:authorize access="hasRole('ADMINISTRADOR')">
 		<display:column>
-			<jstl:if test="${row.foto==null}">
+			<jstl:if test="${row.imagen==null}">
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}"><spring:message code="playa.uploadImage" /></a>
 			</jstl:if>
 		</display:column>

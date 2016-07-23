@@ -87,9 +87,9 @@ public class PlayaService {
 		Playa p = findOne(playaId);
 		if(bytes.length==0){
 		
-			p.setFoto(null);
+			p.setImagen(null);
 		}else{
-			p.setFoto(bytes);
+			p.setImagen(bytes);
 		}
 		
 		save(p);
