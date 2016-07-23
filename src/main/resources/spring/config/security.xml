@@ -68,7 +68,12 @@
 		<security:intercept-url pattern="/negocio/empresario/list.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/negocio/empresario/edit.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/negocio/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/foto/displayImage.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="hasRole('EMPRESARIO')"/>
+		
+		<security:intercept-url pattern="/evento/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/foto/displayImageEvento.do" access="hasRole('EMPRESARIO')"/>
+		
+		
 		
 		<security:intercept-url pattern="/mesa/empresario/register.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/mesa/empresario/list.do" access="hasRole('EMPRESARIO')" />

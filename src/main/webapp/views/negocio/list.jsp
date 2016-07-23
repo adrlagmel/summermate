@@ -95,8 +95,11 @@
 	
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<display:column>
+			<security:authentication var="user" property="principal.id" />
+			<jstl:if test="${row.empresario.userAccount.id == user}">
 			<jstl:if test="${row.imagen==null}">
 				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}"><spring:message code="negocio.uploadImage" /></a>
+			</jstl:if>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
