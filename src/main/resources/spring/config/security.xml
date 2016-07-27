@@ -50,7 +50,7 @@
 		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/display.do" access="permitAll"/>
 		<security:intercept-url pattern="/playa/admin/uploadImage.do" access="hasRole('ADMINISTRADOR')"/>
-		<security:intercept-url pattern="/foto/displayImage.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/foto/displayImage.do" access="permitAll"/>
 		
 		
 		<security:intercept-url pattern="/mensaje/actor/lista.do" access="isAuthenticated()" />
@@ -68,10 +68,10 @@
 		<security:intercept-url pattern="/negocio/empresario/list.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/negocio/empresario/edit.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/negocio/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>
 		
 		<security:intercept-url pattern="/evento/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/foto/displayImageEvento.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/foto/displayImageEvento.do" access="permitAll"/>
 		
 		
 		

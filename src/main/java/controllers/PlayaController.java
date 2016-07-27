@@ -60,8 +60,8 @@ public class PlayaController extends AbstractController {
 				hasimage = false;
 			}
 			
-			result = new ModelAndView("playa/display");
 			result = createEditModelAndView(playa, "display");
+			result.addObject("playa", playa);
 			result.addObject("hasimage", hasimage);
 			
 			return result;

@@ -54,6 +54,8 @@ public class PlayaService {
 
 	public Playa findOneToEdit(int playaId) {
 		Playa result = playaRepository.findOne(playaId);
+		
+		checkPrincipal(result);
 					
 		return result;
 	}
@@ -83,7 +85,6 @@ public class PlayaService {
 	}
 	
 	public void addImageToFoto(int playaId, byte[] bytes) {
-		System.out.println("metodo de add");
 		Playa p = findOne(playaId);
 		if(bytes.length==0){
 		

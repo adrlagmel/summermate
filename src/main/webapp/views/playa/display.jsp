@@ -28,13 +28,14 @@
 		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" readonly="true"/>
 	</fieldset>
 	
-	<jstl:if test="${!hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
+	<jstl:if test="${playa.imagen!=null}">
+		<b><spring:message code="playa.foto" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
 	</jstl:if>
-	
-	<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="foto/displayImage.do?playaId=${id}" height="30%" width="30%"/><br /><br />
- 	</jstl:if>
+	<jstl:if test="${playa.imagen==null}">
+		<b><spring:message code="playa.foto" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
+	</jstl:if>
 		
 	<%-- <security:authorize access="hasRole('ADMINISTRADOR')">
 		<jstl:if test="${valoracionPlayas.size() = 0}">

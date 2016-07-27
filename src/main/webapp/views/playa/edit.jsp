@@ -44,11 +44,11 @@
    		
    	</script> -->
    	
-   	<jstl:if test="${playa.imagen != null}">
+   <jstl:if test="${playa.imagen!=null}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>
-		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${row.id}" height="350" width="590" />
+		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
 	</jstl:if>
-	<jstl:if test="${playa.imagen == null}">
+	<jstl:if test="${playa.imagen==null}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>

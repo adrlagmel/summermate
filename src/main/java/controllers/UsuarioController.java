@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,61 @@ public class UsuarioController extends AbstractController{
 				return result;
 			}
 			
+			@RequestMapping(value = "/edit", method = RequestMethod.GET)
+			public ModelAndView edit() {
+				
+		    	ModelAndView result;
+				
+				Usuario us2 = usuarioService.findByPrincipal();
+				Usuario us = usuarioService.findOne(us2.getId());
+				
+				Assert.notNull(us);
+				result = createEditModelAndView2(us);
+				result.addObject("updateProfile", true);
+				
+				result.addObject("actionURI", "usuario/edit.do");
+
+				return result;
+		    }
+			
+			@RequestMapping(value = "/editPassword", method = RequestMethod.GET)
+			public ModelAndView editPassword() {
+				ModelAndView result;
+				Usuario us2 = usuarioService.findByPrincipal();
+				Usuario us = usuarioService.findOne(us2.getId());
+				Assert.notNull(us);
+				result = createEditModelAndView2(us);
+				result.addObject("updatePassword", true);
+				result.addObject("actionURI", "usuario/editPassword.do");
+				return result;
+			}
+			
+			@RequestMapping(value="/editPassword", method=RequestMethod.POST, params="save")
+			public ModelAndView savePassword(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult binding){
+				
+				ModelAndView result;
+				if(binding.hasErrors()){
+					
+						result = createEditModelAndView2(usuario);
+						result.addObject("updatePassword", true);
+				}else{
+					try{
+						usuarioService.savePassword(usuario);
+						result = new ModelAndView("redirect:/usuario/edit.do");
+						
+					}catch(DataIntegrityViolationException exc){
+						result = createEditModelAndView2(usuario, "register.duplicated.usuario");
+						result.addObject("updatePassword", true);
+					}catch(Throwable oops){
+						result = createEditModelAndView2(usuario, "register.commit.error");
+						result.addObject("updatePassword", true);
+					}
+				}
+				
+				return result;
+			}
+			
+			
 			
 			
 			// Ancillary methods ---------------------------------------------------------
@@ -101,6 +157,28 @@ public class UsuarioController extends AbstractController{
 					result.addObject("isAdministrador", false);
 					result.addObject("actionURI", "usuario/register.do");
 
+					return result;
+				}
+				
+				protected ModelAndView createEditModelAndView2(Usuario usuario){
+					
+					ModelAndView result;
+					
+					result = createEditModelAndView2(usuario, null);
+					
+					return result;
+				}
+				
+				protected ModelAndView createEditModelAndView2(Usuario usuario, String message){
+					
+					ModelAndView result;
+
+					
+					result = new ModelAndView("usuario/edit");
+					
+					result.addObject("usuario", usuario);
+					result.addObject("message", message);
+					
 					return result;
 				}
 

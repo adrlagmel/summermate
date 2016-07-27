@@ -59,7 +59,7 @@ public class FotoController extends AbstractController {
 	@RequestMapping(value = "/displayImageNegocio")
 	public void displayImageNegocio(HttpServletResponse response,@RequestParam int negocioId) throws IOException{
 
-	    byte[] image = negocioService.findOneToEdit(negocioId).getImagen();
+	    byte[] image = negocioService.findOneToDisplay(negocioId).getImagen();
 	    
 	    response.setContentType("image/jpeg");
 	    OutputStream o = response.getOutputStream();

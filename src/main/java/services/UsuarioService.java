@@ -157,5 +157,23 @@ public class UsuarioService {
 		return usuario;
 	}
 
+	public void savePassword(Usuario usuario) {
+		Assert.notNull(usuario);
+		
+		String password = usuario.getUserAccount().getPassword();
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+		usuario.getUserAccount().setPassword(password);
+		checkPrincipal(usuario);
+		usuarioRepository.save(usuario);
+		
+	}
 
+	public void checkPrincipal(Usuario u){
+		Assert.notNull(u);
+		
+		Assert.isTrue(findByPrincipal().equals(u));
+		
+		
+	}
 	}

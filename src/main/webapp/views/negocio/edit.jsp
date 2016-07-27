@@ -35,6 +35,15 @@
 	<acme:textbox code="negocio.telefono" path="telefono" />
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" />
 	
+	<jstl:if test="${negocio.imagen!=null}">
+		<b><spring:message code="negocio.imagen" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="foto/displayImageNegocio.do?negocioId=${negocio.id}" height="350" width="590" />
+	</jstl:if>
+	<jstl:if test="${negocio.imagen==null}">
+		<b><spring:message code="negocio.imagen" /></b><br/><br/>
+		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
+	</jstl:if>
+	
 	<fieldset>
 	<legend><spring:message code="negocio.localizacion" /></legend>
 	
