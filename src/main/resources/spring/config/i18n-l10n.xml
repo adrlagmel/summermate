@@ -34,6 +34,7 @@
 		<value>/views/negocio/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/peticionNegocio/administrador/messages</value>
+		<value>/views/evento/messages</value>
 		<value>/views/peticionNegocio/empresario/messages</value>
 		<value>/views/register/messages</value>
 		<value>/views/booking/messages</value>

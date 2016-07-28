@@ -1596,7 +1596,11 @@
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio1"/>
-		<property name="usuario" ref="usuario1"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario1"/>
+			</list>
+		</property>
     </bean>
     
     <bean id="evento2" class="domain.Evento">
@@ -1608,7 +1612,11 @@
         <property name="precio" value="10.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
-		<property name="usuario" ref="usuario1"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario1"/>
+			</list>
+		</property>
     </bean>
     
     <bean id="evento3" class="domain.Evento">
@@ -1620,7 +1628,11 @@
         <property name="precio" value="5.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
-		<property name="usuario" ref="usuario2"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario2"/>
+			</list>
+		</property>
     </bean>
     
     <bean id="evento4" class="domain.Evento">
@@ -1632,7 +1644,11 @@
         <property name="precio" value="10.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio4"/>
-		<property name="usuario" ref="usuario3"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario3"/>
+			</list>
+		</property>
     </bean>
     
     <bean id="evento5" class="domain.Evento">
@@ -1644,7 +1660,11 @@
         <property name="precio" value="0.0"/>
         <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio3"/>
-		<property name="usuario" ref="usuario4"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario4"/>
+			</list>
+		</property>
     </bean>
     
     <bean id="evento6" class="domain.Evento">
@@ -1656,7 +1676,11 @@
         <property name="precio" value="15.0"/>
         <property name="imagen" value=""/>
         <property name="negocio" ref="negocio5"/>
-		<property name="usuario" ref="usuario5"/>
+		<property name="usuarios">
+			<list>
+				<ref bean="usuario5"/>
+			</list>
+		</property>
     </bean>
 	
 	<!-- RESERVA -->
