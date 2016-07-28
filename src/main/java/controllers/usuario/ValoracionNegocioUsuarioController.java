@@ -2,6 +2,8 @@ package controllers.usuario;
 
 import java.util.Collection;
 
+
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import services.ValoracionNegocioService;
 import controllers.AbstractController;
 import domain.Reserva;
 import domain.ValoracionNegocio;
-import domain.ValoracionPlaya;
 
 
 @Controller
