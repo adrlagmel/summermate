@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -68,7 +69,7 @@ public class Usuario extends Cliente{
 		
 		@NotNull
 		@Valid
-		@OneToMany(mappedBy="usuario")
+		@ManyToMany(mappedBy="usuarios")
 		public Collection<Evento> getEventos() {
 			return eventos;
 		}
@@ -77,5 +78,5 @@ public class Usuario extends Cliente{
 			this.eventos = eventos;
 		}
 		
-		
+	
 }

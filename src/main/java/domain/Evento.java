@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -7,6 +8,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -104,7 +106,7 @@ public class Evento extends DomainEntity{
 	// Relationships -------------------------
 		
 	private Negocio  negocio;
-	private Usuario usuario;
+	private Collection<Usuario> usuarios;
 	
 	@NotNull
 	@Valid
@@ -116,16 +118,15 @@ public class Evento extends DomainEntity{
 	public void setNegocio(Negocio negocio) {
 		this.negocio = negocio;
 	}
-	
+		
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
-	public Usuario getUsuario() {
-		return usuario;
+	@ManyToMany()
+	public Collection<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarios(Collection<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
-	
 }

@@ -15,6 +15,7 @@ import repositories.NegocioRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Empresario;
+import domain.Evento;
 import domain.Localizacion;
 import domain.Mesa;
 import domain.Negocio;
@@ -59,6 +60,7 @@ public class NegocioService {
 		result.setReservas(new ArrayList<Reserva>());
 		result.setLocalizacion(new Localizacion());
 		result.setMesas(new ArrayList<Mesa>());
+		result.setEventos(new ArrayList<Evento>());
 		result.setEmpresario(principal);
 		
 		return result;
@@ -85,6 +87,7 @@ public class NegocioService {
 		return result;
 		
 	}
+	
 	
 	public Negocio findOneToEdit(int negocioId){
 		Negocio negocio = negocioRepository.findOne(negocioId);
