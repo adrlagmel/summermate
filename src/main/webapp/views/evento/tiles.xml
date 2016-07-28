@@ -17,25 +17,23 @@
 <tiles-definitions>
 	
 	<definition name="evento/list" extends="master.page">	
-		<put-attribute name="title" value="Event List" />
+		<put-attribute name="title" value="List of events" />
 		<put-attribute name="body" value="/views/evento/list.jsp" />
 	</definition>
 	
 	<definition name="evento/display" extends="master.page">	
-		<put-attribute name="title" value="Event Show" />
+		<put-attribute name="title" value="Display event" />
 		<put-attribute name="body" value="/views/evento/display.jsp" />
 	</definition>
 	
 	<definition name="evento/edit" extends="master.page">	
-		<put-attribute name="title" value="Event Edit" />
+		<put-attribute name="title" value="Edit event" />
 		<put-attribute name="body" value="/views/evento/edit.jsp" />
 	</definition>
 	
-	
-	
-	<definition name="evento/uploadImage" extends="master.page">	
-		<put-attribute name="title" value="Upload Image Event" />
-		<put-attribute name="body" value="/views/evento/uploadImage.jsp" />
+	<definition name="evento/register" extends="master.page">	
+		<put-attribute name="title" value="Register an event" />
+		<put-attribute name="body" value="/views/evento/edit.jsp" />
 	</definition>
-
+	
 </tiles-definitions>

@@ -50,6 +50,14 @@
 					<li><a href="negocio/empresario/list.do"><spring:message code="master.page.negocio.mylist" /></a></li>
 					<li><a href="peticionNegocio/empresario/list.do"><spring:message code="master.page.peticionnegocio.empresario.list" /></a></li>
 				</ul>
+			</li>			
+			<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.eventos" /><b class="caret"></b></a>
+              <ul class="dropdown-menu" >
+              		<li><a href="evento/empresario/register.do"><spring:message code="master.page.eventos.register" /></a></li>
+					<li><a href="evento/list.do"><spring:message code="master.page.eventos.list" /></a></li>
+					<li><a href="evento/empresario/list.do"><spring:message code="master.page.eventos.mylist" /></a></li>
+			  </ul>
 			</li>				
 		</security:authorize>
 		

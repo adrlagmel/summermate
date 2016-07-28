@@ -31,11 +31,9 @@
 		<put-attribute name="body" value="/views/evento/edit.jsp" />
 	</definition>
 	
-	
-	
-	<definition name="evento/uploadImage" extends="master.page">	
-		<put-attribute name="title" value="Subir Foto Evento" />
-		<put-attribute name="body" value="/views/evento/uploadImage.jsp" />
+	<definition name="evento/register" extends="master.page">	
+		<put-attribute name="title" value="Registrar Evento" />
+		<put-attribute name="body" value="/views/evento/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>
