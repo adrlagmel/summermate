@@ -58,7 +58,7 @@
 </div>
 
 	<security:authorize access="hasRole('EMPRESARIO')">
-		<a href="evento/empresario/create.do">
+		<a href="evento/empresario/register.do">
 			<spring:message code="evento.create"/>
 		</a> <br/>	
 		<br />

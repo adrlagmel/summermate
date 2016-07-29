@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -13,9 +14,9 @@ import org.springframework.util.Assert;
 import repositories.EventoRepository;
 import security.LoginService;
 import security.UserAccount;
+import utilities.validators.RandomString;
 import domain.Evento;
 import domain.Empresario;
-import domain.Negocio;
 import domain.Usuario;
 
 @Service
@@ -43,10 +44,14 @@ public class EventoService {
 	
 	// Simple CRUD Methods ---------------------------------------------------
 	
-	public Evento create(Negocio negocio){
+	public Evento create(){
 		Evento result = new Evento();
-				
-		result.setNegocio(negocio);
+		
+		RandomString rs = new RandomString(6);
+		String randomStr = rs.nextString();
+		
+		result.setCodigo(randomStr);
+		
 		result.setUsuarios(new ArrayList<Usuario>());
 		result.setFechaRegistro(new Date(System.currentTimeMillis()));
 

@@ -62,11 +62,10 @@ public class EventoEmpresarioController extends AbstractController{
 		// Create and edition methods -------------------------------------------------
 		
 			@RequestMapping(value="/register", method = RequestMethod.GET)
-			public ModelAndView create(@RequestParam int negocioId){
+			public ModelAndView create(){
 				ModelAndView result;
-				Negocio negocio = negocioService.findOneToDisplay(negocioId);
 				
-				Evento evento = eventoService.create(negocio);		
+				Evento evento = eventoService.create();		
 				result 		  = createEditModelAndView(evento, "register");
 				
 				return result;		

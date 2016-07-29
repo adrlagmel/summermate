@@ -40,7 +40,7 @@
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?playaId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if>
  	
- 	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" />
+ 	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" /> <br/><br/>
  	
  	<!-- <div class='col-sm-6'>
             <div class="form-group">
