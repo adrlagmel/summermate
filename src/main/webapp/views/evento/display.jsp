@@ -31,7 +31,7 @@
 	</jstl:if>
 	
 	<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?playaId=${evento.id}" height="30%" width="30%"/><br /><br />
+		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if>
 	
 	<security:authorize access="hasRole('EMPRESARIO')">

@@ -79,7 +79,7 @@
 		<security:intercept-url pattern="/evento/empresario/search.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/list.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/edit.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/evento/empresario/uploadImageEvento.do" access="hasRole('EMPRESARIO')"/>
 		
 		<security:intercept-url pattern="/foto/displayImageEvento.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>

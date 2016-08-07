@@ -69,6 +69,17 @@
 	</display:column>	
 	
 	</security:authorize>
+	
+	<security:authorize access="hasRole('EMPRESARIO')">
+		<display:column>
+			<security:authentication var="user2" property="principal.id" />
+			<jstl:if test="${row.negocio.empresario.userAccount.id == user2}">
+			<jstl:if test="${row.imagen==null}">
+				<a href="evento/empresario/uploadImageEvento.do?eventoId=${row.id}"><spring:message code="evento.uploadImage" /></a>
+			</jstl:if>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 
 </display:table>
 </div>
