@@ -51,8 +51,24 @@
 	<display:column property="negocio.playa.nombre" title="${playa}" sortable="true" />
 		
 	<display:column>
-			<a href="evento/empresario/display.do?eventoId=${row.id}"><spring:message code="evento.display" /></a>
+			<a href="evento/display.do?eventoId=${row.id}"><spring:message code="evento.display" /></a>
 	</display:column>
+
+	<security:authorize access="hasRole('USUARIO')">
+	<jsp:useBean id="now" class="java.util.Date"/>	
+	<display:column>
+		<jstl:if test="${!row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
+				<a href="evento/usuario/signup.do?eventoId=${row.id}"><spring:message code="evento.signup" /></a>
+		</jstl:if>	
+	</display:column>
+	
+	<display:column>
+		<jstl:if test="${row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
+				<a href="evento/usuario/unregister.do?eventoId=${row.id}"><spring:message code="evento.unregister" /></a>
+		</jstl:if>	
+	</display:column>	
+	
+	</security:authorize>
 
 </display:table>
 </div>

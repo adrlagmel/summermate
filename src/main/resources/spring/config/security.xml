@@ -71,7 +71,10 @@
 		
 		<security:intercept-url pattern="/evento/list.do" access="permitAll"/>
 		<security:intercept-url pattern="/evento/search.do" access="permitAll"/>
-		<security:intercept-url pattern="/evento/empresario/display.do" access="permitAll"/>
+		<security:intercept-url pattern="/evento/display.do" access="permitAll"/>
+		<security:intercept-url pattern="/evento/usuario/list.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/signup.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/unregister.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/evento/empresario/register.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/search.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/list.do" access="hasRole('EMPRESARIO')" />

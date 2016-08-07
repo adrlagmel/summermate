@@ -1,6 +1,7 @@
 package controllers.usuario;
 
 import java.util.Collection;
+import java.util.Date;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,16 @@ public class EventoUsuarioController extends AbstractController{
 			
 			ModelAndView result;
 			Collection<Evento> eventos = null;
+			Date fechaActual	= new Date();
 			
-			eventos = eventoService.findByUsuario();
+			eventos = eventoService.findAll();
+			Usuario usuario = usuarioService.findByPrincipal();
 			
 			result = new ModelAndView("evento/list");
 
+			result.addObject("usuario", usuario);
 			result.addObject("eventos", eventos);
+			result.addObject("fechaActual", fechaActual);
 		//	result.addObject("actionURI","evento/usuario/search.do");
 			result.addObject("requestURI", "evento/usuario/list.do");
 
@@ -81,11 +86,12 @@ public class EventoUsuarioController extends AbstractController{
 			
 		
 		@RequestMapping(value="/signup", method = RequestMethod.GET)
-		public ModelAndView signup(@RequestParam int eventoId,@RequestParam int usuarioId){
+		public ModelAndView signup(@RequestParam int eventoId){
 						
 			ModelAndView result;
-			Evento evento = eventoService.findOneToEdit(eventoId);
-			Usuario usuario = usuarioService.findOne(usuarioId);
+			
+			Evento evento 	= eventoService.findOneToDisplay(eventoId);
+			Usuario usuario = usuarioService.findByPrincipal();
 
 			eventoService.participate(evento, usuario);
 			
@@ -95,6 +101,21 @@ public class EventoUsuarioController extends AbstractController{
 				
 		}
 		
+		@RequestMapping(value="/unregister", method = RequestMethod.GET)
+		public ModelAndView unregister(@RequestParam int eventoId){
+						
+			ModelAndView result;
+			
+			Evento evento 	= eventoService.findOneToDisplay(eventoId);
+			Usuario usuario = usuarioService.findByPrincipal();
+
+			eventoService.unregister(evento, usuario);
+			
+			result = new ModelAndView("redirect:list.do");
+			
+			return result;
+				
+		}
 		
 		// Ancillary methods ---------------------------------------------------------
 		

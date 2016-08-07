@@ -80,16 +80,7 @@ public class EventoEmpresarioController extends AbstractController{
 				
 				return result;			
 			}
-			
-			@RequestMapping(value="/display", method = RequestMethod.GET)
-			public ModelAndView display(@RequestParam int eventoId){
-				ModelAndView result;
-				
-				Evento evento = eventoService.findOneToDisplay(eventoId);
-				result 		  = createEditModelAndView(evento, "display");
-				
-				return result;			
-			}
+	
 				
 			@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
 			public ModelAndView save(@ModelAttribute("evento") @Valid Evento evento, BindingResult binding){

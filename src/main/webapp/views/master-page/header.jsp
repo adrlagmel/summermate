@@ -35,8 +35,6 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		
 		
-		
-		
 		<security:authorize access="hasRole('EMPRESARIO')">
 			
 			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
@@ -93,6 +91,12 @@
 					<li><a href="reserva/usuario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>		
 				</ul>
 			</li>	
+			<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.eventos" /><b class="caret"></b></a>
+              <ul class="dropdown-menu" >
+					<li><a href="evento/usuario/list.do"><spring:message code="master.page.eventos.list" /></a></li>
+			  </ul>
+			</li>
 			
 		</security:authorize>	
 		

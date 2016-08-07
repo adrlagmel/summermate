@@ -85,13 +85,25 @@ public class EventoService {
 	}
 	
 	public void participate(Evento evento, Usuario usuario) {
-		usuarioService.checkPrincipal();
+		Date fechaActual = new Date();
+		Assert.isTrue(!evento.getUsuarios().contains(usuario));
+		Assert.isTrue(evento.getFechaCelebracion().after(fechaActual));
 		
 		usuario.getEventos().add(evento);
-		
-//		usuarioService.ban(usuario);
-		
 		evento.getUsuarios().add(usuario);
+		
+		eventoRepository.save(evento);		
+		
+	}
+	
+	public void unregister(Evento evento, Usuario usuario) {
+		Date fechaActual = new Date();
+		Assert.isTrue(evento.getUsuarios().contains(usuario));
+		Assert.isTrue(evento.getFechaCelebracion().after(fechaActual));
+		
+		usuario.getEventos().remove(evento);
+		evento.getUsuarios().remove(usuario);
+		
 		eventoRepository.save(evento);		
 		
 	}

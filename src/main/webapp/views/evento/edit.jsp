@@ -52,6 +52,17 @@
                 </div>
             </div>
     </div> -->
+    
+    <security:authorize access="hasRole('USUARIO')">
+		<jstl:if test="${requestURI=='evento/usuario/list.do'}">
+			<display:column>
+			<form action="evento/usuario/signup.do" method="get" name="signup">
+				<input type="text" name="eventoId" id="evento" class="hidden" value="${row.id}"/>	
+				<input type="submit" value="<spring:message code="event.signup"/>"/>
+			</form>
+			</display:column>
+		</jstl:if>	
+	</security:authorize>
 	
 	<acme:submit name="save" code="evento.save"/>
 	<security:authorize access="hasRole('EMPRESARIO')">
