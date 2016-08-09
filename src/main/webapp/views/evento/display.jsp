@@ -19,12 +19,12 @@
 
 <form:form modelAttribute="evento">
 
-	<acme:textbox code="evento.codigo" path="codigo" readonly="true"/>
-	<acme:textbox code="evento.nombre" path="nombre" readonly="true"/>	
-	<acme:textbox code="evento.descripcion" path="descripcion" readonly="true"/>
-	<acme:textbox code="evento.precio" path="precio" readonly="true"/>
+	<acme:textbox code="evento.codigo" path="codigo" readonly="true"/><br/>
+	<acme:textbox code="evento.nombre" path="nombre" readonly="true"/>	<br/>
+	<acme:textbox code="evento.descripcion" path="descripcion" readonly="true"/><br/>
+	<acme:textbox code="evento.precio" path="precio" readonly="true"/><br/>
 	
-	<acme:textbox code="evento.negocio" path="negocio.nombre" readonly="true" />
+	<acme:textbox code="evento.negocio" path="negocio.nombre" readonly="true" /><br/>
 	
 	<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />

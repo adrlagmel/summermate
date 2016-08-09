@@ -25,22 +25,22 @@
 	<form:hidden path="usuarios"/>
 	<form:hidden path="fechaRegistro"/>
 	
-	<acme:textbox code="evento.codigo" path="codigo" readonly = "true" />
-	<acme:textbox code="evento.nombre" path="nombre" />	
-	<acme:textbox code="evento.descripcion" path="descripcion" />
-	<acme:textbox code="evento.precio" path="precio" />
+	<acme:textbox code="evento.codigo" path="codigo" readonly = "true" /><br/>
+	<acme:textbox code="evento.nombre" path="nombre" />	<br/>
+	<acme:textbox code="evento.descripcion" path="descripcion" /><br/>
+	<acme:textbox code="evento.precio" path="precio" /><br/>
 	
-	<acme:select items="${negocios}" itemLabel="nombre" code="evento.negocio" path="negocio"/>
+	<acme:select items="${negocios}" itemLabel="nombre" code="evento.negocio" path="negocio"/><br/>
 	
 	<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
 	</jstl:if>
 	
 	<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?playaId=${evento.id}" height="30%" width="30%"/><br /><br />
+		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if>
  	
- 	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" /> <br/><br/>
+ 	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" /> <br/>
  	
  	<!-- <div class='col-sm-6'>
             <div class="form-group">

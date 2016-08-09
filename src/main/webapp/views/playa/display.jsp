@@ -9,9 +9,6 @@
 
 <form:form modelAttribute="playa" >	
 		
-	<%-- <form:hidden path="location.latitude" id="lat"/>
-	<form:hidden path="location.longitude" id="lon"/> --%>
-	
 	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/>
 	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/>
 	<acme:textarea code="playa.composicion" path="composicion" readonly="true"/>	
@@ -45,6 +42,5 @@
 	</security:authorize> --%>
 	
  	<acme:cancel code="playa.atras" url="/playa/list.do" />
-	
-	
+		
 </form:form>

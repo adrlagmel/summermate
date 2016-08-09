@@ -16,6 +16,25 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<form action="playa/nearToMe.do" method="get" name="nearToMe">
+						<input type="text" name="lat" id="lat" class="hidden"/>
+						<input type="text" name="lon" id="lon" class="hidden"/>
+						
+						<a href="javascript: nearToMe.submit()"> <spring:message code="master.page.playa.nearToMe"/></a>
+						<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBBrx34wk6LRo3M4xsVJEe3U9umurfaMik" ></script>
+									<script>
+										var x = document.getElementById("lat");
+										var y = document.getElementById("lon");
+							    		if (navigator.geolocation) {
+							       			navigator.geolocation.getCurrentPosition(initialize);
+							    		}
+										function initialize(position) {
+											x.value = position.coords.latitude;
+											y.value = position.coords.longitude;
+											
+										}
+									</script></form>
+
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="true"
 	name="playas" requestURI="${requestURI}" id="row">

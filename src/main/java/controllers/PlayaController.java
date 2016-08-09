@@ -81,10 +81,38 @@ public class PlayaController extends AbstractController {
 		return result;
 	}
 	
-	protected ModelAndView createModelAndView(Playa playa) {
+	
+    @RequestMapping(value="/nearToMe", method = RequestMethod.GET)
+	public ModelAndView nearToMe(@RequestParam(required=false) Double lat,
+			@RequestParam(required=false) Double lon){
+		
 		ModelAndView result;
-
-		result = createModelAndView(playa, null);
+		Boolean mostrarMapa;
+		mostrarMapa=true;
+		Collection<Playa> playas;
+		
+		if(lat==null || lon==null){
+			mostrarMapa=false;
+			result = new ModelAndView("playa/nearToMe");
+			result.addObject("mostrarMapa", mostrarMapa);
+			
+		}else{
+			
+			playas = playaService.nearToMe(lat,lon);
+			result = new ModelAndView("playa/nearToMe");
+			result.addObject("playas", playas);
+			result.addObject("lat1",lat);
+			result.addObject("lon1",lon);
+			result.addObject("requestURI", "playa/nearToMe.do");
+			result.addObject("tabla",true);
+		}
+		
+		return result;	
+	}
+	
+	
+	protected ModelAndView createModelAndView(Playa playa) {
+		ModelAndView result = createModelAndView(playa, null);
 
 		return result;
 	}
@@ -94,14 +122,12 @@ public class PlayaController extends AbstractController {
 		result = new ModelAndView("playa/edit");
 		result.addObject("playa", playa);
 
-		
 		result.addObject("message", message);
 	
 		return result;
 		}
 	
 	protected ModelAndView createEditModelAndView(Playa playa, String selectView){
-		
 		ModelAndView result;
 			
 		result = createEditModelAndView(playa, selectView, null);
@@ -123,5 +149,4 @@ public class PlayaController extends AbstractController {
 		return result;
 	}	
 	
-
 }
