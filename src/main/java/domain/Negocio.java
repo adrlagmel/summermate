@@ -102,7 +102,7 @@ public class Negocio extends DomainEntity{
 	private Empresario 					  empresario;
 	private Collection<Evento> 		      eventos;
 	private Collection<Reserva> 		  reservas;
-	private Collection<Mesa> 			  mesas;
+	private Collection<CalendarioNegocio> calendarioNegocios;
 	private Playa 					  	  playa;
 		
 	@Valid
@@ -135,16 +135,6 @@ public class Negocio extends DomainEntity{
 		this.reservas = reservas;
 	}
 	
-	@NotNull
-	@OneToMany(mappedBy = "negocio")
-	public Collection<Mesa> getMesas() {
-		return mesas;
-	}
-
-	public void setMesas(Collection<Mesa> mesas) {
-		this.mesas = mesas;
-	}
-	
 	@Valid
 	@ManyToOne(optional = true)
 	public Playa getPlaya() {
@@ -153,5 +143,15 @@ public class Negocio extends DomainEntity{
 
 	public void setPlaya(Playa playa) {
 		this.playa = playa;
+	}
+	
+	@NotNull
+	@OneToMany(mappedBy = "negocio")
+	public Collection<CalendarioNegocio> getCalendarioNegocios() {
+		return calendarioNegocios;
+	}
+
+	public void setCalendarioNegocios(Collection<CalendarioNegocio> calendarioNegocios) {
+		this.calendarioNegocios = calendarioNegocios;
 	}
 }

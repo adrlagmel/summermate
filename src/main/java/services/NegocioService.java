@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 
 
+
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -14,10 +15,10 @@ import org.springframework.util.Assert;
 import repositories.NegocioRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.CalendarioNegocio;
 import domain.Empresario;
 import domain.Evento;
 import domain.Localizacion;
-import domain.Mesa;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Reserva;
@@ -59,7 +60,7 @@ public class NegocioService {
 		
 		result.setReservas(new ArrayList<Reserva>());
 		result.setLocalizacion(new Localizacion());
-		result.setMesas(new ArrayList<Mesa>());
+		result.setCalendarioNegocios(new ArrayList<CalendarioNegocio>());
 		result.setEventos(new ArrayList<Evento>());
 		result.setEmpresario(principal);
 		

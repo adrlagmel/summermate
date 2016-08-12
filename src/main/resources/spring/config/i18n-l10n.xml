@@ -25,11 +25,12 @@
 		<value>/views/welcome/messages</value>
 		<value>/views/playa/messages</value>
 		
+		<value>/views/planner/messages</value>
+		
 		<value>/views/administrator/messages</value>
 		<value>/views/booking/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/folder/messages</value>
-		<value>/views/mesa/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/negocio/messages</value>
 		<value>/views/profile/messages</value>

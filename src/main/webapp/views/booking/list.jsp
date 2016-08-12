@@ -32,10 +32,6 @@
 	<spring:message code="booking.bookingDate" var="bookingDate" />
 	<display:column property="fecha" title="${bookingDate}" format="{0,date,dd/MM/yyyy HH:mm}"
 		sortable="true" />
-	
-	<spring:message code="booking.price" var="price" />
-	<display:column property="precio" title="${price}"
-		sortable="true" />
 		
 	<spring:message code="booking.comments" var="comment" />
 	<display:column title="${comment}" maxLength="20">

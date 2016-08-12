@@ -88,7 +88,11 @@
 	</jstl:if>
 	</display:column> --%>
 	</security:authorize> 
-		
+	<security:authorize access="hasRole('USUARIO')">
+		<display:column>
+			<a href="reserva/usuario/create.do?negocioId=${row.id}"><spring:message code="negocio.reserva.create" /></a>
+		</display:column>
+	</security:authorize> 
 	<display:column>
 			<a href="negocio/empresario/display.do?negocioId=${row.id}"><spring:message code="negocio.display" /></a>
 	</display:column>

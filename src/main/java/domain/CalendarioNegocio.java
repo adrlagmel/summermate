@@ -60,19 +60,18 @@ public class CalendarioNegocio extends DomainEntity{
 	
 	// Relationships -------------------------
 	
-	
 
-	private Mesa mesa;
+	private Negocio negocio;
 
 	@NotNull
 	@Valid
 	@ManyToOne(optional=false)
-	public Mesa getMesa() {
-		return mesa;
+	public Negocio getNegocio() {
+		return negocio;
 	}
 
-	public void setMesa(Mesa mesa) {
-		this.mesa = mesa;
+	public void setNegocio(Negocio negocio) {
+		this.negocio = negocio;
 	}
 	
 }

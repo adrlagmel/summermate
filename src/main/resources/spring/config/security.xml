@@ -50,6 +50,7 @@
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/display.do" access="permitAll"/>
+		<security:intercept-url pattern="/playa/admin/uploadCoordenates.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/admin/uploadImage.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/nearToMe.do" access="permitAll"/>
 		
@@ -85,11 +86,6 @@
 		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImage.do" access="permitAll"/>
 		
-		<security:intercept-url pattern="/mesa/empresario/register.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/mesa/empresario/list.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/mesa/empresario/edit.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/mesa/empresario/display.do" access="permitAll"/>
-		
 		<security:intercept-url pattern="/peticionNegocio/administrador/listapendiente.do" access="hasRole('ADMINISTRADOR')" />
 		<security:intercept-url pattern="/peticionNegocio/administrador/aceptar.do" access="hasRole('ADMINISTRADOR')" />
 		<security:intercept-url pattern="/peticionNegocio/administrador/rechazar.do" access="hasRole('ADMINISTRADOR')"/>
@@ -100,7 +96,9 @@
 		
 		<security:intercept-url pattern="/reserva/usuario/lista.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/reserva/usuario/create.do" access="hasRole('USUARIO')" />
-
+		<security:intercept-url pattern="/reserva/usuario/editMesa.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/reserva/usuario/edit.do" access="hasRole('USUARIO')" />
+		
 		<security:intercept-url pattern="/carpeta/actor/list.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/valoracionPlaya/usuario/create.do" access="hasRole('USUARIO')"/>
@@ -123,6 +121,10 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
+		<security:intercept-url pattern="/mesa/planner.do" access="permitAll" />
+		<security:intercept-url pattern="/mesa/miniplanner.do" access="permitAll" />
+		<security:intercept-url pattern="/mesa/events.do" access="permitAll" />  
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" /> 
 
 		<security:form-login 

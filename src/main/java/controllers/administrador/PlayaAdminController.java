@@ -127,6 +127,33 @@ public class PlayaAdminController extends AbstractController {
 				return result;
 			}
 			
+	
+			  @RequestMapping(value="/uploadCoordenates", method = RequestMethod.GET)
+				public ModelAndView updateCoordenates(@RequestParam(required=false) Double lat, @RequestParam(required=false) Double lon){
+					
+					ModelAndView result;
+					Boolean mostrarMapa;
+					mostrarMapa=true;
+					Collection<Playa> playas;
+					
+					if(lat==null || lon==null){
+						mostrarMapa=false;
+						result = new ModelAndView("playa/uploadCoordenates");
+						result.addObject("mostrarMapa", mostrarMapa);
+						
+					}else{
+						
+						playas = playaService.nearToMe(lat,lon);
+						result = new ModelAndView("playa/uploadCoordenates");
+						result.addObject("playas", playas);
+						result.addObject("lat1",lat);
+						result.addObject("lon1",lon);
+						result.addObject("requestURI", "playa/admin/uploadCoordenates.do");
+						result.addObject("tabla",true);
+					}
+					
+					return result;	
+				}
 			
 			
 			@RequestMapping (value="/uploadImage", method=RequestMethod.POST, params="save")

@@ -109,7 +109,8 @@ public class PlayaController extends AbstractController {
 		
 		return result;	
 	}
-	
+    
+  
 	
 	protected ModelAndView createModelAndView(Playa playa) {
 		ModelAndView result = createModelAndView(playa, null);

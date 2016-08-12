@@ -3,6 +3,7 @@ package services;
 import java.util.Calendar;
 
 
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import org.springframework.util.Assert;
 
 import repositories.CalendarioNegocioRepository;
 import domain.CalendarioNegocio;
-import domain.Mesa;
+import domain.Negocio;
 import domain.Reserva;
 
 @Service
@@ -29,9 +30,6 @@ public class CalendarioNegocioService {
 	// Supporting services ---------------------------------------------------
 	
 	@Autowired
-	private MesaService mesaService;
-	
-	@Autowired
 	private NegocioService negocioService;
 	
 	// Constructor -----------------------------------------------------------
@@ -43,15 +41,14 @@ public class CalendarioNegocioService {
 	// Simple CRUD Methods ---------------------------------------------------
 	
 	
-	public CalendarioNegocio create(int mesaId){
-		CalendarioNegocio sportCenterCalendar;
-		sportCenterCalendar = new CalendarioNegocio();
+	public CalendarioNegocio create(int negocioId){
+		CalendarioNegocio negocioCalendario = new CalendarioNegocio();
 		
-		Mesa mesa = mesaService.findOneToEdit(mesaId);
+		Negocio negocio = negocioService.findOneToEdit(negocioId);
 		
-		sportCenterCalendar.setMesa(mesa);
+		negocioCalendario.setNegocio(negocio);
 		
-		return sportCenterCalendar;
+		return negocioCalendario;
 	}
 	
 	public CalendarioNegocio findOneToEdit(int sportCenterCalendarId){
@@ -61,7 +58,7 @@ public class CalendarioNegocioService {
 		return sportCenterCalendar;
 	}
 	
-	public void create(Reserva reserva, Mesa mesa){
+	public void create(Reserva reserva){
 		
 		CalendarioNegocio result = new CalendarioNegocio();
 				
@@ -70,7 +67,7 @@ public class CalendarioNegocioService {
 		
 		Calendar eMoment = Calendar.getInstance();
 		eMoment.setTime(reserva.getFecha());
-		eMoment.add(Calendar.HOUR_OF_DAY, 1);
+		eMoment.add(Calendar.MINUTE, 59);
 		
 		Date startMoment = sMoment.getTime();
 		Date endMoment = eMoment.getTime();
@@ -91,9 +88,15 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
 		
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 7);
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 21);
-	
+		if (sMoment.getTime().getHours() < 17) {
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
+		}else{
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
+			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
+				
+		}
+		
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
 		Assert.isTrue(eMoment.compareTo(eMomentToCheck)<=0);
 		
@@ -101,7 +104,7 @@ public class CalendarioNegocioService {
 		Assert.isTrue(sportCenterCalendars.isEmpty());
 		if(sportCenterCalendars.isEmpty()){
 		
-			result.setMesa(mesa);
+			result.setNegocio(reserva.getNegocio());
 			result.setFechaInicio(startMoment);
 			result.setFechaFin(endMoment);
 			result.setAnotacionesReserva(reserva.getCodigo());
@@ -137,13 +140,20 @@ public class CalendarioNegocioService {
 		eMomentToCheck.set(Calendar.MILLISECOND, 0);
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 7);
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 21);
+		
+		if (sMoment.getTime().getHours() < 17) {
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
+		}else{
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
+			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
+				
+		}
 
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0 && eMoment.compareTo(eMomentToCheck)<=0);
 		
 		Collection<CalendarioNegocio> sportCenterCalendars = findSportCenterCalendarByBookingDates(calendarioNegocio.getFechaInicio(), 
-				calendarioNegocio.getFechaFin(), calendarioNegocio.getMesa().getId());
+				calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
 		Assert.isTrue(sportCenterCalendars.isEmpty());
 		if(sportCenterCalendars.isEmpty()){
 		
@@ -158,7 +168,7 @@ public class CalendarioNegocioService {
 	public void checkPrincipal(CalendarioNegocio calendarioNegocio) {
 		Assert.notNull(calendarioNegocio);
 		
-		negocioService.checkPrincipal(calendarioNegocio.getMesa().getNegocio());
+		negocioService.checkPrincipal(calendarioNegocio.getNegocio());
 	}
 	
 	public Collection<CalendarioNegocio> findSportCenterCalendarByBookingDates(Date startMoment, Date endMoment, int sportCenterId){
@@ -168,8 +178,8 @@ public class CalendarioNegocioService {
 		return calendars;
 	}
 	
-	public Collection<CalendarioNegocio> findAllBySportCenter(int sportCenterId){
-		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findByNegocio(sportCenterId);
+	public Collection<CalendarioNegocio> findAllByNegocios(int negocioId){
+		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findByNegocio(negocioId);
 		Assert.notNull(calendars);
 		
 		return calendars;

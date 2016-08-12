@@ -17,7 +17,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("select b from Reserva b where b.usuario.id=?1 order by b.fecha asc")
 	Collection<Reserva> findReservasPorUsuario(int usuarioId);
 	
-	@Query("select distinct(b) from Reserva b where b not in(select p.reserva from Pago p)")
-	Collection<Reserva> findReservasNoPagadas();
 	
 }

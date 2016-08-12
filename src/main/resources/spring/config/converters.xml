@@ -27,7 +27,6 @@
 		<bean class="converters.EmpresarioToStringConverter" />
 		<bean class="converters.EventoToStringConverter" />
 		<bean class="converters.MensajeToStringConverter" />
-		<bean class="converters.MesaToStringConverter" />
 		<bean class="converters.NegocioToStringConverter" />
 		<bean class="converters.PagoToStringConverter" />
 		<bean class="converters.PeticionNegocioToStringConverter" />
@@ -46,7 +45,6 @@
 		<bean class="converters.StringToEmpresarioConverter" />
 		<bean class="converters.StringToEventoConverter" />
 		<bean class="converters.StringToMensajeConverter" />
-		<bean class="converters.StringToMesaConverter" />
 		<bean class="converters.StringToNegocioConverter" />
 		<bean class="converters.StringToPagoConverter" />
 		<bean class="converters.StringToPeticionNegocioConverter" />

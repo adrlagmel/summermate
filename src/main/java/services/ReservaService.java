@@ -92,16 +92,31 @@ public class ReservaService {
 		
 		Calendar sMomentToCheck = Calendar.getInstance();
 		sMomentToCheck.setTime(reserva.getFecha());
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 7);
-		sMomentToCheck.set(Calendar.MINUTE, 0);
-		sMomentToCheck.set(Calendar.SECOND, 0);
-		sMomentToCheck.set(Calendar.MILLISECOND, 0);
 		
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 21);
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
+		if (sMoment.HOUR_OF_DAY < 17)  {
+			
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+			sMomentToCheck.set(Calendar.MINUTE, 0);
+			sMomentToCheck.set(Calendar.SECOND, 0);
+			sMomentToCheck.set(Calendar.MILLISECOND, 0);
+			
+			Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
+			Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
+		}else{
+		
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
+			sMomentToCheck.set(Calendar.MINUTE, 0);
+			sMomentToCheck.set(Calendar.SECOND, 0);
+			sMomentToCheck.set(Calendar.MILLISECOND, 0);
+			
+			Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
+			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
+			Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
+		}
 
 		Reserva saved = reservaRepository.save(reserva);
+		calendarioNegocioService.create(saved);
 		
 		return saved;
 	}
@@ -112,6 +127,15 @@ public class ReservaService {
 	public Reserva findOneToEdit(int reservaId){
 		
 		Reserva result = reservaRepository.findOne(reservaId);
+		checkPrincipal(result);
+		
+		return result;
+	}
+	
+	public Reserva findOneToEditMesa(int reservaId){
+		
+		Reserva result = reservaRepository.findOne(reservaId);
+		Assert.isTrue(result.getFecha() == null);
 		checkPrincipal(result);
 		
 		return result;
@@ -146,21 +170,17 @@ public class ReservaService {
 			reserva = create();
 			
 			reserva.setFecha(form.getFecha());
-			reserva.setNegocio(form.getNegocio());
 			reserva.setComentarios(form.getComentarios());
-			reserva.setPrecio(form.getPrecio());
-			reserva.setId(0);
+			reserva.setNegocio(form.getNegocio());
 			
+			reserva.setId(0);	
 						
 		}else{
 			
 			reserva = findOneToEdit(form.getReservaId());
 			
 			reserva.setFecha(form.getFecha());
-			reserva.setNegocio(form.getNegocio());
 			reserva.setComentarios(form.getComentarios());
-			reserva.setPrecio(form.getPrecio());
-	
 		}
 		
 		return reserva;

@@ -1361,18 +1361,8 @@
 			</list>
 		</property>
 		
-		<property name="mesas">
+		<property name="calendarioNegocios">
 				<list>
-					<ref bean="mesa1" />  
-					<ref bean="mesa2" /> 
-					<ref bean="mesa3" />  
-					<ref bean="mesa4" /> 
-					<ref bean="mesa5" />  
-					<ref bean="mesa6" /> 
-					<ref bean="mesa7" />  
-					<ref bean="mesa8" /> 
-					<ref bean="mesa9" />  
-					<ref bean="mesa10" /> 
 				</list>
 		</property>
 			
@@ -1399,20 +1389,10 @@
 			</list>
 		</property>
 		
-		<property name="mesas">
+		<property name="calendarioNegocios">
 				<list>
-					<ref bean="mesa11" />  
-					<ref bean="mesa12" /> 
-					<ref bean="mesa13" />  
-					<ref bean="mesa14" /> 
-					<ref bean="mesa15" />  
-					<ref bean="mesa16" /> 
-					<ref bean="mesa17" />  
-					<ref bean="mesa18" /> 
-					<ref bean="mesa19" />  
-					<ref bean="mesa20" /> 
 				</list>
-			</property>
+		</property>
 			
 	</bean>
 	
@@ -1435,18 +1415,8 @@
 				<ref bean="reserva4"/>
 			</list>
 		</property>
-		<property name="mesas">
+		<property name="calendarioNegocios">
 				<list>
-					<ref bean="mesa21" />  
-					<ref bean="mesa22" /> 
-					<ref bean="mesa23" />  
-					<ref bean="mesa24" /> 
-					<ref bean="mesa25" />  
-					<ref bean="mesa26" /> 
-					<ref bean="mesa27" />  
-					<ref bean="mesa28" /> 
-					<ref bean="mesa29" />  
-					<ref bean="mesa30" /> 
 				</list>
 		</property>
 	</bean>
@@ -1471,18 +1441,8 @@
 				<ref bean="reserva6"/>
 			</list>
 		</property>
-		<property name="mesas">
+		<property name="calendarioNegocios">
 				<list>
-					<ref bean="mesa31" />  
-					<ref bean="mesa32" /> 
-					<ref bean="mesa33" />  
-					<ref bean="mesa34" /> 
-					<ref bean="mesa35" />  
-					<ref bean="mesa36" /> 
-					<ref bean="mesa37" />  
-					<ref bean="mesa38" /> 
-					<ref bean="mesa39" />  
-					<ref bean="mesa40" /> 
 				</list>
 		</property>
 	</bean>
@@ -1504,19 +1464,9 @@
 			<list> 
 			</list>
 		</property>
-		<property name="mesas">
-			<list>
-					<ref bean="mesa41" />  
-					<ref bean="mesa42" /> 
-					<ref bean="mesa43" />  
-					<ref bean="mesa44" /> 
-					<ref bean="mesa45" />  
-					<ref bean="mesa46" /> 
-					<ref bean="mesa47" />  
-					<ref bean="mesa48" /> 
-					<ref bean="mesa49" />  
-					<ref bean="mesa50" /> 
-			</list>
+		<property name="calendarioNegocios">
+				<list>
+				</list>
 		</property>
 	</bean>
 	
@@ -1688,8 +1638,9 @@
         <property name="codigo" value="0001-reserva"/>
         <property name="fechaCreacion" value="10/10/2015 12:00"/>
         <property name="fecha" value="12/10/2016 10:00"/>
-        <property name="precio" value="200.0"/>
         <property name="comentarios" value="reserva de comida para 20 personas"/>
+        <property name="comensales" value= "2" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario1"/>
 		<property name="negocio" ref="negocio1"/>
 		<property name="valoracionNegocio" ref="valoracionNegocio1"/>
@@ -1699,8 +1650,9 @@
         <property name="codigo" value="0002-reserva"/>
         <property name="fechaCreacion" value="09/10/2015 12:00"/>
         <property name="fecha" value="10/10/2016 10:00"/>
-        <property name="precio" value="200.0"/>
-        <property name="comentarios" value="reserva de comida para 20 personas"/>
+        <property name="comentarios" value="reserva de comida para 10 personas"/>
+        <property name="comensales" value= "2" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario2"/>
 		<property name="negocio" ref="negocio1"/>
 		<property name="valoracionNegocio" ref="valoracionNegocio2"/>
@@ -1710,8 +1662,9 @@
         <property name="codigo" value="0003-reserva"/>
         <property name="fechaCreacion" value="08/08/2015 11:00"/>
         <property name="fecha" value="10/02/2016 11:00"/>
-        <property name="precio" value="100.0"/>
-        <property name="comentarios" value="reserva de comida para 12 personas"/>
+        <property name="comentarios" value="reserva de comida para 8 personas"/>
+        <property name="comensales" value= "8" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario3"/>
 		<property name="negocio" ref="negocio2"/>
 		<property name="valoracionNegocio" ref="valoracionNegocio3"/>
@@ -1721,8 +1674,9 @@
         <property name="codigo" value="0004-reserva"/>
         <property name="fechaCreacion" value="07/07/2015 10:00"/>
         <property name="fecha" value="11/11/2015 11:34"/>
-        <property name="precio" value="150.0"/>
         <property name="comentarios" value="Para 6 comensales"/>
+        <property name="comensales" value= "2" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario4"/>
 		<property name="negocio" ref="negocio3"/>
 		<property name="valoracionNegocio" ref="valoracionNegocio4"/>
@@ -1732,8 +1686,9 @@
         <property name="codigo" value="0005-reserva"/>
         <property name="fechaCreacion" value="12/25/2015 12:30"/>
         <property name="fecha" value="03/03/2016 11:34"/>
-        <property name="precio" value="15.0"/>
         <property name="comentarios" value="Reserva Cena"/>
+        <property name="comensales" value= "2" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario5"/>
 		<property name="negocio" ref="negocio4"/>
     </bean>
@@ -1742,613 +1697,13 @@
         <property name="codigo" value="0006-reserva"/>
         <property name="fechaCreacion" value="03/26/2015 12:00"/>
         <property name="fecha" value="07/07/2016 11:34"/>
-        <property name="precio" value="10.0"/>
         <property name="comentarios" value="Reserva Comensales"/>
+        <property name="comensales" value= "2" />
+		<property name="fumadores" value="false" />
         <property name="usuario" ref="usuario6"/>
 		<property name="negocio" ref="negocio4"/>
     </bean>
         
-        
-    <!-- MESA -->
-	<bean id="mesa1" class="domain.Mesa">
-		<property name="nombre" value="mesa 1" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-    
-    <bean id="mesa2" class="domain.Mesa">
-		<property name="nombre" value="mesa 2" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa3" class="domain.Mesa">
-		<property name="nombre" value="mesa 3" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa4" class="domain.Mesa">
-		<property name="nombre" value="mesa 4" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa5" class="domain.Mesa">
-		<property name="nombre" value="mesa 5" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa6" class="domain.Mesa">
-		<property name="nombre" value="mesa 6" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa7" class="domain.Mesa">
-		<property name="nombre" value="mesa 7" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa8" class="domain.Mesa">
-		<property name="nombre" value="mesa 8" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa9" class="domain.Mesa">
-		<property name="nombre" value="mesa 9" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa10" class="domain.Mesa">
-		<property name="nombre" value="mesa 10" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio1" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-		<bean id="mesa11" class="domain.Mesa">
-		<property name="nombre" value="mesa 1" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-    
-    <bean id="mesa12" class="domain.Mesa">
-		<property name="nombre" value="mesa 2" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa13" class="domain.Mesa">
-		<property name="nombre" value="mesa 3" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa14" class="domain.Mesa">
-		<property name="nombre" value="mesa 4" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa15" class="domain.Mesa">
-		<property name="nombre" value="mesa 5" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa16" class="domain.Mesa">
-		<property name="nombre" value="mesa 6" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa17" class="domain.Mesa">
-		<property name="nombre" value="mesa 7" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa18" class="domain.Mesa">
-		<property name="nombre" value="mesa 8" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa19" class="domain.Mesa">
-		<property name="nombre" value="mesa 9" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa20" class="domain.Mesa">
-		<property name="nombre" value="mesa 10" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio2" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa21" class="domain.Mesa">
-		<property name="nombre" value="mesa 1" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-    
-    <bean id="mesa22" class="domain.Mesa">
-		<property name="nombre" value="mesa 2" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa23" class="domain.Mesa">
-		<property name="nombre" value="mesa 3" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa24" class="domain.Mesa">
-		<property name="nombre" value="mesa 4" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa25" class="domain.Mesa">
-		<property name="nombre" value="mesa 5" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa26" class="domain.Mesa">
-		<property name="nombre" value="mesa 6" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa27" class="domain.Mesa">
-		<property name="nombre" value="mesa 7" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa28" class="domain.Mesa">
-		<property name="nombre" value="mesa 8" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa29" class="domain.Mesa">
-		<property name="nombre" value="mesa 9" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa30" class="domain.Mesa">
-		<property name="nombre" value="mesa 10" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio3" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-		<bean id="mesa31" class="domain.Mesa">
-		<property name="nombre" value="mesa 1" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-    
-    <bean id="mesa32" class="domain.Mesa">
-		<property name="nombre" value="mesa 2" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa33" class="domain.Mesa">
-		<property name="nombre" value="mesa 3" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa34" class="domain.Mesa">
-		<property name="nombre" value="mesa 4" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa35" class="domain.Mesa">
-		<property name="nombre" value="mesa 5" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa36" class="domain.Mesa">
-		<property name="nombre" value="mesa 6" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa37" class="domain.Mesa">
-		<property name="nombre" value="mesa 7" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa38" class="domain.Mesa">
-		<property name="nombre" value="mesa 8" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa39" class="domain.Mesa">
-		<property name="nombre" value="mesa 9" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa40" class="domain.Mesa">
-		<property name="nombre" value="mesa 10" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio4" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa41" class="domain.Mesa">
-		<property name="nombre" value="mesa 1" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-    
-    <bean id="mesa42" class="domain.Mesa">
-		<property name="nombre" value="mesa 2" />
-		<property name="personas" value= "2" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa43" class="domain.Mesa">
-		<property name="nombre" value="mesa 3" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa44" class="domain.Mesa">
-		<property name="nombre" value="mesa 4" />
-		<property name="personas" value= "4" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa45" class="domain.Mesa">
-		<property name="nombre" value="mesa 5" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa46" class="domain.Mesa">
-		<property name="nombre" value="mesa 6" />
-		<property name="personas" value= "6" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa47" class="domain.Mesa">
-		<property name="nombre" value="mesa 7" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa48" class="domain.Mesa">
-		<property name="nombre" value="mesa 8" />
-		<property name="personas" value= "8" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa49" class="domain.Mesa">
-		<property name="nombre" value="mesa 9" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="true" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="mesa50" class="domain.Mesa">
-		<property name="nombre" value="mesa 10" />
-		<property name="personas" value= "10" />
-		<property name="fumadores" value="false" />
-		<property name="disponible" value="true"/>
-		<property name="negocio" ref="negocio5" />
-		<property name="calendarioNegocios">
-			<list>
-			</list>
-		</property>
-	</bean>
         
 	<!-- LOCALIZACION -->
 	<bean id="localizacion1" class="domain.Localizacion">

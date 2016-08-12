@@ -2,11 +2,9 @@ package forms;
 
 import java.util.Date;
 
-
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +21,8 @@ public class ReservaForm {
 	private Integer reservaId;
 	
 	private String comentarios;
-	private Double precio;
+	private Boolean fumadores;
+	private Integer comensales;
 	private Date   fecha;
 	
 	private Negocio negocio;
@@ -57,6 +56,24 @@ public class ReservaForm {
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
+	
+	public Boolean getFumadores() {
+		return fumadores;
+	}
+
+	public void setFumadores(Boolean fumadores) {
+		this.fumadores = fumadores;
+	}
+	
+	@NotNull
+	@Min(1) // Not necessary because an exception is thrown
+	public Integer getComensales() {
+		return comensales;
+	}
+
+	public void setComensales(Integer comensales) {
+		this.comensales = comensales;
+	}
 
 	@NotNull
 	@Valid
@@ -64,17 +81,8 @@ public class ReservaForm {
 		return negocio;
 	}
 
-	public void setSportCenter(Negocio negocio) {
+	public void setNegocio(Negocio negocio) {
 		this.negocio = negocio;
-	}
-	
-	@Digits(integer=5,fraction=2)
-	@Min(0)
-	public Double getPrecio() {
-		return precio;
-	}
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 
 }

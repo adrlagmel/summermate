@@ -33,7 +33,7 @@
 		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" />
 	</fieldset>
 
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBBrx34wk6LRo3M4xsVJEe3U9umurfaMik" ></script>
 	<script>
 		var x = document.getElementById("lat");
 		var y = document.getElementById("lon");
@@ -42,7 +42,7 @@
       			x.value = position.coords.latitude;
 			y.value = position.coords.longitude;
    		
-   	</script> -->
+   	</script>
    	
    <jstl:if test="${playa.imagen!=null}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>

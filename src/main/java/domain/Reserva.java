@@ -2,7 +2,6 @@ package domain;
 
 import java.util.Date;
 
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -38,8 +36,10 @@ public class Reserva extends DomainEntity{
 	private String 	codigo;
 	private Date	fechaCreacion;
 	private Date 	fecha;
-	private Double	precio;
 	private String 	comentarios;
+	
+	private Integer comensales;
+	private Boolean fumadores;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -71,21 +71,29 @@ public class Reserva extends DomainEntity{
 		this.fecha = fecha;
 	}
 	
-	@Digits(integer=5,fraction=2)
-	@Min(0)
-	public Double getPrecio() {
-		return precio;
-	}
-	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-	
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getComentarios() {
 		return comentarios;
 	}
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
+	}
+	
+	@Min(1)
+	public Integer getComensales() {
+		return comensales;
+	}
+
+	public void setComensales(Integer comensales) {
+		this.comensales = comensales;
+	}
+	
+	public Boolean getFumadores() {
+		return fumadores;
+	}
+
+	public void setFumadores(Boolean fumadores) {
+		this.fumadores = fumadores;
 	}
 	
 	// Relationships -------------------------
@@ -125,5 +133,6 @@ public class Reserva extends DomainEntity{
 		this.valoracionNegocio = valoracionNegocio;
 	}
 	
-
+	
+	
 }

@@ -2,6 +2,7 @@ package controllers.usuario;
 
 import java.util.Collection;
 
+
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.NegocioService;
@@ -64,12 +66,14 @@ public class ReservaUsuarioController extends AbstractController{
 		
 		
 		@RequestMapping(value="/create", method = RequestMethod.GET)
-		public ModelAndView create(){
+		public ModelAndView create(@RequestParam int negocioId){
 						
 			ModelAndView result;
 				
 			ReservaForm form = new ReservaForm();
+			Negocio negocio = negocioService.findOneToDisplay(negocioId);
 			
+			form.setNegocio(negocio);
 			form.setReservaId(0);
 														
 			result = createEditModelAndView(form);
@@ -91,8 +95,8 @@ public class ReservaUsuarioController extends AbstractController{
 					if(form.getFecha().after(new Date())){
 						reserva = reservaService.reconstruct(form);
 						
-						Reserva saved = reservaService.save(reserva);
-						result = new ModelAndView("redirect:/pago/usuario/pay.do?reservaId="+saved.getId());
+						reservaService.save(reserva);
+						result = new ModelAndView("redirect:lista.do");
 					}else
 						result = createEditModelAndView(form,"booking.dates.error");
 					
@@ -119,17 +123,12 @@ public class ReservaUsuarioController extends AbstractController{
 		protected ModelAndView createEditModelAndView(ReservaForm form, String message){
 
 			ModelAndView result;
-			
-			Collection<Negocio> negocios = negocioService.findAll();
 				
 			result = new ModelAndView("reserva/create");
 			result.addObject("form", form);
-			result.addObject("negocios", negocios);
 			result.addObject("message", message);
 
 			return result;
 		}
-
-		
 
 }

@@ -76,6 +76,12 @@
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}"><spring:message code="playa.uploadImage" /></a>
 			</jstl:if>
 		</display:column>
+		
+		<display:column>
+			<jstl:if test="${row.imagen==null}">
+				<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}"><spring:message code="playa.uploadCoordenates" /></a>
+			</jstl:if>
+		</display:column>
 		<spring:message code="playa.delete" var="borrar" />
 			<display:column>
 			<input type="button" value="<spring:message code="playa.delete" />"
