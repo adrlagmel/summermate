@@ -1,5 +1,5 @@
 <%--
- * largeTextjsp
+ * terms.jsp
  *
  * Copyright (C) 2015 Universidad de Sevilla
  * 

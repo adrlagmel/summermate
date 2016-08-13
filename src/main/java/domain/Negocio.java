@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
@@ -27,6 +28,7 @@ public class Negocio extends DomainEntity{
 	private String 			telefono;
 	private Localizacion 	localizacion;
 	private String 			paginaWeb;
+	private Integer 		aforo;
 	private byte[]          imagen;
 		
 	
@@ -97,6 +99,17 @@ public class Negocio extends DomainEntity{
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
+	
+	@NotNull
+	@Range(min=0, max=200)
+	public Integer getAforo() {
+		return aforo;
+	}
+	
+	public void setAforo(Integer aforo) {
+		this.aforo = aforo;
+	}
+	
 	// Relationships -------------------------
 
 	private Empresario 					  empresario;

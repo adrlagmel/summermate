@@ -1344,6 +1344,7 @@
 		<property name="tipo" value="Comida rápida" />
 		<property name="descripcion" value="Restaurante de comida rápida de muy buena calidad" />
 		<property name="telefono" value="+34622323132" />
+		<property name="aforo" value="50" />
 		<property name="localizacion" ref="localizacion1" />
 		<property name="paginaWeb" value="http://www.comidafast.com" />
 		<property name="empresario" ref="empresario1" />
@@ -1374,6 +1375,7 @@
 		<property name="descripcion" value="Pizzeria italiana" />
 		<property name="telefono" value="+34622323138" />
 		<property name="localizacion" ref="localizacion3" />
+		<property name="aforo" value="50" />
 		<property name="paginaWeb" value="http://www.italianbella.com" />
 		<property name="empresario" ref="empresario2" />
 		<property name="playa" ref="playa2" />
@@ -1402,6 +1404,7 @@
 		<property name="descripcion" value="Restaurante - Taperia en la zona costera de Chipiona" />
 		<property name="telefono" value="+34652363138" />
 		<property name="localizacion" ref="localizacion2" />
+		<property name="aforo" value="50" />
 		<property name="paginaWeb" value="http://www.restauranteelfaro.com" />
 		<property name="empresario" ref="empresario2" />
 		<property name="playa" ref="playa2" />
@@ -1427,6 +1430,7 @@
 		<property name="descripcion" value="Heladeria Fran es una empresa del sector con más de 50 años en el sector de 
 											las hosteleria, pasando por más de 3 generaciones" />
 		<property name="telefono" value="+34652363138" />
+		<property name="aforo" value="50" />
 		<property name="localizacion" ref="localizacion4" />
 		<property name="empresario" ref="empresario5" />
 		<property name="playa" ref="playa4" />
@@ -1452,6 +1456,7 @@
 		<property name="tipo" value="Chiringuito" />
 		<property name="descripcion" value="Chiringhito en la playa de la Malagueta, para que te olvides de la nevera y disfrutes de una buena jornada de playa" />
 		<property name="telefono" value="+34652363138" />
+		<property name="aforo" value="50" />
 		<property name="localizacion" ref="localizacion5" />
 		<property name="empresario" ref="empresario6" />
 		<property name="playa" ref="playa5" />

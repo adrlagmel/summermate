@@ -22,6 +22,7 @@
 	<acme:textbox code="negocio.nombre" path="nombre" readonly="true"/>
 	<acme:textbox code="negocio.tipo" path="tipo" readonly="true"/>
 	<acme:textbox code="negocio.descripcion" path="descripcion" readonly="true"/>
+	<acme:textbox code="negocio.aforo" path="aforo" readonly="true"/>
 	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/>
 	

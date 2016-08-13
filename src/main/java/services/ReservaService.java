@@ -80,8 +80,15 @@ public class ReservaService {
 		Date startMoment = stMoment.getTime();
 		Date endMoment = enMoment.getTime();
 		
-		Collection<CalendarioNegocio> sportCenterCalendars = calendarioNegocioService.findSportCenterCalendarByBookingDates(startMoment, endMoment, reserva.getNegocio().getId());
-		Assert.isTrue(sportCenterCalendars.isEmpty());
+		Collection<CalendarioNegocio> negocioCalendars = calendarioNegocioService.findNegocioCalendarByBookingDates(startMoment, endMoment, reserva.getNegocio().getId());
+		
+		if (negocioCalendars.size() > 0) {
+			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId());
+			comensales =+ reserva.getComensales();
+			
+			Assert.isTrue(comensales < reserva.getNegocio().getAforo());
+						
+		}
 		
 		Assert.isTrue(reserva.getFecha().compareTo(new Date()) >= 0);
 		

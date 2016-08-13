@@ -68,6 +68,9 @@
 	<spring:message code="negocio.playa" var="playa" />
 	<display:column property="playa.nombre" title="${playa}" sortable="true" />
 	
+	<spring:message code="negocio.aforo" var="aforo" />
+	<display:column property="aforo" title="${aforo}" sortable="true" />
+	
 	<security:authorize access="hasRole('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />

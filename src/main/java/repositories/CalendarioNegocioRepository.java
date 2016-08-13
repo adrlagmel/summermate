@@ -18,4 +18,6 @@ public interface CalendarioNegocioRepository extends JpaRepository<CalendarioNeg
 	@Query("select scc from CalendarioNegocio scc where scc.negocio.id=?3 and (?1 BETWEEN scc.fechaInicio AND scc.fechaFin or ?2 BETWEEN scc.fechaInicio AND scc.fechaFin)")
     Collection<CalendarioNegocio> findCalendarioNegocioPorFechaDeReserva(Date fechaInicio, Date fechaFin, int negocioId);
 	
+	@Query("select count(r.comensales) from CalendarioNegocio scc, Reserva r where scc.negocio.id=?3 and r.negocio.id=?3 and (?1 BETWEEN scc.fechaInicio AND scc.fechaFin or ?2 BETWEEN scc.fechaInicio AND scc.fechaFin)")
+    Integer findComensalesPorFechaDeReserva(Date fechaInicio, Date fechaFin, int negocioId);
 }

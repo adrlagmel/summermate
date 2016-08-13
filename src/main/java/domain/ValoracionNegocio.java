@@ -60,6 +60,7 @@ public class ValoracionNegocio extends DomainEntity{
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	
 	@NotNull
 	@Range(min=0, max=10)
 	public Integer getPuntuacion() {

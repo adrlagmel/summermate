@@ -99,10 +99,8 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
 		Assert.isTrue(eMoment.compareTo(eMomentToCheck)<=0);
-		
-		Collection<CalendarioNegocio> sportCenterCalendars = findSportCenterCalendarByBookingDates(startMoment, endMoment, reserva.getNegocio().getId());
-		Assert.isTrue(sportCenterCalendars.isEmpty());
-		if(sportCenterCalendars.isEmpty()){
+				
+		if(findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId()) < reserva.getNegocio().getAforo()){
 		
 			result.setNegocio(reserva.getNegocio());
 			result.setFechaInicio(startMoment);
@@ -152,15 +150,15 @@ public class CalendarioNegocioService {
 
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0 && eMoment.compareTo(eMomentToCheck)<=0);
 		
-		Collection<CalendarioNegocio> sportCenterCalendars = findSportCenterCalendarByBookingDates(calendarioNegocio.getFechaInicio(), 
+		Collection<CalendarioNegocio> negocioCalendars = findNegocioCalendarByBookingDates(calendarioNegocio.getFechaInicio(), 
 				calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
-		Assert.isTrue(sportCenterCalendars.isEmpty());
-		if(sportCenterCalendars.isEmpty()){
 		
-			calendarioNegocioRepository.save(calendarioNegocio);
-
+		if (negocioCalendars.size() > 0) {
+			Integer comensales = findComensalesPorFechaDeReserva(calendarioNegocio.getFechaInicio(), calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
+			
+			Assert.isTrue(comensales <= calendarioNegocio.getNegocio().getAforo());
+			
 		}
-		
 	}
 	
 	// Other business methods ------------------------------------------------
@@ -171,11 +169,17 @@ public class CalendarioNegocioService {
 		negocioService.checkPrincipal(calendarioNegocio.getNegocio());
 	}
 	
-	public Collection<CalendarioNegocio> findSportCenterCalendarByBookingDates(Date startMoment, Date endMoment, int sportCenterId){
-		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findCalendarioNegocioPorFechaDeReserva(startMoment, endMoment, sportCenterId);
+	public Collection<CalendarioNegocio> findNegocioCalendarByBookingDates(Date startMoment, Date endMoment, int negocioId){
+		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findCalendarioNegocioPorFechaDeReserva(startMoment, endMoment, negocioId);
 		Assert.notNull(calendars);
 		
 		return calendars;
+	}
+	
+	public Integer findComensalesPorFechaDeReserva(Date startMoment, Date endMoment, int negocioId){
+		Integer comensales = calendarioNegocioRepository.findComensalesPorFechaDeReserva(startMoment, endMoment, negocioId);
+		
+		return comensales;
 	}
 	
 	public Collection<CalendarioNegocio> findAllByNegocios(int negocioId){
