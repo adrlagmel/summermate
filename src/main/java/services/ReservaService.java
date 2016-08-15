@@ -86,8 +86,7 @@ public class ReservaService {
 			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId());
 			comensales = comensales + reserva.getComensales();
 			
-			Assert.isTrue(comensales.compareTo(reserva.getNegocio().getAforo())<=0);
-						
+			Assert.isTrue(comensales.compareTo(reserva.getNegocio().getAforo())<=0);		
 		}
 		
 		Assert.isTrue(reserva.getFecha().compareTo(new Date()) >= 0);

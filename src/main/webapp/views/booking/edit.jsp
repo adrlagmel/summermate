@@ -27,18 +27,18 @@
 	<form:hidden path="reservaId"/>
 	<form:hidden path="negocio"/>
 	
-	<acme:textbox code="booking.bookingDate" path="fecha"  />
-	<acme:textarea code="booking.comments" path="comentarios" />
+	<acme:textbox code="booking.bookingDate" path="fecha"  /><br/>
+	<acme:textarea code="booking.comments" path="comentarios" /><br/>
 	
 	<spring:message code="booking.fumadores" />
-
 	<div style="width:30%;">
 		<form:select path="fumadores" code="booking.fumadores" cssClass="form-control">
 			<form:option value="true" label="Yes" />		
 			<form:option value="false" label="No"/>
 		</form:select>
-	</div>
+	</div><br/>
 	
+	<spring:message code="booking.comensales" />
 	<div style="width:30%;">
 		<form:select path="comensales" code="booking.comensales" cssClass="form-control">
 			<form:option value="1" label="1" />		
@@ -52,7 +52,7 @@
 			<form:option value="9" label="9" />		
 			<form:option value="10" label="10" />
 		</form:select>
-	</div>
+	</div><br/>
 	
 	<acme:submit name="save" code="booking.pay"/>
 

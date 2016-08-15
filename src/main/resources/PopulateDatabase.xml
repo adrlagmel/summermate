@@ -1642,7 +1642,7 @@
 	<bean id="reserva1" class="domain.Reserva">
         <property name="codigo" value="0001-reserva"/>
         <property name="fechaCreacion" value="10/10/2015 12:00"/>
-        <property name="fecha" value="12/10/2016 10:00"/>
+        <property name="fecha" value="08/10/2016 10:00"/>
         <property name="comentarios" value="reserva de comida para 20 personas"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />

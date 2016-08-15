@@ -34,6 +34,8 @@ public class ValoracionNegocioService {
 
 	}
 	public ValoracionNegocio create(Reserva r){
+		Assert.isTrue(r.getFecha().compareTo(new Date())<=0);
+		
 		ValoracionNegocio vn= new ValoracionNegocio();
 		Collection<DenunciaValoracion> denuncias = new ArrayList<DenunciaValoracion>();
 		

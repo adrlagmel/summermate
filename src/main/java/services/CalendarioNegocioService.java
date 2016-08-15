@@ -156,8 +156,7 @@ public class CalendarioNegocioService {
 		if (negocioCalendars.size() > 0) {
 			Integer comensales = findComensalesPorFechaDeReserva(calendarioNegocio.getFechaInicio(), calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
 			
-			Assert.isTrue(comensales.compareTo(calendarioNegocio.getNegocio().getAforo())<=0);
-			
+			Assert.isTrue(comensales.compareTo(calendarioNegocio.getNegocio().getAforo())<=0);			
 		}
 	}
 	

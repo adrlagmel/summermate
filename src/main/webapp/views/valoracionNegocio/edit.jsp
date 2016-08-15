@@ -20,7 +20,7 @@
 	<acme:textbox code="valoracionNegocio.comentarioUtil" path="comentarioUtil" />	
 	
 	<acme:submit name="save" code="valoracionNegocio.save"/>
-	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/list.do" />
+	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/lista.do" />
 	
 	
 </form:form>

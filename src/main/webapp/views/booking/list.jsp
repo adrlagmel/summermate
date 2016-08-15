@@ -33,15 +33,23 @@
 	<display:column property="fecha" title="${bookingDate}" format="{0,date,dd/MM/yyyy HH:mm}"
 		sortable="true" />
 		
+	<spring:message code="booking.comensales" var="comensales" />
+	<display:column property="comensales" title="${comensales}"
+		sortable="false" />
+		
 	<spring:message code="booking.comments" var="comment" />
 	<display:column title="${comment}" maxLength="20">
 	<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
 	</display:column>
 	<spring:message code="valoracionNegocio.create" var="valoracionNegocio" />
 	<display:column>
-	<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}">
-			<spring:message code="valoracionNegocio.create"/>
+	<jsp:useBean id="now" class="java.util.Date"/>	
+	<security:authentication var="user" property="principal.id" />
+	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha}">
+		<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}">
+				<spring:message code="valoracionNegocio.create"/>
 		</a> 
+	</jstl:if>
 	</display:column>	
 </display:table>
 </div>

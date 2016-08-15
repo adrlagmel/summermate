@@ -87,7 +87,6 @@
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.reservas" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
-					<li><a href="reserva/usuario/create.do"><spring:message code="master.page.reservas.crear" /></a></li>
 					<li><a href="reserva/usuario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>		
 				</ul>
 			</li>	
