@@ -53,11 +53,3 @@
 	</display:column>	
 </display:table>
 </div>
-
-	<security:authorize access="hasRole('USUARIO')">
-		
-		<a href="reserva/usuario/create.do">
-			<spring:message code="booking.create"/>
-		</a> <br/>	
-		
-	</security:authorize>

@@ -20,44 +20,80 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<div id="miniplanner" class="pull-right" style="width: 500px; height: 500px;"></div>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="reserva/usuario/create.do" modelAttribute="form">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/jquery.datetimepicker.css" />
 
-	<form:hidden path="reservaId"/>
-	<form:hidden path="negocio"/>
-	
-	<acme:textbox code="booking.bookingDate" path="fecha"  /><br/>
-	<acme:textarea code="booking.comments" path="comentarios" /><br/>
-	
-	<spring:message code="booking.fumadores" />
-	<div style="width:30%;">
-		<form:select path="fumadores" code="booking.fumadores" cssClass="form-control">
-			<form:option value="true" label="Yes" />		
-			<form:option value="false" label="No"/>
-		</form:select>
-	</div><br/>
-	
-	<spring:message code="booking.comensales" />
-	<div style="width:30%;">
-		<form:select path="comensales" code="booking.comensales" cssClass="form-control">
-			<form:option value="1" label="1" />		
-			<form:option value="2" label="2" />
-			<form:option value="3" label="3" />		
-			<form:option value="4" label="4" />
-			<form:option value="5" label="5" />		
-			<form:option value="6" label="6" />
-			<form:option value="7" label="7" />		
-			<form:option value="8" label="8" />
-			<form:option value="9" label="9" />		
-			<form:option value="10" label="10" />
-		</form:select>
-	</div><br/>
-	
-	<acme:submit name="save" code="booking.pay"/>
+</head>
 
-	<acme:cancel code="booking.cancel" url="/reserva/usuario/lista.do" />
+<body>
 
-</form:form>
+	<div class="col-md-7  col-md-offset-2">
+		<form:form action="reserva/usuario/create.do" modelAttribute="form">
+
+			<form:hidden path="reservaId"/>
+			<form:hidden path="negocio"/>
+			
+			<div style="width:30%;">
+				<form:label path="fecha">
+					<spring:message code="booking.bookingDate" />
+				</form:label>
+				<form:input path="fecha" cssClass="form-control" id="datetimepicker"/>	
+			</div><br/>
+									
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
+			
+			<script type="text/javascript">
+				$('#datetimepicker').datetimepicker({format: 'd/m/Y H:00'});
+			</script>
+				
+			<acme:textarea code="booking.comments" path="comentarios" /><br/>
+			
+			<form:label path="comensales">
+				<spring:message code="booking.fumadores" />
+			</form:label>
+			<div style="width:30%;">
+				<form:select path="fumadores" code="booking.fumadores" cssClass="form-control">
+					<form:option value="true" label="Yes" />		
+					<form:option value="false" label="No"/>
+				</form:select>
+			</div><br/>
+			
+			<form:label path="comensales">
+				<spring:message code="booking.comensales" />
+			</form:label>
+			<div style="width:30%;">
+				<form:select path="comensales" code="booking.comensales" cssClass="form-control">
+					<form:option value="1" label="1" />		
+					<form:option value="2" label="2" />
+					<form:option value="3" label="3" />		
+					<form:option value="4" label="4" />
+					<form:option value="5" label="5" />		
+					<form:option value="6" label="6" />
+					<form:option value="7" label="7" />		
+					<form:option value="8" label="8" />
+					<form:option value="9" label="9" />		
+					<form:option value="10" label="10" />
+				</form:select>
+			</div><br/>
+			
+			<acme:submit name="save" code="booking.pay"/>
+		
+			<acme:cancel code="booking.cancel" url="/reserva/usuario/lista.do" />
+		
+		</form:form>
+	</div>
+
+</body>
+</html>
+
+
+
 
 	

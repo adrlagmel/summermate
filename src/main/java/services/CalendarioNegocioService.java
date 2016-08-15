@@ -88,7 +88,7 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
 		
-		if (sMoment.getTime().getHours() < 17) {
+		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17) {
 			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
 			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
 		}else{
@@ -139,7 +139,7 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
 		
-		if (sMoment.getTime().getHours() < 17) {
+		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17) {
 			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
 			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
 		}else{

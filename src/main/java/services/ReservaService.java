@@ -99,7 +99,7 @@ public class ReservaService {
 		Calendar sMomentToCheck = Calendar.getInstance();
 		sMomentToCheck.setTime(reserva.getFecha());
 		
-		if (sMoment.HOUR_OF_DAY < 17)  {
+		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17)  {
 			
 			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
 			sMomentToCheck.set(Calendar.MINUTE, 0);
