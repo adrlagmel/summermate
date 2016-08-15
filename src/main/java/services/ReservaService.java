@@ -84,9 +84,9 @@ public class ReservaService {
 		
 		if (negocioCalendars.size() > 0) {
 			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId());
-			comensales =+ reserva.getComensales();
+			comensales = comensales + reserva.getComensales();
 			
-			Assert.isTrue(comensales < reserva.getNegocio().getAforo());
+			Assert.isTrue(comensales.compareTo(reserva.getNegocio().getAforo())<=0);
 						
 		}
 		
@@ -178,6 +178,8 @@ public class ReservaService {
 			
 			reserva.setFecha(form.getFecha());
 			reserva.setComentarios(form.getComentarios());
+			reserva.setComensales(form.getComensales());
+			reserva.setFumadores(form.getFumadores());
 			reserva.setNegocio(form.getNegocio());
 			
 			reserva.setId(0);	
@@ -187,6 +189,8 @@ public class ReservaService {
 			reserva = findOneToEdit(form.getReservaId());
 			
 			reserva.setFecha(form.getFecha());
+			reserva.setComensales(form.getComensales());
+			reserva.setFumadores(form.getFumadores());
 			reserva.setComentarios(form.getComentarios());
 		}
 		
