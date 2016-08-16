@@ -21,51 +21,54 @@
 <form:form action="${actionURI}" modelAttribute="form">
 
 	<jstl:if test="${isAdministrador==true}">
-	<acme:textbox code="register.username" path="username"/>
+	<acme:textbox code="register.username" path="username"/><br />
 
-	<acme:password code="register.password" path="password"/>
-	<acme:password code="register.verify.password" path="verifyPassword"/>
+	<acme:password code="register.password" path="password"/><br />
+	<acme:password code="register.verify.password" path="verifyPassword"/><br />
 	
 	<form:errors path="registrationForm" cssClass="error" />
 	
-	<acme:textbox code="register.name" path="nombre"/>
-	<acme:textbox code="register.surname" path="apellidos"/>
-	<acme:textbox code="register.email" path="email"/>
+	<acme:textbox code="register.name" path="nombre"/><br />
+	<acme:textbox code="register.surname" path="apellidos"/><br />
+	<acme:textbox code="register.email" path="email"/><br />
 	</jstl:if>
 
 	<jstl:if test="${isAdministrador==false}">
-	<acme:textbox code="register.username" path="registroForm.username"/>
+	<acme:textbox code="register.username" path="registroForm.username"/><br />
 
-	<acme:password code="register.password" path="registroForm.password"/>
-	<acme:password code="register.verify.password" path="registroForm.verifyPassword"/>
+	<acme:password code="register.password" path="registroForm.password"/><br />
+	<acme:password code="register.verify.password" path="registroForm.verifyPassword"/><br />
 	
 	<form:errors path="registroForm" cssClass="error" />
 	
-	<acme:textbox code="register.name" path="registroForm.nombre"/>
-	<acme:textbox code="register.surname" path="registroForm.apellidos"/>
-	<acme:textbox code="register.email" path="registroForm.email"/>
+	<acme:textbox code="register.name" path="registroForm.nombre"/><br />
+	<acme:textbox code="register.surname" path="registroForm.apellidos"/><br />
+	<acme:textbox code="register.email" path="registroForm.email"/><br />
 	
 	
-	<acme:textbox code="register.phone" path="registroForm.telefono" />
-	<acme:textbox code="register.birthDate" path="registroForm.fechaNacimiento" />
-	<acme:textbox code="register.nacionality" path="registroForm.nacionalidad" />
-	<acme:textbox code="register.address" path="registroForm.direccion" />
-	<spring:message code="register.sex" />
-	<div style="width:30%;">
+	<acme:textbox code="register.phone" path="registroForm.telefono" /><br />
+	<acme:textbox code="register.birthDate" path="registroForm.fechaNacimiento" /><br />
+	<acme:textbox code="register.nacionality" path="registroForm.nacionalidad" /><br />
+	<acme:textbox code="register.address" path="registroForm.direccion" /><br />
+	
+	<div style="width:50%;">
+		<form:label path="registroForm.sexo">
+			<spring:message code="register.sex" />
+		</form:label>
 		<form:select path="registroForm.sexo" code="register.sex" cssClass="form-control">
 			<form:option value="HOMBRE" label="HOMBRE" />		
 			<form:option value="MUJER" label="MUJER" />
 		</form:select>
-	</div>
+	</div><br />
 	
 	<%-- <acme:textbox code="register.sex" path="registroForm.sexo" /> --%>
 	</jstl:if>
 	<jstl:if test="${isEmpresario==true}">
-	<acme:textbox code="register.cif" path="cif" />
+	<acme:textbox code="register.cif" path="cif" /><br />
 	</jstl:if>
 	
 	<jstl:if test="${isUsuario==true}">
-	<acme:textbox code="register.actualstate" path="estadoActual" />
+	<acme:textbox code="register.actualstate" path="estadoActual" /><br />
 	</jstl:if>
 	
 	<jstl:if test="${isAdministrador==false}">

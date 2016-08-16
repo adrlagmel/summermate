@@ -88,14 +88,8 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
 		
-		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17) {
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
-		}else{
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
-			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
-				
-		}
+		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
 		
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
 		Assert.isTrue(eMoment.compareTo(eMomentToCheck)<=0);
@@ -139,14 +133,8 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
 		
-		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17) {
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
-		}else{
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
-			eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
-				
-		}
+		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
 
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0 && eMoment.compareTo(eMomentToCheck)<=0);
 		

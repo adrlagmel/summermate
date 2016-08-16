@@ -98,29 +98,16 @@ public class ReservaService {
 		
 		Calendar sMomentToCheck = Calendar.getInstance();
 		sMomentToCheck.setTime(reserva.getFecha());
+			
+		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
+		sMomentToCheck.set(Calendar.MINUTE, 0);
+		sMomentToCheck.set(Calendar.SECOND, 0);
+		sMomentToCheck.set(Calendar.MILLISECOND, 0);
 		
-		if (sMoment.get(Calendar.HOUR_OF_DAY) < 17)  {
-			
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-			sMomentToCheck.set(Calendar.MINUTE, 0);
-			sMomentToCheck.set(Calendar.SECOND, 0);
-			sMomentToCheck.set(Calendar.MILLISECOND, 0);
-			
-			Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 16);
-			Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
-		}else{
+		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
+		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
+		Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
 		
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 20);
-			sMomentToCheck.set(Calendar.MINUTE, 0);
-			sMomentToCheck.set(Calendar.SECOND, 0);
-			sMomentToCheck.set(Calendar.MILLISECOND, 0);
-			
-			Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
-			sMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
-			Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
-		}
-
 		Reserva saved = reservaRepository.save(reserva);
 		calendarioNegocioService.create(saved);
 		

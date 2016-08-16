@@ -37,7 +37,7 @@
 }
 
 .footer-summermate{
-  background-image: linear-gradient(to bottom,rgba(0,150,0,0.3) 0,rgba(20,140,10,0.8) 30%);
+  background-image: linear-gradient(to bottom,rgba(0,150,0,0.3) 0, #83A573 30%);
   min-height: 33px;
 }
 

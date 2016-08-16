@@ -32,13 +32,12 @@
 
 <body>
 
-	<div class="col-md-7  col-md-offset-2">
 		<form:form action="reserva/usuario/create.do" modelAttribute="form">
 
 			<form:hidden path="reservaId"/>
 			<form:hidden path="negocio"/>
 			
-			<div style="width:30%;">
+			<div style="width:50%;">
 				<form:label path="fecha">
 					<spring:message code="booking.bookingDate" />
 				</form:label>
@@ -55,20 +54,22 @@
 				
 			<acme:textarea code="booking.comments" path="comentarios" /><br/>
 			
-			<form:label path="comensales">
-				<spring:message code="booking.fumadores" />
-			</form:label>
-			<div style="width:30%;">
+			<div style="width:50%;">
+				<form:label path="comensales">
+					<spring:message code="booking.fumadores" />
+				</form:label>
+				
 				<form:select path="fumadores" code="booking.fumadores" cssClass="form-control">
 					<form:option value="true" label="Yes" />		
 					<form:option value="false" label="No"/>
 				</form:select>
 			</div><br/>
 			
-			<form:label path="comensales">
-				<spring:message code="booking.comensales" />
-			</form:label>
-			<div style="width:30%;">
+			<div style="width:50%;">
+				<form:label path="comensales">
+					<spring:message code="booking.comensales" />
+				</form:label>
+			
 				<form:select path="comensales" code="booking.comensales" cssClass="form-control">
 					<form:option value="1" label="1" />		
 					<form:option value="2" label="2" />
@@ -88,7 +89,6 @@
 			<acme:cancel code="booking.cancel" url="/reserva/usuario/lista.do" />
 		
 		</form:form>
-	</div>
 
 </body>
 </html>

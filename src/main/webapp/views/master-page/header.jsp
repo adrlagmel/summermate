@@ -25,11 +25,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-		         <a class="navbar-brand" href="#" style="padding-top: 4px; padding-bottom: 0; margin-left: 4px;">
-					<img src="images/logo.png" width='40%' height='auto' />
-				</a>
-			</div>
-<div id="navbar" class="navbar-collapse inverse">
+		         
+	         <a class="navbar-brand" href="#" style="padding-top: 0px; padding-bottom: 0; margin-left: 4px;">
+				<img src="images/logo.png" width='40%' height='auto' />
+			 </a>
+		</div>
+<div id="navbar" class="navbar-collapse collapse">
   <ul class="nav navbar-nav">
 
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
@@ -135,7 +136,6 @@
 			</li>
 		</security:authorize>
 		
-	</ul>
 	</div><!--/.nav-collapse -->
   </div><!--/.container-fluid -->
 </nav>
