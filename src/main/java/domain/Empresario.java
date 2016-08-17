@@ -37,7 +37,6 @@ public class Empresario extends Cliente{
 	// Relationships -------------------------------
 	
 	private Collection<Negocio> negocios;
-	private Collection<Pago> pagos;
 	
 	@NotNull
 	@Valid
@@ -48,17 +47,6 @@ public class Empresario extends Cliente{
 
 	public void setNegocios(Collection<Negocio> negocios) {
 		this.negocios = negocios;
-	}
-	
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy="empresario")
-	public Collection<Pago> getPagos() {
-		return pagos;
-	}
-
-	public void setPagos(Collection<Pago> pagos) {
-		this.pagos = pagos;
 	}
 
 }

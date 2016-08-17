@@ -64,13 +64,13 @@
 		<security:authorize access="isAnonymous()">
 		  	<ul class="nav navbar-nav navbar-right">
 		  		<li class="dropdown">
-	      			<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><spring:message code="master.page.registro" /></a>
+	      			<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message code="master.page.registro" /></a>
 	      				<ul class="dropdown-menu">	
 							<li><a href="usuario/register.do"><spring:message code="master.page.register.usuario" /></a></li>
 							<li><a href="empresario/register.do"><spring:message code="master.page.register.empresario" /></a></li>
 						</ul>
 				</li>
-      			<li><a href="security/login.do"><span class="glyphicon glyphicon-log-in"></span><spring:message code="master.page.login" /></a></li>
+      			<li><a href="security/login.do"> <span class="glyphicon glyphicon-log-in"></span>&nbsp;<spring:message code="master.page.login" /> </a></li>
     		</ul>
 						
 		</security:authorize>

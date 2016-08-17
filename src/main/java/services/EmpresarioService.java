@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import domain.Carpeta;
 import domain.DenunciaValoracion;
 import domain.Empresario;
 import domain.Negocio;
-import domain.Pago;
 
 import forms.EmpresarioRegistroForm;
 
@@ -58,12 +58,10 @@ public class EmpresarioService {
 		Collection<Negocio> negocios  				= new ArrayList<Negocio>();
 		Collection<Carpeta> carpetas				= new ArrayList<Carpeta>();
 		Collection<DenunciaValoracion> denuncias	= new ArrayList<DenunciaValoracion>();
-		Collection<Pago> pagos						= new ArrayList<Pago>();
 	
 		e.setNegocios(negocios);
 		e.setCarpetas(carpetas);
 		e.setDenuncias(denuncias);
-		e.setPagos(pagos);
 	
 		return e;
 	}

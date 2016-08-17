@@ -330,12 +330,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago1" />    
-                                <ref bean="pago7" />     
-                        </list>
-        </property>
+		
 	</bean>
 	
 	<bean id="empresario2" class="domain.Empresario">
@@ -370,12 +365,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago2" />    
-                                <ref bean="pago8" />     
-                        </list>
-        </property>
+	
 	</bean>
 	
 	<bean id="empresario3" class="domain.Empresario">
@@ -408,12 +398,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago3" />    
-                                <ref bean="pago9" />     
-                        </list>
-        </property>
+		
 	</bean>
 	
 	<bean id="empresario4" class="domain.Empresario">
@@ -446,12 +431,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago4" />    
-                                <ref bean="pago10" />     
-                        </list>
-        </property>
+	
 	</bean>
 	
 	<bean id="empresario5" class="domain.Empresario">
@@ -484,12 +464,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago5" />    
-                                <ref bean="pago11" />     
-                        </list>
-        </property>
+		
 	</bean>
 	
 	<bean id="empresario6" class="domain.Empresario">
@@ -522,11 +497,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>
-                                <ref bean="pago6" />      
-                        </list>
-        </property>
+		
 	</bean>
 	
 	<bean id="empresario7" class="domain.Empresario">
@@ -558,10 +529,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="pagos">
-                        <list>      
-                        </list>
-        </property>
+		
 	</bean>
 	
 	<!-- USUARIO -->
@@ -1895,85 +1863,7 @@
 		</property>
 	</bean>
 	
-	<!--  PAGO  --> 
-	
-	<bean id="pago1" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario1" /> 
-  	</bean>
-  	
-  	<bean id="pago2" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario2" /> 
-  	</bean>
-  	
-  	<bean id="pago3" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario3" /> 
-  	</bean>
-  	
-  	<bean id="pago4" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario4" /> 
-  	</bean>
-  	
-  	<bean id="pago5" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario5" /> 
-  	</bean>
-  	
-  	<bean id="pago6" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2015" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario6" /> 
-  	</bean>
-  	
-  	<bean id="pago7" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2016" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario1" /> 
-  	</bean>
-  	
-  	<bean id="pago8" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2016" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario2" /> 
-  	</bean>
-  	
-  	<bean id="pago9" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2016" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario3" /> 
-  	</bean>
-  	
-  	<bean id="pago10" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2016" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario4" /> 
-  	</bean>
-  	
-  	<bean id="pago11" class="domain.Pago">
-  		<property name="fecha" value="01/01/2015 12:00" /> 
-  		<property name="concepto" value="Pago Temporada 2016" /> 
-  		<property name="precio" value = "50.0"/>
-  		<property name="empresario" ref="empresario5" /> 
-  	</bean>
-  	
+
   	
   	<!--  DENUNCIAS  --> 
 	<bean id="denuncia1" class="domain.DenunciaValoracion">

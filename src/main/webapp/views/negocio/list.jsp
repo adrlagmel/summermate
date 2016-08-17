@@ -18,9 +18,9 @@
 
 
 <form action="${actionURI}">
-      <input type="text" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
+	  <form:input type="text" path="s" name="s" cssClass="form-control" placeholder="<spring:message code="negocio.searchByTown"/>"/>
       
-      <button type="submit"><spring:message code="negocio.search" /></button>
+      <button type="submit" class="btn btn-default"><spring:message code="negocio.search" /></button>
 </form>
 
 <%-- <form action="negocio/nearToMe.do" method="get" name="nearToMe">
