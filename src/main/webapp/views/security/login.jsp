@@ -33,7 +33,17 @@
 		<form:errors class="error" path="password" />
     </div>
   </div>
- 
+  
+ <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> <spring:message code="security.rememberme" />
+        </label>
+      </div>
+    </div>
+  </div>
+  
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <button type="submit" class="btn btn-default"><spring:message code="security.login" /></button>

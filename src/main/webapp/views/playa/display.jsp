@@ -9,20 +9,20 @@
 
 <form:form modelAttribute="playa" >	
 		
-	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/>
-	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/>
-	<acme:textarea code="playa.composicion" path="composicion" readonly="true"/>	
-	<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	
-	<acme:textbox code="playa.extension" path="extension" readonly="true"/>	
+	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/><br/>
+	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/><br/>
+	<acme:textarea code="playa.composicion" path="composicion" readonly="true"/>	<br/>
+	<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	<br/>
+	<acme:textbox code="playa.extension" path="extension" readonly="true"/>	<br/>
 	
 	<fieldset>
 	<legend><spring:message code="playa.localizacion" /></legend>
-		<acme:textbox code="playa.localizacion.tipoVia" path="localizacion.via" readonly="true"/>
-		<acme:textbox code="playa.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/>
+		<acme:textbox code="playa.localizacion.tipoVia" path="localizacion.via" readonly="true"/><br/>
+		<acme:textbox code="playa.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/><br/>
 		<acme:textbox code="playa.localizacion.numero" path="localizacion.numeroVia" readonly="true"/>
-		<acme:textbox code="playa.localizacion.codigoPostal" path="localizacion.codigoPostal" readonly="true"/>
-		<acme:textbox code="playa.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/>
-		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" readonly="true"/>
+		<acme:textbox code="playa.localizacion.codigoPostal" path="localizacion.codigoPostal" readonly="true"/><br/>
+		<acme:textbox code="playa.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/><br/>
+		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" readonly="true"/><br/>
 	</fieldset>
 	
 	<jstl:if test="${playa.imagen!=null}">

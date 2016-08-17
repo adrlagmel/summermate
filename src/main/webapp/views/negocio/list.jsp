@@ -43,7 +43,7 @@
 									</script></form> --%>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="true" name="negocios" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="table table-condensed" keepStatus="false" name="negocios" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
 	<security:authorize access="hasRole('EMPRESARIO')">
