@@ -17,10 +17,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form action="${actionURI}">
-	  <form:input type="text" path="s" name="s" cssClass="form-control" placeholder="<spring:message code="negocio.searchByTown"/>"/>
-      
+<form class="form-inline" action="${actionURI}">
+	<div class="form-group">  
+      <input type="text" style="width:150px;" class="form-control" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
+     </div>
+     
+    <div class="form-group">  
       <button type="submit" class="btn btn-default"><spring:message code="negocio.search" /></button>
+     </div><br/>
 </form>
 
 <%-- <form action="negocio/nearToMe.do" method="get" name="nearToMe">
@@ -141,3 +145,4 @@
 		</a> <br/>	
 		</jstl:if>
 	</security:authorize>
+	

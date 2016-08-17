@@ -16,6 +16,38 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/jquery.datetimepicker.css" />
+
+</head>
+
+<body>
+<security:authorize access="hasRole('EMPRESARIO')">	
+<form class="form-inline" action="${actionURI}">
+    
+    <div class="form-group">  
+      <input type="text" id = "datetimepicker" style="width:150px;" class="form-control" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
+     </div>
+									
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
+	
+	<script type="text/javascript">
+		$('#datetimepicker').datetimepicker({format: 'd/m/Y H:00'});
+	</script>
+     
+    <div class="form-group">  
+      <button type="submit" class="btn btn-default"><spring:message code="booking.search" /></button>
+     </div><br/>
+</form>
+</security:authorize>
+
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="true"
 	name="reservas" requestURI="${requestURI}" id="row">
@@ -37,6 +69,10 @@
 	<display:column property="comensales" title="${comensales}"
 		sortable="false" />
 		
+	<spring:message code="booking.negocio" var="negocio" />
+	<display:column property="reserva.negocio.nombre" title="${negocio}"
+		sortable="true" />
+		
 	<spring:message code="booking.comments" var="comment" />
 	<display:column title="${comment}" maxLength="20">
 	<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
@@ -53,3 +89,5 @@
 	</display:column>	
 </display:table>
 </div>
+</body>
+</html>

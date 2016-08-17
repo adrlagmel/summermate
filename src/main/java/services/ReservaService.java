@@ -15,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import utilities.validators.RandomString;
 import domain.CalendarioNegocio;
+import domain.Empresario;
 import domain.Negocio;
 import domain.Reserva;
 import domain.Usuario;
@@ -34,6 +35,9 @@ public class ReservaService {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EmpresarioService empresarioService;
 	
 	@Autowired
 	private CalendarioNegocioService calendarioNegocioService;
@@ -114,6 +118,16 @@ public class ReservaService {
 		return saved;
 	}
 	
+	public Collection<Reserva> searchByDate(String town){
+		Empresario empresario = empresarioService.findByPrincipal();
+		
+		Collection<Reserva> result = reservaRepository.search(empresario.getId(), town);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
 	// Other business methods ------------------------------------------------
 	
 	
@@ -135,11 +149,20 @@ public class ReservaService {
 	}
 
 	
-	public Collection<Reserva> findReservasBySportCenter(int negocioId){
+	public Collection<Reserva> findReservasPorNegocio(int negocioId){
 		Negocio negocio = negocioService.findOneToDisplay(negocioId);
 		negocioService.checkPrincipal(negocio);
 		
 		Collection<Reserva> result = reservaRepository.findReservasPorNegocio(negocioId);
+		Assert.notNull(result);
+		
+		return result;
+	}
+	
+	public Collection<Reserva> findReservasPorEmpresario(){
+		int empresarioId = empresarioService.findByPrincipal().getId();
+		
+		Collection<Reserva> result = reservaRepository.findReservasPorEmpresario(empresarioId);
 		Assert.notNull(result);
 		
 		return result;

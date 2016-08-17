@@ -99,6 +99,9 @@
 		<security:intercept-url pattern="/reserva/usuario/editMesa.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/reserva/usuario/edit.do" access="hasRole('USUARIO')" />
 		
+		<security:intercept-url pattern="/reserva/empresario/search.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/reserva/empresario/lista.do" access="hasRole('EMPRESARIO')" />
+		
 		<security:intercept-url pattern="/carpeta/actor/list.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/valoracionPlaya/usuario/create.do" access="hasRole('USUARIO')"/>

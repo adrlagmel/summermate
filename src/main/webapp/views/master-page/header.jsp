@@ -57,7 +57,8 @@
 					<li><a href="evento/list.do"><spring:message code="master.page.eventos.list" /></a></li>
 					<li><a href="evento/empresario/list.do"><spring:message code="master.page.eventos.mylist" /></a></li>
 			  </ul>
-			</li>				
+			</li>	
+			<li><a href="reserva/empresario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>				
 		</security:authorize>
 		
 		
@@ -85,12 +86,8 @@
 			</ul>
 			</li>	
 			<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
-			<li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.reservas" /><b class="caret"></b></a>
-              <ul class="dropdown-menu" >
-					<li><a href="reserva/usuario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>		
-				</ul>
-			</li>	
+			<li><a href="reserva/usuario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>	
+			
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.eventos" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
