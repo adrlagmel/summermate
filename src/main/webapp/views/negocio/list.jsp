@@ -19,7 +19,7 @@
 
 <form class="form-inline" action="${actionURI}">
 	<div class="form-group">  
-      <input type="text" style="width:150px;" class="form-control" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
+      <input type="text" style="width:250px;" class="form-control" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
      </div>
      
     <div class="form-group">  
@@ -118,11 +118,6 @@
 <%-- 	<display:column>
 		<a href="negocio/planner.do?negocioId=${row.id}"><spring:message code="negocio.displayPlanner" /></a>
 	</display:column> --%>
-	<display:column>
-	<jstl:if test="${row.empresario.userAccount.id == user}">
-				<a href="mesa/empresario/list.do"><spring:message code="negocio.mesas" /></a>
-	</jstl:if>
-	</display:column>
 </display:table>
 </div>
 

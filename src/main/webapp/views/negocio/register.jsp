@@ -24,8 +24,7 @@
 	<form:hidden path="version"/>
 	<form:hidden path="eventos"/>
 	<form:hidden path="reservas"/>
-	<form:hidden path="empresario"/>
-	<form:hidden path="mesas"/><%-- 
+	<form:hidden path="empresario"/><%-- 
 	<form:hidden path="location.latitude" id="lat"/>
 	<form:hidden path="location.longitude" id="lon"/> --%>
 	

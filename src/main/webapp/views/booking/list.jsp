@@ -27,11 +27,12 @@
 </head>
 
 <body>
+
 <security:authorize access="hasRole('EMPRESARIO')">	
 <form class="form-inline" action="${actionURI}">
     
     <div class="form-group">  
-      <input type="text" id = "datetimepicker" style="width:150px;" class="form-control" name="s" placeholder="<spring:message code="negocio.searchByTown"/>">
+      <input type="text" id = "datetimepicker" style="width:250px;" class="form-control" name="s" placeholder="<spring:message code="booking.searchByDate"/>">
      </div>
 									
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -39,18 +40,17 @@
 	<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
 	
 	<script type="text/javascript">
-		$('#datetimepicker').datetimepicker({format: 'd/m/Y H:00'});
+		$('#datetimepicker').datetimepicker({format: 'd/m/Y'});
 	</script>
      
     <div class="form-group">  
       <button type="submit" class="btn btn-default"><spring:message code="booking.search" /></button>
      </div><br/>
-</form>
+</form><br/>
 </security:authorize>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="true"
-	name="reservas" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="table table-condensed" keepStatus="false" name="reservas" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
 	<spring:message code="booking.code" var="code" />
@@ -70,7 +70,7 @@
 		sortable="false" />
 		
 	<spring:message code="booking.negocio" var="negocio" />
-	<display:column property="reserva.negocio.nombre" title="${negocio}"
+	<display:column property="negocio.nombre" title="${negocio}"
 		sortable="true" />
 		
 	<spring:message code="booking.comments" var="comment" />

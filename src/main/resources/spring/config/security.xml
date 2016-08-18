@@ -96,7 +96,6 @@
 		
 		<security:intercept-url pattern="/reserva/usuario/lista.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/reserva/usuario/create.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/reserva/usuario/editMesa.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/reserva/usuario/edit.do" access="hasRole('USUARIO')" />
 		
 		<security:intercept-url pattern="/reserva/empresario/search.do" access="hasRole('EMPRESARIO')" />
@@ -123,10 +122,6 @@
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
-	
-		<security:intercept-url pattern="/mesa/planner.do" access="permitAll" />
-		<security:intercept-url pattern="/mesa/miniplanner.do" access="permitAll" />
-		<security:intercept-url pattern="/mesa/events.do" access="permitAll" />  
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" /> 
 

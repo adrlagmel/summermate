@@ -118,10 +118,10 @@ public class ReservaService {
 		return saved;
 	}
 	
-	public Collection<Reserva> searchByDate(String town){
+	public Collection<Reserva> searchByDate(String fecha){
 		Empresario empresario = empresarioService.findByPrincipal();
 		
-		Collection<Reserva> result = reservaRepository.search(empresario.getId(), town);
+		Collection<Reserva> result = reservaRepository.search(empresario.getId(), fecha);
 		Assert.notNull(result);
 		
 		return result;

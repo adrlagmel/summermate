@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ReservaService;
 import controllers.AbstractController;
 import domain.Reserva;
-import forms.ReservaForm;
 
 @Controller
 @RequestMapping("/reserva/empresario")
@@ -42,6 +41,7 @@ public class ReservaEmpresarioController extends AbstractController{
 			result = new ModelAndView("reserva/lista");
 
 			result.addObject("reservas", reservas);
+			result.addObject("actionURI","reserva/empresario/search.do");
 			result.addObject("requestURI","reserva/empresario/lista.do");
 			
 						
@@ -56,11 +56,12 @@ public class ReservaEmpresarioController extends AbstractController{
 			
 			Collection<Reserva> reservas = reservaService.searchByDate(s);
 			result = new ModelAndView("reserva/lista");
+			
 			result.addObject("reservas", reservas);
 			result.addObject("showError", showError);
 			result.addObject("showSuccess", showSuccess);
-			result.addObject("actionURI","reserva/search.do");
-			result.addObject("requestURI","reserva/search.do");
+			result.addObject("actionURI", "reserva/empresario/search.do");
+			result.addObject("requestURI","reserva/empresario/search.do");
 			
 			return result;
 			

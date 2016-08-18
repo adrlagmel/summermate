@@ -36,11 +36,11 @@ public class CalendarioNegocioEmpresarioController extends AbstractController{
 	// Create and edition methods -------------------------------------------------
 			
 		@RequestMapping(value="/deleteDates", method = RequestMethod.GET)
-		public ModelAndView deleteDates(@RequestParam int mesaId){
+		public ModelAndView deleteDates(@RequestParam int negocioId){
 								
 			ModelAndView result;
 						
-				CalendarioNegocio calendarioNegocio = calendarioNegocioService.create(mesaId);
+				CalendarioNegocio calendarioNegocio = calendarioNegocioService.create(negocioId);
 				
 				result =  new ModelAndView("calendarioNegocio/deleteDates");
 				result.addObject("calendarioNegocio", calendarioNegocio);

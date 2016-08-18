@@ -91,21 +91,6 @@ $(document).ready(function() {
 	    $('.modal:visible').each(centerModal);
 	});
 
-	
-	function cargarMiniPlanner()
-	{
-		mesaId = $("select[name*=mesa]").val();
-		date = $( 'input:text[name=fechaCreacion]').val();
-		
-		if(date == undefined || date ==null || date == '')
-			date = $( 'input:text[name=fecha]').val();
-		
-		
-		if(date != undefined && date !=null && date != '' && mesaId != undefined && mesaId != null && mesaId > 0){
-		$('#miniplanner').load('mesa/miniplanner.do?date='+encodeURIComponent(date)+'&mesaId='+mesaId);
-		}
-
-	}
 </script>
 </head>
 
