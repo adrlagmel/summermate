@@ -14,11 +14,14 @@
 	<form:hidden path="valoracionNegocio"/>
 	<form:hidden path="cliente"/>
 	
-	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	
-	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	
+	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	<br/>
+	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	<br/>
 	
-	<spring:message code="denunciaValoracion.tipo" />
-	<div style="width:30%;">
+	<div style="width:50%;">
+		<form:label path="fecha">
+			<spring:message code="denunciaValoracion.tipo" />
+		</form:label>
+		
 		<form:select path="tipo" cssClass="form-control">
 			<form:option value= "FALSEDAD" label = "FALSEDAD" />		
 			<form:option value= "RECHAZO" label = "RECHAZO"/>
@@ -28,7 +31,6 @@
 	
 	<acme:submit name="save" code="denunciaValoracion.save"/>
 	<acme:cancel code="denunciaValoracion.atras" url="/denunciaValoracion/empresario/list.do" />
-	
 	
 </form:form>
 

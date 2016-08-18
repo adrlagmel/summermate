@@ -17,6 +17,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/jquery.datetimepicker.css" />
+
+</head>
+
+<body>
 
 <form:form modelAttribute="evento" action="evento/empresario/edit.do">    
        
@@ -27,10 +38,34 @@
 	
 	<acme:textbox code="evento.codigo" path="codigo" readonly = "true" /><br/>
 	<acme:textbox code="evento.nombre" path="nombre" />	<br/>
-	<acme:textbox code="evento.descripcion" path="descripcion" /><br/>
+	
+	<div style="width:50%;">
+		<form:label path="fechaCelebracion">
+			<spring:message code="evento.fechaCelebracion" />
+		</form:label>
+		<form:input path="fechaCelebracion" cssClass="form-control" id="datetimepicker"/>	
+	</div><br/>
+							
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
+	
+	<script type="text/javascript">
+		$('#datetimepicker').datetimepicker({format: 'd/m/Y H:i'});
+	</script>
+	
+	<acme:textarea code="evento.descripcion" path="descripcion" /><br/>
+	
 	<acme:textbox code="evento.precio" path="precio" /><br/>
 	
-	<acme:select items="${negocios}" itemLabel="nombre" code="evento.negocio" path="negocio"/><br/>
+	<div style="width:50%;">
+		<form:label path="negocio">
+			<spring:message code="evento.negocio" />
+		</form:label>
+		
+		<form:select items="${negocios}" itemLabel="nombre" code="evento.negocio" path="negocio" class="form-control"/>
+		<form:errors path="negocio" cssClass="error" />
+	</div><br/>
 	
 	<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
@@ -38,20 +73,7 @@
 	
 	<jstl:if test="${hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
- 	</jstl:if>
- 	
- 	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" /> <br/>
- 	
- 	<!-- <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='fecha'>
-                    <input type='text' name = "fechaCelebracion" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-    </div> -->
+ 	</jstl:if><br/>
     
     <security:authorize access="hasRole('USUARIO')">
 		<jstl:if test="${requestURI=='evento/usuario/list.do'}">
@@ -75,6 +97,7 @@
 	
 </form:form>
 
-
+</body>
+</html>
 						
 					

@@ -38,11 +38,11 @@
 		
 		<security:authorize access="hasRole('EMPRESARIO')">
 			
-			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="playa/list.do"><spring:message code="master.page.playa" /></a></li>
 			<li><a href="denunciaValoracion/empresario/list.do"><spring:message code="master.page.denuncia.listAll" /></a></li>
 			
 			<li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.negocios" /><b class="caret"></b></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" ><span class="glyphicon glyphicon-cutlery"></span>&nbsp;<spring:message code="master.page.negocios" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
               		<li><a href="negocio/empresario/register.do"><spring:message code="master.page.negocio.register" /></a></li>
 					<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
@@ -58,7 +58,7 @@
 					<li><a href="evento/empresario/list.do"><spring:message code="master.page.eventos.mylist" /></a></li>
 			  </ul>
 			</li>	
-			<li><a href="reserva/empresario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>				
+			<li><a href="reserva/empresario/lista.do"><spring:message code="master.page.reservas"/></a></li>				
 		</security:authorize>
 		
 		
@@ -67,8 +67,8 @@
 		  		<li class="dropdown">
 	      			<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message code="master.page.registro" /></a>
 	      				<ul class="dropdown-menu">	
-							<li><a href="usuario/register.do"><spring:message code="master.page.register.usuario" /></a></li>
-							<li><a href="empresario/register.do"><spring:message code="master.page.register.empresario" /></a></li>
+							<li><a href="usuario/register.do"><span class="glyphicon glyphicon-user"></span>&nbsp;<spring:message code="master.page.register.usuario" /></a></li>
+							<li><a href="empresario/register.do"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<spring:message code="master.page.register.empresario" /></a></li>
 						</ul>
 				</li>
       			<li><a href="security/login.do"> <span class="glyphicon glyphicon-log-in"></span>&nbsp;<spring:message code="master.page.login" /> </a></li>
@@ -77,7 +77,7 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('USUARIO')">
-			<li><a href="playa/list.do"><spring:message code="master.page.playa.listAll" /></a></li>
+			<li><a href="playa/list.do"><spring:message code="master.page.playa" /></a></li>
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.valoraciones" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
@@ -85,7 +85,7 @@
 					<li><a href="valoracionNegocio/usuario/list.do"><spring:message code="master.page.valoracionNegocio.listUsuarioValoraciones" /></a></li>
 			</ul>
 			</li>	
-			<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
+			<li><a href="negocio/list.do"><spring:message code="master.page.negocios" /></a></li>
 			<li><a href="reserva/usuario/lista.do"><spring:message code="master.page.reservas.listar"/></a></li>	
 			
 			<li class="dropdown">
@@ -120,8 +120,8 @@
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
               <ul class="dropdown-menu" >
-					<li><a href="carpeta/actor/lista.do"><spring:message code="master.page.folders.list" /></a></li>
-					<li><a href="mensaje/actor/enviar.do"><spring:message code="master.page.messages.send" /></a></li>
+					<li><a href="carpeta/actor/lista.do"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;<spring:message code="master.page.folders.list" /></a></li>
+					<li><a href="mensaje/actor/enviar.do"><span class="glyphicon glyphicon-send"></span>&nbsp;<spring:message code="master.page.messages.send" /></a></li>
 			  </ul>
 			</li>
 			

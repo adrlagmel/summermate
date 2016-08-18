@@ -37,13 +37,13 @@
 
 <link rel="stylesheet" href="styles/maps.css" type="text/css">
 <link rel="stylesheet" href="styles/common.css" type="text/css"/>
-<link rel="stylesheet" href="styles/summermate.css" type="text/css"/>
 <link rel="stylesheet" href="styles/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="styles/bootstrap.min.css" />
 <link rel="stylesheet" href="styles/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
- 
-  
+<link rel="stylesheet" href="styles/bootstrap-theme.css" />
+<link rel="stylesheet" href="styles/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="styles/summermate.css" type="text/css"/>
   
 <link rel="shortcut icon" href="favicon.ico"/> 
 

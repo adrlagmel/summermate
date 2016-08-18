@@ -31,7 +31,6 @@
 			</form:label>
 			
 			<form:select path="localizacion.via" code="playa.localizacion.tipoVia" class="form-control">
-				<form:option value ="0" label="----" />	
 				<form:option value="Avenida" label="Avenida" />	
 			 	<form:option value="Calle" label="Calle" />		
 			 	<form:option value="Camino" label="Camino" />
@@ -51,7 +50,6 @@
 			</form:label>
 			
 			<form:select path="localizacion.provincia" class="form-control" code="playa.localizacion.provincia">
-				<form:option value ="0" label="----" />
 				<form:option value="Almeria" label="Almeria" />		
 				<form:option value="Cádiz" label="Cádiz" />	
 				<form:option value="Granada" label="Granada" />	
@@ -83,6 +81,7 @@
 		<b><spring:message code="playa.foto" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
+   	<br/>
    	
 	<acme:submit name="save" code="playa.save"/>
 	<acme:cancel code="playa.atras" url="/playa/list.do" />

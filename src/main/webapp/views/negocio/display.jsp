@@ -18,14 +18,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form:form modelAttribute="negocio">
-
-	<acme:textbox code="negocio.nombre" path="nombre" readonly="true"/>
-	<acme:textbox code="negocio.tipo" path="tipo" readonly="true"/>
-	<acme:textbox code="negocio.descripcion" path="descripcion" readonly="true"/>
-	<acme:textbox code="negocio.aforo" path="aforo" readonly="true"/>
-	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/>
-	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/>
-	
+	<br/>
 	<jstl:if test="${negocio.imagen!=null}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImageNegocio.do?negocioId=${negocio.id}" height="350" width="590" />
@@ -34,18 +27,28 @@
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
+	<br/>
+	
+	<acme:textbox code="negocio.nombre" path="nombre" readonly="true"/><br/>
+	<acme:textbox code="negocio.tipo" path="tipo" readonly="true"/><br/>
+	<acme:textbox code="negocio.descripcion" path="descripcion" readonly="true"/><br/>
+	<acme:textbox code="negocio.aforo" path="aforo" readonly="true"/><br/>
+	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/><br/>
+	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/><br/>
+	
+	
 	<fieldset>
 	<legend><spring:message code="negocio.localizacion" /></legend>
 	
-	<acme:textbox code="negocio.localizacion.tipoVia" path="localizacion.via" readonly="true"/>
-	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/>
-	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" readonly="true"/>
-	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" readonly="true"/>
-	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" readonly="true"/>
-	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/>
+	<acme:textbox code="negocio.localizacion.tipoVia" path="localizacion.via" readonly="true"/><br/>
+	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/><br/>
+	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" readonly="true"/><br/>
+	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" readonly="true"/><br/>
+	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" readonly="true"/><br/>
+	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/><br/>
 	</fieldset>
 	
-	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/>
+	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/><br/>
 	
 	<acme:cancel code="negocio.return" url="/negocio/list.do" /> 
 </form:form>

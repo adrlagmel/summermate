@@ -25,7 +25,7 @@
     <div class="form-group">  
       <button type="submit" class="btn btn-default"><spring:message code="negocio.search" /></button>
      </div><br/>
-</form>
+</form><br/>
 
 <%-- <form action="negocio/nearToMe.do" method="get" name="nearToMe">
 						<input type="text" name="lat" id="lat" class="hidden"/>
@@ -60,11 +60,14 @@
 		</display:column>
 	</security:authorize>
 	
+	<display:column>
+		<jstl:if test="${row.imagen != null}">
+			<img class="img-responsive img-rounded" id="image" src="foto/displayImageNegocio.do?negocioId=${row.id}" height="75" width="75"/><br />
+		</jstl:if>
+	</display:column>
+	
 	<spring:message code="negocio.nombre" var="nombre" />
 	<display:column property="nombre" title="${nombre}" sortable="true" />
-	
-	<spring:message code="negocio.provincia" var="provincia" />
-	<display:column property="localizacion.provincia" title="${provincia}" sortable="true" />
 	
 	<spring:message code="negocio.ciudad" var="ciudad" />
 	<display:column property="localizacion.ciudad" title="${ciudad}" sortable="true" />
@@ -123,7 +126,7 @@
 
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<jstl:if test="${!negocios.isEmpty() || allowRegisternegocio == true}">
-		<a href="negocio/empresario/create.do">
+		<a href="negocio/empresario/register.do">
 			<spring:message code="negocio.create"/>
 		</a> <br/>	
 		</jstl:if>

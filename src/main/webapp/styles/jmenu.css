@@ -29,7 +29,7 @@
 	color: white;
 	text-transform: uppercase;
 	cursor: pointer;
-	font-size: 12px;
+	font-size: 13px;
 	text-decoration: none;
 }
 
@@ -55,16 +55,16 @@
 	background-image: url('../images/arrow_down.png');
 	background-repeat: no-repeat;
 	background-position: center center;
-	height: 6px;
+	height: 10px;
 	padding: 0;
 	border-bottom: none;
-	padding-bottom: 10px
+	padding-bottom: 15px
 }
 
 .jMenu li ul li a {
 	font-size: 11px;
 	text-transform: none;
-	padding: 7px;
+	padding: 10px;
 	display: block;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;

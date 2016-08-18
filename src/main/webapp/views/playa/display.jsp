@@ -9,6 +9,13 @@
 
 <form:form modelAttribute="playa" >	
 		
+	<jstl:if test="${playa.imagen!=null}">
+		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
+	</jstl:if>
+	<jstl:if test="${playa.imagen==null}">
+		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
+	</jstl:if><br/><br/>
+	
 	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/><br/>
 	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/><br/>
 	<acme:textarea code="playa.composicion" path="composicion" readonly="true"/>	<br/>
@@ -24,15 +31,6 @@
 		<acme:textbox code="playa.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/><br/>
 		<acme:textbox code="playa.localizacion.provincia" path="localizacion.provincia" readonly="true"/><br/>
 	</fieldset>
-	
-	<jstl:if test="${playa.imagen!=null}">
-		<b><spring:message code="playa.foto" /></b><br/><br/>
-		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
-	</jstl:if>
-	<jstl:if test="${playa.imagen==null}">
-		<b><spring:message code="playa.foto" /></b><br/><br/>
-		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
-	</jstl:if>
 		
 	<%-- <security:authorize access="hasRole('ADMINISTRADOR')">
 		<jstl:if test="${valoracionPlayas.size() = 0}">

@@ -36,10 +36,16 @@
 									</script></form>
 
 <div class="table-responsive">
-<display:table length = false pagesize="5" class="table table-condensed" keepStatus="true"
+<display:table pagesize="5" class="table table-condensed" keepStatus="true"
 	name="playas" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 
+	<display:column>
+		<jstl:if test="${row.imagen != null}">
+			<img class="img-responsive img-rounded" id="image" src="foto/displayImage.do?playaId=${row.id}" height="75" width="75"/><br />
+		</jstl:if>
+	</display:column>
+	
 	<spring:message code="playa.nombre" var="nombre" />
 	<display:column property="nombre" title="${nombre}"
 		sortable="true" />
@@ -50,10 +56,6 @@
 		
 	<spring:message code="playa.localizacion.ciudad" var="ciudad" />
 	<display:column property="localizacion.ciudad" title="${ciudad}"
-		sortable="true" />
-		
-	<spring:message code="playa.descripcion" var="descripcion" />
-	<display:column property="descripcion" title="${descripcion}"
 		sortable="true" />
 		
 	<spring:message code="playa.detallePlaya" var="detallePlaya" />

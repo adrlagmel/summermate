@@ -12,14 +12,15 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="reserva"/>
+	<form:hidden path="fecha"/>
 	
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
-	<acme:textbox code="valoracionNegocio.fecha" path="fecha" /><br/>	
 	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	<br/>
 	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" />	<br/>
 	<acme:textbox code="valoracionNegocio.comentarioUtil" path="comentarioUtil" />	<br/>
 	
-	<acme:submit name="save" code="valoracionNegocio.save"/><br/><br/>
+	<acme:submit name="save" code="valoracionNegocio.save"/>
+
 	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/lista.do" />
 	
 	

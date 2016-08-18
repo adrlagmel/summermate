@@ -28,12 +28,12 @@
 	<form:hidden path="location.latitude" id="lat"/>
 	<form:hidden path="location.longitude" id="lon"/> --%>
 	
-	<acme:textbox code="negocio.nombre" path="nombre" />
-	<acme:textbox code="negocio.tipo" path="tipo" />
-	<acme:textbox code="negocio.descripcion" path="descripcion" />
-	<acme:textbox code="negocio.aforo" path="aforo" />
-	<acme:textbox code="negocio.telefono" path="telefono" />
-	<acme:textbox code="negocio.paginaweb" path="paginaWeb" />
+	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
+	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
+	<acme:textbox code="negocio.descripcion" path="descripcion" /><br/>
+	<acme:textbox code="negocio.aforo" path="aforo" /><br/>
+	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
+	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>
 	
 	<jstl:if test="${negocio.imagen!=null}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
@@ -47,12 +47,41 @@
 	<fieldset>
 	<legend><spring:message code="negocio.localizacion" /></legend>
 	
-	<acme:textbox code="negocio.localizacion.tipoVia" path="localizacion.via" />
-	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" />
-	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" />
-	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" />
-	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" />
-	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" />
+	<div style="width:50%;">
+			<form:label path="localizacion.via">
+				<spring:message code="negocio.localizacion.tipoVia" />
+			</form:label>
+			
+			<form:select path="localizacion.via" code="negocio.localizacion.tipoVia" class="form-control">
+				<form:option value="Avenida" label="Avenida" />	
+			 	<form:option value="Calle" label="Calle" />		
+			 	<form:option value="Camino" label="Camino" />
+				<form:option value="Carretera" label="Carretera" />	
+				<form:option value="Plaza" label="Plaza" />				
+			</form:select>
+			<form:errors path="localizacion.via" cssClass="error" />
+	</div><br/>
+	
+	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" /><br/>
+	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" /><br/>
+	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" /><br/>
+	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" /><br/>
+	
+	<div style="width:50%;">
+		<form:label path="localizacion.provincia">
+			<spring:message code="negocio.localizacion.provincia" />
+		</form:label>
+		
+		<form:select path="localizacion.provincia" class="form-control" code="negocio.localizacion.provincia">
+			<form:option value="Almeria" label="Almeria" />		
+			<form:option value="Cádiz" label="Cádiz" />	
+			<form:option value="Granada" label="Granada" />	
+			<form:option value="Huelva" label="Huelva" />	
+			<form:option value="Málaga" label="Málaga" />	
+		</form:select>
+		<form:errors path="localizacion.provincia" cssClass="error" />
+	</div><br/>
+	
 	</fieldset>
 		
 	<acme:submit name="save" code="negocio.save"/>

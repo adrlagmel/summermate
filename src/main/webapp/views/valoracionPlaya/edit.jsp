@@ -13,15 +13,14 @@
 	<form:hidden path="version"/>
 	<form:hidden path="playa"/>
 	<form:hidden path="cliente"/>
+	<form:hidden path="fecha"/>
 	
-	<acme:textbox code="valoracionPlaya.titulo" path="titulo" />	
-	<acme:textbox code="valoracionPlaya.fecha" path="fecha" />	
-	<acme:textarea code="valoracionPlaya.comentario" path="comentario" />	
-	<acme:textbox code="valoracionPlaya.puntuacion" path="puntuacion" />	
+	<acme:textbox code="valoracionPlaya.titulo" path="titulo" /> <br/>
+	<acme:textarea code="valoracionPlaya.comentario" path="comentario" /> <br/>	
+	<acme:textbox code="valoracionPlaya.puntuacion" path="puntuacion" /> <br/>	
 	
 	<acme:submit name="save" code="valoracionPlaya.save"/>
 	<acme:cancel code="valoracionPlaya.atras" url="/playa/list.do" />
-	
 	
 </form:form>
 

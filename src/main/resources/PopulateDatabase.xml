@@ -283,8 +283,7 @@
            </list>
         </property>
 		<property name="peticionNegocios">
-	       <list>  
-		       	<ref bean="peticionNegocio3" />       
+	       <list>      
 		       	<ref bean="peticionNegocio4" />   
 		       	<ref bean="peticionNegocio5" />                
 	       </list>
@@ -1472,7 +1471,6 @@
   		<property name="estado" value="PENDIENTE" /> 
   		<property name="comentarios" value="Estamos interesados en los servicios que nos puede ofrecer Summermate para darle una mejor salida a nuestro negocio" /> 
   		<property name="empresario" ref="empresario3" /> 
-  		<property name="administrador" ref="administrador2" /> 
   	</bean>
   	
   	<bean id="peticionNegocio4" class="domain.PeticionNegocio">
