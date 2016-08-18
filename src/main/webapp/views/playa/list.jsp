@@ -36,7 +36,7 @@
 									</script></form>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="true"
+<display:table length = false pagesize="5" class="table table-condensed" keepStatus="true"
 	name="playas" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 
