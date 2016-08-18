@@ -30,6 +30,7 @@
 		<value>/views/register/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 		<value>/views/negocio/tiles.xml</value>
+		<value>/views/negocioCalendar/tiles.xml</value>
 		<value>/views/peticionNegocio/administrador/tiles.xml</value>
 		<value>/views/peticionNegocio/empresario/tiles.xml</value>
 		<value>/views/valoracionPlaya/tiles.xml</value>

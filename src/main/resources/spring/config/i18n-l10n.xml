@@ -40,6 +40,7 @@
 		<value>/views/register/messages</value>
 		<value>/views/booking/messages</value>
 		<value>/views/negocio/messages</value>
+		<value>/views/negocioCalendar/messages</value>
 		<value>/views/valoracionPlaya/messages</value>
 		<value>/views/valoracionNegocio/messages</value>
 		<value>/views/denunciaValoracion/messages</value>
