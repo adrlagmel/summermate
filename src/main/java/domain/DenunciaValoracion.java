@@ -77,7 +77,4 @@ public class DenunciaValoracion extends DomainEntity {
 		this.cliente = cliente;
 	}
 	
-	
-	
-	
 }

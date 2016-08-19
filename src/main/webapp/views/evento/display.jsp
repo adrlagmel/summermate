@@ -22,6 +22,7 @@
 	<acme:textbox code="evento.codigo" path="codigo" readonly="true"/><br/>
 	<acme:textbox code="evento.nombre" path="nombre" readonly="true"/>	<br/>
 	<acme:textbox code="evento.descripcion" path="descripcion" readonly="true"/><br/>
+	<acme:textbox code="evento.fechaCelebracion" path="fechaCelebracion" readonly="true"/><br/>
 	<acme:textbox code="evento.precio" path="precio" readonly="true"/><br/>
 	
 	<acme:textbox code="evento.negocio" path="negocio.nombre" readonly="true" /><br/>
@@ -34,11 +35,14 @@
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if>
 	
-	<security:authorize access="hasRole('EMPRESARIO')">
+</form:form>
+
+<security:authorize access="hasRole('EMPRESARIO')">
 		<acme:cancel code="evento.return" url="/evento/empresario/list.do" /> 
 	</security:authorize> 
 	
 	<security:authorize access="!hasRole('EMPRESARIO')">
 		<acme:cancel code="evento.return" url="/evento/list.do" /> 
 	</security:authorize> 
-</form:form>
+
+	

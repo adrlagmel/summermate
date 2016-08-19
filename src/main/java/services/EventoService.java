@@ -62,7 +62,6 @@ public class EventoService {
 		checkPrincipal(evento);
 		
 		evento.setFechaRegistro(new Date(System.currentTimeMillis()));
-		
 		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
 		
 		eventoRepository.save(evento);
@@ -81,8 +80,13 @@ public class EventoService {
 		Evento evento = eventoRepository.findOne(eventoId);
 				
 		checkPrincipal(evento);
+		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
 		
 		return evento;
+	}
+	
+	public Evento findOne(int eventoId){		
+		return eventoRepository.findOne(eventoId);
 	}
 	
 	public void participate(Evento evento, Usuario usuario) {
@@ -140,10 +144,19 @@ public class EventoService {
 	}
 	
 	public Collection<Evento> findByEmpresario(){
-		
 		Empresario empresario = empresarioService.findByPrincipal();
 		
 		Collection<Evento> result = eventoRepository.findByEmpresario(empresario.getId());
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
+	public Collection<Usuario> findParticipantsByEvento(int eventId){		
+		Collection<Usuario> result = eventoRepository.findParticipantsByEvento(eventId);
+		
+		checkPrincipal(findOneToDisplay(eventId));
 		Assert.notNull(result);
 		
 		return result;

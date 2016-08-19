@@ -15,7 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="true"
@@ -49,9 +49,8 @@
 </div>
 	<a href="mensaje/actor/enviar.do"><spring:message code="msg.new.send.link" /></a>
 
+	<acme:cancel code="msg.return.link" url="carpeta/actor/lista.do" /> 
 	
-	<input type="button" value="<spring:message code="msg.return.link" />"
-	onclick="javascript: location.replace('carpeta/actor/lista.do')" />
 	
 		
 	

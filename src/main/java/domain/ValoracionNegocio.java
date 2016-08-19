@@ -38,7 +38,7 @@ public class ValoracionNegocio extends DomainEntity{
 	private Date 	fecha;
 	private Integer puntuacion;
 	private String 	comentario;
-	private Integer 	comentarioUtil;
+	private Integer comentarioUtil;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)

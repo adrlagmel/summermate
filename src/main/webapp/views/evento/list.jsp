@@ -31,8 +31,8 @@
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<display:column>
 		<security:authentication var="user" property="principal.id" />
-
-			<jstl:if test="${row.negocio.empresario.userAccount.id == user}">
+		<jsp:useBean id="now1" class="java.util.Date"/>	
+			<jstl:if test="${row.negocio.empresario.userAccount.id == user && now1 < row.fechaCelebracion}">
 				<a href="evento/empresario/edit.do?eventoId=${row.id}"><spring:message code="evento.edit" /></a>
 			</jstl:if>
 		</display:column>
@@ -51,9 +51,9 @@
 	<display:column property="negocio.playa.nombre" title="${playa}" sortable="true" />
 		
 	<display:column>
-			<a href="evento/display.do?eventoId=${row.id}"><spring:message code="evento.display" /></a>
+		<a href="evento/display.do?eventoId=${row.id}"><spring:message code="evento.display" /></a>
 	</display:column>
-
+	
 	<security:authorize access="hasRole('USUARIO')">
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<display:column>
@@ -63,11 +63,11 @@
 	</display:column>
 	
 	<display:column>
+		<spring:message code="evento.confirmDelete" var="confirm"/>
 		<jstl:if test="${row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
-				<a href="evento/usuario/unregister.do?eventoId=${row.id}"><spring:message code="evento.unregister" /></a>
+				<a href="evento/usuario/unregister.do?eventoId=${row.id}" onclick="return confirm('${confirm}')"><spring:message code="evento.unregister" /></a>
 		</jstl:if>	
 	</display:column>	
-	
 	</security:authorize>
 	
 	<security:authorize access="hasRole('EMPRESARIO')">
@@ -79,14 +79,20 @@
 			</jstl:if>
 			</jstl:if>
 		</display:column>
+		
+		<display:column>
+			<security:authentication var="user3" property="principal.id" />
+			<jstl:if test="${row.negocio.empresario.userAccount.id == user2}">
+				<a href="evento/empresario/listParticipantes.do?eventoId=${row.id}"><spring:message code="evento.participantes" /></a>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 
 </display:table>
 </div>
 
 	<security:authorize access="hasRole('EMPRESARIO')">
-		<a href="evento/empresario/register.do">
-			<spring:message code="evento.create"/>
-		</a> <br/>	
-		<br />
+		<a href="evento/empresario/register.do" class="btn btn-info" ><spring:message code="evento.create" /></a>
+		<br/>	
+		<br/>
 	</security:authorize>

@@ -1,6 +1,7 @@
 package controllers.empresario;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -19,6 +20,7 @@ import services.NegocioService;
 import controllers.AbstractController;
 import domain.Evento;
 import domain.Negocio;
+import domain.Usuario;
 
 @Controller
 @RequestMapping("/evento/empresario")
@@ -59,6 +61,25 @@ public class EventoEmpresarioController extends AbstractController{
 			
 		}
 		
+		@RequestMapping(value="/listParticipantes", method = RequestMethod.GET)
+		public ModelAndView listParticipantes(@RequestParam int eventoId){
+			
+			ModelAndView result;
+			Collection<Usuario> participantes = null;
+			
+			participantes = eventoService.findParticipantsByEvento(eventoId);
+			
+			result = new ModelAndView("evento/listParticipantes");
+
+			result.addObject("participantes", participantes);
+			
+		//	result.addObject("actionURI","evento/empresario/search.do");
+			result.addObject("requestURI", "evento/empresario/listParticipantes.do");
+
+			return result;
+			
+		}
+		
 		// Create and edition methods -------------------------------------------------
 		
 			@RequestMapping(value="/register", method = RequestMethod.GET)
@@ -91,9 +112,13 @@ public class EventoEmpresarioController extends AbstractController{
 					
 				}else{
 					try{
-						eventoService.save(evento);
-						result = new ModelAndView("redirect:list.do");
-						
+						if(evento.getFechaCelebracion().after(new Date())){
+														
+							eventoService.save(evento);
+							result = new ModelAndView("redirect:list.do");
+						}else
+							result = createEditModelAndView(evento, "edit", "evento.dates.error");
+												
 					}catch(Throwable oops){
 						result = createEditModelAndView(evento, "edit", "evento.commit.error");
 					}		

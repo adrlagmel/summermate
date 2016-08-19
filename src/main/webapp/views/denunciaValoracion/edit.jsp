@@ -18,7 +18,7 @@
 	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	<br/>
 	
 	<div style="width:50%;">
-		<form:label path="fecha">
+		<form:label path="tipo">
 			<spring:message code="denunciaValoracion.tipo" />
 		</form:label>
 		

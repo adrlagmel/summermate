@@ -44,6 +44,7 @@
 			<spring:message code="evento.fechaCelebracion" />
 		</form:label>
 		<form:input path="fechaCelebracion" cssClass="form-control" id="datetimepicker"/>	
+		<form:errors path="fechaCelebracion" cssClass="error" />
 	</div><br/>
 							
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -55,7 +56,6 @@
 	</script>
 	
 	<acme:textarea code="evento.descripcion" path="descripcion" /><br/>
-	
 	<acme:textbox code="evento.precio" path="precio" /><br/>
 	
 	<div style="width:50%;">
@@ -74,30 +74,21 @@
 	<jstl:if test="${hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if><br/>
-    
-    <security:authorize access="hasRole('USUARIO')">
-		<jstl:if test="${requestURI=='evento/usuario/list.do'}">
-			<display:column>
-			<form action="evento/usuario/signup.do" method="get" name="signup">
-				<input type="text" name="eventoId" id="evento" class="hidden" value="${row.id}"/>	
-				<input type="submit" value="<spring:message code="event.signup"/>"/>
-			</form>
-			</display:column>
-		</jstl:if>	
-	</security:authorize>
-	
-	<acme:submit name="save" code="evento.save"/>
-	<security:authorize access="hasRole('EMPRESARIO')">
-		<acme:cancel code="evento.cancel" url="/evento/empresario/list.do" /> 
-	</security:authorize> 
-	
-	<security:authorize access="!hasRole('EMPRESARIO')">
-		<acme:cancel code="evento.cancel" url="/evento/list.do" /> 
-	</security:authorize> 
-	
+    	
+    <security:authorize access="hasRole('EMPRESARIO')">
+    	<jstl:if test="${evento.id != 0}">
+			<a href="evento/empresario/uploadImageEvento.do?eventoId=${evento.id}" class="btn btn-info" ><spring:message code="evento.uploadImage" /></a>
+		</jstl:if>
+		<acme:submit name="save" code="evento.save"/>
+	 </security:authorize>
+	 
+	<acme:cancel code="evento.cancel" url="/evento/list.do" /> 
+	<br/> 
+	<br/>
 </form:form>
 
 </body>
+
 </html>
 						
 					
