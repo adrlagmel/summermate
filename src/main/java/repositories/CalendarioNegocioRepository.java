@@ -20,4 +20,7 @@ public interface CalendarioNegocioRepository extends JpaRepository<CalendarioNeg
 	
 	@Query("select coalesce(SUM(r.comensales),0) from Reserva r where r.negocio.id=?3 and r.negocio.id=(select distinct scc.negocio.id from CalendarioNegocio scc where scc.negocio.id = ?3 and (?1 BETWEEN scc.fechaInicio AND scc.fechaFin or ?2 BETWEEN scc.fechaInicio AND scc.fechaFin))")
     Integer findComensalesPorFechaDeReserva(Date fechaInicio, Date fechaFin, int negocioId);
+	
+	@Query("select c from CalendarioNegocio c where c.codigoNegocio=?1")
+	CalendarioNegocio findByCodigoNegocio(String codigoNegocioId);
 }

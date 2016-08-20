@@ -20,8 +20,8 @@
  	<acme:textbox code="playa.nombre" path="nombre" /><br/>
 	<acme:textarea code="playa.descripcion" path="descripcion" /><br/>
 	<acme:textbox code="playa.composicion" path="composicion" /><br/>
-	<acme:textbox code="playa.servicios" path="servicios" /><br/>
-	<acme:textarea  code="playa.extension" path="extension" /><br/>
+	<acme:textarea code="playa.servicios" path="servicios" /><br/>
+	<acme:textbox  code="playa.extension" path="extension" /><br/>
 	
 	<fieldset>
 	<legend><spring:message code="playa.localizacion" /></legend>

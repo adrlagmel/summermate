@@ -8,11 +8,16 @@
 		<put-attribute name="title" value="Lista de Valoraciones" />
 		<put-attribute name="body" value="/views/valoracionNegocio/list.jsp" />
 	</definition>
+	
 	<definition name="valoracionNegocio/edit" extends="master.page">	
 		<put-attribute name="title" value="Calificar Reserva" />
 		<put-attribute name="body" value="/views/valoracionNegocio/edit.jsp" />
 	</definition>
 	
+	<definition name="valoracionNegocio/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar valoración negocio" />
+		<put-attribute name="body" value="/views/valoracionNegocio/display.jsp" />
+	</definition>
 	
 	 
 </tiles-definitions>

@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ValoracionNegocioRepository;
+import security.LoginService;
+import security.UserAccount;
 
 import domain.DenunciaValoracion;
 import domain.Reserva;
@@ -40,13 +42,15 @@ public class ValoracionNegocioService {
 		Collection<DenunciaValoracion> denuncias = new ArrayList<DenunciaValoracion>();
 		
 		vn.setDenuncias(denuncias);
+		
 		vn.setFecha(new Date());
 		vn.setReserva(r);
+		
 		return vn;
 	}
 	
-	public void save(ValoracionNegocio vn) {   
-		Assert.notNull(vn);
+	public void save(ValoracionNegocio vn) { 
+		checkPrincipal(vn);
 		
 		valoracionNegocioRepository.save(vn);
 	}
@@ -59,8 +63,7 @@ public class ValoracionNegocioService {
 	
 	public ValoracionNegocio findOne(int id) {
 
-		ValoracionNegocio vn = valoracionNegocioRepository
-				.findOne(id);
+		ValoracionNegocio vn = valoracionNegocioRepository.findOne(id);
 
 		return vn;
 
@@ -68,6 +71,9 @@ public class ValoracionNegocioService {
 	
 	public ValoracionNegocio findOneToEdit(int valoracionNegocioId) {
 		ValoracionNegocio result = valoracionNegocioRepository.findOne(valoracionNegocioId);
+		
+		Assert.notNull(result);
+		
 		return result;
 	}
 
@@ -90,5 +96,13 @@ public class ValoracionNegocioService {
 		return result;
 		
 	}
+	
+	public void checkPrincipal(ValoracionNegocio valoracionNegocio) {
+		Assert.notNull(valoracionNegocio);
+		
+		UserAccount userAccount = LoginService.getPrincipal();
+		Assert.isTrue(valoracionNegocio.getReserva().getUsuario().getUserAccount().equals(userAccount));
+	}
+	
 
 }

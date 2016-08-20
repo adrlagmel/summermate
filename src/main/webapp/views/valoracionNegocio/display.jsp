@@ -7,22 +7,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="valoracionNegocio/usuario/edit.do" modelAttribute="valoracionNegocio">		
+<form:form modelAttribute="valoracionNegocio">		
 		
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="reserva"/>
 	<form:hidden path="fecha"/>
-	<form:hidden path="comentarioUtil"/>
 	
-	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
-	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	<br/>
-	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" />	<br/>
+	<acme:textbox code="valoracionNegocio.titulo" path="titulo" readonly="true"/><br/>
+	<acme:textarea code="valoracionNegocio.comentario" path="comentario" readonly="true"/>	<br/>
+	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" readonly="true"/>	<br/>
+	<acme:textbox code="valoracionNegocio.comentarioUtil" path="comentarioUtil" readonly="true"/>	<br/>
 	
-	<acme:submit name="save" code="valoracionNegocio.save"/>
-
 	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/lista.do" />
-	
 	
 </form:form>
 

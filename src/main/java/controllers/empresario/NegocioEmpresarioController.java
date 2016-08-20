@@ -64,7 +64,7 @@ public class NegocioEmpresarioController extends AbstractController{
 			ModelAndView result;
 			
 			Collection<Negocio> negocios = negocioService.searchByTown(s);
-			result = new ModelAndView("negocio/empresario/list");
+			result = new ModelAndView("negocio/list");
 			result.addObject("negocios", negocios);
 			result.addObject("showError", showError);
 			result.addObject("showSuccess", showSuccess);

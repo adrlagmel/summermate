@@ -4,6 +4,7 @@ import java.util.Collection;
 
 
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,9 @@ import controllers.AbstractController;
 import domain.Reserva;
 import domain.ValoracionNegocio;
 
-
 @Controller
 @RequestMapping("/valoracionNegocio/usuario")
 public class ValoracionNegocioUsuarioController extends AbstractController {
-
-	
 	
 	@Autowired
 	private ReservaService reservaService;
@@ -40,6 +38,17 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		super();
 	}
 	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int reservaId){
+		Reserva reserva = reservaService.findOne(reservaId);
+		
+		ValoracionNegocio valoracionNegocio = valoracionNegocioService.findOne(reserva.getValoracionNegocio().getId());
+		
+		ModelAndView result = new ModelAndView("valoracionNegocio/display");
+		result.addObject("valoracionNegocio", valoracionNegocio);
+		
+		return result;
+	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ModelAndView list(){
@@ -61,16 +70,12 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam int reservaId) {
 		ModelAndView result;
-		ValoracionNegocio vn;
-		Reserva r;
 		
-
-		r = reservaService.findOneToEdit(reservaId);
-		vn = valoracionNegocioService.create(r);
+		Reserva r = reservaService.findOneToEdit(reservaId);
+		ValoracionNegocio vn = valoracionNegocioService.create(r);
 		
 		result = createModelAndView(vn);
 		result.addObject("reserva", r);
-		
 
 		return result;
 	}
@@ -81,7 +86,6 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		ValoracionNegocio vNegocio = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
 		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
 		
-		Assert.notNull(vNegocio);
 		result = createModelAndView(vNegocio);
 		result.addObject("requestURI", "valoracionNegocio/usuario/edit.do?valoracionNegocioId="+vNegocio.getId());
 		return result;

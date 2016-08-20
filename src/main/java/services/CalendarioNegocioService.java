@@ -61,7 +61,7 @@ public class CalendarioNegocioService {
 	public void create(Reserva reserva){
 		
 		CalendarioNegocio result = new CalendarioNegocio();
-				
+		
 		Calendar sMoment = Calendar.getInstance();
 		sMoment.setTime(reserva.getFecha());
 		
@@ -93,7 +93,9 @@ public class CalendarioNegocioService {
 		
 		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
 		Assert.isTrue(eMoment.compareTo(eMomentToCheck)<=0);
-				
+		
+		result.setCodigoNegocio(reserva.getCodigo());
+		
 		if(findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId()) < reserva.getNegocio().getAforo()){
 		
 			result.setNegocio(reserva.getNegocio());
@@ -167,6 +169,19 @@ public class CalendarioNegocioService {
 		Integer comensales = calendarioNegocioRepository.findComensalesPorFechaDeReserva(startMoment, endMoment, negocioId);
 		
 		return comensales;
+	}
+	
+	public CalendarioNegocio findByCodigoNegocio(String codigoId){
+		CalendarioNegocio calendarioNegocio = calendarioNegocioRepository.findByCodigoNegocio(codigoId);
+		
+		return calendarioNegocio;
+	}
+	
+	public void delete(String codigoId){
+		CalendarioNegocio calendarioNegocio = findByCodigoNegocio(codigoId);
+		Assert.notNull(calendarioNegocio);
+		
+		calendarioNegocioRepository.delete(calendarioNegocio);
 	}
 	
 	public Collection<CalendarioNegocio> findAllByNegocios(int negocioId){

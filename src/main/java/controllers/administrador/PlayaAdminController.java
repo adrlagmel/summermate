@@ -2,10 +2,12 @@ package controllers.administrador;
 
 import java.util.Collection;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,7 +98,7 @@ public class PlayaAdminController extends AbstractController {
 		}else{
 			try{
 				playaService.save(playa);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/list.do");
 				
 			}catch(Throwable oops){
 				
@@ -105,6 +107,21 @@ public class PlayaAdminController extends AbstractController {
 		}
 			
 	return result;
+	}
+	
+	@RequestMapping(value="/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int playaId){
+		
+		ModelAndView result;
+		
+		Playa dv = playaService.findOneToEdit(playaId);
+		Assert.notNull(dv);
+	
+		playaService.delete(dv);
+		result = new ModelAndView("redirect:/list.do");
+
+		return result;
+		
 	}
 
 	// Ancillary methods ---------------------------------------------------------
@@ -164,7 +181,7 @@ public class PlayaAdminController extends AbstractController {
 				try{
 					
 					playaService.addImageToFoto(playaId, file.getBytes());
-					result = new ModelAndView("redirect:../../playa/list.do");
+					result = new ModelAndView("redirect:/list.do");
 					
 				}catch(Throwable oops){
 					boolean hasimage=true;

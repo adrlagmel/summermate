@@ -17,8 +17,7 @@
 		sortable="true" />
 
 	<spring:message code="valoracionNegocio.fecha" var="fecha" />
-	<display:column property="fecha" title="${fecha}" format="{0,date,dd/MM/yyyy HH:mm}"
-		sortable="true" />
+	<display:column property="fecha" title="${fecha}" format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
 		
 	<spring:message code="valoracionNegocio.comentario" var="comentario" />
 	<display:column property="comentario" title="${comentario}"

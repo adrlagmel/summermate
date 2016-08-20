@@ -40,6 +40,15 @@
 	name="playas" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 
+	<security:authentication var="user" property="principal.id" />
+	<display:column>
+		<jstl:if test="${row.administrador.userAccount.id == user}">
+		<a href="playa/admin/edit.do?playaId=${row.id}">
+			<spring:message code="playa.editar"/>
+		</a>
+	</jstl:if>
+	</display:column>
+		
 	<display:column>
 		<jstl:if test="${row.imagen != null}">
 			<img class="img-responsive img-rounded" id="image" src="foto/displayImage.do?playaId=${row.id}" height="75" width="75"/><br />
@@ -63,16 +72,7 @@
 			<a href="playa/display.do?playaId=${row.id}"> <spring:message code="playa.detallePlaya" />  </a>					
 	</display:column>
 	
-	<security:authentication var="user" property="principal.id" />
-	<display:column>
-		<jstl:if test="${row.administrador.userAccount.id == user}">
-		<a href="playa/admin/edit.do?playaId=${row.id}">
-			<spring:message code="playa.editar"/>
-		</a>
-		
-		</jstl:if>
-		</display:column>
-		<security:authorize access="hasRole('ADMINISTRADOR')">
+	<security:authorize access="hasRole('ADMINISTRADOR')">
 		<display:column>
 			<jstl:if test="${row.imagen==null}">
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}"><spring:message code="playa.uploadImage" /></a>
@@ -84,22 +84,25 @@
 				<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}"><spring:message code="playa.uploadCoordenates" /></a>
 			</jstl:if>
 		</display:column>
+	
 		<spring:message code="playa.delete" var="borrar" />
-			<display:column>
-			<input type="button" value="<spring:message code="playa.delete" />"
-						onclick="javascript: location.replace('playa/admin/borrar.do?playaId=${row.id}');
-						javascript: return confirm('<spring:message code="playa.confirmDelete" />')" />
-			</display:column>
-		</security:authorize>
-		<security:authorize access="hasRole('USUARIO')">
+		<display:column>
+		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
+		<input type="button" value="<spring:message code="playa.delete" />"
+					onclick="javascript: location.replace('playa/admin/delete.do?playaId=${row.id}');
+					javascript: return confirm('<spring:message code="playa.confirmDelete" />')" />
+		</jstl:if>
+		</display:column>
+	</security:authorize>
+		
+	<security:authorize access="hasRole('USUARIO')">
 		<spring:message code="valoracionPlaya.valoracionPlaya" var="valorarPlaya" />
 		<display:column title="${valorarPlaya}" sortable="false">
 		<a href="valoracionPlaya/usuario/create.do?playaId=${row.id}"> 
 					<spring:message code="valoracionPlaya.valoracionPlaya" />
 					   </a>	
 		</display:column>
-		</security:authorize>
-		
+	</security:authorize>
 	
 </display:table>
 </div>

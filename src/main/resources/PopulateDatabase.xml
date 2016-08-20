@@ -1301,8 +1301,6 @@
 	</bean>
 	
 	
-	<!-- TIPO PLAYA -->
-		
 	
 	
 	<!-- NEGOCIO -->
@@ -1331,6 +1329,8 @@
 		
 		<property name="calendarioNegocios">
 				<list>
+					<ref bean="calendarioNegocio1" />  
+					<ref bean="calendarioNegocio2" />  
 				</list>
 		</property>
 			
@@ -1360,6 +1360,7 @@
 		
 		<property name="calendarioNegocios">
 				<list>
+					<ref bean="calendarioNegocio3" />  
 				</list>
 		</property>
 			
@@ -1387,6 +1388,7 @@
 		</property>
 		<property name="calendarioNegocios">
 				<list>
+					<ref bean="calendarioNegocio4" />
 				</list>
 		</property>
 	</bean>
@@ -1414,6 +1416,8 @@
 		</property>
 		<property name="calendarioNegocios">
 				<list>
+					<ref bean="calendarioNegocio5" />
+					<ref bean="calendarioNegocio6" />
 				</list>
 		</property>
 	</bean>
@@ -1442,6 +1446,61 @@
 		</property>
 	</bean>
 	
+	
+	<!-- CALENDARIO NEGOCIO -->
+	<bean id="calendarioNegocio1" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0001-reserva"/>
+        <property name="fechaInicio" value="08/10/2016 12:00"/>
+        <property name="fechaFin" value="08/10/2016 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio1" />
+	</bean>
+	
+	<bean id="calendarioNegocio2" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0002-reserva"/>
+        <property name="fechaInicio" value="10/10/2016 12:00"/>
+        <property name="fechaFin" value="10/10/2016 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio1" />
+	</bean>
+	
+	<bean id="calendarioNegocio3" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0003-reserva"/>
+        <property name="fechaInicio" value="02/10/2016 12:00"/>
+        <property name="fechaFin" value="02/10/2016 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio2" />
+	</bean>
+	
+	<bean id="calendarioNegocio4" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0004-reserva"/>
+        <property name="fechaInicio" value="11/11/2015 12:00"/>
+        <property name="fechaFin" value="11/11/2015 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio3" />
+	</bean>
+	
+	<bean id="calendarioNegocio5" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0005-reserva"/>
+        <property name="fechaInicio" value="03/03/2016 12:00"/>
+        <property name="fechaFin" value="03/03/2016 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio4" />
+	</bean>
+	
+	<bean id="calendarioNegocio6" class="domain.CalendarioNegocio">
+	 	<property name="codigoNegocio" value="0006-reserva"/>
+        <property name="fechaInicio" value="07/07/2016 12:00"/>
+        <property name="fechaFin" value="07/07/2016 12:59"/>
+		<property name="anotacionesReserva" value="" />
+		
+		<property name="negocio" ref="negocio4" />
+	</bean>
 	
 	<!-- PETICION NEGOCIO-->
 	<bean id="peticionNegocio1" class="domain.PeticionNegocio">
@@ -1608,7 +1667,7 @@
 	<bean id="reserva1" class="domain.Reserva">
         <property name="codigo" value="0001-reserva"/>
         <property name="fechaCreacion" value="10/10/2015 12:00"/>
-        <property name="fecha" value="08/10/2016 10:00"/>
+        <property name="fecha" value="08/10/2016 12:00"/>
         <property name="comentarios" value="reserva de comida para 20 personas"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />
@@ -1620,7 +1679,7 @@
     <bean id="reserva2" class="domain.Reserva">
         <property name="codigo" value="0002-reserva"/>
         <property name="fechaCreacion" value="09/10/2015 12:00"/>
-        <property name="fecha" value="10/10/2016 10:00"/>
+        <property name="fecha" value="10/10/2016 12:00"/>
         <property name="comentarios" value="reserva de comida para 10 personas"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />
@@ -1631,7 +1690,7 @@
     
     <bean id="reserva3" class="domain.Reserva">
         <property name="codigo" value="0003-reserva"/>
-        <property name="fechaCreacion" value="08/08/2015 11:00"/>
+        <property name="fechaCreacion" value="08/08/2015 12:00"/>
         <property name="fecha" value="10/02/2016 11:00"/>
         <property name="comentarios" value="reserva de comida para 8 personas"/>
         <property name="comensales" value= "8" />
@@ -1644,7 +1703,7 @@
      <bean id="reserva4" class="domain.Reserva">
         <property name="codigo" value="0004-reserva"/>
         <property name="fechaCreacion" value="07/07/2015 10:00"/>
-        <property name="fecha" value="11/11/2015 11:34"/>
+        <property name="fecha" value="11/11/2015 12:00"/>
         <property name="comentarios" value="Para 6 comensales"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />
@@ -1656,7 +1715,7 @@
     <bean id="reserva5" class="domain.Reserva">
         <property name="codigo" value="0005-reserva"/>
         <property name="fechaCreacion" value="12/25/2015 12:30"/>
-        <property name="fecha" value="03/03/2016 11:34"/>
+        <property name="fecha" value="03/03/2016 12:00"/>
         <property name="comentarios" value="Reserva Cena"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />
@@ -1667,7 +1726,7 @@
     <bean id="reserva6" class="domain.Reserva">
         <property name="codigo" value="0006-reserva"/>
         <property name="fechaCreacion" value="03/26/2015 12:00"/>
-        <property name="fecha" value="07/07/2016 11:34"/>
+        <property name="fecha" value="07/07/2016 12:00"/>
         <property name="comentarios" value="Reserva Comensales"/>
         <property name="comensales" value= "2" />
 		<property name="fumadores" value="false" />
@@ -1809,7 +1868,7 @@
 	<!-- VALORACION NEGOCIO -->
 	<bean id="valoracionNegocio1" class="domain.ValoracionNegocio">
 		<property name="titulo" value="Valoracion Comida Fast" />
-		<property name="fecha" value="25/01/2016 14:30" />
+		<property name="fecha" value="01/25/2016 14:30" />
 		<property name="puntuacion" value="7" />
 		<property name="comentario" value="No está mal" />
 		<property name="comentarioUtil" value="2" />
@@ -1823,10 +1882,10 @@
 	
 	<bean id="valoracionNegocio2" class="domain.ValoracionNegocio">
 		<property name="titulo" value="Falta de higiene!" />
-		<property name="fecha" value="19/02/2016 14:30" />
+		<property name="fecha" value="02/19/2016 14:30" />
 		<property name="puntuacion" value="3" />
 		<property name="comentario" value="Buen servicio, mala comida" />
-		<property name="comentarioUtil" value="3" />
+		<property name="comentarioUtil" value="0" />
 		<property name="reserva" ref="reserva2" />
 		<property name="denuncias">
 			<list>
@@ -1837,10 +1896,10 @@
 	
 	<bean id="valoracionNegocio3" class="domain.ValoracionNegocio">
 		<property name="titulo" value="Repetiría sin dudarlo!" />
-		<property name="fecha" value="19/02/2016 14:30" />
+		<property name="fecha" value="02/19/2016 14:30" />
 		<property name="puntuacion" value="7" />
 		<property name="comentario" value="Buen servicio, buena comida. Repetiría." />
-		<property name="comentarioUtil" value="5" />
+		<property name="comentarioUtil" value="0" />
 		<property name="reserva" ref="reserva3" />
 		<property name="denuncias">
 			<list>
@@ -1850,7 +1909,7 @@
 	
 	<bean id="valoracionNegocio4" class="domain.ValoracionNegocio">
 		<property name="titulo" value="Calidad/precio inmejorable!" />
-		<property name="fecha" value="19/02/2016 14:30" />
+		<property name="fecha" value="02/19/2016 14:30" />
 		<property name="puntuacion" value="8" />
 		<property name="comentario" value="Buena relación calidad/precio. Un servicio espectacular. Muy recomendable." />
 		<property name="comentarioUtil" value="0" />
@@ -1861,9 +1920,9 @@
 		</property>
 	</bean>
 	
-
   	
   	<!--  DENUNCIAS  --> 
+  	
 	<bean id="denuncia1" class="domain.DenunciaValoracion">
 		<property name="titulo" value="Falsedad en el comentario" /> 
   		<property name="comentario" value="No es conveniente que tache de tal manera la falta de higiene de mi local. Espero que retire el comentario" /> 

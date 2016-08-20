@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Calendar;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -118,6 +119,14 @@ public class ReservaService {
 		return saved;
 	}
 	
+	public void delete(Reserva reserva){
+		Assert.notNull(reserva);
+		
+		calendarioNegocioService.delete(reserva.getCodigo());
+		reservaRepository.delete(reserva);
+		
+	}
+	
 	public Collection<Reserva> searchByDate(String fecha){
 		Empresario empresario = empresarioService.findByPrincipal();
 		
@@ -135,6 +144,12 @@ public class ReservaService {
 		
 		Reserva result = reservaRepository.findOne(reservaId);
 		checkPrincipal(result);
+		
+		return result;
+	}
+	
+	public Reserva findOne(int reservaId){
+		Reserva result = reservaRepository.findOne(reservaId);
 		
 		return result;
 	}

@@ -74,6 +74,8 @@ public class PlayaService {
 
 	public void delete(Playa playa){
 		Assert.notNull(playa);
+		Assert.isTrue(playa.getNegocios().size()<1);
+		
 		playaRepository.delete(playa);
 	}
 	

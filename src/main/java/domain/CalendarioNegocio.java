@@ -26,6 +26,16 @@ public class CalendarioNegocio extends DomainEntity{
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String anotacionesReserva;
+	private String codigoNegocio;
+	
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getCodigoNegocio() {
+		return codigoNegocio;
+	}
+	public void setCodigoNegocio(String codigoNegocio) {
+		this.codigoNegocio = codigoNegocio;
+	}
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -49,7 +59,6 @@ public class CalendarioNegocio extends DomainEntity{
 		this.fechaFin = fechaFin;
 	}
 	
-	@NotBlank
 	@SafeHtml(whitelistType=WhiteListType.NONE)
 	public String getAnotacionesReserva() {
 		return anotacionesReserva;

@@ -81,12 +81,27 @@
 	<display:column>
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<security:authentication var="user" property="principal.id" />
-	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha}">
+	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha && row.valoracionNegocio.id == null}">
 		<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}">
 				<spring:message code="valoracionNegocio.create"/>
 		</a> 
 	</jstl:if>
+	
+	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha && row.valoracionNegocio.id != null}">
+		<a href="valoracionNegocio/usuario/display.do?reservaId=${row.id}">
+				<spring:message code="valoracionNegocio.display"/>
+		</a> 
+	</jstl:if>
 	</display:column>	
+	
+	<display:column>
+		<spring:message code="booking.confirmDelete" var= "confirm" />
+		<jstl:if test="${row.usuario.userAccount.id == user && now < row.fecha}">
+			<security:authentication var="user" property="principal.id" />
+			<a href="reserva/usuario/delete.do?reservaId=${row.id}" class="btn btn-info" onclick="return confirm('${confirm}')"><spring:message code="booking.delete" /></a>
+		</jstl:if>
+	</display:column>
+	
 </display:table>
 </div>
 </body>
