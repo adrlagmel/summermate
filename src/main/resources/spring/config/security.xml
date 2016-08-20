@@ -46,6 +46,9 @@
 		<security:intercept-url pattern="/usuario/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/empresario/register.do" access="isAnonymous()" /> 
 		
+		<security:intercept-url pattern="/perfil/usuario.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/perfil/empresario.do" access="hasRole('ADMINISTRADOR') || hasRole('EMPRESARIO')" /> 
+		
 		<security:intercept-url pattern="/playa/list.do" access="permitAll"/> 
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>

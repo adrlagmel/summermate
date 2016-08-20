@@ -127,9 +127,16 @@
 			
 			<li class="dropdown">
 	              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.profile" /><span class="caret"></span></a>
+	              
 	              <ul class="dropdown-menu" >
-						<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-					</ul>
+					<security:authorize access="hasRole('USUARIO')">
+					<li><a href="perfil/usuario.do"><spring:message code="master.page.profile.usuario" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('EMPRESARIO')">
+						<li><a href="perfil/empresario.do"><spring:message code="master.page.profile.empresario" /></a></li>
+					</security:authorize>
+					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+				</ul>
 			</li>
 		</security:authorize>
 		

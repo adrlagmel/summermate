@@ -10,41 +10,68 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Empresario;
+import domain.Usuario;
+
+import services.EmpresarioService;
+import services.UsuarioService;
+
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/perfil")
 public class ProfileController extends AbstractController {
 	
-	// Action-1 ---------------------------------------------------------------		
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
-		ModelAndView result;
-				
-		result = new ModelAndView("profile/action-1");
+	// Services -------------------------------------------------------------------
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EmpresarioService empresarioService;
+	
+	// Profile ---------------------------------------------------------------		
 		
+	
+	@RequestMapping(value="/usuario", method = RequestMethod.GET)
+	public ModelAndView profileUsuario(){
+		ModelAndView result;
+		
+		Usuario usuario = usuarioService.findByPrincipal();
+	
+		result = new ModelAndView("usuario");
+		
+		result.addObject("actor",usuario);
+		result.addObject("isCliente", true);
+		result.addObject("isUsuario", true);
+		result.addObject("requestURI", "perfil/usuario.do");
+			
 		return result;
+		
 	}
 	
-	// Action-2 ---------------------------------------------------------------		
-	
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	@RequestMapping(value="/empresario", method = RequestMethod.GET)
+	public ModelAndView profileEmpresario(){
 		ModelAndView result;
-				
-		result = new ModelAndView("profile/action-2");
 		
+		Empresario empresario = empresarioService.findByPrincipal();
+	
+		result = new ModelAndView("empresario");
+		
+		result.addObject("actor",empresario);
+		result.addObject("isCliente", true);
+		result.addObject("isUsuario", false);
+		result.addObject("isEmpresario", true);
+		result.addObject("requestURI", "perfil/empresario.do");
+			
 		return result;
-	}
-	
-	// Action-2 ---------------------------------------------------------------		
-	
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An exception was thrown.");
+		
 	}
 	
 }

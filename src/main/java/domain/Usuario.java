@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -23,6 +24,16 @@ public class Usuario extends Cliente{
 		private String estadoActual;
 		private Integer nivelColaborador;
 		private Integer puntos; 
+		private byte[]	imagen;
+		
+		@Column(columnDefinition = "LONGBLOB")
+		public byte[] getImagen() {
+			return imagen;
+		}
+
+		public void setImagen(byte[] imagen) {
+			this.imagen= imagen;
+		}
 		
 		@SafeHtml(whitelistType = WhiteListType.NONE)
 		public String getEstadoActual() {
