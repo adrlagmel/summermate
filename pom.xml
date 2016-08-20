@@ -346,12 +346,6 @@
 			<version>1.9.13</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.dhx</groupId>
-			<artifactId>javaplanner</artifactId>
-			<version>1.5</version>
-		</dependency>
-		
 	</dependencies>
 
 	<description>SummerMate project</description>

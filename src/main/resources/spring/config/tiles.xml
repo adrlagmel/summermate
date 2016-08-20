@@ -20,8 +20,6 @@
 		<value>/views/welcome/tiles.xml</value>
 		<value>/views/playa/tiles.xml</value>
 		
-		<value>/views/planner/tiles.xml</value>
-		
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/booking/tiles.xml</value>
 		<value>/views/evento/tiles.xml</value>
