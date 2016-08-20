@@ -56,17 +56,15 @@ public class ValoracionNegocioService {
 	}
 	
 	public void delete(ValoracionNegocio vNegocio){
-		Assert.notNull(vNegocio);
+		checkPrincipal(vNegocio);
+		
 		valoracionNegocioRepository.delete(vNegocio);
-
 	}
 	
 	public ValoracionNegocio findOne(int id) {
-
 		ValoracionNegocio vn = valoracionNegocioRepository.findOne(id);
 
 		return vn;
-
 	}
 	
 	public ValoracionNegocio findOneToEdit(int valoracionNegocioId) {

@@ -55,7 +55,7 @@
 		<security:authentication var="user" property="principal.id" />
 
 			<jstl:if test="${row.empresario.userAccount.id == user}">
-				<a href="negocio/empresario/edit.do?negocioId=${row.id}"><spring:message code="negocio.edit" /></a>
+				<a href="negocio/empresario/edit.do?negocioId=${row.id}" class="btn btn-warning"><spring:message code="negocio.edit" /></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
@@ -81,9 +81,9 @@
 	<security:authorize access="hasRole('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />
-		<jstl:if test="${row.empresario.userAccount.id == user}">
-		<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}"><spring:message code="negocio.valoracionesNegocio.list" /></a>
-	</jstl:if>
+		<jstl:if test="${row.empresario.userAccount.id == user}">		
+			<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-secondary"><spring:message code="negocio.valoracionesNegocio.list" /></a>
+		</jstl:if>
 	</display:column>
 	
 	<%-- <display:column>
@@ -100,11 +100,11 @@
 	</security:authorize> 
 	<security:authorize access="hasRole('USUARIO')">
 		<display:column>
-			<a href="reserva/usuario/create.do?negocioId=${row.id}"><spring:message code="negocio.reserva.create" /></a>
+			<a href="reserva/usuario/create.do?negocioId=${row.id}" class="btn btn-success"><spring:message code="negocio.reserva.create" /></a>
 		</display:column>
 	</security:authorize> 
 	<display:column>
-			<a href="negocio/empresario/display.do?negocioId=${row.id}"><spring:message code="negocio.display" /></a>
+			<a href="negocio/empresario/display.do?negocioId=${row.id}" class="btn btn-info"><spring:message code="negocio.display" /></a>
 	</display:column>
 	
 	<security:authorize access="hasRole('EMPRESARIO')">
@@ -112,7 +112,7 @@
 			<security:authentication var="user" property="principal.id" />
 			<jstl:if test="${row.empresario.userAccount.id == user}">
 			<jstl:if test="${row.imagen==null}">
-				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}"><spring:message code="negocio.uploadImage" /></a>
+				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}" class="btn btn-secondary" ><spring:message code="negocio.uploadImage" /></a>
 			</jstl:if>
 			</jstl:if>
 		</display:column>

@@ -20,7 +20,6 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Evento extends DomainEntity{

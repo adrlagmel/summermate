@@ -14,15 +14,27 @@
 	<form:hidden path="reserva"/>
 	<form:hidden path="fecha"/>
 	<form:hidden path="comentarioUtil"/>
-	
+	<br/>
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
 	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	<br/>
-	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" />	<br/>
 	
+	<form:label path="puntuacion">
+		<spring:message code="valoracionNegocio.puntuacion"/>
+	</form:label><br/>
+	<label class="radio-inline"><input type="radio" value ="1" name="puntuacion">1</label>
+	<label class="radio-inline"><input type="radio" value ="2" name="puntuacion">2</label>
+	<label class="radio-inline"><input type="radio" value ="3" name="puntuacion">3</label>
+	<label class="radio-inline"><input type="radio" value ="4" name="puntuacion">4</label>
+	<label class="radio-inline"><input type="radio" value ="5" name="puntuacion">5</label>
+	<label class="radio-inline"><input type="radio" value ="6" name="puntuacion">6</label>
+	<label class="radio-inline"><input type="radio" value ="7" name="puntuacion">7</label>
+	<label class="radio-inline"><input type="radio" value ="8" name="puntuacion">8</label>
+	<label class="radio-inline"><input type="radio" value ="9" name="puntuacion">9</label>
+	<label class="radio-inline"><input type="radio" value ="10" name="puntuacion">10</label>
+	<br/><br/>
+		
 	<acme:submit name="save" code="valoracionNegocio.save"/>
-
 	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/lista.do" />
-	
 	
 </form:form>
 

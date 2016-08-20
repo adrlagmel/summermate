@@ -10,6 +10,7 @@ import domain.ValoracionNegocio;
 
 @Repository
 public interface ValoracionNegocioRepository extends JpaRepository<ValoracionNegocio, Integer> {
+	
 	@Query("select distinct v from ValoracionNegocio v where v.reserva.usuario.id=?1")
 	Collection<ValoracionNegocio> findValoracionNegocioByUsuario(int usuarioId);
 	

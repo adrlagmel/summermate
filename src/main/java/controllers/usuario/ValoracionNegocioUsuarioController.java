@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,16 +108,15 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		return result;
 	}
 	
-	@RequestMapping(value="/borrar", method = RequestMethod.GET)
+	@RequestMapping(value= "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam int valoracionNegocioId){
-		
 		ModelAndView result;
 		
 		ValoracionNegocio vNegocio = valoracionNegocioService.findOne(valoracionNegocioId);
-		Assert.notNull(vNegocio);
 	
 		valoracionNegocioService.delete(vNegocio);
-		result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
+		
+		result = new ModelAndView("redirect:list.do");
 
 		return result;
 		

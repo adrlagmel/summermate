@@ -42,12 +42,12 @@
 	<!-- Action links -->
 
 	<display:column>
-		<a href="mensaje/actor/mostrar.do?mensajeId=${row.id}" ><spring:message code="msg.display.link" /></a>
+		<a href="mensaje/actor/mostrar.do?mensajeId=${row.id}" class="btn btn-info"><spring:message code="msg.display.link" /></a>
 	</display:column>
 	
 </display:table>
 </div>
-	<a href="mensaje/actor/enviar.do"><spring:message code="msg.new.send.link" /></a>
+	<a href="mensaje/actor/enviar.do" class="btn btn-primary"><spring:message code="msg.new.send.link" /></a>
 
 	<acme:cancel code="msg.return.link" url="carpeta/actor/lista.do" /> 
 	

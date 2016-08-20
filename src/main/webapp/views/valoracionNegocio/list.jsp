@@ -39,18 +39,12 @@
 	<display:column property="reserva.negocio.nombre" title="${negocio}"
 		sortable="true" />
 	<security:authorize access="hasRole('USUARIO')">	
-	<spring:message code="valoracionNegocio.editar" var="editar" />
-	<display:column>
-		<a href="valoracionNegocio/usuario/edit.do?valoracionNegocioId=${row.id}">
-			<spring:message code="valoracionNegocio.editar"/>
-		</a>
-	</display:column>
 	
-	<spring:message code="valoracionNegocio.borrar" var="borrar" />
 	<display:column>
-	<input type="button" value="<spring:message code="valoracionNegocio.borrar" />"
-				onclick="javascript: location.replace('valoracionNegocio/usuario/borrar.do?valoracionNegocioId=${row.id}');
-				javascript: return confirm('<spring:message code="msg.delete.valoracionNegocio" />')" />
+		<security:authentication var="user" property="principal.id" />
+		<jstl:if test="${row.reserva.usuario.userAccount.id == user}">
+			<a href="valoracionNegocio/usuario/edit.do?valoracionNegocioId=${row.id}" class="btn btn-info" ><spring:message code="valoracionNegocio.editar" /></a>
+		</jstl:if>
 	</display:column>
 	</security:authorize>
 	

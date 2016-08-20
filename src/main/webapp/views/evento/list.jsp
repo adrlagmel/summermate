@@ -33,7 +33,7 @@
 		<security:authentication var="user" property="principal.id" />
 		<jsp:useBean id="now1" class="java.util.Date"/>	
 			<jstl:if test="${row.negocio.empresario.userAccount.id == user && now1 < row.fechaCelebracion}">
-				<a href="evento/empresario/edit.do?eventoId=${row.id}"><spring:message code="evento.edit" /></a>
+				<a href="evento/empresario/edit.do?eventoId=${row.id}" class="btn btn-warning"><spring:message code="evento.edit" /></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
@@ -58,14 +58,14 @@
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<display:column>
 		<jstl:if test="${!row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
-				<a href="evento/usuario/signup.do?eventoId=${row.id}"><spring:message code="evento.signup" /></a>
+				<a href="evento/usuario/signup.do?eventoId=${row.id}" class="btn btn-success"><spring:message code="evento.signup" /></a>
 		</jstl:if>	
 	</display:column>
 	
 	<display:column>
 		<spring:message code="evento.confirmDelete" var="confirm"/>
 		<jstl:if test="${row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
-				<a href="evento/usuario/unregister.do?eventoId=${row.id}" onclick="return confirm('${confirm}')"><spring:message code="evento.unregister" /></a>
+				<a href="evento/usuario/unregister.do?eventoId=${row.id}" onclick="return confirm('${confirm}')" class = "btn btn-danger"><spring:message code="evento.unregister" /></a>
 		</jstl:if>	
 	</display:column>	
 	</security:authorize>

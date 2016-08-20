@@ -44,11 +44,11 @@
 	
 	<security:authorize access="hasRole('ADMINISTRADOR')">
 	<display:column>
-		<a href="peticionNegocio/administrador/aceptar.do?peticionNegocioId=${row.id}" ><spring:message code="peticionNegocio.aceptar.link" /></a>
+		<a href="peticionNegocio/administrador/aceptar.do?peticionNegocioId=${row.id}" class="btn btn-success" ><spring:message code="peticionNegocio.aceptar.link" /></a>
 	</display:column>
 		
 	<display:column>
-		<a href="peticionNegocio/administrador/rechazar.do?peticionNegocioId=${row.id}" ><spring:message code="peticionNegocio.rechazar.link" /></a>
+		<a href="peticionNegocio/administrador/rechazar.do?peticionNegocioId=${row.id}" class="btn btn-danger" ><spring:message code="peticionNegocio.rechazar.link" /></a>
 	</display:column>
 	
 	</security:authorize>

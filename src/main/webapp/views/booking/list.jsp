@@ -96,9 +96,9 @@
 	
 	<display:column>
 		<spring:message code="booking.confirmDelete" var= "confirm" />
-		<jstl:if test="${row.usuario.userAccount.id == user && now < row.fecha}">
-			<security:authentication var="user" property="principal.id" />
-			<a href="reserva/usuario/delete.do?reservaId=${row.id}" class="btn btn-info" onclick="return confirm('${confirm}')"><spring:message code="booking.delete" /></a>
+		<security:authentication var="use" property="principal.id" />
+		<jstl:if test="${row.usuario.userAccount.id == use && now < row.fecha}">
+			<a href="reserva/usuario/delete.do?reservaId=${row.id}" class="btn btn-danger" onclick="return confirm('${confirm}')"><spring:message code="booking.delete" /></a>
 		</jstl:if>
 	</display:column>
 	

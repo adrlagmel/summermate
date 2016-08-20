@@ -113,7 +113,7 @@
 		<security:intercept-url pattern="/valoracionPlaya/usuario/list.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionPlaya/usuario/borrar.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/list.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/delete.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasRole('USUARIO')"/>
 		
 		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasRole('EMPRESARIO')"/>

@@ -19,10 +19,7 @@
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="true"
 	name="carpetas" requestURI="carpeta/actor/lista.do" id="row">
-	
-	<!-- Action links -->
-
-	
+		
 	<!-- Attributes -->
 
 	<spring:message code="folder.name" var="nombre" />
@@ -35,10 +32,9 @@
 	</display:column>
 
 	<display:column>
-		<a href="mensaje/actor/lista.do?carpetaId=${row.id}" ><spring:message code="folder.messages.link" /></a>
+		<a href="mensaje/actor/lista.do?carpetaId=${row.id}" class="btn btn-primary"><spring:message code="folder.messages.link" /></a>
 	</display:column>
 		
-	
 </display:table>
 </div>
 		<br />
