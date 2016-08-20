@@ -51,7 +51,7 @@
 	<display:column property="negocio.playa.nombre" title="${playa}" sortable="true" />
 		
 	<display:column>
-		<a href="evento/display.do?eventoId=${row.id}"><spring:message code="evento.display" /></a>
+		<a href="evento/display.do?eventoId=${row.id}" class="btn btn-info"><spring:message code="evento.display" /></a>
 	</display:column>
 	
 	<security:authorize access="hasRole('USUARIO')">

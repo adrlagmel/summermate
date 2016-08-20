@@ -75,20 +75,20 @@
 		
 	<spring:message code="booking.comments" var="comment" />
 	<display:column title="${comment}" maxLength="20">
-	<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
+		<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
 	</display:column>
 	<spring:message code="valoracionNegocio.create" var="valoracionNegocio" />
 	<display:column>
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<security:authentication var="user" property="principal.id" />
 	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha && row.valoracionNegocio.id == null}">
-		<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}">
+		<a href="valoracionNegocio/usuario/create.do?reservaId=${row.id}" class="btn btn-primary"> 
 				<spring:message code="valoracionNegocio.create"/>
 		</a> 
 	</jstl:if>
 	
 	<jstl:if test="${row.usuario.userAccount.id == user && now > row.fecha && row.valoracionNegocio.id != null}">
-		<a href="valoracionNegocio/usuario/display.do?reservaId=${row.id}">
+		<a href="valoracionNegocio/usuario/display.do?reservaId=${row.id}" class="btn btn-info">
 				<spring:message code="valoracionNegocio.display"/>
 		</a> 
 	</jstl:if>

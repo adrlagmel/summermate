@@ -49,7 +49,7 @@
 </div>
 	<a href="mensaje/actor/enviar.do" class="btn btn-primary"><spring:message code="msg.new.send.link" /></a>
 
-	<acme:cancel code="msg.return.link" url="carpeta/actor/lista.do" /> 
+	<acme:cancel code="msg.return.link" url="/carpeta/actor/lista.do" /> 
 	
 	
 		

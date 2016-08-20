@@ -39,4 +39,4 @@
 </div>
 		<br />
 		
-		<input type="button" value="<spring:message code="folder.return.link" />" onclick="javascript: location.replace('actor/welcome/index.do')" />	
+		<a href="#" class="btn btn-danger"><spring:message code="folder.return.link" /></a>

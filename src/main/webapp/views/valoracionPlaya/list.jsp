@@ -28,6 +28,10 @@
 	<display:column property="puntuacion" title="${puntuacion}"
 		sortable="true" />
 		
+	<spring:message code="valoracionPlaya.usuario" var="usuario" />
+	<display:column property="cliente.userAccount.username" title="${usuario}"
+		sortable="true" />
+		
 	<spring:message code="valoracionPlaya.playa" var="playa" />
 	<display:column property="playa.nombre" title="${playa}"
 		sortable="true" />

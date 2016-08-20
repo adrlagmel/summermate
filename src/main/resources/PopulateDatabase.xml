@@ -526,6 +526,7 @@
         </property>
         <property name="valoracionPlayas">
 			<list>
+				 <ref bean="valoracionPlaya1" />
 			</list>
 		</property>
 		
@@ -570,6 +571,7 @@
         </property>
 		<property name="valoracionPlayas">
 			<list>
+				<ref bean="valoracionPlaya2" />
 			</list>
 		</property>
 	</bean>
@@ -1176,7 +1178,7 @@
 		<property name="administrador" ref="administrador1" />
 		<property name="valoracionPlayas">
 			<list>
-				
+				<ref bean="valoracionPlaya1" />
 			</list>
 		</property>
 		<property name="negocios">
@@ -1201,7 +1203,7 @@
 		<property name="localizacion" ref="localizacion8" />
 		<property name="valoracionPlayas">
 			<list>
-				
+				<ref bean="valoracionPlaya2" />
 			</list>
 		</property>
 		<property name="negocios">
@@ -1920,6 +1922,29 @@
 		</property>
 	</bean>
 	
+  	
+  	<!-- VALORACION PLAYA -->
+	<bean id="valoracionPlaya1" class="domain.ValoracionPlaya">
+		<property name="titulo" value="Playa en buen estado" />
+		<property name="fecha" value="01/25/2016 14:30" />
+		<property name="puntuacion" value="7" />
+		<property name="comentario" value="No está mal" />
+		
+		<property name="cliente" ref="usuario1" />
+		<property name="playa" ref="playa1" />
+		
+	</bean>
+	
+	<bean id="valoracionPlaya2" class="domain.ValoracionPlaya">
+		<property name="titulo" value="Agradable!" />
+		<property name="fecha" value="01/25/2016 14:30" />
+		<property name="puntuacion" value="8" />
+		<property name="comentario" value="Muy buen ambiente" />
+		
+		<property name="cliente" ref="usuario2" />
+		<property name="playa" ref="playa2" />
+		
+	</bean>
   	
   	<!--  DENUNCIAS  --> 
   	
