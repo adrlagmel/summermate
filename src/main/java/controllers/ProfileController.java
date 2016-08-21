@@ -10,9 +10,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 
@@ -29,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Empresario;
 import domain.Usuario;
-import security.Authority;
+import forms.UsuarioEditForm;
 import services.EmpresarioService;
 import services.UsuarioService;
 
@@ -55,6 +52,8 @@ public class ProfileController extends AbstractController {
 		
 		Usuario usuario = usuarioService.findByPrincipal();
 	
+		System.out.println(usuario.getUserAccount().getAuthorities());
+		
 		result = new ModelAndView("usuario");
 		
 		result.addObject("actor",usuario);
@@ -70,16 +69,13 @@ public class ProfileController extends AbstractController {
 	public ModelAndView profileUsuarioEdit(){
 		ModelAndView result;
 		
-		Usuario usuario = usuarioService.findOneToEdit(usuarioService.findByPrincipal().getId());
+		Usuario usuario = usuarioService.findByPrincipal();
 		
 		result = new ModelAndView("usuario/edit");
-		Collection<Authority> authorities = new ArrayList<Authority>();
-		authorities = usuario.getUserAccount().getAuthorities();
 		
 		System.out.println(usuario.getUserAccount().getAuthorities());
 		
 		result.addObject("actor",usuario);
-		result.addObject("authorities", authorities);
 		result.addObject("isCliente", true);
 		result.addObject("isUsuario", true);
 		result.addObject("actionURI", "perfil/usuario/edit.do");
@@ -89,25 +85,27 @@ public class ProfileController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/usuario/edit", method=RequestMethod.POST, params="save")
-	public ModelAndView saveUsuario(@ModelAttribute("actor") @Valid Usuario usuario, BindingResult binding){
+	public ModelAndView saveUsuario(@ModelAttribute("actor") @Valid UsuarioEditForm usuario, BindingResult binding){
 		
 		ModelAndView result;
 		
-		System.out.println(usuario.getUserAccount().getAuthorities());
+		Usuario userRes = usuarioService.reconstructEdit(usuario);
+		
+//		System.out.println(usuario.getUserAccount().getAuthorities());
 		
 		if(binding.hasErrors()){
-				result = createEditModelAndViewUsuario(usuario);
+				result = createEditModelAndViewUsuario(userRes);
 		}else{
 			try{
-				usuarioService.save(usuario);
+				usuarioService.save(userRes);
 				result = new ModelAndView("redirect:/#");
 				
 			}catch(DataIntegrityViolationException exc){
 				result = new ModelAndView("perfil/usuario/edit");
-				createEditModelAndViewUsuario(usuario, "usuario.duplicated.user");
+				createEditModelAndViewUsuario(userRes, "usuario.duplicated.user");
 			}catch(Throwable oops){
 				
-				result = createEditModelAndViewUsuario(usuario, "usuario.commit.error");
+				result = createEditModelAndViewUsuario(userRes, "usuario.commit.error");
 			}
 		}
 		

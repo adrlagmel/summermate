@@ -21,11 +21,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="carpetas"/>
-	
-	<form:hidden path="userAccount.password"/>
-	<form:hidden path="userAccount.username"/>
-	<form:hidden path="userAccount.authorities" value="${authorities}" />
-	
+		
 	<jstl:if test="${isCliente == true}">
 		<form:hidden path="denuncias"/>
 	</jstl:if>

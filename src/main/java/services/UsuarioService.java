@@ -17,6 +17,7 @@ import domain.Evento;
 import domain.Reserva;
 import domain.Usuario;
 import domain.ValoracionPlaya;
+import forms.UsuarioEditForm;
 import forms.UsuarioRegistroForm;
 
 import repositories.UsuarioRepository;
@@ -166,6 +167,27 @@ public class UsuarioService {
 		usuario.getUserAccount().setPassword(form.getRegistroForm().getPassword());
 		
 		return usuario;
+	}
+	
+	public Usuario reconstructEdit(UsuarioEditForm form) {
+		
+		Usuario result = findByPrincipal();
+		
+		result.setEmail(form.getEmail());
+		result.setNombre(form.getNombre());
+		result.setApellidos(form.getApellidos());
+		
+		result.setTelefono(form.getTelefono());
+		result.setFechaNacimiento(form.getFechaNacimiento());
+		result.setNacionalidad(form.getNacionalidad());
+		result.setDireccion(form.getDireccion());
+		result.setSexo(form.getSexo());
+		
+		result.setEstadoActual(form.getEstadoActual());
+		result.setNivelColaborador(form.getNivelColaborador());
+		result.setPuntos(form.getPuntos());
+		
+		return result;
 	}
 
 	public void savePassword(Usuario usuario) {
