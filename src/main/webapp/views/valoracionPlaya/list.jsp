@@ -29,7 +29,7 @@
 		sortable="true" />
 		
 	<spring:message code="valoracionPlaya.usuario" var="usuario" />
-	<display:column property="cliente.userAccount.username" title="${usuario}"
+	<display:column property="usuario.userAccount.username" title="${usuario}"
 		sortable="true" />
 		
 	<spring:message code="valoracionPlaya.playa" var="playa" />

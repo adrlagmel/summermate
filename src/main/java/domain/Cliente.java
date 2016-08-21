@@ -84,7 +84,6 @@ public abstract class Cliente extends Actor{
 	
 	
 	private Collection <DenunciaValoracion> denuncias;
-	private Collection<ValoracionPlaya> valoracionPlayas;
 
 	@NotNull
 	@Valid
@@ -94,17 +93,6 @@ public abstract class Cliente extends Actor{
 	}
 	public void setDenuncias(Collection<DenunciaValoracion> denuncias) {
 		this.denuncias = denuncias;
-	}
-	
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy="cliente")
-	public Collection<ValoracionPlaya> getValoracionPlayas() {
-		return valoracionPlayas;
-	}
-
-	public void setValoracionPlayas(Collection<ValoracionPlaya> valoracionPlayas) {
-		this.valoracionPlayas = valoracionPlayas;
 	}
 	
 	

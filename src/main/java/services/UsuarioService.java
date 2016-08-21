@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 
 
+
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -109,11 +110,21 @@ public class UsuarioService {
 		 return res;
 	}
 	
+	public Usuario findOneToEdit(int id){
+		checkPrincipal();
+		Assert.isTrue(id != 0);
+		Usuario res;
+		 
+		res = this.usuarioRepository.findOne(id);
+		Assert.notNull(res);
+		 
+		return res;
+	}
+	
 	public Usuario findByPrincipal(){
-		
 		UserAccount principalAccount = LoginService.getPrincipal();
-		
 		Usuario principal = findByUserAccount(principalAccount.getId());
+		
 		return principal;		
 	}
 	
@@ -127,7 +138,7 @@ public class UsuarioService {
 		Collection<Authority> authorities = userAccount.getAuthorities();
 		
 		Authority auth = new Authority();
-		auth.setAuthority("ATHLETE");
+		auth.setAuthority("USUARIO");
 		
 		Assert.isTrue(authorities.contains(auth));
 	 }
@@ -175,5 +186,17 @@ public class UsuarioService {
 		Assert.isTrue(findByPrincipal().equals(u));
 		
 		
+	}
+	
+	public void addImageToNegocio(int usuarioId, byte[] bytes) {
+		Usuario usuario = findOneToEdit(usuarioId);
+		
+		if(bytes.length==0){
+			usuario.setImagen(null);
+		}else{
+			usuario.setImagen(bytes);
+		}
+		
+		save(usuario);
 	}
 	}

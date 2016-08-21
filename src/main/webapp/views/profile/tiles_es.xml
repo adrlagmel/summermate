@@ -31,4 +31,14 @@
 		<put-attribute name="body" value="/views/profile/profile.jsp" />
 	</definition>
 	
+	<definition name="usuario/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar perfil" />
+		<put-attribute name="body" value="/views/profile/editprofile.jsp" />
+	</definition>
+	
+	<definition name="empresario/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar perfil" />
+		<put-attribute name="body" value="/views/profile/editprofile.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -79,7 +79,7 @@ public class ValoracionPlaya extends DomainEntity{
 	// Relationships ------------------------------------------------
 	
 	private Playa playa;
-	private Cliente cliente;
+	private Usuario usuario;
 	
 	@NotNull
 	@Valid
@@ -95,11 +95,11 @@ public class ValoracionPlaya extends DomainEntity{
 	@NotNull
 	@Valid
 	@ManyToOne(optional=false)
-	public Cliente getCliente() {
-		return cliente;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

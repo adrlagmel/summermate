@@ -12,7 +12,7 @@ import domain.ValoracionPlaya;
 @Repository
 public interface ValoracionPlayaRepository extends JpaRepository<ValoracionPlaya, Integer> {
 	
-	@Query("select distinct v from ValoracionPlaya v where v.cliente.id=?1")
+	@Query("select distinct v from ValoracionPlaya v where v.usuario.id=?1")
 	Collection<ValoracionPlaya> findValoracionPlayaByUsuario(int usuarioId);
 	
 	@Query("select distinct v from ValoracionPlaya v where v.playa.id=?1")

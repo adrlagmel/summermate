@@ -35,7 +35,7 @@ public class ValoracionPlayaService {
 		Usuario u = usuarioService.findByPrincipal();
 		ValoracionPlaya vp= new ValoracionPlaya();
 		vp.setPlaya(p);
-		vp.setCliente(u);
+		vp.setUsuario(u);
 		vp.setTitulo("");
 		vp.setFecha(new Date());
 		vp.setComentario("");

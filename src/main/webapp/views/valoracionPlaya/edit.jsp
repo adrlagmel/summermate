@@ -12,7 +12,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="playa"/>
-	<form:hidden path="cliente"/>
+	<form:hidden path="usuario"/>
 	<form:hidden path="fecha"/>
 	
 	<acme:textbox code="valoracionPlaya.titulo" path="titulo" /> <br/>

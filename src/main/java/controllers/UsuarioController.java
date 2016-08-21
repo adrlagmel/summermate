@@ -2,7 +2,6 @@ package controllers;
 
 import javax.validation.Valid;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import domain.Usuario;
 import forms.UsuarioRegistroForm;
 
@@ -66,7 +66,7 @@ public class UsuarioController extends AbstractController{
 					try{
 						usuario = usuarioService.reconstruct(form);
 						usuarioService.save(usuario);
-						result = new ModelAndView("redirect:/summermate");
+						result = new ModelAndView("redirect:/#");
 						
 					}catch(DataIntegrityViolationException exc){
 						result = createEditModelAndView(form, "register.duplicated.user");
@@ -132,6 +132,56 @@ public class UsuarioController extends AbstractController{
 				return result;
 			}
 			
+			// Ancillary methods ---------------------------------------------------------
+			
+			@RequestMapping(value="/uploadImageUsuario", method=RequestMethod.GET)
+			public ModelAndView uploadImage(@RequestParam int usuarioId){
+				ModelAndView result;
+				Usuario usuario = usuarioService.findOneToEdit(usuarioId);
+				
+				boolean hasimage=true;
+
+				if(usuario.getImagen()==null){
+					hasimage=false;
+				}
+				
+				result = new ModelAndView("usuario/uploadImage");
+				result.addObject("usuario", usuario);
+				result.addObject("negocioId", usuarioId);
+				result.addObject("hasimage",hasimage);
+				
+				
+				return result;
+			}
+			
+			
+			@RequestMapping (value="/uploadImageUsuario", method=RequestMethod.POST, params="save")
+			public ModelAndView addImagenUsuario(@RequestParam int usuarioId, @RequestParam("foto") MultipartFile file){
+				ModelAndView result;
+				Usuario usuario = usuarioService.findOneToEdit(usuarioId);
+
+				try{
+					
+					usuarioService.addImageToNegocio(usuarioId, file.getBytes());
+					result = new ModelAndView("redirect:../../perfil/usuario.do");
+					
+				}catch(Throwable oops){
+					boolean hasimage=true;
+
+					if(usuario.getImagen()==null){
+						hasimage=false;
+					}
+					
+					result = new ModelAndView("usuario/uploadImage");
+					result.addObject("usuario", usuario);
+					result.addObject("usuarioId", usuarioId);
+					result.addObject("hasimage", hasimage);
+					result.addObject("message", "usuario.commit.error");
+									
+				}
+				
+				return result;
+			}
 			
 			
 			

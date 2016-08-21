@@ -325,11 +325,6 @@
                               <ref bean="carpeta4" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
-		
 	</bean>
 	
 	<bean id="empresario2" class="domain.Empresario">
@@ -360,11 +355,6 @@
                               <ref bean="carpeta8" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
-	
 	</bean>
 	
 	<bean id="empresario3" class="domain.Empresario">
@@ -393,10 +383,6 @@
                               <ref bean="carpeta8" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
 		
 	</bean>
 	
@@ -426,11 +412,6 @@
                     <ref bean="carpeta18" />                                 
               </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
-	
 	</bean>
 	
 	<bean id="empresario5" class="domain.Empresario">
@@ -459,11 +440,6 @@
                               <ref bean="carpeta20" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
-		
 	</bean>
 	
 	<bean id="empresario6" class="domain.Empresario">
@@ -492,11 +468,6 @@
                               <ref bean="carpeta22" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-			</list>
-		</property>
-		
 	</bean>
 	
 	<bean id="empresario7" class="domain.Empresario">
@@ -524,15 +495,52 @@
                               <ref bean="carpeta34" />                                 
                         </list>
         </property>
-        <property name="valoracionPlayas">
-			<list>
-				 <ref bean="valoracionPlaya1" />
-			</list>
-		</property>
-		
 	</bean>
 	
 	<!-- USUARIO -->
+	
+	<bean id="usuario1" class="domain.Usuario">
+	    <property name="userAccount" ref="userAccount2" />
+		<property name="nombre" value="Andrés" />
+		<property name="apellidos" value="Fernández Ruiz" />
+		<property name="email" value="afernandez@gmail.com" />
+		<property name="telefono" value="+32685548974" />
+		<property name="fechaNacimiento" value="01/01/1981" />
+		<property name="nacionalidad" value="Española" />
+		<property name="direccion" value="C/ Miliki nº 1" />
+		<property name="sexo" value="HOMBRE" />
+		<property name="estadoActual" value="Disfrutando del Sol" />
+		<property name="nivelColaborador" value="6" />
+		<property name="puntos" value="6" />
+		<property name="eventos">
+            <list>
+                  <ref bean="evento1" />    
+            </list>
+        </property>
+       
+		<property name="carpetas">
+            <list>
+                   <ref bean="carpeta5" />  
+                   <ref bean="carpeta6" />                                 
+            </list>
+        </property>
+        <property name="reservas">
+             <list> 
+             	<ref bean="reserva1" />                          
+             </list>
+        </property>
+         <property name="denuncias">
+                        <list>
+                                                            
+                        </list>
+        </property>
+        <property name="valoracionPlayas">
+			<list>
+				<ref bean="valoracionPlaya1" />
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="usuario2" class="domain.Usuario">
 	    <property name="userAccount" ref="userAccount6" />
 		<property name="nombre" value="Laura" />
@@ -572,47 +580,6 @@
 		<property name="valoracionPlayas">
 			<list>
 				<ref bean="valoracionPlaya2" />
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="usuario1" class="domain.Usuario">
-	    <property name="userAccount" ref="userAccount2" />
-		<property name="nombre" value="Andrés" />
-		<property name="apellidos" value="Fernández Ruiz" />
-		<property name="email" value="afernandez@gmail.com" />
-		<property name="telefono" value="+32685548974" />
-		<property name="fechaNacimiento" value="01/01/1981" />
-		<property name="nacionalidad" value="Española" />
-		<property name="direccion" value="C/ Miliki nº 1" />
-		<property name="sexo" value="HOMBRE" />
-		<property name="estadoActual" value="Disfrutando del Sol" />
-		<property name="nivelColaborador" value="6" />
-		<property name="puntos" value="6" />
-		<property name="eventos">
-            <list>
-                  <ref bean="evento1" />    
-            </list>
-        </property>
-       
-		<property name="carpetas">
-            <list>
-                   <ref bean="carpeta5" />  
-                   <ref bean="carpeta6" />                                 
-            </list>
-        </property>
-        <property name="reservas">
-             <list> 
-             	<ref bean="reserva1" />                          
-             </list>
-        </property>
-         <property name="denuncias">
-                        <list>
-                                                            
-                        </list>
-        </property>
-        <property name="valoracionPlayas">
-			<list>
 			</list>
 		</property>
 	</bean>
@@ -1930,7 +1897,7 @@
 		<property name="puntuacion" value="7" />
 		<property name="comentario" value="No está mal" />
 		
-		<property name="cliente" ref="usuario1" />
+		<property name="usuario" ref="usuario1" />
 		<property name="playa" ref="playa1" />
 		
 	</bean>
@@ -1941,7 +1908,7 @@
 		<property name="puntuacion" value="8" />
 		<property name="comentario" value="Muy buen ambiente" />
 		
-		<property name="cliente" ref="usuario2" />
+		<property name="usuario" ref="usuario2" />
 		<property name="playa" ref="playa2" />
 		
 	</bean>
