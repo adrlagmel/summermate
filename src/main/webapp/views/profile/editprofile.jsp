@@ -16,6 +16,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/jquery.datetimepicker.css" />
+
+</head>
+
+<body>
+
+
 <form:form action="${actionURI}" modelAttribute="actor">
 
 
@@ -25,7 +38,22 @@
 		
 	<jstl:if test="${isCliente == true}">
 		<acme:textbox code="actor.phone" path="telefono" /><br/>
-		<acme:textbox code="cliente.birthDate" path="fechaNacimiento" /><br/>
+		
+		<div style="width:50%;">
+			<form:label path="fechaNacimiento">
+				<spring:message code="cliente.birthDate" />
+			</form:label>
+			<form:input path="fechaNacimiento" cssClass="form-control" id="datetimepicker"/>	
+		</div><br/>
+								
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
+		
+		<script type="text/javascript">
+			$('#datetimepicker').datetimepicker({format: 'd/m/Y'});
+		</script>
+		
 		<acme:textbox code="cliente.direccion" path="direccion" /><br/>
 		<div style="width:50%;">
 			<form:label path="sexo">
@@ -54,3 +82,7 @@
 	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
 	
 </form:form>
+
+
+</body>
+</html>

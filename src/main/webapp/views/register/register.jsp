@@ -18,6 +18,18 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/jquery.datetimepicker.css" />
+
+</head>
+
+<body>
+
 <form:form action="${actionURI}" modelAttribute="form">
 
 	<jstl:if test="${isAdministrador==true}">
@@ -47,7 +59,22 @@
 	
 	
 	<acme:textbox code="register.phone" path="registroForm.telefono" /><br />
-	<acme:textbox code="register.birthDate" path="registroForm.fechaNacimiento" /><br />
+	
+	<div style="width:50%;">
+		<form:label path="registroForm.fechaNacimiento">
+			<spring:message code="register.birthDate" />
+		</form:label>
+		<form:input path="registroForm.fechaNacimiento" cssClass="form-control" id="datetimepicker"/>	
+	</div><br/>
+									
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.datetimepicker.full.js"></script>
+	
+	<script type="text/javascript">
+		$('#datetimepicker').datetimepicker({format: 'd/m/Y'});
+	</script>
+	
 	<acme:textbox code="register.nacionality" path="registroForm.nacionalidad" /><br />
 	<acme:textbox code="register.address" path="registroForm.direccion" /><br />
 	
@@ -93,3 +120,7 @@
 		</security:authorize>
 		
 </form:form>
+
+
+</body>
+</html>

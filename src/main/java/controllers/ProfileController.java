@@ -211,16 +211,11 @@ public class ProfileController extends AbstractController {
 			
 			try{
 				if (!passwordOld.equals(actor.getUserAccount().getPassword())){
-					System.out.println(passwordOld);
-					System.out.println(actor.getUserAccount().getPassword());
 					result = createEditModelAndViewActor(actorForm, "actor.password.error");
 				}
 				
 				else if (!actorForm.getPassword().equals(actorForm.getVerifyPassword())){
 					result = createEditModelAndViewActor(actorForm, "actor.password.error.coincidir");
-					
-					System.out.println(actorForm.getPassword());
-					System.out.println(actorForm.getVerifyPassword());
 				}else{
 									
 					actor  = actorService.reconstructPassword(actorForm);
