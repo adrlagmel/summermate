@@ -22,10 +22,14 @@
 			<spring:message code="denunciaValoracion.tipo" />
 		</form:label>
 		
+		<spring:message code="denunciaValoracion.falso" var="falso"/>
+		<spring:message code="denunciaValoracion.burla" var="burla"/>
+		<spring:message code="denunciaValoracion.rechazo" var="rechazo"/> 
+		
 		<form:select path="tipo" cssClass="form-control">
-			<form:option label= "FALSO" value = "<spring:message code="denunciaValoracion.falso"/>" />		
-			<form:option label= "RECHAZO" value = "<spring:message code="denunciaValoracion.burla"/>"/>
-			<form:option label= "BURLA" value = "<spring:message code="denunciaValoracion.rechazo"/>"/>		
+			<form:option value= "FALSO" label = "${falso}" />		
+			<form:option value= "RECHAZO" label = "${burla}"/>
+			<form:option value= "BURLA" label = "${rechazo}"/>		
 		</form:select>
 	</div><br>
 	
