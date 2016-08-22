@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 
 
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.PlayaRepository;
-import repositories.ValoracionPlayaRepository;
 import security.LoginService;
 import security.UserAccount;
 
@@ -30,10 +30,7 @@ public class PlayaService {
 	
 	@Autowired
 	private AdministradorService administradorService;
-	
-	@Autowired
-	private ValoracionPlayaRepository valoracionPlayaRepository;
-	
+
 	
 	public PlayaService(){
 		super();
