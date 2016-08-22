@@ -75,7 +75,7 @@
 		
 	<spring:message code="booking.comments" var="comment" />
 	<display:column title="${comment}" maxLength="20">
-		<a href="javascript: void(0);" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
+		<a href="javascript: void(0);" class="btn btn-default" onclick="showLargeText('<jstl:out value="${row.comentarios}" />');" data-toggle="modal" data-target="#largeText"><jstl:out value="${row.comentarios}" /></a>
 	</display:column>
 	<spring:message code="valoracionNegocio.create" var="valoracionNegocio" />
 	<display:column>

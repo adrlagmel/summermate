@@ -28,12 +28,12 @@
 		
 		<form:select path="tipo" cssClass="form-control">
 			<form:option value= "FALSO" label = "${falso}" />		
-			<form:option value= "RECHAZO" label = "${burla}"/>
-			<form:option value= "BURLA" label = "${rechazo}"/>		
+			<form:option value= "RECHAZO" label = "${rechazo}"/>
+			<form:option value= "BURLA" label = "${burla}"/>		
 		</form:select>
 	</div><br>
 	
-	<acme:submit name="save" code="denunciaValoracion.save"/>
+	<acme:submit name="save" code="denunciaValoracion.save" />
 	<acme:cancel code="denunciaValoracion.atras" url="/denunciaValoracion/empresario/list.do" />
 	
 </form:form>

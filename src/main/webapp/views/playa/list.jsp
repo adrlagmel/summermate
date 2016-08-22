@@ -20,7 +20,7 @@
 						<input type="text" name="lat" id="lat" class="hidden"/>
 						<input type="text" name="lon" id="lon" class="hidden"/>
 						
-						<a href="javascript: nearToMe.submit()"> <spring:message code="master.page.playa.nearToMe"/></a>
+						<a href="javascript: nearToMe.submit()" class="btn btn-success"> <spring:message code="master.page.playa.nearToMe"/></a>
 						<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBBrx34wk6LRo3M4xsVJEe3U9umurfaMik" ></script>
 									<script>
 										var x = document.getElementById("lat");
@@ -82,6 +82,7 @@
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}" class="btn btn-primary"><spring:message code="playa.uploadImage" /></a>
 			</jstl:if>
 		</display:column>
+		
 		
 		<display:column>
 				<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.uploadCoordenates" /></a>

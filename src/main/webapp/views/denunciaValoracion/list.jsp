@@ -27,16 +27,14 @@
 	<security:authorize access="hasRole('EMPRESARIO')">	
 	<spring:message code="denunciaValoracion.editar" var="editar" />
 	<display:column>
-		<a href="denunciaValoracion/empresario/edit.do?denunciaValoracionId=${row.id}">
+		<a  href="denunciaValoracion/empresario/edit.do?denunciaValoracionId=${row.id}" class="btn btn-warning">
 			<spring:message code="valoracionNegocio.editar"/>
 		</a>
 	</display:column>
 	
-	<spring:message code="denunciaValoracion.borrar" var="borrar" />
-	<display:column>
-	<input type="button" value="<spring:message code="valoracionNegocio.borrar" />"
-				onclick="javascript: location.replace('denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}');
-				javascript: return confirm('<spring:message code="msg.delete.denunciaValoracion" />')" />
+	<spring:message code="denunciaValoracion.borrar"  var="borrar" />
+	<display:column sortable="false">
+		<a href="denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.denunciaValoracion" />')"><spring:message code="valoracionNegocio.borrar" /></a>
 	</display:column>
 	</security:authorize>	
 		

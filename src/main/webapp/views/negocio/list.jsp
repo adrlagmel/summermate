@@ -85,7 +85,7 @@
 	<display:column>
 	<security:authentication var="user" property="principal.id" />
 		<jstl:if test="${row.empresario.userAccount.id == user}">		
-			<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-secondary"><spring:message code="negocio.valoracionesNegocio.list" /></a>
+			<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-default"><spring:message code="negocio.valoracionesNegocio.list" /></a>
 		</jstl:if>
 	</display:column>
 	
@@ -115,7 +115,7 @@
 			<security:authentication var="user" property="principal.id" />
 			<jstl:if test="${row.empresario.userAccount.id == user}">
 			<jstl:if test="${row.imagen==null}">
-				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}" class="btn btn-secondary" ><spring:message code="negocio.uploadImage" /></a>
+				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}" class="btn btn-success" ><spring:message code="negocio.uploadImage" /></a>
 			</jstl:if>
 			</jstl:if>
 		</display:column>
@@ -129,19 +129,19 @@
 
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<jstl:if test="${!negocios.isEmpty() || allowRegisternegocio == true}">
-		<a href="negocio/empresario/register.do">
+		<a href="negocio/empresario/register.do" class="btn btn-primary">
 			<spring:message code="negocio.create"/>
 		</a> <br/>	
 		</jstl:if>
 		
 		<jstl:if test="${negocios.isEmpty() && allowRequest == true}">
-		<a href="peticionnegocio/empresario/send.do">
+		<a href="peticionnegocio/empresario/send.do" class="btn btn-primary">
 			<spring:message code="peticionnegocio.send"/>
 		</a> <br/>	
 		</jstl:if>
 		<br />
 		<jstl:if test="${allowRequest == false}">
-		<a href="peticionegocio/empresario/list.do">
+		<a href="peticionegocio/empresario/list.do" class="btn btn-default">
 			<spring:message code="peticionnegocio.display"/>
 		</a> <br/>	
 		</jstl:if>

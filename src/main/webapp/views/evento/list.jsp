@@ -75,7 +75,7 @@
 			<security:authentication var="user2" property="principal.id" />
 			<jstl:if test="${row.negocio.empresario.userAccount.id == user2}">
 			<jstl:if test="${row.imagen==null}">
-				<a href="evento/empresario/uploadImageEvento.do?eventoId=${row.id}"><spring:message code="evento.uploadImage" /></a>
+				<a href="evento/empresario/uploadImageEvento.do?eventoId=${row.id}"class="btn btn-success"><spring:message code="evento.uploadImage" /></a>
 			</jstl:if>
 			</jstl:if>
 		</display:column>
@@ -83,7 +83,7 @@
 		<display:column>
 			<security:authentication var="user3" property="principal.id" />
 			<jstl:if test="${row.negocio.empresario.userAccount.id == user2}">
-				<a href="evento/empresario/listParticipantes.do?eventoId=${row.id}"><spring:message code="evento.participantes" /></a>
+				<a href="evento/empresario/listParticipantes.do?eventoId=${row.id}" class="btn btn-success"><spring:message code="evento.participantes" /></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
