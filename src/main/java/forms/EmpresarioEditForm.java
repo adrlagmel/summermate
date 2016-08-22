@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -15,12 +14,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class UsuarioEditForm {
-	
-//	private String username;
-//	
-//	private String password;
-//	private String verifyPassword;
+public class EmpresarioEditForm {
 	
 	private String nombre;
 	private String apellidos;
@@ -32,38 +26,8 @@ public class UsuarioEditForm {
 	private String direccion;
 	private String sexo;
 	
-	private String  estadoActual;
-	private Integer nivelColaborador;
-	private Integer puntos;
+	private String  cif;
 	
-//	@Size(min = 5, max = 32)
-//	@Column(unique = true)
-//	public String getUsername() {
-//		return username;
-//	}
-//
-//	public void setUsername(String username) {
-//		this.username = username;
-//	}
-//
-//	@Size(min = 5, max = 32)
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
-//
-//	@Size(min = 5, max = 32)
-//	public String getVerifyPassword() {
-//		return verifyPassword;
-//	}
-//
-//	public void setVerifyPassword(String verifyPassword) {
-//		this.verifyPassword = verifyPassword;
-//	}
-		
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNombre() {
@@ -149,30 +113,12 @@ public class UsuarioEditForm {
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getEstadoActual() {
-		return estadoActual;
+	public String getCif() {
+		return cif;
 	}
 
-	public void setEstadoActual(String estadoActual) {
-		this.estadoActual = estadoActual;
+	public void setCif(String cif) {
+		this.cif = cif;
 	}	
 	
-	@Min(0)
-	public Integer getNivelColaborador() {
-		return nivelColaborador;
-	}
-
-	public void setNivelColaborador(Integer nivelColaborador) {
-		this.nivelColaborador = nivelColaborador;
-	}
-	
-	@Min(0)
-	public Integer getPuntos() {
-		return puntos;
-	}
-
-	public void setPuntos(Integer puntos) {
-		this.puntos = puntos;
-	}
-
 }

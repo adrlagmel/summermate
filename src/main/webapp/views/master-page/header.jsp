@@ -135,6 +135,7 @@
 					<security:authorize access="hasRole('EMPRESARIO')">
 						<li><a href="perfil/empresario.do"><spring:message code="master.page.profile.empresario" /></a></li>
 					</security:authorize>
+					<li><a href="perfil/actor/editPassword.do"><spring:message code="master.page.profile.editPassword" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

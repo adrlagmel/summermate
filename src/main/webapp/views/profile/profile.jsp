@@ -41,13 +41,13 @@
 	</jstl:if>
 	
 	<jstl:if test="${isUsuario == true}">
-		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-danger"><spring:message code="profile.editar" /></a><br/>
+		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary"><spring:message code="profile.editar" /></a>
 	</jstl:if>
 	
 	<jstl:if test="${isEmpresario == true}">
-		<a href="perfil/empresario/edit.do?empresarioId=${actor.id}"class="btn btn-danger"><spring:message code="profile.editar" /></a><br/>
+		<a href="perfil/empresario/edit.do?empresarioId=${actor.id}"class="btn btn-primary"><spring:message code="profile.editar" /></a>
 	</jstl:if>
 	
-	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/>
+	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
 	
 </form:form>

@@ -20,10 +20,10 @@ public class ReservaForm {
 		
 	private Integer reservaId;
 	
-	private String comentarios;
+	private String  comentarios;
 	private Boolean fumadores;
 	private Integer comensales;
-	private Date   fecha;
+	private Date    fecha;
 	
 	private Negocio negocio;
 		

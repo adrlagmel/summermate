@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import domain.DenunciaValoracion;
 import domain.Empresario;
 import domain.Negocio;
 
+import forms.EmpresarioEditForm;
 import forms.EmpresarioRegistroForm;
 
 
@@ -83,6 +85,14 @@ public class EmpresarioService {
 				
 	}
 	
+	public void saveEdit(Empresario empresario){
+		Assert.notNull(empresario);
+		//Assert.isTrue(empresario.get)
+					
+		empresarioRepository.save(empresario);
+				
+	}
+	
 	// Other business methods ------------------------------------------------
 
 	
@@ -123,7 +133,7 @@ public class EmpresarioService {
 			Assert.isTrue(empresario.getUserAccount().equals(userAccount));
 	  }
 	
-public Empresario reconstruct(EmpresarioRegistroForm form) {
+	public Empresario reconstruct(EmpresarioRegistroForm form) {
 		
 		Empresario empresario=create();
 		
@@ -145,6 +155,24 @@ public Empresario reconstruct(EmpresarioRegistroForm form) {
 		return empresario;
 	}
 
+	public Empresario reconstructEdit(EmpresarioEditForm form) {
+		
+		Empresario result = findByPrincipal();
+		
+		result.setEmail(form.getEmail());
+		result.setNombre(form.getNombre());
+		result.setApellidos(form.getApellidos());
+		
+		result.setTelefono(form.getTelefono());
+		result.setFechaNacimiento(form.getFechaNacimiento());
+		result.setNacionalidad(form.getNacionalidad());
+		result.setDireccion(form.getDireccion());
+		result.setSexo(form.getSexo());
+		
+		result.setCif(form.getCif());
+		
+		return result;
+	}
 
 	}
 

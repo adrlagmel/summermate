@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,9 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import domain.Empresario;
 import domain.Usuario;
+import forms.ActorEditPasswordForm;
+import forms.EmpresarioEditForm;
 import forms.UsuarioEditForm;
+import forms.UsuarioRegistroForm;
+import services.ActorService;
 import services.EmpresarioService;
 import services.UsuarioService;
 
@@ -36,6 +42,9 @@ public class ProfileController extends AbstractController {
 	
 
 	// Services -------------------------------------------------------------------
+	
+	@Autowired
+	private ActorService actorService;
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -72,9 +81,7 @@ public class ProfileController extends AbstractController {
 		Usuario usuario = usuarioService.findByPrincipal();
 		
 		result = new ModelAndView("usuario/edit");
-		
-		System.out.println(usuario.getUserAccount().getAuthorities());
-		
+				
 		result.addObject("actor",usuario);
 		result.addObject("isCliente", true);
 		result.addObject("isUsuario", true);
@@ -88,24 +95,23 @@ public class ProfileController extends AbstractController {
 	public ModelAndView saveUsuario(@ModelAttribute("actor") @Valid UsuarioEditForm usuario, BindingResult binding){
 		
 		ModelAndView result;
-		
-		Usuario userRes = usuarioService.reconstructEdit(usuario);
-		
-//		System.out.println(usuario.getUserAccount().getAuthorities());
+		Usuario userRes;
 		
 		if(binding.hasErrors()){
-				result = createEditModelAndViewUsuario(userRes);
+				result = createEditModelAndViewUsuario(usuario);
 		}else{
 			try{
-				usuarioService.save(userRes);
+				userRes = usuarioService.reconstructEdit(usuario);
+				
+				usuarioService.saveEdit(userRes);
 				result = new ModelAndView("redirect:/#");
 				
 			}catch(DataIntegrityViolationException exc){
 				result = new ModelAndView("perfil/usuario/edit");
-				createEditModelAndViewUsuario(userRes, "usuario.duplicated.user");
+				createEditModelAndViewUsuario(usuario, "usuario.duplicated.user");
 			}catch(Throwable oops){
 				
-				result = createEditModelAndViewUsuario(userRes, "usuario.commit.error");
+				result = createEditModelAndViewUsuario(usuario, "usuario.commit.error");
 			}
 		}
 		
@@ -131,17 +137,19 @@ public class ProfileController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/empresario/edit", method=RequestMethod.POST, params="save")
-	public ModelAndView saveEmpresario(@ModelAttribute("actor") @Valid Empresario empresario, BindingResult binding){
-		
+	public ModelAndView saveEmpresario(@ModelAttribute("actor") @Valid EmpresarioEditForm empresario, BindingResult binding){
 		ModelAndView result;
+		
+		Empresario empresarioRes;
 		
 		if(binding.hasErrors()){
 			
 				result = createEditModelAndViewEmpresario(empresario);
 		}else{
 			try{
-				empresarioService.save(empresario);
-				result = new ModelAndView("redirect:/summermate");
+				empresarioRes  = empresarioService.reconstructEdit(empresario);
+				empresarioService.saveEdit(empresarioRes);
+				result = new ModelAndView("redirect:/#");
 				
 			}catch(DataIntegrityViolationException exc){
 				result = new ModelAndView("perfil/empresario/edit");
@@ -163,7 +171,7 @@ public class ProfileController extends AbstractController {
 	
 		result = new ModelAndView("empresario");
 		
-		result.addObject("actor",empresario);
+		result.addObject("actor", empresario);
 		result.addObject("isCliente", true);
 		result.addObject("isUsuario", false);
 		result.addObject("isEmpresario", true);
@@ -173,48 +181,125 @@ public class ProfileController extends AbstractController {
 		
 	}
 	
-	protected ModelAndView createEditModelAndViewUsuario(Usuario usuario){
-		
+	
+	@RequestMapping(value="/actor/editPassword", method = RequestMethod.GET)
+	public ModelAndView profileActor(){
 		ModelAndView result;
 		
-		result = createEditModelAndViewUsuario(usuario, null);
+		ActorEditPasswordForm form = new ActorEditPasswordForm();
+		
+		result = createEditModelAndViewActor(form);
+			
+		return result;
+		
+	}
+	
+	@RequestMapping(value="/actor/editPassword", method=RequestMethod.POST, params="save")
+	public ModelAndView savePassword(@ModelAttribute("actor") @Valid ActorEditPasswordForm actorForm, BindingResult binding){
+		ModelAndView result;
+		
+		Actor actor = actorService.findByPrincipal();
+		String passwordOld = actorForm.getOldPassword();
+		
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		passwordOld = encoder.encodePassword(actorForm.getOldPassword(), null);
+		
+		if(binding.hasErrors()){
+				result = createEditModelAndViewActor(actorForm);
+		}else{
+			
+			
+			try{
+				if (!passwordOld.equals(actor.getUserAccount().getPassword())){
+					System.out.println(passwordOld);
+					System.out.println(actor.getUserAccount().getPassword());
+					result = createEditModelAndViewActor(actorForm, "actor.password.error");
+				}
+				
+				else if (!actorForm.getPassword().equals(actorForm.getVerifyPassword())){
+					result = createEditModelAndViewActor(actorForm, "actor.password.error.coincidir");
+					
+					System.out.println(actorForm.getPassword());
+					System.out.println(actorForm.getVerifyPassword());
+				}else{
+									
+					actor  = actorService.reconstructPassword(actorForm);
+					actorService.savePassword(actor);
+					result = new ModelAndView("redirect:/#");
+				}
+				
+			}catch(Throwable oops){
+				result = createEditModelAndViewActor(actorForm, "actor.commit.error");
+			}
+		}
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndViewUsuario(Usuario usuario, String message){
+	protected ModelAndView createEditModelAndViewUsuario(UsuarioEditForm usuarioEditForm){
+		
+		ModelAndView result;
+		
+		result = createEditModelAndViewUsuario(usuarioEditForm, null);
+		
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndViewUsuario(UsuarioEditForm usuarioEditForm, String message){
 		
 		ModelAndView result;
 	
 		result = new ModelAndView("usuario/edit");
-		result.addObject("actor", usuario);
+		result.addObject("actor", usuarioEditForm);
 		result.addObject("message", message);
 		result.addObject("isCliente", true);
 		result.addObject("isUsuario", true);
 		result.addObject("isEmpresario", false);
+		result.addObject("actionURI", "perfil/usuario/edit.do");
 
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndViewEmpresario(Empresario empresario){
+	protected ModelAndView createEditModelAndViewEmpresario(EmpresarioEditForm empresarioEditForm){
 		
 		ModelAndView result;
 		
-		result = createEditModelAndViewEmpresario(empresario, null);
+		result = createEditModelAndViewEmpresario(empresarioEditForm, null);
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndViewEmpresario(Empresario empresario, String message){
+	protected ModelAndView createEditModelAndViewEmpresario(EmpresarioEditForm empresarioEditForm, String message){
 		
 		ModelAndView result;
 	
 		result = new ModelAndView("empresario/edit");
-		result.addObject("actor", empresario);
+		result.addObject("actor", empresarioEditForm);
 		result.addObject("message", message);
 		result.addObject("isUsuario", false);
 		result.addObject("isCliente", true);
 		result.addObject("isEmpresario", true);
+		result.addObject("actionURI", "perfil/empresario/edit.do");
+
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndViewActor(ActorEditPasswordForm actorEditPasswordForm){
+		ModelAndView result;
+		
+		result = createEditModelAndViewActor(actorEditPasswordForm, null);
+		
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndViewActor(ActorEditPasswordForm actorEditPasswordForm, String message){
+		
+		ModelAndView result;
+	
+		result = new ModelAndView("actor/editPassword");
+		result.addObject("actor", actorEditPasswordForm);
+		result.addObject("message", message);
+		result.addObject("actionURI", "perfil/actor/editPassword.do");
 
 		return result;
 	}

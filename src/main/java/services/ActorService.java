@@ -2,12 +2,10 @@ package services;
 
 import java.util.Collection;
 
-
-
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -15,6 +13,7 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import forms.ActorEditPasswordForm;
 
 @Service
 @Transactional
@@ -44,29 +43,18 @@ public class ActorService {
 		return actors;
 	}
 	
-//	public Collection<Actor> actorBlockedByMoreUsers(){
-//		administradorService.checkPrincipal();
-//		Collection<Actor> actors = actorRepository.actorBlockedByMoreUsers();
-//		Assert.notNull(actors);
-//		
-//		return actors;
-//	}
-	
-//	public Collection<Actor> actorWhoHasSentMoreMessages(){
-//		administradorService.checkPrincipal();
-//		Collection<Actor> actors = actorRepository.actorWhoHasSentMoreMessages();
-//		Assert.notNull(actors);
-//		
-//		return actors;
-//	}
-//	
-//	public Collection<Actor> actorWhoHasReceivedMoreMessages(){
-//		administradorService.checkPrincipal();
-//		Collection<Actor> actors = actorRepository.actorWhoHasReceivedMoreMessages();
-//		Assert.notNull(actors);
-//		
-//		return actors;
-//	}
+	public void savePassword(Actor actor){
+		Assert.notNull(actor);
+					
+		String password = actor.getUserAccount().getPassword();
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+		
+		actor.getUserAccount().setPassword(password);
+		
+		actorRepository.save(actor);
+				
+	}
 	
 	// Other business methods ------------------------------------------------
 	
@@ -88,22 +76,14 @@ public class ActorService {
 		return principal;		
 	}
 	
-//	public Collection<Actor> findBlockedByActors(){
-//		Actor actor = findByPrincipal();
-//		
-//		Collection<Actor> actors = actorRepository.findBlockedByActors(actor.getId());
-//		Assert.notNull(actors);
-//		
-//		return actors;
-//	}
-//	
-//	public Collection<Actor> findBlockedActors(){
-//		Actor actor = findByPrincipal();
-//		
-//		Collection<Actor> actors = actorRepository.findBlockedActors(actor.getId());
-//		Assert.notNull(actors);
-//		
-//		return actors;
-//	}
+	
+	public Actor reconstructPassword(ActorEditPasswordForm form) {
+		
+		Actor result = findByPrincipal();
+		
+		result.getUserAccount().setPassword(form.getPassword());
+		
+		return result;
+	}
 
 }

@@ -89,6 +89,13 @@ public class UsuarioService {
 				
 	}
 	
+	public void saveEdit(Usuario usuario){
+		Assert.notNull(usuario);
+		
+		usuarioRepository.save(usuario);
+				
+	}
+	
 	// Other business methods ------------------------------------------------
 
 	public Usuario findByUserAccount(int id){

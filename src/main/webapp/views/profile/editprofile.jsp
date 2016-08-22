@@ -18,27 +18,7 @@
 
 <form:form action="${actionURI}" modelAttribute="actor">
 
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="carpetas"/>
-		
-	<jstl:if test="${isCliente == true}">
-		<form:hidden path="denuncias"/>
-	</jstl:if>
-	
-	<jstl:if test="${isUsuario == true}">
-		<form:hidden path="valoracionPlayas"/>
-		<form:hidden path="eventos"/>
-		<form:hidden path="reservas"/>
-		<form:hidden path="puntos"/>
-		<form:hidden path="nivelColaborador"/>
-		<form:hidden path="imagen"/>
-	</jstl:if>
-	
-	<jstl:if test="${isEmpresario == true}">
-		<form:hidden path="negocios"/>
-	</jstl:if>
-	
+
 	<acme:textbox code="actor.name" path="nombre" /><br/>
 	<acme:textbox code="actor.surname" path="apellidos"  /><br/>
 	<acme:textbox code="actor.email" path="email"  /><br/>
@@ -47,11 +27,21 @@
 		<acme:textbox code="actor.phone" path="telefono" /><br/>
 		<acme:textbox code="cliente.birthDate" path="fechaNacimiento" /><br/>
 		<acme:textbox code="cliente.direccion" path="direccion" /><br/>
-		<acme:textbox code="cliente.sexo" path="sexo" /><br/>
+		<div style="width:50%;">
+			<form:label path="sexo">
+				<spring:message code="cliente.sexo" />
+			</form:label>
+			<form:select path="sexo" code="cliente.sexo" cssClass="form-control">
+				<form:option value="HOMBRE" label="HOMBRE" />		
+				<form:option value="MUJER" label="MUJER" />
+			</form:select>
+		</div><br />
+		
+		
 		<acme:textbox code="cliente.nacionalidad" path="nacionalidad" /><br/>
 		
 		<jstl:if test="${isUsuario == true}">
-			<acme:textbox code="usuario.estadoActual" path="estadoActual" /><br/>
+			<acme:textarea code="usuario.estadoActual" path="estadoActual" /><br/>
 		</jstl:if>
 		
 		<jstl:if test="${isEmpresario == true}">
@@ -59,8 +49,8 @@
 		</jstl:if>
 	</jstl:if>
 	
-	<acme:submit name="save" code="register.save"/>
+	<acme:submit name="save" code="edit.save"/>
 	
-	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/>
+	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
 	
 </form:form>
