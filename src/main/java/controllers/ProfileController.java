@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -31,7 +32,6 @@ import domain.Usuario;
 import forms.ActorEditPasswordForm;
 import forms.EmpresarioEditForm;
 import forms.UsuarioEditForm;
-import forms.UsuarioRegistroForm;
 import services.ActorService;
 import services.EmpresarioService;
 import services.UsuarioService;
