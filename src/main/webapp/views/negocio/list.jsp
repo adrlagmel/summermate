@@ -78,6 +78,9 @@
 	<spring:message code="negocio.aforo" var="aforo" />
 	<display:column property="aforo" title="${aforo}" sortable="true" />
 	
+	<spring:message code="negocio.valoracionMedia" var="valoracionMedia" />
+	<display:column property="valoracionMedia" title="${valoracionMedia}" sortable="true" />
+	
 	<security:authorize access="hasRole('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />

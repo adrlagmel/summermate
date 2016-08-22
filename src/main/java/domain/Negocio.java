@@ -30,6 +30,15 @@ public class Negocio extends DomainEntity{
 	private String 			paginaWeb;
 	private Integer 		aforo;
 	private byte[]          imagen;
+	private Double valoracionMedia;
+	
+	public Double getValoracionMedia() {
+		return valoracionMedia;
+	}
+	
+	public void setValoracionMedia(Double valoracionMedia) {
+		this.valoracionMedia = valoracionMedia;
+	}	
 		
 	
 	@NotBlank

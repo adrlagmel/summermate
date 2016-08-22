@@ -67,6 +67,10 @@
 	<display:column property="localizacion.ciudad" title="${ciudad}"
 		sortable="true" />
 		
+		<spring:message code="playa.valoracionMedia" var="valoracionMedia" />
+	<display:column property="valoracionMedia" title="${valoracionMedia}"
+		sortable="true" />
+		
 	<spring:message code="playa.detallePlaya" var="detallePlaya" />
 		<display:column sortable="false">
 			<a href="playa/display.do?playaId=${row.id}" class="btn btn-info"><spring:message code="playa.detallePlaya" /></a>					

@@ -17,4 +17,7 @@ public interface ValoracionPlayaRepository extends JpaRepository<ValoracionPlaya
 	
 	@Query("select distinct v from ValoracionPlaya v where v.playa.id=?1")
 	Collection<ValoracionPlaya> findValoracionPlayaByPlaya(int playaId);
+	
+	@Query("select avg (v.puntuacion)from ValoracionPlaya v where v.playa.id=?1")
+	Double  valoracionMediaPlaya(int playaId);
 }

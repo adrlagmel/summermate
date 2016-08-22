@@ -45,13 +45,17 @@ public class ValoracionPlayaService {
 	
 	public void save(ValoracionPlaya vp) {   
 		Assert.notNull(vp);
-		
+		Integer id = vp.getPlaya().getId();
 		valoracionPlayaRepository.save(vp);
+		vp.getPlaya().setValoracionMedia(valoracionPlayaRepository.valoracionMediaPlaya(id));
 	}
 	
 	public void delete(ValoracionPlaya vPlaya){
-
+		Integer id = vPlaya.getPlaya().getId();
 		valoracionPlayaRepository.delete(vPlaya);
+		vPlaya.getPlaya().setValoracionMedia(valoracionPlayaRepository.valoracionMediaPlaya(id));
+
+		
 
 	}
 	
@@ -83,6 +87,7 @@ public class ValoracionPlayaService {
 		return result;
 		
 	}
+	
 	public Collection<ValoracionPlaya> findValoracionPlayaByPlaya(int playaId){
 		
 		Collection<ValoracionPlaya> result = valoracionPlayaRepository.findValoracionPlayaByPlaya(playaId);

@@ -35,6 +35,15 @@ public class Playa extends DomainEntity{
 	private Integer	extension;
 	private Localizacion localizacion;
 	private byte[] imagen;
+	private Double valoracionMedia;
+	
+	public Double getValoracionMedia() {
+		return valoracionMedia;
+	}
+	
+	public void setValoracionMedia(Double valoracionMedia) {
+		this.valoracionMedia = valoracionMedia;
+	}	
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)

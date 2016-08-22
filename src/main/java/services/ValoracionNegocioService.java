@@ -51,14 +51,16 @@ public class ValoracionNegocioService {
 	
 	public void save(ValoracionNegocio vn) { 
 		checkPrincipal(vn);
-		
+		Integer idNegocio = vn.getReserva().getNegocio().getId();
 		valoracionNegocioRepository.save(vn);
+		vn.getReserva().getNegocio().setValoracionMedia(valoracionNegocioRepository.valoracionMediaNegocio(idNegocio));
 	}
 	
 	public void delete(ValoracionNegocio vNegocio){
 		checkPrincipal(vNegocio);
-		
+		Integer idNegocio = vNegocio.getReserva().getNegocio().getId();
 		valoracionNegocioRepository.delete(vNegocio);
+		vNegocio.getReserva().getNegocio().setValoracionMedia(valoracionNegocioRepository.valoracionMediaNegocio(idNegocio));
 	}
 	
 	public ValoracionNegocio findOne(int id) {

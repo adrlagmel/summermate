@@ -17,5 +17,6 @@ public interface ValoracionNegocioRepository extends JpaRepository<ValoracionNeg
 	@Query("select distinct v from ValoracionNegocio v where v.reserva.negocio.id=?1")
 	Collection<ValoracionNegocio> findValoracionNegocioByNegocio(int negocioId);
 	
-	
+	@Query("select avg (v.puntuacion)from ValoracionNegocio v where v.reserva.negocio.id=?1")
+	Double  valoracionMediaNegocio(int negocioId);
 }

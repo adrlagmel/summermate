@@ -1139,6 +1139,7 @@
 		<property name="nombre" value="Matalascañas" />
 		<property name="descripcion" value="La playa de Matalascañas es continua a la de Mazagón hacia el sureste de la Costa de la Luz en Huelva, también es muy larga ( más de 10 Km.), llega hasta los límites del parque nacional de Doñana con la desembocadura del Guadalquivir." />
 		<property name="composicion" value="Arenosa" />
+		<property name="valoracionMedia" value="7.0" />
 		<property name="servicios" value="Agua para aclararse, chiringuitos, etc. Autobuses urbanos y taxis." />
 		<property name="extension" value="2000" />
 		<property name="localizacion" ref="localizacion7" />
@@ -1162,6 +1163,7 @@
 											con una gran oferta para el ocio Playa galardonada 
 											con bandera azul 2015." />
 		<property name="composicion" value="Arena dorada" />
+		<property name="valoracionMedia" value="8.0" />
 		<property name="servicios" value="La playa la regla dispone de servicios habituales como autobús, 
 											escaso aparcamiento, aseos, duchas, teléfono, alquiler de sombrillas, 
 											alquiler de hamacas y tumbonas, deportes náuticos, club náutico." />
@@ -1183,6 +1185,7 @@
 	
 	<bean id="playa3" class="domain.Playa">
 		<property name="nombre" value="Calas de Poniente" />
+		<property name="valoracionMedia" value="0.0" />
 		<property name="descripcion" value="Como Calas de Poniente se conocen a siete calas de reducido 
 											tamaño en estado virgen: Cala Encendida, Cala Aspero, Cala Pato, 
 											Cala Medina y Cala Frailecillo, todas ellas de gran belleza y 
@@ -1207,6 +1210,7 @@
 	
 	<bean id="playa4" class="domain.Playa">
 		<property name="nombre" value="La Caleta" />
+		<property name="valoracionMedia" value="0.0" />
 		<property name="descripcion" value="Se trata de la única playa de la ciudad localizada en el casco histórico, 
 												muy popular entre los gaditanos. Presenta características de playa urbana 
 												y destaca por su por su belleza singular." />
@@ -1229,6 +1233,7 @@
 	
 	<bean id="playa5" class="domain.Playa">
 		<property name="nombre" value="La Malagueta" />
+		<property name="valoracionMedia" value="0.0" />
 		<property name="descripcion" value="Playa urbana muy espaciosa junto al dique de Levante 
 										del puerto de Málaga y que, tradicionalmente, ha constituido 
 										el punto de encuentro donde los pescadores lugareños sacan el copo." />
@@ -1251,6 +1256,7 @@
 	
 	<bean id="playa6" class="domain.Playa">
 		<property name="nombre" value="De Nueva Almeria" />
+		<property name="valoracionMedia" value="0.0" />
 		<property name="descripcion" value="Playa situada en la la capital almeriense, enfrente de la 
 											barriada de Nueva Almería, a levante de la ciudad." />
 		<property name="composicion" value="Arena oscura / Grava " />
@@ -1276,6 +1282,7 @@
 	<bean id="negocio1" class="domain.Negocio">
 		<property name="nombre" value="Comida Fast" />
 		<property name="tipo" value="Comida rápida" />
+		<property name="valoracionMedia" value="7.0" />
 		<property name="descripcion" value="Restaurante de comida rápida de muy buena calidad" />
 		<property name="telefono" value="+34622323132" />
 		<property name="aforo" value="50" />
@@ -1307,6 +1314,7 @@
 	
 	<bean id="negocio2" class="domain.Negocio">
 		<property name="nombre" value="La vie est bella" />
+		<property name="valoracionMedia" value="3.0" />
 		<property name="tipo" value="Pizzeria" />
 		<property name="descripcion" value="Pizzeria italiana" />
 		<property name="telefono" value="+34622323138" />
@@ -1337,6 +1345,7 @@
 	
 	<bean id="negocio3" class="domain.Negocio">
 		<property name="nombre" value="El Faro" />
+		<property name="valoracionMedia" value="7.0" />
 		<property name="tipo" value="Restaurante" />
 		<property name="descripcion" value="Restaurante - Taperia en la zona costera de Chipiona" />
 		<property name="telefono" value="+34652363138" />
@@ -1364,6 +1373,7 @@
 	
 	<bean id="negocio4" class="domain.Negocio">
 		<property name="nombre" value="Heladeria Fran" />
+		<property name="valoracionMedia" value="8.0" />
 		<property name="tipo" value="Restaurante" />
 		<property name="descripcion" value="Heladeria Fran es una empresa del sector con más de 50 años en el sector de 
 											las hosteleria, pasando por más de 3 generaciones" />
@@ -1393,6 +1403,7 @@
 	
 	<bean id="negocio5" class="domain.Negocio">
 		<property name="nombre" value="Ultramarinos Malagueta" />
+		<property name="valoracionMedia" value="0.0" />
 		<property name="tipo" value="Chiringuito" />
 		<property name="descripcion" value="Chiringhito en la playa de la Malagueta, para que te olvides de la nevera y disfrutes de una buena jornada de playa" />
 		<property name="telefono" value="+34652363138" />

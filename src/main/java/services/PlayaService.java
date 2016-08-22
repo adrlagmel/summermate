@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.PlayaRepository;
+import repositories.ValoracionPlayaRepository;
 import security.LoginService;
 import security.UserAccount;
 
@@ -30,6 +31,9 @@ public class PlayaService {
 	@Autowired
 	private AdministradorService administradorService;
 	
+	@Autowired
+	private ValoracionPlayaRepository valoracionPlayaRepository;
+	
 	
 	public PlayaService(){
 		super();
@@ -44,6 +48,7 @@ public class PlayaService {
 		playa.setNegocios(new ArrayList<Negocio>());
 		playa.setValoracionPlayas(valoracionPlayas);
 		playa.setAdministrador(administrador);
+		playa.setValoracionMedia(0.0);
 		
 		return playa;
 	}
@@ -109,6 +114,9 @@ public class PlayaService {
 		
 		return res;
 	}
+	
+	
+	
 	
 	private static double distance(double lat1, double lon1, double lat2, double lon2) {
 

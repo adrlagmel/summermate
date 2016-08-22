@@ -21,6 +21,7 @@
 	<acme:textbox code="playa.composicion" path="composicion" readonly="true"/>	<br/>
 	<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	<br/>
 	<acme:textbox code="playa.extension" path="extension" readonly="true"/>	<br/>
+	<acme:textbox code="playa.valoracionMedia" path="valoracionMedia" readonly="true"/>	<br/>
 	
 	<fieldset>
 	<legend><spring:message code="playa.localizacion" /></legend>

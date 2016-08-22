@@ -35,6 +35,7 @@
 	<acme:textbox code="negocio.aforo" path="aforo" readonly="true"/><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/><br/>
+	<acme:textbox code="negocio.valoracionMedia" path="valoracionMedia" readonly="true"/><br/>
 	
 	
 	<fieldset>
