@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.NegocioRepository;
 import repositories.ValoracionNegocioRepository;
 import security.LoginService;
 import security.UserAccount;
 
 import domain.DenunciaValoracion;
+import domain.Negocio;
 import domain.Reserva;
 import domain.Usuario;
 import domain.ValoracionNegocio;
@@ -29,6 +31,12 @@ public class ValoracionNegocioService {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private NegocioService negocioService;
+	
+	@Autowired
+	private NegocioRepository negocioRepository;
 	
 	public ValoracionNegocioService() {
 
@@ -58,9 +66,16 @@ public class ValoracionNegocioService {
 	
 	public void delete(ValoracionNegocio vNegocio){
 		checkPrincipal(vNegocio);
-		Integer idNegocio = vNegocio.getReserva().getNegocio().getId();
+		
+		Negocio negocio = negocioService.findOneToDisplay(vNegocio.getReserva().getNegocio().getId());
+		Double valorMedio = valoracionNegocioRepository.valoracionMediaNegocio(negocio.getId());
+				
+		negocio.setValoracionMedia(valorMedio);
+		
+		negocioRepository.save(negocio);
 		valoracionNegocioRepository.delete(vNegocio);
-		vNegocio.getReserva().getNegocio().setValoracionMedia(valoracionNegocioRepository.valoracionMediaNegocio(idNegocio));
+		
+		vNegocio.getReserva().setValoracionNegocio(null);
 	}
 	
 	public ValoracionNegocio findOne(int id) {
