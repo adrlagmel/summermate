@@ -46,6 +46,10 @@
 			<a href="valoracionNegocio/usuario/edit.do?valoracionNegocioId=${row.id}" class="btn btn-info" ><spring:message code="valoracionNegocio.editar" /></a>
 		</jstl:if>
 	</display:column>
+	
+	<display:column sortable="false">
+		<a href="valoracionNegocio/usuario/delete.do?valoracionNegocioId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.valoracionNegocio" />')"><spring:message code="valoracionNegocio.borrar" /></a>
+	</display:column>
 	</security:authorize>
 	
 	<security:authorize access="hasRole('EMPRESARIO')">	

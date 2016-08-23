@@ -34,7 +34,7 @@
 	<br/><br/>
 		
 	<acme:submit name="save" code="valoracionNegocio.save"/>
-	<acme:cancel code="valoracionNegocio.atras" url="/reserva/usuario/lista.do" />
+	<acme:cancel code="valoracionNegocio.atras" url="/valoracionNegocio/usuario/list.do" />
 	
 </form:form>
 
