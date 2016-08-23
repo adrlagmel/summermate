@@ -34,7 +34,7 @@
 	<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/><br/>
 				
 	<spring:message code="peticionNegocio.rechazar.confirmar" var="confirmar"/>
-	<acme:submit name="rechazar" code="peticionNegocio.reachazar.aceptar" onclick="return confirm('${confirmar}')"/>		
+	<acme:submit name="rechazar" code="peticionNegocio.rechazar.aceptar" onclick="return confirm('${confirmar}')"/>		
 			
 	<acme:cancel code="peticionNegocio.rechazar.cancelar" url="/peticionNegocio/administrador/listapendiente.do" />
 	

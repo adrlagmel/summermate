@@ -44,7 +44,6 @@
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><span class="glyphicon glyphicon-cutlery"></span>&nbsp;<spring:message code="master.page.negocios" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
-              		<li><a href="negocio/empresario/register.do"><spring:message code="master.page.negocio.register" /></a></li>
 					<li><a href="negocio/list.do"><spring:message code="master.page.negocio.list" /></a></li>
 					<li><a href="negocio/empresario/list.do"><spring:message code="master.page.negocio.mylist" /></a></li>
 					<li><a href="peticionNegocio/empresario/list.do"><spring:message code="master.page.peticionnegocio.empresario.list" /></a></li>

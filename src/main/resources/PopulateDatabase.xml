@@ -455,7 +455,6 @@
 		<property name="cif" value="B27998543" />
 		<property name="negocios">
                         <list>
-                        	<ref bean="negocio5" />
                         </list>
         </property>
         <property name="denuncias">
@@ -1249,7 +1248,6 @@
 		</property>
 		<property name="negocios">
 			<list>
-				<ref bean="negocio5" />  
 			</list>
 		</property>
 	</bean>
@@ -1401,31 +1399,6 @@
 		</property>
 	</bean>
 	
-	<bean id="negocio5" class="domain.Negocio">
-		<property name="nombre" value="Ultramarinos Malagueta" />
-		<property name="valoracionMedia" value="0.0" />
-		<property name="tipo" value="Chiringuito" />
-		<property name="descripcion" value="Chiringhito en la playa de la Malagueta, para que te olvides de la nevera y disfrutes de una buena jornada de playa" />
-		<property name="telefono" value="+34652363138" />
-		<property name="aforo" value="50" />
-		<property name="localizacion" ref="localizacion5" />
-		<property name="empresario" ref="empresario6" />
-		<property name="playa" ref="playa5" />
-		<property name="eventos">
-			<list>
-				<ref bean="evento6"/>
-			</list>
-		</property>
-		<property name="reservas">
-			<list> 
-			</list>
-		</property>
-		<property name="calendarioNegocios">
-				<list>
-				</list>
-		</property>
-	</bean>
-	
 	
 	<!-- CALENDARIO NEGOCIO -->
 	<bean id="calendarioNegocio1" class="domain.CalendarioNegocio">
@@ -1538,7 +1511,7 @@
   		<property name="codigo" value="0123-CodigoPeticion" /> 
   		<property name="fecha" value="03/03/2016 11:00" /> 
   		<property name="titulo" value="Petición de Apertura de heladeria" /> 
-  		<property name="estado" value="ACEPTADO" /> 
+  		<property name="estado" value="PENDIENTE" /> 
   		<property name="comentarios" value="Nos ponemos en contacto con vosotros para dar relance 
   											a nuestro negocio de Heladeria en Cádiz, concretamente 
   											en la playa de la Caleta Un saludo." /> 
@@ -1629,13 +1602,13 @@
     
     <bean id="evento6" class="domain.Evento">
         <property name="codigo" value="0006-evento"/>
-        <property name="nombre" value="I Torneo Voleibol Costa de Malaga"/>
-        <property name="descripcion" value="Torneo de Voleibol sobre la playa de la Malagueta. Inscripciones abiertas."/>
+        <property name="nombre" value="I Torneo Voleibol Costa de Cádiz"/>
+        <property name="descripcion" value="Torneo de Voleibol sobre la playa de la Caleta. Inscripciones abiertas hasta fecha de celebración."/>
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="15.0"/>
         <property name="imagen" value=""/>
-        <property name="negocio" ref="negocio5"/>
+        <property name="negocio" ref="negocio4"/>
 		<property name="usuarios">
 			<list>
 				<ref bean="usuario5"/>

@@ -57,6 +57,7 @@ public class NegocioService {
 		
 		PeticionNegocio peticionNegocio = peticionNegocioService.findByEmpresarioId(principal.getId());
 		Assert.notNull(peticionNegocio);
+		Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
 		
 		result.setReservas(new ArrayList<Reserva>());
 		result.setLocalizacion(new Localizacion());
