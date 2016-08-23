@@ -36,6 +36,9 @@ public class EventoService {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private NegocioService negocioService;
+	
 	// Constructor -----------------------------------------------------------
 	
 	public EventoService(){
@@ -50,6 +53,7 @@ public class EventoService {
 		RandomString rs = new RandomString(6);
 		String randomStr = rs.nextString();
 		
+		Assert.isTrue(negocioService.findByEmpresario().size()>0);
 		result.setCodigo(randomStr);
 		
 		result.setUsuarios(new ArrayList<Usuario>());
