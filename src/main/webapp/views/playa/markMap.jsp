@@ -14,146 +14,345 @@
 
 <html>
 <head>
-
- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
-   
-    <title>Marker Labels</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
-	
+
+
+<link rel=StyleSheet href="http://mondeca.com/mdc_css/A.weather.css.pagespeed.cf.bm2KxYrJN6.css" type="text/css"/>
+
+ <base href="http://mondeca.com/index.php/en/any-place-en" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="geolocation" />
+  <meta name="description" content="Find location coordinates with Google Maps" />
+  <meta name="generator" content="Joomla! - Open Source Content Management  - Version 3.4.1" />
+  <title>Any Place En</title>
+  <link href="http://mondeca.com/index.php/en/any-place-en" rel="canonical" />
+  <link href="/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <link rel="stylesheet" href="/t3-assets/css/css-7a2c4.css?t=792" type="text/css" />
+  <link rel="stylesheet" href="/t3-assets/css/css-66b8a.css?t=792" type="text/css" />
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:500,400italic,100,300,500italic,300italic,400,200" type="text/css" />
+  <link rel="stylesheet" href="/t3-assets/css/css-a062a.css?t=346" type="text/css" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  
+  <script src="/t3-assets/js/js-5c76c.js?t=297" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript"></script>
+  <script src="/t3-assets/js/js-e03bf.js?t=345" type="text/javascript"></script>
+  <script type="text/javascript">
+  
+	jQuery(window).on('load',  function() {
+	                                new JCaption('img.caption');
+	                        });
+	jQuery(document).ready(function(){
+	        jQuery('.hasTooltip').tooltip({"html": true,"container": "body"});
+	});
+	;jQuery(document).ready(function(){
+	        jQuery('.hasTooltip').tooltip({"html": true,"container": "body"});
+	});
+	  </script>
+	  <script type="text/javascript">
+	    (function() {
+	      Joomla.JText.load({"JLIB_FORM_FIELD_INVALID":"Invalid field:&#160"});
+	    })();
+  </script>
+ 
+
+<!-- //META FOR IOS & HANDHELD -->
+ 
+ 
+<!-- You can add Google Analytics here or use T3 Injection feature -->
+<meta name="google-site-verification" content="iD_X10CcCcgJfT4IZJ8Un-orddTOeuISR8CZ9R8VXFw" />
+ 
+ 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-17663461-1', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+<!-- Universal Google Analytics Plugin by PB Web Development -->
+
 </head>
 
 <body>
 
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBBrx34wk6LRo3M4xsVJEe3U9umurfaMik" ></script>
-    <script>
-		 // In the following example, markers appear when the user clicks on the map.
-		 // The markers are stored in an array.
-		 // The user can then click an option to hide, show or delete the markers.
-		 var map;
-		 var markers = [];
+<jstl:if test="${mostrarMapa!=null}">
+<div>
 		
-		 function initialize() {
-		 	/* var lat1 = document.getElementById("lat1");
-		 	var lon1 = document.getElementById("lon1");
-		 	var playas = document.getElementById("playas"); */
-		   var myPosition = new google.maps.LatLng(lat1.value, lon1.value);
-		   var mapOptions = {
-		     zoom: 15,
-		     center: myPosition,
-		     zoomControl: true,
-		     zoomControlOptions: {
-		     	style: google.maps.ZoomControlStyle.LARGE,
-		         position: google.maps.ControlPosition.LEFT_CENTER
-		       },
-		       streetViewControl: true,
-		       streetViewControlOptions: {
-		           
-		       },
-		      scrollwheel: false,
-		     panControl: true,
-		     mapTypeControl: true,
-		     mapTypeControlOptions: {
-		         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-		         position: google.maps.ControlPosition.BOTTOM_CENTER
-		     },
-		    
-		     scaleControl: true 
-		     
-		   };
-		   map = new google.maps.Map(document.getElementById('map-canvas'),
-		       mapOptions);
-		
-		
-		   // Adds a marker at the center of the map.
-		   var marker = new google.maps.Marker({
-		 		position: myPosition,
-		 		draggable: true,
-		 		map: map,
-		 		title: '${localizacion.nombreVia}'
-		 		});
-		 			google.maps.event.addListener(marker, 'click', function() {
-		 			map.setCenter(marker.getPosition());
-		 			x.value = marker.getPosition().lat();
-		 			y.value = marker.getPosition().lng();
-		 			marker.setMap(null);
-		 			window.location.href = "playa/nearToMe.do?lat=" + marker.getPosition().lat() + "&lon=" + marker.getPosition().lng();
-		 		});
-		 	console.log(playas);
-		 /* 	<jstl:forEach var="playa" items="${playas}">
-		 		var id= "${playa.id}";
-		 		var name="${playa.nombre}";
-		 		var lat2="${playa.localizacion.latitud}";
-		 		var lon2="${playa.localizacion.longitud}";
-		 		var pos = new google.maps.LatLng("${playa.localizacion.latitud}", "${playa.localizacion.longitud}");
-		 		addMarker(pos, id, name, lat1, lon1, lat2, lon2);
-		 	</jstl:forEach> */
-		
-		 	showMarkers();
-		 }
-		
-		 // Add a marker to the map and push to the array.
-		 function addMarker(location, id, name, myLat, myLon, lat2, lon2) {
-		 	var contentString ="<br><h3>"+name+"</h3>"+
-		 		"<button class='btn btn-primary' ><span class='el el-map-marker'></span><a style='color:white' href='playa/display.do?playaId="+id+"'><spring:message code="playa.display"/></a></button>"+
-		 		"    <button class='btn btn-primary' ><span class='el el-map-marker'></span><a style='color:white' target=\"_blank\" href='https://www.google.es/maps/dir/"+myLat.value+","+myLon.value+"/"+location.lat()+","+location.lng()+"'><spring:message code="playa.localizacion.tipoVia"/></a></button>";
-		 		
-		 	var infowindow = new google.maps.InfoWindow({
-		 	      content: contentString
-		 	  });
-		 	
-		 	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-		   var marker = new google.maps.Marker({
-		     position: location,
-		     map: map,
-		     icon: iconBase + 'schools_maps.png'
-		   });
-		   
-		   google.maps.event.addListener(marker, 'click', function() {
-		 	    infowindow.open(map,marker);
-		 	  });
-		   
-		   markers.push(marker);
-		 }
-		
-		 // Sets the map on all markers in the array.
-		 function setAllMap(map) {
-		   for (var i = 0; i < markers.length; i++) {
-		     markers[i].setMap(map);
-		   }
-		 }
-		
-		 // Removes the markers from the map, but keeps them in the array.
-		 function clearMarkers() {
-		   setAllMap(null);
-		 }
-		
-		 // Shows any markers currently in the array.
-		 function showMarkers() {
-		   setAllMap(map);
-		 }
-		
-		 // Deletes all markers in the array by removing references to them.
-		 function deleteMarkers() {
-		   clearMarkers();
-		   markers = [];
-		 }
-		
-		 google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+</div>
+</jstl:if>
 
-	<div class="container" style="margin-bottom:250px;">
-		<div id="map-canvas" class="Flexible-container" style="border-radius:4px;"></div>
-	</div>
+<form>
+	<input type="text" name="playaId" id="playaId" class="hidden"/>
+</form>
 
+<div class="custom"  >
+ 
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.0.2/jquery.simpleWeather.min.js"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBVTKLztwVOGDuo1qGsjHzdY7wXRcKbAVI"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script>
+// Docs at http://simpleweatherjs.com
+ 
+jQuery(document).ready(function($) {
+		
+		var playaId = document.getElementById("playaId");
+        var weatheron=0;
+        $('#weatherbutton').on('click', function() {
+    weatheron=1-weatheron;
+         ga('send', 'event', 'button', 'click', 'weather');
+     
+     
+    if (weatheron)
+    {
+                lng=$('#lng')[0].innerHTML;
+                lat=$('#lat')[0].innerHTML;
+        loadWeather(lat+','+lng); //load weather using your lat/lng coordinates
+        $('#weatherbutton').html('Hide weather');
+        $('#weatherbutton').css('color', 'white');
+    }
+      else
+      {
+       
+        $('#weather').html('');
+        $('#weatherbutton').html('Show weather');
+        $('#weatherbutton').css('color', 'white');
+         
+     }
+
+});
+ 
+});
+</script>
+<script>
+  function load() {
+ 
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        var center = new GLatLng(36.70885, -6.43134);
+        map.setCenter(center, 15);
+        geocoder = new GClientGeocoder();
+        var marker = new GMarker(center, {draggable: true});  
+        map.addOverlay(marker);
+        document.getElementById("lat").innerHTML = center.lat().toFixed(5);
+        document.getElementById("lng").innerHTML = center.lng().toFixed(5);
+ 
+       
+        GEvent.addListener(map, "dragstart", function() {
+                document.getElementById("weather").innerHTML = "";
+          document.getElementById("weatherbutton").innerHTML = "Show weather";
+       
+         });
+             
+       
+          GEvent.addListener(marker, "dragend", function() {
+        ga('send', 'event', 'map', 'drag/move', 'map');
+       var point = marker.getPoint();
+              map.panTo(point);
+       document.getElementById("lat").innerHTML = point.lat().toFixed(5);
+       document.getElementById("lng").innerHTML = point.lng().toFixed(5);
+ 
+        });
+       GEvent.addListener(marker, "dragstart", function() {
+                document.getElementById("weather").innerHTML = "";
+            document.getElementById("weatherbutton").innerHTML = "Show weather";
+       
+         });
+       
+ 
+         GEvent.addListener(map, "moveend", function() {
+       ga('send', 'event', 'map', 'drag/move', 'map');
+                  map.clearOverlays();
+    var center = map.getCenter();
+                  var marker = new GMarker(center, {draggable: true});
+                  map.addOverlay(marker);
+                  document.getElementById("lat").innerHTML = center.lat().toFixed(5);
+           document.getElementById("lng").innerHTML = center.lng().toFixed(5);
+ 
+ 
+         GEvent.addListener(marker, "dragend", function() {
+       
+       ga('send', 'event', 'map', 'drag/move', 'map');
+      var point =marker.getPoint();
+             map.panTo(point);
+      			document.getElementById("lat").innerHTML = point.lat().toFixed(5);
+             	document.getElementById("lng").innerHTML = point.lng().toFixed(5);
+             	
+        });
+ 
+        });
+ 
+      }
+    }
+ 
+           function showAddress(address) {
+           var map = new GMap2(document.getElementById("map"));
+       map.addControl(new GSmallMapControl());
+       map.addControl(new GMapTypeControl());
+       if (geocoder) {
+        geocoder.getLatLng(
+          address,
+          function(point) {
+            if (!point) {
+              alert(address + " not found");
+            } else {
+                  document.getElementById("lat").innerHTML = point.lat().toFixed(5);
+           document.getElementById("lng").innerHTML = point.lng().toFixed(5);
+                 map.clearOverlays();
+                        map.setCenter(point, 14);
+   var marker = new GMarker(point, {draggable: true});  
+                 map.addOverlay(marker);
+ 
+                GEvent.addListener(marker, "dragend", function() {
+      var pt = marker.getPoint();
+             map.panTo(pt);
+      document.getElementById("lat").innerHTML = pt.lat().toFixed(5);
+             document.getElementById("lng").innerHTML = pt.lng().toFixed(5);
+        });
+ 
+ 
+         GEvent.addListener(map, "moveend", function() {
+                  map.clearOverlays();
+    var center = map.getCenter();
+                  var marker = new GMarker(center, {draggable: true});
+                  map.addOverlay(marker);
+                  document.getElementById("lat").innerHTML = center.lat().toFixed(5);
+           document.getElementById("lng").innerHTML = center.lng().toFixed(5);
+ 
+         GEvent.addListener(marker, "dragend", function() {
+     var pt = marker.getPoint();
+            map.panTo(pt);
+    		document.getElementById("lat").innerHTML = pt.lat().toFixed(5);
+           	document.getElementById("lng").innerHTML = pt.lng().toFixed(5);
+           	
+ 			
+        });
+ 
+         
+     	
+        GEvent.addListener(marker, "dragstart", function() {
+                console.log('dragstart');
+                document.getElementById("weather").innerHTML = "";
+                document.getElementById("weatherbutton").innerHTML = "Show weather";
+        });
+       
+       
+        });
+ 
+            }
+          }
+        );
+      }
+    }
+    	
+       function extraerParametroUrl(parametro){
+           var regexS = "[\\?&]"+parametro+"=([^&#]*)";
+           var regex = new RegExp ( regexS );
+           var tmpURL = window.location.href;
+           var results = regex.exec( tmpURL );
+           	if(results == null){ 
+           		return "";
+           	}else{
+           		
+           	return results[1];
+           	}
+  		};
+          	
+           
+     function newDoc() {
+    	 
+    	 playaId=$('#playaId')[0].innerHTML;
+    	 
+    	 lng=$('#lng')[0].innerHTML;
+         lat=$('#lat')[0].innerHTML;
+   	 	
+   	 	window.location.assign("playa/coordenates/save.do?lat=" + lat + "&lon=" + lng + "&playaId=" + parseInt(extraerParametroUrl('playaId')));
+	};
+	
+ 
+  if(window.attachEvent) {
+    window.attachEvent('onload', load);
+} else {
+    if(window.onload) {
+        var curronload = window.onload;
+        var newonload = function() {
+            curronload();
+            load();
+        };
+        window.onload = newonload;
+    } else {
+        window.onload = load;
+    }
+}
+
+</script>´
+
+
+
+<div style="display:flex;flex-wrap:wrap; margin-top: 2%; margin-bottom: 2%;">
+		
+        <div align="center" id="map" style="min-width:300px; min-height:300px;max-width:600px;max-height:600px; width:48%;"></div>
+        <div style="display: flex; flex-wrap:wrap; flex-direction:column;
+               
+              max-width: 600px; justify-content:flex-start; min-width:300px; width:48%; ">
+      
+      <table class="table" style="margin-left:5%; margin-top:5%; width:100%;">
+            <tbody>
+              <tr><th>Latitude</th><th>Longitude</th><th></th></tr>
+              <tr>
+                  <td style="font-size: 48px; color: green;" id="lat">&nbsp;</td>
+                  <td style="font-size: 48px; color: green;" id="lng">&nbsp;</td>
+                   <td style="vertical-align:middle;">
+                  <button class="weather btn btn-mondeca text-center" onclick="newDoc()" style="float:right;" >Guardar</button></td>
+             </tr>
+      </tbody>
+        </table>
+        <div id="weather"></div>
+    </div>
+  	
+  </div>
+ 
+<script>
+var formaddress = document.getElementById("address");
+ 
+formaddress.addEventListener("focusin", myFocusFunction);
+formaddress.addEventListener("focusout", myBlurFunction);
+ 
+function myFocusFunction() {
+    document.getElementById("weather").innerHTML = "";
+ 
+}
+ 
+function myBlurFunction() {
+    document.getElementById("weather").innerHTML = "";
+}
+ 
+</script>
+ 
+ 
+
+</div>
+ 
+                                       
+                       
+<div id="None" class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     &nbsp;
+</div>
+                       	
+ 
+ 
 </body>
 </html>
+ 

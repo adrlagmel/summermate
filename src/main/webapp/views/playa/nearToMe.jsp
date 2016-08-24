@@ -67,7 +67,8 @@ function initialize() {
 		map: map,
 		title: '${localizacion.nombreVia}'
 		});
-			google.maps.event.addListener(marker, 'click', function() {
+	
+  	google.maps.event.addListener(marker, 'click', function() {
 			map.setCenter(marker.getPosition());
 			x.value = marker.getPosition().lat();
 			y.value = marker.getPosition().lng();

@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,8 +63,7 @@ public class PlayaController extends AbstractController {
 			result.addObject("playa", playa);
 			result.addObject("hasimage", hasimage);
 			
-			return result;
-					
+			return result;			
 	}
 	
 		//Consultar detalles
@@ -110,6 +108,51 @@ public class PlayaController extends AbstractController {
 		return result;	
 	}
     
+    @RequestMapping(value="/markMap", method = RequestMethod.GET)
+	public ModelAndView markMap(@RequestParam int playaId){
+		
+		ModelAndView result;
+		Boolean mostrarMapa;
+		mostrarMapa=true;
+		
+		result = new ModelAndView("playa/markMap");
+		result.addObject("mostrarMapa", mostrarMapa);
+		result.addObject("playaId", playaId);
+		result.addObject("requestURI", "playa/markMap.do");
+			
+		return result;	
+	}
+    
+    @RequestMapping(value="/coordenates/save", method = RequestMethod.GET)
+	public ModelAndView save(@RequestParam Double lat, @RequestParam Double lon, @RequestParam int playaId){
+			
+		ModelAndView result;
+		Boolean mostrarMapa;
+		mostrarMapa=true;
+		
+		Playa playa = playaService.findOne(playaId);
+		
+		if(lat==null || lon==null){
+			mostrarMapa=false;
+			result = new ModelAndView("playa/markMap");
+			result.addObject("mostrarMapa", mostrarMapa);
+					
+		}else{
+			try{
+				playa.getLocalizacion().setLatitud(lat);
+				playa.getLocalizacion().setLongitud(lon);
+				
+				playaService.save(playa);
+				result = new ModelAndView("redirect:lista.do");
+		
+			}catch(Throwable oops){
+				result = new ModelAndView("playa/markMap");
+				result.addObject("mostrarMapa", mostrarMapa);
+			}
+		}
+			
+		return result;
+	}
   
 	
 	protected ModelAndView createModelAndView(Playa playa) {
