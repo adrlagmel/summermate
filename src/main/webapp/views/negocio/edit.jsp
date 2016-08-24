@@ -83,7 +83,9 @@
 	</div><br/>
 	
 	</fieldset>
-		
+	<jstl:if test="${negocio.id != 0}">
+			<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${negocio.id}" class="btn btn-info" ><spring:message code="negocio.actualizarImage" /></a>
+		</jstl:if>		
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
 	

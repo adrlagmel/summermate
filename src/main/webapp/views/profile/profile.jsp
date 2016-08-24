@@ -18,6 +18,7 @@
 
 <form:form modelAttribute="actor">
 
+	
 	<acme:textbox code="actor.name" path="nombre" readonly="true" /><br/>
 	<acme:textbox code="actor.surname" path="apellidos" readonly="true" /><br/>
 	<acme:textbox code="actor.email" path="email" readonly="true" /><br/>
@@ -39,7 +40,12 @@
 			<acme:textbox code="empresario.cif" path="cif" readonly="true"/><br/><br/>
 		</jstl:if>
 	</jstl:if>
+	<security:authorize access="hasRole('USUARIO')">
 	
+				<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success"><spring:message code="profile.uploadImage" /></a>
+		
+			
+					</security:authorize>
 	<jstl:if test="${isUsuario == true}">
 		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary"><spring:message code="profile.editar" /></a>
 	</jstl:if>

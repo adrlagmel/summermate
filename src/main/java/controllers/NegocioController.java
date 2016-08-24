@@ -47,6 +47,24 @@ public class NegocioController extends AbstractController{
 			
 		}
 		
+		@RequestMapping(value="/listNegocios", method = RequestMethod.GET)
+		public ModelAndView listNegocios(@RequestParam int playaId){
+			
+			ModelAndView result;
+			Collection<Negocio> negocios = null;
+			
+			negocios = negocioService.findNegociosDePlaya(playaId);
+			
+			result = new ModelAndView("negocio/list");
+
+			result.addObject("negocios", negocios);
+			result.addObject("actionURI","negocio/search.do");
+			result.addObject("requestURI", "negocio/list.do");
+
+			return result;
+			
+		}
+		
 		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
 		public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){

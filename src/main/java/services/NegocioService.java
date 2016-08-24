@@ -90,6 +90,15 @@ public class NegocioService {
 		
 	}
 	
+	public Collection<Negocio> findNegociosDePlaya(int playaId){
+		
+		Collection<Negocio> result = negocioRepository.NegociosDeLaPlaya(playaId);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
 	
 	public Negocio findOneToEdit(int negocioId){
 		Negocio negocio = negocioRepository.findOne(negocioId);

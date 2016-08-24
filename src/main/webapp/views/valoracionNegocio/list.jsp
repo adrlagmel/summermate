@@ -48,7 +48,7 @@
 	</display:column>
 	
 	<display:column sortable="false">
-		<a href="valoracionNegocio/usuario/delete.do?valoracionNegocioId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.valoracionNegocio" />')"><spring:message code="valoracionNegocio.borrar" /></a>
+		<a href="valoracionNegocio/usuario/borrar.do?valoracionNegocioId=${row.id}" class="btn btn-danger" ><spring:message code="valoracionNegocio.borrar" /></a>
 	</display:column>
 	</security:authorize>
 	

@@ -128,11 +128,13 @@
 </div>
 
 	<security:authorize access="hasRole('EMPRESARIO')">
-		<jstl:if test="${!negocios.isEmpty() || allowRegisternegocio == true}">
+		
+		<jstl:if test="${estado == true}">
 		<a href="negocio/empresario/register.do" class="btn btn-primary">
 			<spring:message code="negocio.create"/>
 		</a> <br/>	
 		</jstl:if>
+		
 		
 		<jstl:if test="${negocios.isEmpty() && allowRequest == true}">
 		<a href="peticionnegocio/empresario/send.do" class="btn btn-primary">

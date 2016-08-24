@@ -20,11 +20,11 @@
 <form:form modelAttribute="peticionNegocio">
 
 <jstl:if test="${peticionNegocio != null}">
-	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true" />
-	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true" />
-	<acme:textbox code="peticionNegocio.titulo" path="titulo" readonly="true" />
-	<acme:textbox code="peticionNegocio.estado" path="estado" readonly="true" />
-	<acme:textbox code="peticionNegocio.comentarios" path="comentarios" readonly="true" />
+	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true" /><br/>
+	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true" /><br/>
+	<acme:textbox code="peticionNegocio.titulo" path="titulo" readonly="true" /><br/>
+	<acme:textbox code="peticionNegocio.estado" path="estado" readonly="true" /><br/>
+	<acme:textbox code="peticionNegocio.comentarios" path="comentarios" readonly="true" /><br/>
 </jstl:if>
 	<jstl:if test="${peticionNegocio == null}">
 	<security:authorize access="hasRole('EMPRESARIO')">

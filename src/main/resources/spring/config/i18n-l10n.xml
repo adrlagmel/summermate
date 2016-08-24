@@ -24,6 +24,7 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		<value>/views/playa/messages</value>
+		<value>/views/usuario/messages</value>
 		
 		<value>/views/administrator/messages</value>
 		<value>/views/booking/messages</value>

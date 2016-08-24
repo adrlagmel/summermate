@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.EmpresarioService;
 import services.EventoService;
 import services.NegocioService;
+import services.PeticionNegocioService;
 import controllers.AbstractController;
+import domain.Empresario;
 import domain.Evento;
 import domain.Negocio;
+import domain.PeticionNegocio;
 import domain.Usuario;
 
 @Controller
@@ -33,6 +38,15 @@ public class EventoEmpresarioController extends AbstractController{
 		
 		@Autowired
 		private NegocioService negocioService;
+		
+		@Autowired
+		private ActorService actorService;
+		
+		@Autowired
+		private EmpresarioService empresarioService;
+		
+		@Autowired
+		private PeticionNegocioService peticionService;
 		
 		// Constructors ---------------------------------------------------------------
 		
@@ -84,13 +98,32 @@ public class EventoEmpresarioController extends AbstractController{
 		
 			@RequestMapping(value="/register", method = RequestMethod.GET)
 			public ModelAndView create(){
+				
+				if(actorService.findByPrincipal().equals(empresarioService.findByPrincipal()) && empresarioService.findByPrincipal().getNegocios().isEmpty()){
+					Empresario empresario = empresarioService.findByPrincipal();
+					PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
+					
+					if(pet.getEstado().equals("ACEPTADO")){
+					ModelAndView result;
+									
+					result = new ModelAndView("redirect:../../negocio/empresario/register.do");
+					return result;
+					}else{
+						ModelAndView result;
+						
+						result = new ModelAndView("redirect:../../peticionNegocio/empresario/list.do");
+						return result;
+					}
+				}else{
 				ModelAndView result;
 				
 				Evento evento = eventoService.create();		
 				result 		  = createEditModelAndView(evento, "register");
 				
 				return result;		
+				}
 			}
+				
 			
 			@RequestMapping(value="/edit", method = RequestMethod.GET)
 			public ModelAndView edit(@RequestParam int eventoId){

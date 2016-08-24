@@ -82,7 +82,9 @@
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
    	<br/>
-   	
+   	<jstl:if test="${playa.id != 0}">
+			<a href="playa/admin/uploadImage.do?playaId=${playa.id}" class="btn btn-info" ><spring:message code="playa.actualizarImage" /></a>
+		</jstl:if>	
 	<acme:submit name="save" code="playa.save"/>
 	<acme:cancel code="playa.atras" url="/playa/list.do" />
 	

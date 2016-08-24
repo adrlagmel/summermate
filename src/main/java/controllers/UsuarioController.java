@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import domain.Playa;
 import domain.Usuario;
+import forms.ActorEditPasswordForm;
 import forms.UsuarioRegistroForm;
 
 import services.UsuarioService;
@@ -95,49 +98,13 @@ public class UsuarioController extends AbstractController{
 				return result;
 		    }
 			
-			@RequestMapping(value = "/editPassword", method = RequestMethod.GET)
-			public ModelAndView editPassword() {
-				ModelAndView result;
-				Usuario us2 = usuarioService.findByPrincipal();
-				Usuario us = usuarioService.findOne(us2.getId());
-				Assert.notNull(us);
-				result = createEditModelAndView2(us);
-				result.addObject("updatePassword", true);
-				result.addObject("actionURI", "usuario/editPassword.do");
-				return result;
-			}
-			
-			@RequestMapping(value="/editPassword", method=RequestMethod.POST, params="save")
-			public ModelAndView savePassword(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult binding){
-				
-				ModelAndView result;
-				if(binding.hasErrors()){
-					
-						result = createEditModelAndView2(usuario);
-						result.addObject("updatePassword", true);
-				}else{
-					try{
-						usuarioService.savePassword(usuario);
-						result = new ModelAndView("redirect:/usuario/edit.do");
-						
-					}catch(DataIntegrityViolationException exc){
-						result = createEditModelAndView2(usuario, "register.duplicated.usuario");
-						result.addObject("updatePassword", true);
-					}catch(Throwable oops){
-						result = createEditModelAndView2(usuario, "register.commit.error");
-						result.addObject("updatePassword", true);
-					}
-				}
-				
-				return result;
-			}
 			
 			// Ancillary methods ---------------------------------------------------------
 			
 			@RequestMapping(value="/uploadImageUsuario", method=RequestMethod.GET)
 			public ModelAndView uploadImage(@RequestParam int usuarioId){
 				ModelAndView result;
-				Usuario usuario = usuarioService.findOneToEdit(usuarioId);
+				Usuario usuario = usuarioService.findOne(usuarioId);
 				
 				boolean hasimage=true;
 
@@ -145,9 +112,9 @@ public class UsuarioController extends AbstractController{
 					hasimage=false;
 				}
 				
-				result = new ModelAndView("usuario/uploadImage");
-				result.addObject("usuario", usuario);
-				result.addObject("negocioId", usuarioId);
+				result = createEditModelAndView3(usuario, "uploadImageUsuario");
+				
+				result.addObject("usuarioId", usuarioId);
 				result.addObject("hasimage",hasimage);
 				
 				
@@ -158,23 +125,21 @@ public class UsuarioController extends AbstractController{
 			@RequestMapping (value="/uploadImageUsuario", method=RequestMethod.POST, params="save")
 			public ModelAndView addImagenUsuario(@RequestParam int usuarioId, @RequestParam("foto") MultipartFile file){
 				ModelAndView result;
-				Usuario usuario = usuarioService.findOneToEdit(usuarioId);
-
+				Usuario u = usuarioService.findOneToEdit(usuarioId);
 				try{
 					
 					usuarioService.addImageToNegocio(usuarioId, file.getBytes());
-					result = new ModelAndView("redirect:../../perfil/usuario.do");
+					result = new ModelAndView("redirect:/#");
 					
 				}catch(Throwable oops){
 					boolean hasimage=true;
 
-					if(usuario.getImagen()==null){
+					if(u.getImagen()==null){
 						hasimage=false;
 					}
 					
-					result = new ModelAndView("usuario/uploadImage");
-					result.addObject("usuario", usuario);
-					result.addObject("usuarioId", usuarioId);
+					result = createEditModelAndView3(u,  "uploadImageUsuario");
+					result.addObject("usuario", u);
 					result.addObject("hasimage", hasimage);
 					result.addObject("message", "usuario.commit.error");
 									
@@ -224,12 +189,39 @@ public class UsuarioController extends AbstractController{
 					ModelAndView result;
 
 					
-					result = new ModelAndView("usuario/edit");
+					result = new ModelAndView("usuario/uploadImage");
 					
 					result.addObject("usuario", usuario);
 					result.addObject("message", message);
 					
 					return result;
 				}
+				
+				protected ModelAndView createEditModelAndView3(Usuario u, String selectView){
+					
+					ModelAndView result;
+						
+					result = createEditModelAndView3(u, selectView, null);
+						
+					return result;
+				}
+					
+				protected ModelAndView createEditModelAndView3(Usuario u, String selectView, String message){
+
+					ModelAndView result;
+					boolean hasimage = true;
+					
+					if(u.getImagen() == null){
+						hasimage = false;
+					}
+					
+					result = new ModelAndView("usuario/"+selectView);
+
+					result.addObject("usuario", u);
+					result.addObject("message", null);
+					result.addObject("hasimage", hasimage);
+
+					return result;
+				}	
 
 	}

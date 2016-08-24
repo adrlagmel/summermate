@@ -76,6 +76,10 @@
 			<a href="playa/display.do?playaId=${row.id}" class="btn btn-info"><spring:message code="playa.detallePlaya" /></a>					
 	</display:column>
 	
+	<display:column>
+				<a href="negocio/listNegocios.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.negocios" /></a>
+		</display:column>
+	
 	<security:authorize access="hasRole('ADMINISTRADOR')">
 		<display:column>
 			<jstl:if test="${row.imagen==null}">

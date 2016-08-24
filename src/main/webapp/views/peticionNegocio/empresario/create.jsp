@@ -29,12 +29,12 @@
 		<form:hidden path="comentarios" />
 	</security:authorize>
 
-	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true"/>
-	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/>
-	<acme:textbox code="peticionNegocio.titulo" path="titulo"/>
+	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true"/><br/>
+	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/><br/>
+	<acme:textbox code="peticionNegocio.titulo" path="titulo"/><br/>
 	
 	<security:authorize access="hasRole('ADMINISTRADOR')">
-		<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/>
+		<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/><br/>
 	</security:authorize>
 	
 	<acme:submit name="save" code="peticionNegocio.guardar"/>

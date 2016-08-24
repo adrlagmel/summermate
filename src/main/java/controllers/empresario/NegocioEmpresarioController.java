@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.EmpresarioService;
 import services.NegocioService;
+import services.PeticionNegocioService;
 import services.PlayaService;
 import controllers.AbstractController;
+import domain.Empresario;
 import domain.Negocio;
+import domain.PeticionNegocio;
 import domain.Playa;
 
 @Controller
@@ -32,6 +36,11 @@ public class NegocioEmpresarioController extends AbstractController{
 		@Autowired
 		private PlayaService playaService;
 		
+		@Autowired
+		private EmpresarioService empresarioService;
+		
+		@Autowired
+		private PeticionNegocioService peticionService;
 		// Constructors ---------------------------------------------------------------
 		
 		public NegocioEmpresarioController(){
@@ -46,10 +55,19 @@ public class NegocioEmpresarioController extends AbstractController{
 			ModelAndView result;
 			Collection<Negocio> negocios = null;
 			
+			Empresario empresario = empresarioService.findByPrincipal();
+			PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
+			
+			boolean estado = false;
+			if(pet.getEstado().equals("ACEPTADO")){
+				estado = true;
+			}
+			
 			negocios = negocioService.findByEmpresario();
 			
 			result = new ModelAndView("negocio/list");
 
+			result.addObject("estado", estado);
 			result.addObject("negocios", negocios);
 			result.addObject("actionURI","negocio/empresario/search.do");
 			result.addObject("requestURI", "negocio/empresario/list.do");
