@@ -28,6 +28,12 @@
 <display:table pagesize="5" class="table table-condensed" keepStatus="true" name="participantes" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
+	<display:column>
+		<jstl:if test="${row.imagen != null}">
+			<img class="img-responsive img-rounded" id="image" src="foto/displayImagePerfil.do?playaId=${row.id}" height="75" width="75"/><br />
+		</jstl:if>
+	</display:column>
+	
 	<spring:message code="evento.nombre" var="nombre" />
 	<display:column property="nombre" title="${nombre}" sortable="true" />
 	

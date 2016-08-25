@@ -48,10 +48,10 @@
 	<display:column property="nombre" title="${nombre}" sortable="true" />
 	
 	<spring:message code="evento.provincia" var="provincia" />
-	<display:column property="evento.playa.localizacion.provincia" title="${provincia}" sortable="true" />
+	<display:column property="negocio.playa.localizacion.provincia" title="${provincia}" sortable="true" />
 	
 	<spring:message code="evento.ciudad" var="ciudad" />
-	<display:column property="negocio.localizacion.ciudad" title="${ciudad}" sortable="true" />
+	<display:column property="negocio.playa.localizacion.ciudad" title="${ciudad}" sortable="true" />
 		
 	<spring:message code="evento.playa" var="playa" />
 	<display:column property="negocio.playa.nombre" title="${playa}" sortable="true" />

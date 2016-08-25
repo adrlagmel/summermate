@@ -27,7 +27,7 @@
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				$('#image').attr('src', e.target.result).width(595);
+				$('#image').attr('src', e.target.result).width(250);
 			};
 			reader.readAsDataURL(input.files[0]);
 		}
@@ -40,7 +40,7 @@
 		
 		<jstl:if test="${!hasimage}">
 		<div style="width:50%; margin: auto;">
-			<img class="img-responsive img-circle" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
+			<img class="img-responsive img-circle" id="image" src="images/no-image.png" height="250" width="250" /><br /><br />
 		</div>
 		</jstl:if>
 		<jstl:if test="${hasimage}">
