@@ -114,6 +114,10 @@ public class PlayaController extends AbstractController {
 		ModelAndView result;
 		Boolean mostrarMapa;
 		mostrarMapa=true;
+		Playa playa = playaService.findOne(playaId);
+		
+		playaService.checkPrincipal(playa);
+		Assert.isTrue(playa.getNegocios().isEmpty());
 		
 		result = new ModelAndView("playa/markMap");
 		result.addObject("mostrarMapa", mostrarMapa);
@@ -131,6 +135,8 @@ public class PlayaController extends AbstractController {
 		mostrarMapa=true;
 		
 		Playa playa = playaService.findOne(playaId);
+		playaService.checkPrincipal(playa);
+		Assert.isTrue(playa.getNegocios().isEmpty());
 		
 		if(lat==null || lon==null){
 			mostrarMapa=false;

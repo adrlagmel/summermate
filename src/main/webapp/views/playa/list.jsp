@@ -87,11 +87,12 @@
 			</jstl:if>
 		</display:column>
 		
+		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
+			<display:column>
+					<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.uploadCoordenates" /></a>
+			</display:column>
+		</jstl:if>
 		
-		<display:column>
-				<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.uploadCoordenates" /></a>
-		</display:column>
-	
 		<spring:message code="playa.delete" var="borrar" />
 		<display:column>
 		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
