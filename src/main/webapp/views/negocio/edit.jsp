@@ -24,9 +24,7 @@
 	<form:hidden path="version"/>
 	<form:hidden path="eventos"/>
 	<form:hidden path="reservas"/>
-	<form:hidden path="empresario"/><%-- 
-	<form:hidden path="location.latitude" id="lat"/>
-	<form:hidden path="location.longitude" id="lon"/> --%>
+	<form:hidden path="empresario"/>
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
@@ -50,16 +48,7 @@
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
 	
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
-	<script>
-		var x = document.getElementById("lat");
-		var y = document.getElementById("lon");
-   		
-      			navigator.geolocation.getCurrentPosition();
-      			x.value = position.coords.latitude;
-			y.value = position.coords.longitude;
-   		
-   	</script> -->
+	
 </form:form>
 
 

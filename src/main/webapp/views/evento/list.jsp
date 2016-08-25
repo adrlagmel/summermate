@@ -38,11 +38,17 @@
 		</display:column>
 	</security:authorize>
 	
+	<display:column>
+		<jstl:if test="${row.imagen != null}">
+			<img class="img-responsive img-rounded" id="image" src="foto/displayImageEvento.do?playaId=${row.id}" height="75" width="75"/><br />
+		</jstl:if>
+	</display:column>
+	
 	<spring:message code="evento.nombre" var="nombre" />
 	<display:column property="nombre" title="${nombre}" sortable="true" />
 	
 	<spring:message code="evento.provincia" var="provincia" />
-	<display:column property="negocio.localizacion.provincia" title="${provincia}" sortable="true" />
+	<display:column property="evento.playa.localizacion.provincia" title="${provincia}" sortable="true" />
 	
 	<spring:message code="evento.ciudad" var="ciudad" />
 	<display:column property="negocio.localizacion.ciudad" title="${ciudad}" sortable="true" />
