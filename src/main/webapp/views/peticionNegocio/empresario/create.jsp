@@ -24,7 +24,7 @@
 	<form:hidden path="administrador" />
 	<form:hidden path="empresario" />
 	<form:hidden path="estado" />
-	
+	<br>
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<form:hidden path="comentarios" />
 	</security:authorize>
@@ -36,8 +36,8 @@
 	<security:authorize access="hasRole('ADMINISTRADOR')">
 		<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/><br/>
 	</security:authorize>
-	
+	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="peticionNegocio.guardar"/>
 	<acme:cancel code="peticionNegocio.cancelar" url="/peticionNegocio/empresario/list.do" />
-	
+	</div>
 </form:form>

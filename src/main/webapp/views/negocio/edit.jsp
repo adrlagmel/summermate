@@ -32,7 +32,7 @@
 	<acme:textbox code="negocio.aforo" path="aforo" /><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>
-	
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${negocio.imagen!=null}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImageNegocio.do?negocioId=${negocio.id}" height="350" width="590" />
@@ -41,13 +41,13 @@
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
-	
+	<br>
 	<jstl:if test="${negocio.id != 0}">
 			<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${negocio.id}" class="btn btn-info" ><spring:message code="negocio.actualizarImage" /></a>
 		</jstl:if>		
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
-	
+	</div>
 	
 </form:form>
 

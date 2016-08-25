@@ -37,12 +37,12 @@
 			<form:hidden path="reservaId"/>
 			<form:hidden path="negocio"/>
 			
-			<div style="width:50%;">
+			<div style="width:50%; margin: auto;">
 				<form:label path="fecha">
 					<spring:message code="booking.bookingDate" />
 				</form:label>
 				<form:input path="fecha" cssClass="form-control" id="datetimepicker"/>	
-			</div><br/>
+			<br/>
 									
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -87,7 +87,7 @@
 			<acme:submit name="save" code="booking.pay"/>
 		
 			<acme:cancel code="booking.cancel" url="/reserva/usuario/lista.do" />
-		
+		</div>
 		</form:form>
 
 </body>

@@ -78,7 +78,7 @@
 	<acme:textbox code="register.nacionality" path="registroForm.nacionalidad" /><br />
 	<acme:textbox code="register.address" path="registroForm.direccion" /><br />
 	
-	<div style="width:50%;">
+	<div style="width:50%; margin: auto;" >
 		<form:label path="registroForm.sexo">
 			<spring:message code="register.sex" />
 		</form:label>
@@ -97,7 +97,7 @@
 	<jstl:if test="${isUsuario==true}">
 	<acme:textbox code="register.actualstate" path="estadoActual" /><br />
 	</jstl:if>
-	
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${isAdministrador==false}">
 	<security:authorize access="!hasRole('ADMINISTRADOR')">
 			<form:checkbox path="registroForm.contractAccepted" />
@@ -118,7 +118,7 @@
 		<security:authorize access="isAuthenticated()">
 		<acme:cancel url="/SummerMate" code="register.cancel"/>
 		</security:authorize>
-		
+		</div>
 </form:form>
 
 

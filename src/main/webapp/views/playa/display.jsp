@@ -8,7 +8,8 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form modelAttribute="playa" >	
-		
+	<br>
+	<div style="width:50%; margin: auto;" >	
 	<jstl:if test="${playa.imagen!=null}">
 		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
 	</jstl:if>
@@ -18,13 +19,18 @@
 	
 	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/><br/>
 	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/><br/>
+	</div>
 	<acme:textbox code="playa.composicion" path="composicion" readonly="true"/>	<br/>
+	<div style="width:50%; margin: auto;" >
 	<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	<br/>
+	</div>
 	<acme:textbox code="playa.extension" path="extension" readonly="true"/>	<br/>
 	<acme:textbox code="playa.valoracionMedia" path="valoracionMedia" readonly="true"/>	<br/>
 	
 	<fieldset>
-	<legend><spring:message code="playa.localizacion" /></legend>
+	<div style="width:50%; margin: auto;" >
+	<legend><spring:message code="playa.localizacion" /></legend></div>
+	
 		<acme:textbox code="playa.localizacion.tipoVia" path="localizacion.via" readonly="true"/><br/>
 		<acme:textbox code="playa.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/><br/>
 		<acme:textbox code="playa.localizacion.numero" path="localizacion.numeroVia" readonly="true"/>
@@ -39,7 +45,7 @@
 			<acme:submit name="delete" code="playa.delete" onclick="return confirm('${confirm}')"/>
 		</jstl:if>
 	</security:authorize> --%>
-	
+	<div style="width:50%; margin: auto;" >
  	<acme:cancel code="playa.atras" url="/playa/list.do" />
-		
+	</div>	
 </form:form>

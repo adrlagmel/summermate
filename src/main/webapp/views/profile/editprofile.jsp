@@ -39,11 +39,13 @@
 	<jstl:if test="${isCliente == true}">
 		<acme:textbox code="actor.phone" path="telefono" /><br/>
 		
-		<div style="width:50%;">
+			<div style="width:50%; margin: auto;" >
 			<form:label path="fechaNacimiento">
 				<spring:message code="cliente.birthDate" />
 			</form:label>
+		
 			<form:input path="fechaNacimiento" cssClass="form-control" id="datetimepicker"/>	
+		
 		</div><br/>
 								
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -55,7 +57,7 @@
 		</script>
 		
 		<acme:textbox code="cliente.direccion" path="direccion" /><br/>
-		<div style="width:50%;">
+		<div style="width:50%; margin: auto;" >
 			<form:label path="sexo">
 				<spring:message code="cliente.sexo" />
 			</form:label>
@@ -76,11 +78,11 @@
 			<acme:textbox code="empresario.cif" path="cif" /><br/><br/>
 		</jstl:if>
 	</jstl:if>
-	
+	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="edit.save"/>
 	
 	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
-	
+	</div>
 </form:form>
 
 

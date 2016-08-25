@@ -16,6 +16,7 @@
 	<form:hidden path="fecha"/>
 	
 	<acme:textbox code="valoracionPlaya.titulo" path="titulo" /> <br/>
+		<div style="width:50%; margin: auto;" >
 	<acme:textarea code="valoracionPlaya.comentario" path="comentario" /> <br/>	
 	
 	<form:label path="puntuacion">
@@ -35,7 +36,7 @@
 	
 	<acme:submit name="save" code="valoracionPlaya.save"/>
 	<acme:cancel code="valoracionPlaya.atras" url="/playa/list.do" />
-	
+	</div>
 </form:form>
 
 

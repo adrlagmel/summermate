@@ -54,7 +54,7 @@
 	<security:authorize access="hasRole('USUARIO')">
 		<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success" style = "margin: auto;"><spring:message code="profile.uploadImage" /></a>
 	</security:authorize>
-	
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${isUsuario == true}">
 		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary" style = "margin: auto;"><spring:message code="profile.editar" /></a>
 	</jstl:if>
@@ -64,5 +64,5 @@
 	</jstl:if>
 	
 	<a href="#" class="btn btn-danger" style = "margin: auto;"><spring:message code="profile.return.link" /></a><br/><br/>
-	
+	</div>
 </form:form>

@@ -39,7 +39,7 @@
 	<acme:textbox code="evento.codigo" path="codigo" readonly = "true" /><br/>
 	<acme:textbox code="evento.nombre" path="nombre" />	<br/>
 	
-	<div style="width:50%;">
+		<div style="width:50%; margin: auto;" >
 		<form:label path="fechaCelebracion">
 			<spring:message code="evento.fechaCelebracion" />
 		</form:label>
@@ -54,11 +54,12 @@
 	<script type="text/javascript">
 		$('#datetimepicker').datetimepicker({format: 'd/m/Y H:i'});
 	</script>
-	
+		<div style="width:50%; margin: auto;" >
 	<acme:textarea code="evento.descripcion" path="descripcion" /><br/>
+	</div>
 	<acme:textbox code="evento.precio" path="precio" /><br/>
 	
-	<div style="width:50%;">
+		<div style="width:50%; margin: auto;" >
 		<form:label path="negocio">
 			<spring:message code="evento.negocio" />
 		</form:label>
@@ -66,7 +67,7 @@
 		<form:select items="${negocios}" itemLabel="nombre" code="evento.negocio" path="negocio" class="form-control"/>
 		<form:errors path="negocio" cssClass="error" />
 	</div><br/>
-	
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
 	</jstl:if>
@@ -85,6 +86,7 @@
 	<acme:cancel code="evento.cancel" url="/evento/list.do" /> 
 	<br/> 
 	<br/>
+	</div>
 </form:form>
 
 </body>

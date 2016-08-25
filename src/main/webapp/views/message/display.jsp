@@ -16,14 +16,15 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
-
+	<br>
 	<form:form modelAttribute="mostrarMensaje">
 	
-	<acme:textbox code="msg.moment" path="fechaEnvio" readonly="true" />
-	<acme:textbox code="msg.sender" path="remitente.nombre" readonly="true" />
-	<acme:textbox code="msg.recipient" path="beneficiario.nombre" readonly="true" />
-	<acme:textbox code="msg.subject" path="asunto" readonly="true" />
-	<acme:textarea code="msg.body" path="cuerpo" readonly="true" />
+	<acme:textbox code="msg.moment" path="fechaEnvio" readonly="true" /><br>
+	<acme:textbox code="msg.sender" path="remitente.nombre" readonly="true" /><br>
+	<acme:textbox code="msg.recipient" path="beneficiario.nombre" readonly="true" /><br>
+	<acme:textbox code="msg.subject" path="asunto" readonly="true" /><br>
+	<div style="width:50%; margin: auto;" >
+	<acme:textarea code="msg.body" path="cuerpo" readonly="true" /><br>
 	
 		
 	<security:authentication var="user" property="principal.id" />
@@ -32,7 +33,7 @@
 	<input type="button" value="<spring:message code="msg.reply.link" />"
 	onclick="javascript: location.replace('mensaje/actor/responder.do?mensajeId=${mostrarMensaje.id}')" />
 		</jstl:if>
-	
+	<br>
 		<jstl:if test="${mostrarMensaje.beneficiario.userAccount.id==user || mostrarMensaje.remitente.userAccount.id==user}">
 				<input type="button" value="<spring:message code="msg.delete" />"
 				onclick="javascript: location.replace('mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}');
@@ -41,7 +42,7 @@
 		
 	<input type="button" value="<spring:message code="msg.return.link" />"
 	onclick="javascript: location.replace('mensaje/actor/lista.do?carpetaId=${mostrarMensaje.carpeta.id}')" />
-	
+	</div>
 	</form:form>
 		
 	

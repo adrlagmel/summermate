@@ -26,7 +26,7 @@
 	<acme:textbox code="evento.precio" path="precio" readonly="true"/><br/>
 	
 	<acme:textbox code="evento.negocio" path="negocio.nombre" readonly="true" /><br/>
-	
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${!hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="images/no-image.png" height="30%" width="30%" /><br /><br />
 	</jstl:if>
@@ -34,15 +34,16 @@
 	<jstl:if test="${hasimage}">
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if>
-	
+	</div>
 </form:form>
-
+	<div style="width:50%; margin: auto;" >
 <security:authorize access="hasRole('EMPRESARIO')">
+		
 		<acme:cancel code="evento.return" url="/evento/empresario/list.do" /> 
 	</security:authorize> 
 	
 	<security:authorize access="!hasRole('EMPRESARIO')">
 		<acme:cancel code="evento.return" url="/evento/list.do" /> 
 	</security:authorize> 
-
+</div>
 	

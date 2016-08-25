@@ -24,11 +24,12 @@
 	<form:hidden path="version"/>
 	
 	<form:hidden path="negocio"/>
-		
-	<acme:textbox code="negocio.fechaInicio" path="fechaInicio" />
-	<acme:textbox code="negocio.fechaFin" path="fechaFin" />
-	<acme:textbox code="negocio.anotacionesReserva" path="anotacionesReserva" />
-	
+	<br>	
+	<acme:textbox code="negocio.fechaInicio" path="fechaInicio" /><br>
+	<acme:textbox code="negocio.fechaFin" path="fechaFin" /><br>
+	<acme:textbox code="negocio.anotacionesReserva" path="anotacionesReserva" /><br>
+	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="button.save"/>
 	<acme:cancel code="button.cancel" url="/negocio/empresario/lista.do" /> 
+	</div>
 </form:form>

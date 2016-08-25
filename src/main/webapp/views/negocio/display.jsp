@@ -19,6 +19,7 @@
 
 <form:form modelAttribute="negocio">
 	<br/>
+		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${negocio.imagen!=null}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImageNegocio.do?negocioId=${negocio.id}" height="350" width="590" />
@@ -27,8 +28,8 @@
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
-	<br/>
-	
+		<br/>
+	</div>
 	<acme:textbox code="negocio.nombre" path="nombre" readonly="true"/><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" readonly="true"/><br/>
 	<acme:textbox code="negocio.descripcion" path="descripcion" readonly="true"/><br/>
@@ -38,6 +39,7 @@
 	<acme:textbox code="negocio.valoracionMedia" path="valoracionMedia" readonly="true"/><br/>
 	
 	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/><br/>
-	
+		<div style="width:50%; margin: auto;" >
 	<acme:cancel code="negocio.return" url="/negocio/list.do" /> 
+	</div>
 </form:form>

@@ -16,16 +16,23 @@
 	<form:hidden path="valoracionPlayas"/>
 	<form:hidden path="localizacion.latitud" id="lat"/>
 	<form:hidden path="localizacion.longitud" id="lon"/>
+	
 	 	
  	<acme:textbox code="playa.nombre" path="nombre" /><br/>
+ 	<div style="width:50%; margin: auto;" >
 	<acme:textarea code="playa.descripcion" path="descripcion" /><br/>
+	</div>
 	<acme:textbox code="playa.composicion" path="composicion" /><br/>
+	<div style="width:50%; margin: auto;" >
 	<acme:textarea code="playa.servicios" path="servicios" /><br/>
+	</div>
 	<acme:textbox  code="playa.extension" path="extension" /><br/>
 	
 	<fieldset>
-	<legend><spring:message code="playa.localizacion" /></legend>
-		<div style="width:50%;">
+	<div style="width:50%; margin: auto;" >
+	<legend><spring:message code="playa.localizacion" /></legend></div>
+		
+			<div style="width:50%; margin: auto;" >
 			<form:label path="localizacion.via">
 				<spring:message code="playa.localizacion.tipoVia" />
 			</form:label>
@@ -44,7 +51,7 @@
 		<acme:textbox code="playa.localizacion.numero" path="localizacion.numeroVia" /><br/>
 		<acme:textbox code="playa.localizacion.codigoPostal" path="localizacion.codigoPostal" /><br/>
 		
-		<div style="width:50%;">
+		<div style="width:50%; margin: auto;" >
 			<form:label path="localizacion.provincia">
 				<spring:message code="playa.localizacion.provincia" />
 			</form:label>
@@ -72,7 +79,7 @@
 			y.value = position.coords.longitude;
    		
    	</script>
-   	
+   	<div style="width:50%; margin: auto;" >
    <jstl:if test="${playa.imagen!=null}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
@@ -87,5 +94,5 @@
 		</jstl:if>	
 	<acme:submit name="save" code="playa.save"/>
 	<acme:cancel code="playa.atras" url="/playa/list.do" />
-	
+	</div>
 </form:form>

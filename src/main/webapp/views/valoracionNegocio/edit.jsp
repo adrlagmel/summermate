@@ -16,9 +16,10 @@
 	<form:hidden path="comentarioUtil"/>
 	<br/>
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
+		<div style="width:50%; margin: auto;" >
 	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	<br/>
-	
-	<div style = "margin: auto;">
+	</div>
+		<div style="width:50%; margin: auto;" >
 		<form:label path="puntuacion">
 			<spring:message code="valoracionNegocio.puntuacion"/>
 		</form:label><br/>
@@ -34,10 +35,10 @@
 		<label class="radio-inline"><input type="radio" value ="10" name="puntuacion">10</label>
 	</div>
 	<br/><br/>
-		
+		<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="valoracionNegocio.save"/>
 	<acme:cancel code="valoracionNegocio.atras" url="/valoracionNegocio/usuario/list.do" />
-	
+	</div>
 </form:form>
 
 

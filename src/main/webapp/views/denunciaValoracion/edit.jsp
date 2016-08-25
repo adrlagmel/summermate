@@ -14,10 +14,13 @@
 	<form:hidden path="valoracionNegocio"/>
 	<form:hidden path="cliente"/>
 	
+	
 	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	<br/>
+	<div style="width:50%; margin: auto;" >
+	
 	<acme:textarea code="denunciaValoracion.comentario" path="comentario" />	<br/>
 	
-	<div style="width:50%;">
+	
 		<form:label path="tipo">
 			<spring:message code="denunciaValoracion.tipo" />
 		</form:label>
@@ -30,12 +33,12 @@
 			<form:option value= "FALSO" label = "${falso}" />		
 			<form:option value= "RECHAZO" label = "${rechazo}"/>
 			<form:option value= "BURLA" label = "${burla}"/>		
-		</form:select>
-	</div><br>
+		</form:select><br>
+	
 	
 	<acme:submit name="save" code="denunciaValoracion.save" />
 	<acme:cancel code="denunciaValoracion.atras" url="/denunciaValoracion/empresario/list.do" />
-	
+	</div>
 </form:form>
 
 

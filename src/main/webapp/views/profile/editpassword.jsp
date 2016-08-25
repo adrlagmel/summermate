@@ -18,17 +18,18 @@
 
 <form:form action="${actionURI}" modelAttribute="actor">
 
-	
+	<br>
 	<acme:password code="edit.passwordOld" path="oldPassword"/><br/><br/>
 	
 	
 	<fieldset>
-		<legend><spring:message code="edit.password.edicion" /></legend>
+		<div style="width:50%; margin: auto;" >
+		<legend><spring:message code="edit.password.edicion" /></legend></div>
 		<acme:password code="edit.password" path="password"/><br />
 		<acme:password code="edit.verify.password" path="verifyPassword"/><br />
 	</fieldset>
-	
+	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="edit.save"/>
 	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
-	
+	</div>
 </form:form>

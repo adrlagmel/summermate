@@ -23,13 +23,13 @@
 	<form:hidden path="version" />
 	<form:hidden path="remitente" />
 	<form:hidden path="carpeta" />
-	<form:hidden path="fechaEnvio" />
-	
+	<form:hidden path="fechaEnvio" /><br><br>
+	<div style="width:50%; margin: auto;" >
 	<jstl:if test="${m.beneficiario == null}">
 	
 		<acme:select items="${actors}" itemLabel="email" code="msg.recipient" path="beneficiario"/>
 	
-	</jstl:if>
+	</jstl:if><br>
 	
 	<jstl:if test="${m.beneficiario != null}">
 	
@@ -37,14 +37,17 @@
 		
 		<b><spring:message code="msg.recipient"/>: </b><jstl:out value="${m.beneficiario.nombre}" />
 		
-	</jstl:if>
-	
-	<acme:textbox code="msg.subject" path="asunto"/>
-	<acme:textarea code="msg.body" path="cuerpo"/>
+	</jstl:if><br>
+	</div>
+	<acme:textbox code="msg.subject" path="asunto"/><br>
+	<div style="width:50%; margin: auto;" >
+	<acme:textarea code="msg.body" path="cuerpo"/><br>
 				
 					
 	<acme:submit name="save" code="msg.send.link"/>				
 	
-	<acme:cancel url="/" code="msg.cancel.link"/>			
+	<acme:cancel url="/" code="msg.cancel.link"/>	
+	
+	</div>		
 
 </form:form>
