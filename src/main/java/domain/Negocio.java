@@ -26,7 +26,6 @@ public class Negocio extends DomainEntity{
 	private String 			tipo;
 	private String 			descripcion;
 	private String 			telefono;
-	private Localizacion 	localizacion;
 	private String 			paginaWeb;
 	private Integer 		aforo;
 	private byte[]          imagen;
@@ -88,16 +87,6 @@ public class Negocio extends DomainEntity{
 	}
 	public void setPaginaWeb(String paginaWeb){
 		this.paginaWeb = paginaWeb;
-	}
-	
-	@NotNull
-	@Valid
-	public Localizacion getLocalizacion() {
-		return localizacion;
-	}
-	
-	public void setLocalizacion(Localizacion localizacion) {
-		this.localizacion = localizacion;
 	}
 		
 	@Column(columnDefinition = "LONGBLOB")

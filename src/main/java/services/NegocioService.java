@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -18,7 +19,6 @@ import security.UserAccount;
 import domain.CalendarioNegocio;
 import domain.Empresario;
 import domain.Evento;
-import domain.Localizacion;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Reserva;
@@ -60,7 +60,6 @@ public class NegocioService {
 		Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
 		
 		result.setReservas(new ArrayList<Reserva>());
-		result.setLocalizacion(new Localizacion());
 		result.setCalendarioNegocios(new ArrayList<CalendarioNegocio>());
 		result.setEventos(new ArrayList<Evento>());
 		result.setEmpresario(principal);
@@ -163,46 +162,6 @@ public class NegocioService {
 		Assert.isTrue(negocio.getEmpresario().getUserAccount().equals(userAccount));
 	}
 	
-	public Collection<Negocio> nearToMe(Double lat, Double lon) {
-		Collection<Negocio> res=new ArrayList<Negocio>();
-		for(Negocio sp:findAll()){
-			if(distance(lat,lon,sp.getLocalizacion().getLatitud(),sp.getLocalizacion().getLongitud())<=10){
-				res.add(sp);
-			}
-		}
-		return res;
-	}
-	private static double distance(double lat1, double lon1, double lat2, double lon2) {
-
-		double theta = lon1 - lon2;
-
-		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
-				+ Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-				* Math.cos(deg2rad(theta));
-
-		dist = Math.acos(dist);
-
-		dist = rad2deg(dist);
-
-		dist = dist * 60 * 1.1515;
-
-		dist = dist * 1.609344;
-
-		return (dist);
-
-	}
-
-	private static double deg2rad(double deg) {
-
-		return (deg * Math.PI / 180.0);
-
-	}
-
-	private static double rad2deg(double rad) {
-
-		return (rad * 180 / Math.PI);
-
-	}
 	
 	public void addImageToNegocio(int negocioId, byte[] bytes) {
 		

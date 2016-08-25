@@ -1284,7 +1284,6 @@
 		<property name="descripcion" value="Restaurante de comida rápida de muy buena calidad" />
 		<property name="telefono" value="+34622323132" />
 		<property name="aforo" value="50" />
-		<property name="localizacion" ref="localizacion1" />
 		<property name="paginaWeb" value="http://www.comidafast.com" />
 		<property name="empresario" ref="empresario1" />
 		<property name="playa" ref="playa1" />
@@ -1316,7 +1315,6 @@
 		<property name="tipo" value="Pizzeria" />
 		<property name="descripcion" value="Pizzeria italiana" />
 		<property name="telefono" value="+34622323138" />
-		<property name="localizacion" ref="localizacion3" />
 		<property name="aforo" value="50" />
 		<property name="paginaWeb" value="http://www.italianbella.com" />
 		<property name="empresario" ref="empresario2" />
@@ -1347,7 +1345,6 @@
 		<property name="tipo" value="Restaurante" />
 		<property name="descripcion" value="Restaurante - Taperia en la zona costera de Chipiona" />
 		<property name="telefono" value="+34652363138" />
-		<property name="localizacion" ref="localizacion2" />
 		<property name="aforo" value="50" />
 		<property name="paginaWeb" value="http://www.restauranteelfaro.com" />
 		<property name="empresario" ref="empresario2" />
@@ -1377,7 +1374,6 @@
 											las hosteleria, pasando por más de 3 generaciones" />
 		<property name="telefono" value="+34652363138" />
 		<property name="aforo" value="50" />
-		<property name="localizacion" ref="localizacion4" />
 		<property name="empresario" ref="empresario5" />
 		<property name="playa" ref="playa4" />
 		<property name="eventos">

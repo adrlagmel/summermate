@@ -11,10 +11,10 @@ import domain.Negocio;
 @Repository
 public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	
-	@Query("select distinct s from Negocio s where s.localizacion.ciudad like %?1%")
+	@Query("select distinct s from Negocio s where s.playa.localizacion.ciudad like %?1%")
 	Collection<Negocio> search(String s);
 	
-	@Query("select distinct s from Negocio s where s.empresario.id=?2 and s.localizacion.ciudad like %?1%")
+	@Query("select distinct s from Negocio s where s.empresario.id=?2 and s.playa.localizacion.ciudad like %?1%")
 	Collection<Negocio> searchNegocio(String s, int empresarioId);
 	
 	@Query("select distinct s from Negocio s where s.empresario.id=?1")
