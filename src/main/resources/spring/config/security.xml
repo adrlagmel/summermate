@@ -98,6 +98,7 @@
 		<security:intercept-url pattern="/foto/displayImageEvento.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImage.do" access="permitAll"/>
+		<security:intercept-url pattern="/foto/displayImagePerfil.do" access="permitAll"/>
 		
 		<security:intercept-url pattern="/peticionNegocio/administrador/listapendiente.do" access="hasRole('ADMINISTRADOR')" />
 		<security:intercept-url pattern="/peticionNegocio/administrador/aceptar.do" access="hasRole('ADMINISTRADOR')" />

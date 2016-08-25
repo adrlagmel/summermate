@@ -89,6 +89,12 @@ public class UsuarioService {
 				
 	}
 	
+	public void saveImage(Usuario usuario){
+		Assert.notNull(usuario);
+				
+		usuarioRepository.save(usuario);	
+	}
+	
 	public void saveEdit(Usuario usuario){
 		Assert.notNull(usuario);
 		
@@ -226,6 +232,6 @@ public class UsuarioService {
 			usuario.setImagen(bytes);
 		}
 		
-		save(usuario);
+		saveImage(usuario);
 	}
 	}
