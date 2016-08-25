@@ -80,6 +80,24 @@ public class EventoService {
 		
 	}
 	
+	public Collection<Evento> EventosActivos(){
+		Date ahora = new Date();
+		Collection<Evento> result = eventoRepository.findEventosActivos(ahora);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
+	public Collection<Evento> EventosInactivos(){
+		Date ahora = new Date();
+		Collection<Evento> result = eventoRepository.findEventosInactivos(ahora);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
 	public Evento findOneToEdit(int eventoId){
 		Evento evento = eventoRepository.findOne(eventoId);
 				

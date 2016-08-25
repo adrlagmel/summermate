@@ -88,12 +88,16 @@
 		<security:intercept-url pattern="/evento/usuario/list.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/evento/usuario/signup.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/evento/usuario/unregister.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/listActivos.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/listInactivos.do" access="hasRole('USUARIO')" />
 		<security:intercept-url pattern="/evento/empresario/register.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/search.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/list.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/listParticipantes.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/edit.do" access="hasRole('EMPRESARIO')" />
 		<security:intercept-url pattern="/evento/empresario/uploadImageEvento.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/evento/empresario/listActivos.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/listInactivos.do" access="hasRole('EMPRESARIO')" />
 		
 		<security:intercept-url pattern="/foto/displayImageEvento.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>

@@ -94,6 +94,41 @@ public class EventoEmpresarioController extends AbstractController{
 			
 		}
 		
+		@RequestMapping(value="/listActivos", method = RequestMethod.GET)
+		public ModelAndView listActivos(){
+			
+			ModelAndView result;
+			Collection<Evento> eventos = null;
+			
+			eventos = eventoService.EventosActivos();
+			Date fechaActual	= new Date();
+			result = new ModelAndView("evento/list");
+
+			result.addObject("eventos", eventos);
+			result.addObject("fechaActual", fechaActual);
+			result.addObject("requestURI", "evento/empresario/listActivos.do");
+
+			return result;
+			
+		}
+		@RequestMapping(value="/listInactivos", method = RequestMethod.GET)
+		public ModelAndView listInactivos(){
+			
+			ModelAndView result;
+			Collection<Evento> eventos = null;
+			
+			eventos = eventoService.EventosInactivos();
+			Date fechaActual	= new Date();
+			result = new ModelAndView("evento/list");
+
+			result.addObject("eventos", eventos);
+			result.addObject("fechaActual", fechaActual);
+			result.addObject("requestURI", "evento/empresario/listInactivos.do");
+
+			return result;
+			
+		}
+		
 		// Create and edition methods -------------------------------------------------
 		
 			@RequestMapping(value="/register", method = RequestMethod.GET)

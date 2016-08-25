@@ -55,6 +55,10 @@
               		<li><a href="evento/empresario/register.do"><spring:message code="master.page.eventos.register" /></a></li>
 					<li><a href="evento/list.do"><spring:message code="master.page.eventos.list" /></a></li>
 					<li><a href="evento/empresario/list.do"><spring:message code="master.page.eventos.mylist" /></a></li>
+			  		<li><a href="evento/empresario/listActivos.do"><spring:message code="master.page.eventos.listActivos" /></a></li>
+			  		<li><a href="evento/empresario/listInactivos.do"><spring:message code="master.page.eventos.listInactivos" /></a></li>
+			  
+			  
 			  </ul>
 			</li>	
 			<li><a href="reserva/empresario/lista.do"><spring:message code="master.page.reservas"/></a></li>				
@@ -91,6 +95,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.eventos" /><b class="caret"></b></a>
               <ul class="dropdown-menu" >
 					<li><a href="evento/usuario/list.do"><spring:message code="master.page.eventos.list" /></a></li>
+			        <li><a href="evento/usuario/listActivos.do"><spring:message code="master.page.eventos.listActivos" /></a></li>
+			  		<li><a href="evento/usuario/listInactivos.do"><spring:message code="master.page.eventos.listInactivos" /></a></li>
+			  
 			  </ul>
 			</li>
 			

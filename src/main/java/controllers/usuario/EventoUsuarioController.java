@@ -64,6 +64,45 @@ public class EventoUsuarioController extends AbstractController{
 			
 		}
 		
+		@RequestMapping(value="/listActivos", method = RequestMethod.GET)
+		public ModelAndView listActivos(){
+			
+			ModelAndView result;
+			Collection<Evento> eventos = null;
+			
+			eventos = eventoService.EventosActivos();
+			Usuario usuario = usuarioService.findByPrincipal();
+			Date fechaActual	= new Date();
+			result = new ModelAndView("evento/list");
+
+			result.addObject("usuario", usuario);
+			result.addObject("eventos", eventos);
+			result.addObject("fechaActual", fechaActual);
+			result.addObject("requestURI", "evento/usuario/listActivos.do");
+
+			return result;
+			
+		}
+		@RequestMapping(value="/listInactivos", method = RequestMethod.GET)
+		public ModelAndView listInactivos(){
+			
+			ModelAndView result;
+			Collection<Evento> eventos = null;
+			
+			eventos = eventoService.EventosInactivos();
+			Usuario usuario = usuarioService.findByPrincipal();
+			Date fechaActual	= new Date();
+			result = new ModelAndView("evento/list");
+
+			result.addObject("usuario", usuario);
+			result.addObject("eventos", eventos);
+			result.addObject("fechaActual", fechaActual);
+			result.addObject("requestURI", "evento/usuario/listInactivos.do");
+
+			return result;
+			
+		}
+		
 		
 //		@RequestMapping(value="/search", method = RequestMethod.GET)
 //		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){

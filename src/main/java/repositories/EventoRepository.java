@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,11 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 	
 	@Query("select s.usuarios from Evento s where s.id=?1")
 	Collection<Usuario> findParticipantsByEvento(int eventoId);
+	
+	@Query("select distinct s from Evento s where s.fechaCelebracion >= ?1")
+	Collection<Evento> findEventosActivos(Date fechaActual);
+	
+	@Query("select distinct s from Evento s where s.fechaCelebracion <= ?1")
+	Collection<Evento> findEventosInactivos(Date fechaActual);
 	
 }
