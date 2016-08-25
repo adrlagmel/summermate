@@ -43,7 +43,7 @@
 
 <%-- Definition --%>
 
-<div style="width:50%;">
+<div style="width:50%; margin: auto;">
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>

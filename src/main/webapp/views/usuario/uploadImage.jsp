@@ -34,15 +34,19 @@
 	}
 </script>
 
-	<div class="col-md-7  col-md-offset-2">
+	<div class="col-md-7  col-md-offset-2" style ="margin: auto;">
 	
 		<form:form action="usuario/uploadImageUsuario.do?usuarioId=${usuarioId}" enctype="multipart/form-data">
 		
 		<jstl:if test="${!hasimage}">
-		<img class="img-responsive img-rounded" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
+		<div style="width:50%; margin: auto;">
+			<img class="img-responsive img-circle" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
+		</div>
 		</jstl:if>
 		<jstl:if test="${hasimage}">
-		<img class="img-responsive img-rounded" id="image" src="foto/displayImagePerfil.do?usuarioId=${usuarioId}" height="350" width="590"/><br /><br />
+		<div style="width:50%; margin: auto;">
+			<img class="img-responsive img-circle" id="image" src="foto/displayImagePerfil.do?usuarioId=${usuarioId}" height="250" width="250"/><br /><br />
+ 		</div>
  		</jstl:if>
  		
  		<input type="file" name="foto" onchange="readURL(this);" />

@@ -60,7 +60,7 @@
 	
 	<acme:textbox code="register.phone" path="registroForm.telefono" /><br />
 	
-	<div style="width:50%;">
+	<div style="width:50%; margin: auto;">
 		<form:label path="registroForm.fechaNacimiento">
 			<spring:message code="register.birthDate" />
 		</form:label>

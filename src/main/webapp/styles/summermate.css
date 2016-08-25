@@ -53,3 +53,9 @@
   font-color:#ffffff;
   font-family:'Helvetica','Verdana','Monaco',sans-serif;
 }
+
+.h2 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}

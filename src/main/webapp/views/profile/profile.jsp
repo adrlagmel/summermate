@@ -17,16 +17,17 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form:form modelAttribute="actor">
-
+	
 	<jstl:if test="${isCliente == true}">
-	<jstl:if test="${actor.imagen!=null}">
-	<spring:message code="actor.imagen"/>
-		<img class="img-responsive img-rounded" src="foto/displayImagePerfil.do?usuarioId=${actor.id}" height="350" width="590" />
+		<jstl:if test="${actor.imagen!=null}">
+			<img class="img-responsive img-circle" style = "margin: auto;" src="foto/displayImagePerfil.do?usuarioId=${actor.id}" height="250" width="250" />
+		</jstl:if>
+		<jstl:if test="${actor.imagen==null}">
+			<img class="img-responsive img-rounded" style = "margin: auto;" src="images/no-image.png" height="350" width="590" />
+		</jstl:if>
 	</jstl:if>
-	<jstl:if test="${actor.imagen==null}">
-		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
-	</jstl:if><br/><br/>
-	</jstl:if>
+	<br/><br/>
+	
 	<acme:textbox code="actor.name" path="nombre" readonly="true" /><br/>
 	<acme:textbox code="actor.surname" path="apellidos" readonly="true" /><br/>
 	<acme:textbox code="actor.email" path="email" readonly="true" /><br/>
@@ -49,19 +50,17 @@
 		</jstl:if>
 	</jstl:if>
 	<security:authorize access="hasRole('USUARIO')">
+		<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success" style = "margin: auto;"><spring:message code="profile.uploadImage" /></a>
+	</security:authorize>
 	
-				<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success"><spring:message code="profile.uploadImage" /></a>
-		
-			
-					</security:authorize>
 	<jstl:if test="${isUsuario == true}">
-		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary"><spring:message code="profile.editar" /></a>
+		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary" style = "margin: auto;"><spring:message code="profile.editar" /></a>
 	</jstl:if>
 	
 	<jstl:if test="${isEmpresario == true}">
-		<a href="perfil/empresario/edit.do?empresarioId=${actor.id}"class="btn btn-primary"><spring:message code="profile.editar" /></a>
+		<a href="perfil/empresario/edit.do?empresarioId=${actor.id}"class="btn btn-primary" style = "margin: auto;"><spring:message code="profile.editar" /></a>
 	</jstl:if>
 	
-	<a href="#" class="btn btn-danger"><spring:message code="profile.return.link" /></a><br/><br/>
+	<a href="#" class="btn btn-danger" style = "margin: auto;"><spring:message code="profile.return.link" /></a><br/><br/>
 	
 </form:form>
