@@ -18,15 +18,17 @@
 
 <form:form modelAttribute="actor">
 	
-	<jstl:if test="${isCliente == true}">
-		<jstl:if test="${actor.imagen!=null}">
-			<img class="img-responsive img-circle" style = "margin: auto;" src="foto/displayImagePerfil.do?usuarioId=${actor.id}" height="250" width="250" />
-		</jstl:if>
-		<jstl:if test="${actor.imagen==null}">
-			<img class="img-responsive img-rounded" style = "margin: auto;" src="images/no-image.png" height="350" width="590" />
-		</jstl:if>
-	</jstl:if>
 	<br/><br/>
+	<jstl:if test="${isUsuario == true}">
+			<jstl:if test="${actor.imagen!=null}">
+				<img class="img-responsive img-circle" style = "margin: auto;" src="foto/displayImagePerfil.do?usuarioId=${actor.id}" height="250" width="250" />
+			</jstl:if>
+			<jstl:if test="${actor.imagen==null}">
+				<img class="img-responsive img-rounded" style = "margin: auto;" src="images/no-image.png" height="350" width="590" />
+			</jstl:if>
+	<br/><br/>
+	</jstl:if>
+	
 	
 	<acme:textbox code="actor.name" path="nombre" readonly="true" /><br/>
 	<acme:textbox code="actor.surname" path="apellidos" readonly="true" /><br/>

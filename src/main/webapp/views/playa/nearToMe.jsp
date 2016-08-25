@@ -102,7 +102,7 @@ function addMarker(location, id, name, myLat, myLon, lat2, lon2) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: iconBase + 'schools_maps.png'
+    icon: iconBase + 'sunny.png'
   });
   
   google.maps.event.addListener(marker, 'click', function() {

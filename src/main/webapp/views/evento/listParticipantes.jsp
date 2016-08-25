@@ -30,7 +30,7 @@
 	
 	<display:column>
 		<jstl:if test="${row.imagen != null}">
-			<img class="img-responsive img-rounded" id="image" src="foto/displayImagePerfil.do?playaId=${row.id}" height="75" width="75"/><br />
+			<img class="img-responsive img-rounded" id="image" src="foto/displayImagePerfil.do?usuarioId=${row.id}" height="75" width="75"/><br />
 		</jstl:if>
 	</display:column>
 	
