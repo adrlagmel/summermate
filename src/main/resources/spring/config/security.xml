@@ -51,6 +51,9 @@
 		<security:intercept-url pattern="/perfil/empresario/edit.do" access="hasRole('EMPRESARIO')" /> 
 		<security:intercept-url pattern="/perfil/usuario/edit.do" access="hasRole('USUARIO')" /> 
 		<security:intercept-url pattern="/perfil/actor/editPassword.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/usuario/uploadImageUsuario.do" access="hasRole('USUARIO')" /> 
+		<security:intercept-url pattern="/usuario/displayImagePerfil.do" access="hasRole('USUARIO')" /> 
+		
 		
 		<security:intercept-url pattern="/playa/list.do" access="permitAll"/> 
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
@@ -69,6 +72,7 @@
 		<security:intercept-url pattern="/mensaje/actor/responder.do" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/negocio/list.do" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/negocio/listNegocios.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/empresario/display.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/search.do" access="permitAll"/>
 		<!-- <security:intercept-url pattern="/negocio/nearToMe.do" access="permitAll"/> -->
@@ -121,6 +125,8 @@
 		<security:intercept-url pattern="/valoracionPlaya/usuario/borrar.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/list.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/delete.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasRole('USUARIO')"/>
+		
 		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasRole('USUARIO')"/>
 		
 		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasRole('EMPRESARIO')"/>
