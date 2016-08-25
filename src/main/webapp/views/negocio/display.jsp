@@ -37,18 +37,6 @@
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/><br/>
 	<acme:textbox code="negocio.valoracionMedia" path="valoracionMedia" readonly="true"/><br/>
 	
-	
-	<fieldset>
-	<legend><spring:message code="negocio.localizacion" /></legend>
-	
-	<acme:textbox code="negocio.localizacion.tipoVia" path="localizacion.via" readonly="true"/><br/>
-	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" readonly="true"/><br/>
-	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" readonly="true"/><br/>
-	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" readonly="true"/><br/>
-	<acme:textbox code="negocio.localizacion.provincia" path="localizacion.provincia" readonly="true"/><br/>
-	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" readonly="true"/><br/>
-	</fieldset>
-	
 	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/><br/>
 	
 	<acme:cancel code="negocio.return" url="/negocio/list.do" /> 

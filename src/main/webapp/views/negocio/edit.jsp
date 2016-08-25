@@ -44,45 +44,6 @@
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>
 	
-	<fieldset>
-	<legend><spring:message code="negocio.localizacion" /></legend>
-	
-	<div style="width:50%;">
-			<form:label path="localizacion.via">
-				<spring:message code="negocio.localizacion.tipoVia" />
-			</form:label>
-			
-			<form:select path="localizacion.via" code="negocio.localizacion.tipoVia" class="form-control">
-				<form:option value="Avenida" label="Avenida" />	
-			 	<form:option value="Calle" label="Calle" />		
-			 	<form:option value="Camino" label="Camino" />
-				<form:option value="Carretera" label="Carretera" />	
-				<form:option value="Plaza" label="Plaza" />				
-			</form:select>
-			<form:errors path="localizacion.via" cssClass="error" />
-	</div><br/>
-	
-	<acme:textbox code="negocio.localizacion.nombreVia" path="localizacion.nombreVia" /><br/>
-	<acme:textbox code="negocio.localizacion.numero" path="localizacion.numeroVia" /><br/>
-	<acme:textbox code="negocio.localizacion.codigoPostal" path="localizacion.codigoPostal" /><br/>
-	<acme:textbox code="negocio.localizacion.ciudad" path="localizacion.ciudad" /><br/>
-	
-	<div style="width:50%;">
-		<form:label path="localizacion.provincia">
-			<spring:message code="negocio.localizacion.provincia" />
-		</form:label>
-		
-		<form:select path="localizacion.provincia" class="form-control" code="negocio.localizacion.provincia">
-			<form:option value="Almeria" label="Almeria" />		
-			<form:option value="Cádiz" label="Cádiz" />	
-			<form:option value="Granada" label="Granada" />	
-			<form:option value="Huelva" label="Huelva" />	
-			<form:option value="Málaga" label="Málaga" />	
-		</form:select>
-		<form:errors path="localizacion.provincia" cssClass="error" />
-	</div><br/>
-	
-	</fieldset>
 	<jstl:if test="${negocio.id != 0}">
 			<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${negocio.id}" class="btn btn-info" ><spring:message code="negocio.actualizarImage" /></a>
 		</jstl:if>		

@@ -143,7 +143,7 @@ public class PlayaController extends AbstractController {
 				playa.getLocalizacion().setLongitud(lon);
 				
 				playaService.save(playa);
-				result = new ModelAndView("redirect:lista.do");
+				result = new ModelAndView("redirect:../list.do");
 		
 			}catch(Throwable oops){
 				result = new ModelAndView("playa/markMap");

@@ -106,7 +106,6 @@
  
 jQuery(document).ready(function($) {
 		
-		var playaId = document.getElementById("playaId");
         var weatheron=0;
         $('#weatherbutton').on('click', function() {
     weatheron=1-weatheron;
@@ -141,8 +140,8 @@ jQuery(document).ready(function($) {
         var map = new GMap2(document.getElementById("map"));
         map.addControl(new GSmallMapControl());
         map.addControl(new GMapTypeControl());
-        var center = new GLatLng(36.70885, -6.43134);
-        map.setCenter(center, 15);
+        var center = new GLatLng(36.65909, -4.50927);
+        map.setCenter(center, 7);
         geocoder = new GClientGeocoder();
         var marker = new GMarker(center, {draggable: true});  
         map.addOverlay(marker);

@@ -27,29 +27,9 @@
      </div><br/>
 </form><br/>
 
-<%-- <form action="negocio/nearToMe.do" method="get" name="nearToMe">
-						<input type="text" name="lat" id="lat" class="hidden"/>
-						<input type="text" name="lon" id="lon" class="hidden"/>
-						
-						<a href="javascript: nearToMe.submit()"> <spring:message code="master.page.negocios.nearToMe"/></a>
-						<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
-									<script>
-										var x = document.getElementById("lat");
-										var y = document.getElementById("lon");
-							    		if (navigator.geolocation) {
-							       			navigator.geolocation.getCurrentPosition(initialize);
-							    		}
-										function initialize(position) {
-											x.value = position.coords.latitude;
-											y.value = position.coords.longitude;
-											
-										}
-									</script></form> --%>
-
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="false" name="negocios" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
-	
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<display:column>
 		<security:authentication var="user" property="principal.id" />
@@ -70,7 +50,7 @@
 	<display:column property="nombre" title="${nombre}" sortable="true" />
 	
 	<spring:message code="negocio.ciudad" var="ciudad" />
-	<display:column property="localizacion.ciudad" title="${ciudad}" sortable="true" />
+	<display:column property="playa.localizacion.ciudad" title="${ciudad}" sortable="true" />
 		
 	<spring:message code="negocio.playa" var="playa" />
 	<display:column property="playa.nombre" title="${playa}" sortable="true" />
@@ -89,17 +69,6 @@
 		</jstl:if>
 	</display:column>
 	
-	<%-- <display:column>
-		<jstl:if test="${row.empresario.userAccount.id == user}">
-		<a href="payment/empresario/list.do?negocioId=${row.id}"><spring:message code="negocio.payments.list" /></a>
-	</jstl:if>
-	</display:column> --%>
-	
-	<%-- <display:column>
-		<jstl:if test="${row.empresario.userAccount.id == user}">
-		<a href="negocioCalendar/sportPartner/deleteDates.do?negocioId=${row.id}"><spring:message code="negocioCalendar.deleteDates" /></a>
-	</jstl:if>
-	</display:column> --%>
 	</security:authorize> 
 	<security:authorize access="hasRole('USUARIO')">
 		<display:column>
@@ -121,9 +90,6 @@
 		</display:column>
 	</security:authorize>
 	
-<%-- 	<display:column>
-		<a href="negocio/planner.do?negocioId=${row.id}"><spring:message code="negocio.displayPlanner" /></a>
-	</display:column> --%>
 </display:table>
 </div>
 
