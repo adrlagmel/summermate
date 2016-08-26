@@ -72,7 +72,9 @@
 	</security:authorize> 
 	<security:authorize access="hasRole('USUARIO')">
 		<display:column>
+		<jstl:if test="${row.negocioActivo}">
 			<a href="reserva/usuario/create.do?negocioId=${row.id}" class="btn btn-success"><spring:message code="negocio.reserva.create" /></a>
+		</jstl:if>
 		</display:column>
 	</security:authorize> 
 	<display:column>
@@ -106,9 +108,11 @@
 	</security:authorize>
 	
 	
+</display:table>
+
 	<security:authorize access="hasRole('EMPRESARIO')">
 		
-		<jstl:if test="${estado == true && row.negocioActivo == true}">
+		<jstl:if test="${estado == true}">
 		<a href="negocio/empresario/register.do" class="btn btn-primary">
 			<spring:message code="negocio.create"/>
 		</a> <br/>	
@@ -127,15 +131,6 @@
 		</a> <br/>	
 		</jstl:if>
 	</security:authorize>
-	
-	
-	<jstl:if test="${showalta == true}">
-		<div class="error">
-			<spring:message code="negocio.register.necesario" />
-		</div>
-	</jstl:if>
-	
-</display:table>
 </div>
 
 	
