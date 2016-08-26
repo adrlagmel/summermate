@@ -25,6 +25,9 @@
 	<form:hidden path="eventos"/>
 	<form:hidden path="reservas"/>
 	<form:hidden path="empresario"/>
+	<form:hidden path="calendarioNegocios"/>
+	<form:hidden path="negocioAlta"/>
+	
 	<br/><br/>
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>

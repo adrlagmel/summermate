@@ -25,6 +25,8 @@
 	<form:hidden path="eventos"/>
 	<form:hidden path="reservas"/>
 	<form:hidden path="empresario"/>
+	<form:hidden path="calendarioNegocios"/>
+	<form:hidden path="negocioAlta"/>
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
@@ -32,6 +34,16 @@
 	<acme:textbox code="negocio.aforo" path="aforo" /><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>
+	
+	<div style="width:50%;">
+		<form:label path="playa">
+			<spring:message code="negocio.playa" />
+		</form:label>
+		
+		<form:select items="${playas}" itemLabel="nombre" code="negocio.playa" path="playa" class="form-control"/>
+		<form:errors path="playa" cssClass="error" />
+	</div><br/>
+	
 		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${negocio.imagen!=null}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
