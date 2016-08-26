@@ -26,7 +26,7 @@
 	<form:hidden path="reservas"/>
 	<form:hidden path="empresario"/>
 	<form:hidden path="calendarioNegocios"/>
-	<form:hidden path="negocioAlta"/>
+	<form:hidden path="negocioActivo"/>
 	
 	<br/><br/>
 	
