@@ -59,6 +59,8 @@ public class NegocioService {
 		Assert.notNull(peticionNegocio);
 		Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
 		
+		result.setNegocioActivo(true);
+		
 		result.setReservas(new ArrayList<Reserva>());
 		result.setCalendarioNegocios(new ArrayList<CalendarioNegocio>());
 		result.setEventos(new ArrayList<Evento>());
@@ -77,11 +79,27 @@ public class NegocioService {
 			Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
 		
 		negocioRepository.save(negocio);
+	}
+	
+	public void suspenderNegocio(Negocio negocio){
+		checkPrincipal(negocio);
+		Assert.notNull(negocio);
 		
+		negocio.setNegocioActivo(false);
+		
+		negocioRepository.save(negocio);	
+	}
+	
+	public void altaNegocio(Negocio negocio){
+		checkPrincipal(negocio);
+		Assert.notNull(negocio);
+		
+		negocio.setNegocioActivo(true);
+		
+		negocioRepository.save(negocio);	
 	}
 	
 	public Collection<Negocio> findAll(){
-		
 		Collection<Negocio> result = negocioRepository.findAll();
 		Assert.notNull(result);
 		
@@ -89,8 +107,15 @@ public class NegocioService {
 		
 	}
 	
-	public Collection<Negocio> findNegociosDePlaya(int playaId){
+	public Collection<Negocio> findNegociosActivos(int empresarioId){
+		Collection<Negocio> result = negocioRepository.findNegociosActivos(empresarioId);
+		Assert.notNull(result);
 		
+		return result;
+		
+	}
+	
+	public Collection<Negocio> findNegociosDePlaya(int playaId){
 		Collection<Negocio> result = negocioRepository.NegociosDeLaPlaya(playaId);
 		Assert.notNull(result);
 		

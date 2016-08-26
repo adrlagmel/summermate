@@ -72,6 +72,8 @@ public class ReservaUsuarioController extends AbstractController{
 			ReservaForm form = new ReservaForm();
 			Negocio negocio = negocioService.findOneToDisplay(negocioId);
 			
+			Assert.isTrue(negocio.getNegocioActivo());
+			
 			form.setNegocio(negocio);
 			form.setReservaId(0);
 														

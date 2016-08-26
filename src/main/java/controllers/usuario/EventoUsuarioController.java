@@ -83,6 +83,7 @@ public class EventoUsuarioController extends AbstractController{
 			return result;
 			
 		}
+		
 		@RequestMapping(value="/listInactivos", method = RequestMethod.GET)
 		public ModelAndView listInactivos(){
 			

@@ -26,4 +26,7 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	@Query("select distinct n from Negocio n where n.playa.id=?1)")
 	Collection<Negocio> NegociosDeLaPlaya(int playaId);
 	
+	@Query("select distinct n from Negocio n where n.empresario.id=?1 and n.negocioActivo = true)")
+	Collection<Negocio> findNegociosActivos(int empresarioId);
+	
 }

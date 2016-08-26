@@ -43,18 +43,17 @@
 		
 		<jstl:if test="${isUsuario == true}">
 			<acme:textbox code="usuario.estadoActual" path="estadoActual" readonly="true"/><br/>
-			<acme:textbox code="usuario.nivelColaborador" path="nivelColaborador" readonly="true"/><br/>
-			<acme:textbox code="usuario.puntos" path="puntos" readonly="true"/><br/>
 		</jstl:if>
 		
 		<jstl:if test="${isEmpresario == true}">
 			<acme:textbox code="empresario.cif" path="cif" readonly="true"/><br/><br/>
 		</jstl:if>
 	</jstl:if>
+	<div style="width:50%; margin: auto;" >
 	<security:authorize access="hasRole('USUARIO')">
 		<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success" style = "margin: auto;"><spring:message code="profile.uploadImage" /></a>
 	</security:authorize>
-		<div style="width:50%; margin: auto;" >
+		
 	<jstl:if test="${isUsuario == true}">
 		<a href="perfil/usuario/edit.do?usuarioId=${actor.id}"class="btn btn-primary" style = "margin: auto;"><spring:message code="profile.editar" /></a>
 	</jstl:if>

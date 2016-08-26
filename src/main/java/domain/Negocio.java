@@ -29,7 +29,8 @@ public class Negocio extends DomainEntity{
 	private String 			paginaWeb;
 	private Integer 		aforo;
 	private byte[]          imagen;
-	private Double valoracionMedia;
+	private Double 			valoracionMedia;
+	private Boolean 		negocioActivo;
 	
 	public Double getValoracionMedia() {
 		return valoracionMedia;
@@ -106,6 +107,14 @@ public class Negocio extends DomainEntity{
 	
 	public void setAforo(Integer aforo) {
 		this.aforo = aforo;
+	}
+	
+	public Boolean getNegocioActivo() {
+		return negocioActivo;
+	}
+	
+	public void setNegocioActivo(Boolean negocioActivo) {
+		this.negocioActivo = negocioActivo;
 	}
 	
 	// Relationships -------------------------

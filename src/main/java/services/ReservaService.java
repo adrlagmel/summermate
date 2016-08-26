@@ -75,6 +75,8 @@ public class ReservaService {
 			reserva.setFechaCreacion(new Date(System.currentTimeMillis()-1000));
 		}
 		
+		Assert.isTrue(reserva.getNegocio().getNegocioActivo());
+		
 		Calendar stMoment = Calendar.getInstance();
 		stMoment.setTime(reserva.getFecha());
 		
@@ -141,7 +143,6 @@ public class ReservaService {
 	
 	
 	public Reserva findOneToEdit(int reservaId){
-		
 		Reserva result = reservaRepository.findOne(reservaId);
 		checkPrincipal(result);
 		
@@ -193,7 +194,6 @@ public class ReservaService {
 	}
 	
 	public Reserva reconstruct(ReservaForm form){
-		
 		Reserva reserva = null;
 		
 		if(form.getReservaId() == 0){
@@ -221,52 +221,13 @@ public class ReservaService {
 		return reserva;
 	}
 	
-	
 	public void checkPrincipal(Reserva reserva){
 		Assert.notNull(reserva);
 		
 		UserAccount userAccount = LoginService.getPrincipal();
 		
-		Assert.isTrue(reserva.getUsuario().getUserAccount().equals(userAccount)
-				|| reserva.getNegocio().getEmpresario().getUserAccount().equals(userAccount));
+		Assert.isTrue(reserva.getUsuario().getUserAccount().equals(userAccount) || reserva.getNegocio().getEmpresario().getUserAccount().equals(userAccount));
 		
 	}
 
-	
-//	public void delete(int reservaId) {
-//		Reserva reserva = findOneToEdit(reservaId);
-//		TeamActivity teamActivity = teamActivityService.findByReserva(reservaId);
-//		Game game = gameService.findByReserva(reservaId);
-//		
-//		if(teamActivity != null)
-//			teamActivityService.delete(teamActivity);
-//		
-//		if(game != null)
-//			gameService.delete(game);
-//		
-//		reservaRepository.delete(reserva);
-//		
-//	}
-	
-//	@Scheduled(fixedDelay=7200000)
-//	public void deleteReservasNotPaid(){
-//		Collection<Reserva> toDelete = reservaRepository.findReservasNotPaid();
-//		
-//		if(toDelete != null && !toDelete.isEmpty()){
-//			
-//			Collection<Game> gamesToDelete = gameService.findByNotPaidReservas();
-//			
-//			if(gamesToDelete != null && !gamesToDelete.isEmpty())
-//				gameService.delete(gamesToDelete);
-//			
-//			Collection<TeamActivity> teamActivitiesToDelete = teamActivityService.findByNotPaidReservas();
-//			
-//			if(teamActivitiesToDelete != null && !teamActivitiesToDelete.isEmpty())
-//				teamActivityService.delete(teamActivitiesToDelete);
-//			
-//			reservaRepository.delete(toDelete);
-//			
-//		}
-//		
-//	}
 }

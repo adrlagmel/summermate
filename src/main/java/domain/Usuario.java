@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.SafeHtml;
@@ -22,8 +21,6 @@ public class Usuario extends Cliente{
 	// Attributes ----------------------------------
 	
 		private String estadoActual;
-		private Integer nivelColaborador;
-		private Integer puntos; 
 		private byte[]	imagen;
 		
 		@Column(columnDefinition = "LONGBLOB")
@@ -44,23 +41,6 @@ public class Usuario extends Cliente{
 			this.estadoActual = estadoActual;
 		}
 		//Atributo Derivado que será un contador de puntos de colaboración
-		@Min(0)
-		public Integer getNivelColaborador() {
-			return nivelColaborador;
-		}
-
-		public void setNivelColaborador(Integer nivelColaborador) {
-			this.nivelColaborador = nivelColaborador;
-		}
-		@Min(0)
-		public Integer getPuntos() {
-			return puntos;
-		}
-
-		public void setPuntos(Integer puntos) {
-			this.puntos = puntos;
-		}
-
 				
 		// Relationships -------------------------------
 		

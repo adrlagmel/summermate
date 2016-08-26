@@ -80,22 +80,35 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authentication var="user" property="principal.id" />
 		<display:column>
-			<security:authentication var="user" property="principal.id" />
+			
 			<jstl:if test="${row.empresario.userAccount.id == user}">
 			<jstl:if test="${row.imagen==null}">
 				<a href="negocio/empresario/uploadImageNegocio.do?negocioId=${row.id}" class="btn btn-success" ><spring:message code="negocio.uploadImage" /></a>
 			</jstl:if>
 			</jstl:if>
 		</display:column>
+		
+		<display:column>
+			<spring:message code="negocio.confirmBaja" var= "confirm" />
+			<jstl:if test="${row.empresario.userAccount.id == user && row.negocioActivo}">
+				<a href="negocio/empresario/suspender.do?negocioId=${row.id}" class="btn btn-danger" onclick="return confirm('${confirm}')"><spring:message code="negocio.baja" /></a>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+			<spring:message code="negocio.confirmaAlta" var= "confirm2" />
+			<jstl:if test="${row.empresario.userAccount.id == user && !row.negocioActivo}">
+				<a href="negocio/empresario/alta.do?negocioId=${row.id}" class="btn btn-danger" onclick="return confirm('${confirm2}')"><spring:message code="negocio.alta" /></a>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 	
-</display:table>
-</div>
-
+	
 	<security:authorize access="hasRole('EMPRESARIO')">
 		
-		<jstl:if test="${estado == true}">
+		<jstl:if test="${estado == true && row.negocioActivo == true}">
 		<a href="negocio/empresario/register.do" class="btn btn-primary">
 			<spring:message code="negocio.create"/>
 		</a> <br/>	
@@ -114,4 +127,17 @@
 		</a> <br/>	
 		</jstl:if>
 	</security:authorize>
+	
+	
+	<jstl:if test="${showalta == true}">
+		<div class="error">
+			<spring:message code="negocio.register.necesario" />
+		</div>
+	</jstl:if>
+	
+</display:table>
+</div>
+
+	
+	
 	

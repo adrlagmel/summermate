@@ -94,11 +94,17 @@
 		</display:column>
 	</security:authorize>
 
+	
+	
 </display:table>
 </div>
 
-	<security:authorize access="hasRole('EMPRESARIO')">
-		<a href="evento/empresario/register.do" class="btn btn-info" ><spring:message code="evento.create" /></a>
-		<br/>	
-		<br/>
+		<security:authorize access="hasRole('EMPRESARIO')">
+		<security:authentication var="user" property="principal.id" />
+		<jstl:if test="${!row.negocio.negocioActivo}">
+			<a href="evento/empresario/register.do" class="btn btn-info" ><spring:message code="evento.create" /></a>
+			<br/>	
+			<br/>
+		</jstl:if>
 	</security:authorize>
+	

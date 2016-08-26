@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -133,9 +134,20 @@ public class EventoEmpresarioController extends AbstractController{
 		
 			@RequestMapping(value="/register", method = RequestMethod.GET)
 			public ModelAndView create(){
+				Empresario empresario = empresarioService.findByPrincipal();
 				
+				if(negocioService.findNegociosActivos(empresario.getId()).isEmpty()){
+					ModelAndView result;
+										
+					result = new ModelAndView("redirect:../../negocio/empresario/list.do");
+					result.addObject("showalta", true);
+					
+					
+					return result;
+				}
+					
 				if(actorService.findByPrincipal().equals(empresarioService.findByPrincipal()) && empresarioService.findByPrincipal().getNegocios().isEmpty()){
-					Empresario empresario = empresarioService.findByPrincipal();
+					
 					PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
 					
 					if(pet.getEstado().equals("ACEPTADO")){
@@ -150,10 +162,10 @@ public class EventoEmpresarioController extends AbstractController{
 						return result;
 					}
 				}else{
-				ModelAndView result;
-				
-				Evento evento = eventoService.create();		
-				result 		  = createEditModelAndView(evento, "register");
+					ModelAndView result;
+					
+					Evento evento = eventoService.create();		
+					result 		  = createEditModelAndView(evento, "register");
 				
 				return result;		
 				}
@@ -163,8 +175,11 @@ public class EventoEmpresarioController extends AbstractController{
 			@RequestMapping(value="/edit", method = RequestMethod.GET)
 			public ModelAndView edit(@RequestParam int eventoId){
 				ModelAndView result;
-				
+								
 				Evento evento = eventoService.findOneToEdit(eventoId);
+				
+				Assert.isTrue(evento.getNegocio().getNegocioActivo());
+				
 				result 		  = createEditModelAndView(evento, "edit");
 				
 				return result;			
@@ -181,7 +196,9 @@ public class EventoEmpresarioController extends AbstractController{
 				}else{
 					try{
 						if(evento.getFechaCelebracion().after(new Date())){
-														
+										
+							Assert.isTrue(evento.getNegocio().getNegocioActivo());
+							
 							eventoService.save(evento);
 							result = new ModelAndView("redirect:list.do");
 						}else
@@ -255,7 +272,8 @@ public class EventoEmpresarioController extends AbstractController{
 		protected ModelAndView createEditModelAndView(Evento evento, String selectView, String message){
 			ModelAndView result;
 			boolean hasimage = true;
-			Collection<Negocio> negocios = negocioService.findByEmpresario();
+			
+			Collection<Negocio> negocios = negocioService.findNegociosActivos(empresarioService.findByPrincipal().getId());
 			
 			if(evento.getImagen() == null){
 				hasimage = false;

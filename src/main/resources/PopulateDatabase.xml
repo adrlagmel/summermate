@@ -509,8 +509,6 @@
 		<property name="direccion" value="C/ Miliki nº 1" />
 		<property name="sexo" value="HOMBRE" />
 		<property name="estadoActual" value="Disfrutando del Sol" />
-		<property name="nivelColaborador" value="6" />
-		<property name="puntos" value="6" />
 		<property name="eventos">
             <list>
                   <ref bean="evento1" />    
@@ -551,8 +549,6 @@
 		<property name="direccion" value="C/ San Francisco nº 1" />
 		<property name="sexo" value="MUJER" />
 		<property name="estadoActual" value="Estando contigo, contigo, contigo me siento feliz" />
-		<property name="nivelColaborador" value="5" />
-		<property name="puntos" value="25" />
 		<property name="eventos">
               <list> 
                    <ref bean="evento2" />
@@ -594,8 +590,6 @@
 		<property name="direccion" value="C/ Cervera nº 5" />
 		<property name="sexo" value="HOMBRE" />
 		<property name="estadoActual" value="Keep calm!" />
-		<property name="nivelColaborador" value="2" />
-		<property name="puntos" value="8" />
 		<property name="eventos">
                <list>
                		<ref bean="evento4" />   
@@ -635,8 +629,6 @@
 		<property name="direccion" value="C/ Asunción nº 5" />
 		<property name="sexo" value="HOMBRE" />
 		<property name="estadoActual" value="Vacaciones!" />
-		<property name="nivelColaborador" value="10" />
-		<property name="puntos" value="8" />
 		<property name="eventos">
               <list>
               		<ref bean="evento5"/>
@@ -676,8 +668,6 @@
 		<property name="direccion" value="C/ Candelaria nº 5" />
 		<property name="sexo" value="MUJER" />
 		<property name="estadoActual" value="Hard work!" />
-		<property name="nivelColaborador" value="7" />
-		<property name="puntos" value="25" />
 		<property name="eventos">
                <list>
                		<ref bean="evento6"/>
@@ -717,8 +707,6 @@
 		<property name="direccion" value="C/ Marina nº 15" />
 		<property name="sexo" value="MUJER" />
 		<property name="estadoActual" value="Lucha y sufrir!" />
-		<property name="nivelColaborador" value="12" />
-		<property name="puntos" value="35" />
 		<property name="eventos">
                         <list>
                         </list>
@@ -757,8 +745,6 @@
 		<property name="direccion" value="C/ Burgos nº 145" />
 		<property name="sexo" value="MUJER" />
 		<property name="estadoActual" value="Leer y escribir!" />
-		<property name="nivelColaborador" value="7" />
-		<property name="puntos" value="8" />
 		<property name="eventos">
                         <list>
                         </list>
@@ -796,8 +782,6 @@
 		<property name="direccion" value="C/ Centurión nº 24" />
 		<property name="sexo" value="HOMBRE" />
 		<property name="estadoActual" value="Practicando deporte!" />
-		<property name="nivelColaborador" value="13" />
-		<property name="puntos" value="35" />
 		<property name="eventos">
                         <list>
                         </list>
@@ -1285,6 +1269,7 @@
 		<property name="telefono" value="+34622323132" />
 		<property name="aforo" value="50" />
 		<property name="paginaWeb" value="http://www.comidafast.com" />
+		<property name="negocioActivo" value="true" />
 		<property name="empresario" ref="empresario1" />
 		<property name="playa" ref="playa1" />
 		<property name="eventos">
@@ -1319,6 +1304,7 @@
 		<property name="paginaWeb" value="http://www.italianbella.com" />
 		<property name="empresario" ref="empresario2" />
 		<property name="playa" ref="playa2" />
+		<property name="negocioActivo" value="true" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento2" />
@@ -1349,6 +1335,7 @@
 		<property name="paginaWeb" value="http://www.restauranteelfaro.com" />
 		<property name="empresario" ref="empresario2" />
 		<property name="playa" ref="playa2" />
+		<property name="negocioActivo" value="true" />
 		<property name="eventos">
 			<list>
 				<ref bean="evento5"/>
@@ -1374,6 +1361,7 @@
 											las hosteleria, pasando por más de 3 generaciones" />
 		<property name="telefono" value="+34652363138" />
 		<property name="aforo" value="50" />
+		<property name="negocioActivo" value="true" />
 		<property name="empresario" ref="empresario5" />
 		<property name="playa" ref="playa4" />
 		<property name="eventos">

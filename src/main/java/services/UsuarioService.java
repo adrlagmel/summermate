@@ -173,8 +173,6 @@ public class UsuarioService {
 		usuario.setSexo(form.getRegistroForm().getSexo());
 		
 		usuario.setEstadoActual(form.getEstadoActual());
-		usuario.setNivelColaborador(form.getNivelColaborador());
-		usuario.setPuntos(form.getPuntos());
 		
 		usuario.getUserAccount().setUsername(form.getRegistroForm().getUsername());
 		usuario.getUserAccount().setPassword(form.getRegistroForm().getPassword());
@@ -197,8 +195,6 @@ public class UsuarioService {
 		result.setSexo(form.getSexo());
 		
 		result.setEstadoActual(form.getEstadoActual());
-		result.setNivelColaborador(form.getNivelColaborador());
-		result.setPuntos(form.getPuntos());
 		
 		return result;
 	}

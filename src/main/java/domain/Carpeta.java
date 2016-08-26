@@ -39,8 +39,6 @@ public class Carpeta extends DomainEntity{
 		this.nombre = nombre;
 	}
 	
-	
-	
 	// Relationships ----------------------------------
 	
 	private Actor actor;
@@ -55,7 +53,6 @@ public class Carpeta extends DomainEntity{
 	public void setActor(Actor actor) {
 		this.actor = actor;
 	}
-	
 	
 	@NotNull
 	@Valid

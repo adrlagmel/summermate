@@ -2,10 +2,12 @@ package controllers.empresario;
 
 import java.util.Collection;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,7 +78,6 @@ public class NegocioEmpresarioController extends AbstractController{
 			
 		}
 		
-		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
 		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
 			ModelAndView result;
@@ -98,23 +99,23 @@ public class NegocioEmpresarioController extends AbstractController{
 			
 		@RequestMapping(value="/register", method = RequestMethod.GET)
 		public ModelAndView create(){
-				ModelAndView result;
-						
-				Negocio negocio = negocioService.create();		
-				result 			= createEditModelAndView(negocio, "register");
-				
-				return result;
+			ModelAndView result;
+					
+			Negocio negocio = negocioService.create();		
+			result 			= createEditModelAndView(negocio, "register");
+			
+			return result;
 						
 		}
 		
 		@RequestMapping(value="/edit", method = RequestMethod.GET)
 		public ModelAndView edit(@RequestParam int negocioId){
-				ModelAndView result;
-				
-				Negocio negocio = negocioService.findOneToEdit(negocioId);
-				result 			= createEditModelAndView(negocio, "edit");
-				
-				return result;
+			ModelAndView result;
+			
+			Negocio negocio = negocioService.findOneToEdit(negocioId);
+			result 			= createEditModelAndView(negocio, "edit");
+			
+			return result;
 						
 		}
 		
@@ -149,55 +150,84 @@ public class NegocioEmpresarioController extends AbstractController{
 		return result;
 	}
 		
+		@RequestMapping(value="/suspender", method = RequestMethod.GET)
+		public ModelAndView suspender(@RequestParam int negocioId){
+			
+			ModelAndView result;
+			
+			Negocio negocio = negocioService.findOneToEdit(negocioId);
+			Assert.notNull(negocio);
+			Assert.isTrue(negocio.getNegocioActivo());
+		
+			negocioService.suspenderNegocio(negocio);
+			result = new ModelAndView("redirect:list.do");
+
+			return result;
+			
+		}
+		
+		@RequestMapping(value="/alta", method = RequestMethod.GET)
+		public ModelAndView alta(@RequestParam int negocioId){
+			
+			ModelAndView result;
+			
+			Negocio negocio = negocioService.findOneToEdit(negocioId);
+			Assert.notNull(negocio);
+			Assert.isTrue(!negocio.getNegocioActivo());
+		
+			negocioService.altaNegocio(negocio);
+			result = new ModelAndView("redirect:list.do");
+
+			return result;
+		}
 		
 		// Ancillary methods ---------------------------------------------------------
-					@RequestMapping(value="/uploadImageNegocio", method=RequestMethod.GET)
-					public ModelAndView uploadImage (@RequestParam int negocioId){
-						ModelAndView result;
-						Negocio n = negocioService.findOneToEdit(negocioId);
-						
-						boolean hasimage=true;
+		@RequestMapping(value="/uploadImageNegocio", method=RequestMethod.GET)
+		public ModelAndView uploadImage (@RequestParam int negocioId){
+			ModelAndView result;
+			Negocio n = negocioService.findOneToEdit(negocioId);
+			
+			boolean hasimage=true;
 
-						if(n.getImagen()==null){
-							hasimage=false;
-						}
-						
-						result = createEditModelAndView(n, "uploadImage");
-						result.addObject("negocioId", negocioId);
-						result.addObject("hasimage",hasimage);
-						
-						
-						return result;
-					}
-					
-					
-					
-					@RequestMapping (value="/uploadImageNegocio", method=RequestMethod.POST, params="save")
-					public ModelAndView addImagenNegocio(@RequestParam int negocioId, @RequestParam("foto") MultipartFile file){
-						ModelAndView result;
-						Negocio n = negocioService.findOneToEdit(negocioId);
+			if(n.getImagen()==null){
+				hasimage=false;
+			}
+			
+			result = createEditModelAndView(n, "uploadImage");
+			result.addObject("negocioId", negocioId);
+			result.addObject("hasimage",hasimage);
+			
+			
+			return result;
+		}
+		
+		
+		@RequestMapping (value="/uploadImageNegocio", method=RequestMethod.POST, params="save")
+		public ModelAndView addImagenNegocio(@RequestParam int negocioId, @RequestParam("foto") MultipartFile file){
+			ModelAndView result;
+			Negocio n = negocioService.findOneToEdit(negocioId);
 
-						try{
-							
-							negocioService.addImageToNegocio(negocioId, file.getBytes());
-							result = new ModelAndView("redirect:../../negocio/empresario/list.do");
-							
-						}catch(Throwable oops){
-							boolean hasimage=true;
+			try{
+				
+				negocioService.addImageToNegocio(negocioId, file.getBytes());
+				result = new ModelAndView("redirect:../../negocio/empresario/list.do");
+				
+			}catch(Throwable oops){
+				boolean hasimage=true;
 
-							if(n.getImagen()==null){
-								hasimage=false;
-							}
-							
-							result = createEditModelAndView(n, "uploadImage");
-							result.addObject("negocioId", negocioId);
-							result.addObject("hasimage", hasimage);
-							result.addObject("message", "negocio.commit.error");
-											
-						}
-						
-						return result;
-					}
+				if(n.getImagen()==null){
+					hasimage=false;
+				}
+				
+				result = createEditModelAndView(n, "uploadImage");
+				result.addObject("negocioId", negocioId);
+				result.addObject("hasimage", hasimage);
+				result.addObject("message", "negocio.commit.error");
+								
+			}
+			
+			return result;
+		}
 					
 
 		// Ancillary methods ---------------------------------------------------------

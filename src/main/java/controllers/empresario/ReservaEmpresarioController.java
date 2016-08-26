@@ -43,12 +43,9 @@ public class ReservaEmpresarioController extends AbstractController{
 			result.addObject("reservas", reservas);
 			result.addObject("actionURI","reserva/empresario/search.do");
 			result.addObject("requestURI","reserva/empresario/lista.do");
-			
 						
 			return result;
-			
 		}
-		
 		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
 		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){

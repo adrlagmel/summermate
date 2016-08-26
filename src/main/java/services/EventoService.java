@@ -67,6 +67,7 @@ public class EventoService {
 		
 		evento.setFechaRegistro(new Date(System.currentTimeMillis()));
 		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
+		Assert.isTrue(evento.getNegocio().getNegocioActivo());
 		
 		eventoRepository.save(evento);
 	}
