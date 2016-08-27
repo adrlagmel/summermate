@@ -72,6 +72,7 @@
 		<security:intercept-url pattern="/mensaje/actor/responder.do" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/negocio/list.do" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/negocio/diponibilidad.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/listNegocios.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/empresario/display.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/search.do" access="permitAll"/>

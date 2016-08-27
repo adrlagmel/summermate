@@ -58,7 +58,7 @@ public class ReservaService {
 		Reserva reserva = new Reserva();
 		
 		Usuario athlete = usuarioService.findByPrincipal();
-		RandomString rs = new RandomString(6);
+		RandomString rs = new RandomString(10);
 		String randomStr = rs.nextString();
 		
 		reserva.setUsuario(athlete);

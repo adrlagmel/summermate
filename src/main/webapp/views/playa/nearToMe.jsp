@@ -34,7 +34,7 @@ function initialize() {
 	var playas = document.getElementById("playas");
   var myPosition = new google.maps.LatLng(lat1.value, lon1.value);
   var mapOptions = {
-    zoom: 15,
+    zoom: 9,
     center: myPosition,
     zoomControl: true,
     zoomControlOptions: {

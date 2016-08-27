@@ -1,5 +1,6 @@
 package controllers.usuario;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CalendarioNegocioService;
 import services.NegocioService;
 import services.ReservaService;
 import controllers.AbstractController;
@@ -33,7 +35,9 @@ public class ReservaUsuarioController extends AbstractController{
 		
 		@Autowired
 		private NegocioService negocioService;
-
+		
+		@Autowired
+		private CalendarioNegocioService calendarioNegocioService;
 		
 		// Constructors ---------------------------------------------------------------
 		
@@ -88,8 +92,16 @@ public class ReservaUsuarioController extends AbstractController{
 				
 			ModelAndView result;
 			Reserva reserva = null;
+			
+			Calendar eMoment = Calendar.getInstance();
+			eMoment.setTime(form.getFecha());
+			eMoment.add(Calendar.MINUTE, 59);
+			
+			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), eMoment.getTime(), form.getNegocio().getId());
+			
 			if(binding.hasErrors()){
 						result = createEditModelAndView(form);
+						result.addObject("aforoCompleto", false);
 						
 			}else{
 				try{
@@ -98,11 +110,21 @@ public class ReservaUsuarioController extends AbstractController{
 						
 						reservaService.save(reserva);
 						result = new ModelAndView("redirect:lista.do");
+						result.addObject("aforoCompleto", false);
 					}else
 						result = createEditModelAndView(form,"booking.dates.error");
+						result.addObject("aforoCompleto", false);
 					
 				}catch(Throwable oops){
+					if (form.getNegocio().getAforo().compareTo(comensales + form.getComensales())<= 0){
+						result = createEditModelAndView(form, "booking.error.aforo");
+						result.addObject("comensales", form.getNegocio().getAforo() - comensales);
+						result.addObject("aforoCompleto", true);
+					}else{
+
 						result = createEditModelAndView(form,"booking.commit.error");
+						result.addObject("aforoCompleto", false);
+					}	
 				}
 			}
 				

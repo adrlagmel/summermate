@@ -84,6 +84,13 @@
 				</form:select>
 			</div><br/>
 			
+			<jstl:if test="${aforoCompleto}">	
+				<div>
+					  <h3><spring:message code="booking.seats" /> <jstl:out value="${comensales}" /></h3>
+					  <p></p>
+				</div>
+			</jstl:if>
+			
 			<acme:submit name="save" code="booking.pay"/>
 		
 			<acme:cancel code="booking.cancel" url="/reserva/usuario/lista.do" />

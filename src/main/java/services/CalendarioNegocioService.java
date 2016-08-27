@@ -171,6 +171,7 @@ public class CalendarioNegocioService {
 		return comensales;
 	}
 	
+	
 	public CalendarioNegocio findByCodigoNegocio(String codigoId){
 		CalendarioNegocio calendarioNegocio = calendarioNegocioRepository.findByCodigoNegocio(codigoId);
 		
