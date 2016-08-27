@@ -17,13 +17,12 @@
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if><br/><br/>
 	</div>
-	<acme:textarea code="playa.nombre" path="nombre" readonly="true"/><br/>
-	<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/><br/>
-	
+	<div style="width:50%; margin: auto;" >
+		<acme:textarea code="playa.nombre" path="nombre" readonly="true"/><br/>
+		<acme:textarea code="playa.descripcion" path="descripcion" readonly="true"/><br/>
+		<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	<br/>
+	</div>
 	<acme:textbox code="playa.composicion" path="composicion" readonly="true"/>	<br/>
-	
-	<acme:textarea code="playa.servicios" path="servicios" readonly="true"/>	<br/>
-	
 	<acme:textbox code="playa.extension" path="extension" readonly="true"/>	<br/>
 	<acme:textbox code="playa.valoracionMedia" path="valoracionMedia" readonly="true"/>	<br/>
 	

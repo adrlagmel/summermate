@@ -118,7 +118,7 @@ public class PlayaAdminController extends AbstractController {
 		Assert.notNull(dv);
 	
 		playaService.delete(dv);
-		result = new ModelAndView("redirect:list.do");
+		result = new ModelAndView("redirect:/list.do");
 
 		return result;
 		
@@ -181,7 +181,7 @@ public class PlayaAdminController extends AbstractController {
 				try{
 					
 					playaService.addImageToFoto(playaId, file.getBytes());
-					result = new ModelAndView("redirect:list.do");
+					result = new ModelAndView("redirect:/list.do");
 					
 				}catch(Throwable oops){
 					boolean hasimage=true;
