@@ -27,7 +27,16 @@
 	<div style="width:50%; margin: auto;" >
 	<jstl:if test="${m.beneficiario == null}">
 	
-		<acme:select items="${actors}" itemLabel="email" code="msg.recipient" path="beneficiario"/>
+	<div>
+		<form:label path="beneficiario">
+			<spring:message code="msg.recipient" />
+		</form:label>
+		
+		<form:select items="${actors}" itemLabel="email" code="msg.recipient" path="beneficiario" class="form-control"/>
+		<form:errors path="beneficiario" cssClass="error" />
+	</div><br/>
+	
+	
 	
 	</jstl:if><br>
 	

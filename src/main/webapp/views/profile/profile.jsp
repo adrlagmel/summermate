@@ -42,7 +42,9 @@
 		<acme:textbox code="cliente.nacionalidad" path="nacionalidad" readonly="true"/><br/>
 		
 		<jstl:if test="${isUsuario == true}">
-			<acme:textbox code="usuario.estadoActual" path="estadoActual" readonly="true"/><br/>
+		<div style="width:50%; margin: auto;" >
+			<acme:textarea code="usuario.estadoActual" path="estadoActual" readonly="true"/><br/>
+		</div>
 		</jstl:if>
 		
 		<jstl:if test="${isEmpresario == true}">

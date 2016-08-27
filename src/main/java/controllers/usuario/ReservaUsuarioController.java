@@ -93,11 +93,17 @@ public class ReservaUsuarioController extends AbstractController{
 			ModelAndView result;
 			Reserva reserva = null;
 			
-			Calendar eMoment = Calendar.getInstance();
-			eMoment.setTime(form.getFecha());
-			eMoment.add(Calendar.MINUTE, 59);
+			long minutes = 60000;//millisecs
+
+			Calendar date = Calendar.getInstance();
+			date.setTime(form.getFecha());
 			
-			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), eMoment.getTime(), form.getNegocio().getId());
+			long t= date.getTimeInMillis();
+			
+			Date afterAddingTenMins = new Date(t + (59 * minutes));
+			
+			
+			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), afterAddingTenMins, form.getNegocio().getId());
 			
 			if(binding.hasErrors()){
 						result = createEditModelAndView(form);
