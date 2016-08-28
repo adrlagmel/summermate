@@ -104,7 +104,7 @@ public class PlayaService {
 	public Collection<Playa> nearToMe(Double lat, Double lon) {
 		Collection<Playa> res = new ArrayList<Playa>();
 		for(Playa sp:findAllBeaches()){
-			if(distance(lat,lon,sp.getLocalizacion().getLatitud(),sp.getLocalizacion().getLongitud())<=10000){
+			if(distance(lat,lon,sp.getLocalizacion().getLatitud(),sp.getLocalizacion().getLongitud())<=10000000){
 				res.add(sp);
 			}
 		}

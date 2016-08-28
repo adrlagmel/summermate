@@ -50,20 +50,25 @@ public class PlayaController extends AbstractController {
 	@RequestMapping(value="/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam int playaId){
 							
-			ModelAndView result;
-			
-			Playa playa 	 = playaService.findOne(playaId);
-			boolean hasimage = true;
-			
-			if(playa.getImagen() == null){
-				hasimage = false;
-			}
-			
-			result = createEditModelAndView(playa, "display");
-			result.addObject("playa", playa);
-			result.addObject("hasimage", hasimage);
-			
-			return result;			
+		ModelAndView result;
+		Playa playa 	 = playaService.findOne(playaId);
+		Collection<Playa> playas = playaService.findAllBeaches();
+		
+		playas.removeAll(playas);
+		playas.add(playa);
+		
+		boolean hasimage = true;
+		
+		if(playa.getImagen() == null){
+			hasimage = false;
+		}
+		
+		result = createEditModelAndView(playa, "display");
+		result.addObject("playa", playa);
+		result.addObject("playas", playas);
+		result.addObject("hasimage", hasimage);
+		
+		return result;			
 	}
 	
 		//Consultar detalles
