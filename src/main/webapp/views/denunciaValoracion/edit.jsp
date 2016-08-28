@@ -30,7 +30,7 @@
 		<spring:message code="denunciaValoracion.rechazo" var="rechazo"/> 
 		
 		<form:select path="tipo" cssClass="form-control">
-			<form:option value= "FALSO" label = "${falso}" />		
+			<form:option value= "FALSEDAD" label = "${falso}" />		
 			<form:option value= "RECHAZO" label = "${rechazo}"/>
 			<form:option value= "BURLA" label = "${burla}"/>		
 		</form:select><br>

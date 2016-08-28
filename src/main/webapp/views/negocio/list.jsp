@@ -64,9 +64,7 @@
 	<security:authorize access="hasRole('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />
-		<jstl:if test="${row.empresario.userAccount.id == user}">		
-			<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-default"><spring:message code="negocio.valoracionesNegocio.list" /></a>
-		</jstl:if>
+		<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-default"><spring:message code="negocio.valoracionesNegocio.list" /></a>
 	</display:column>
 	
 	</security:authorize> 
@@ -106,7 +104,6 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
 	
 </display:table>
 

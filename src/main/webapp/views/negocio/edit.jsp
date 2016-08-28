@@ -30,7 +30,9 @@
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
-	<acme:textarea code="negocio.descripcion" path="descripcion" /><br/>
+	<div style="width:50%; margin: auto;">
+		<acme:textarea code="negocio.descripcion" path="descripcion" /><br/>
+	</div>
 	<acme:textbox code="negocio.aforo" path="aforo" /><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>

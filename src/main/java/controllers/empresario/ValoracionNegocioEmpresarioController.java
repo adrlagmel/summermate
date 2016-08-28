@@ -37,7 +37,7 @@ public class ValoracionNegocioEmpresarioController extends AbstractController {
 	public ModelAndView listValoraciones(@RequestParam int negocioId){
 		
 		ModelAndView result;
-		Negocio negocio = negocioService.findOneToEdit(negocioId);
+		Negocio negocio = negocioService.findOneToDisplay(negocioId);
 		Collection<ValoracionNegocio> vNegocios = null;
 		
 		vNegocios = valoracionNegocioService.valoracionesNegocioDeUnNegocio(negocioId);

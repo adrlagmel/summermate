@@ -55,9 +55,12 @@
 	<security:authorize access="hasRole('EMPRESARIO')">	
 	<spring:message code="denunciaValoracion.create" var="create" />
 	<display:column>
-	<a href="denunciaValoracion/empresario/create.do?valoracionNegocioId=${row.id}" class="btn btn-danger">
-			<spring:message code="denunciaValoracion.create"/>
-		</a> 
+		<security:authentication var="user" property="principal.id" />
+		<jstl:if test="${row.reserva.negocio.empresario.userAccount.id == user}">
+			<a href="denunciaValoracion/empresario/create.do?valoracionNegocioId=${row.id}" class="btn btn-danger">
+				<spring:message code="denunciaValoracion.create"/>
+			</a>
+		</jstl:if>
 	</display:column>
 	</security:authorize>	
 	</display:table>
