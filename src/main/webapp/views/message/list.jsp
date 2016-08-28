@@ -35,6 +35,10 @@
 	<display:column property="beneficiario.nombre" title="${recipient}"
 		sortable="true" />
 		
+	<spring:message code="msg.recipient.username" var="username" />
+	<display:column property="beneficiario.userAccount.username" title="${username}"
+		sortable="true" />
+		
 	<spring:message code="msg.subject" var="subject" />
 	<display:column property="asunto" title="${subject}"
 		sortable="false" />

@@ -65,6 +65,8 @@
 			<spring:message code="register.birthDate" />
 		</form:label>
 		<form:input path="registroForm.fechaNacimiento" cssClass="form-control" id="datetimepicker"/>	
+		
+		<form:errors path="registroForm.fechaNacimiento" cssClass="error" />
 	</div><br/>
 									
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -95,7 +97,7 @@
 	</jstl:if>
 	
 	<jstl:if test="${isUsuario==true}">
-	<acme:textbox code="register.actualstate" path="estadoActual" /><br />
+	<acme:textarea code="register.actualstate" path="estadoActual" /><br />
 	</jstl:if>
 		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${isAdministrador==false}">

@@ -32,7 +32,9 @@
 	</div>
 	<acme:textbox code="negocio.nombre" path="nombre" readonly="true"/><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" readonly="true"/><br/>
-	<acme:textbox code="negocio.descripcion" path="descripcion" readonly="true"/><br/>
+	<div style="width:50%; margin: auto;" >
+		<acme:textarea code="negocio.descripcion" path="descripcion" readonly="true"/><br/>
+	</div>
 	<acme:textbox code="negocio.aforo" path="aforo" readonly="true"/><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/><br/>

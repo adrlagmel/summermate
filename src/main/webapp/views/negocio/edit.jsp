@@ -30,12 +30,12 @@
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
-	<acme:textbox code="negocio.descripcion" path="descripcion" /><br/>
+	<acme:textarea code="negocio.descripcion" path="descripcion" /><br/>
 	<acme:textbox code="negocio.aforo" path="aforo" /><br/>
 	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>
 	
-	<div style="width:50%;">
+	<div style="width:50%; margin: auto;">
 		<form:label path="playa">
 			<spring:message code="negocio.playa" />
 		</form:label>

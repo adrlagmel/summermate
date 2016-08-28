@@ -34,7 +34,7 @@
 	<acme:textbox code="peticionNegocio.titulo" path="titulo"/><br/>
 	
 	<security:authorize access="hasRole('ADMINISTRADOR')">
-		<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/><br/>
+		<acme:textarea code="peticionNegocio.comentarios" path="comentarios"/><br/>
 	</security:authorize>
 	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="peticionNegocio.guardar"/>

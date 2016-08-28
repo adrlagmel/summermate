@@ -31,11 +31,12 @@
 	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/><br/>
 	<acme:textbox code="peticionNegocio.titulo" path="titulo" readonly="true"/><br/>
 	<acme:textbox code="peticionNegocio.estado" path="estado" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.comentarios" path="comentarios"/><br/>
-				
+	<div style="width:50%; margin: auto;" >
+		<acme:textarea code="peticionNegocio.comentarios" path="comentarios"/><br/>
+		
 	<spring:message code="peticionNegocio.rechazar.confirmar" var="confirmar"/>
 	<acme:submit name="rechazar" code="peticionNegocio.rechazar.aceptar" onclick="return confirm('${confirmar}')"/>		
 			
 	<acme:cancel code="peticionNegocio.rechazar.cancelar" url="/peticionNegocio/administrador/listapendiente.do" />
-	
+	</div>		
 </form:form>

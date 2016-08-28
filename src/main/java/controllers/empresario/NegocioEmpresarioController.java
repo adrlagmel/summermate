@@ -61,19 +61,29 @@ public class NegocioEmpresarioController extends AbstractController{
 			PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
 			
 			boolean estado = false;
-			if(pet.getEstado().equals("ACEPTADO")){
-				estado = true;
+			
+			if (pet == null){
+				result = new ModelAndView("peticionNegocio/empresario/list");
+
+				result.addObject("estado", estado);
+				result.addObject("negocios", negocios);
+				
+			}else{
+			
+				if(pet.getEstado().equals("ACEPTADO")){
+					estado = true;
+				}
+				
+				negocios = negocioService.findByEmpresario();
+				
+				result = new ModelAndView("negocio/list");
+	
+				result.addObject("estado", estado);
+				result.addObject("negocios", negocios);
+				result.addObject("actionURI","negocio/empresario/search.do");
+				result.addObject("requestURI", "negocio/empresario/list.do");
 			}
 			
-			negocios = negocioService.findByEmpresario();
-			
-			result = new ModelAndView("negocio/list");
-
-			result.addObject("estado", estado);
-			result.addObject("negocios", negocios);
-			result.addObject("actionURI","negocio/empresario/search.do");
-			result.addObject("requestURI", "negocio/empresario/list.do");
-
 			return result;
 			
 		}

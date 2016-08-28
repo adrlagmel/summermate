@@ -33,7 +33,6 @@
 	<input type="button" class="btn btn-success" value="<spring:message code="msg.reply.link" />"
 	onclick="javascript: location.replace('mensaje/actor/responder.do?mensajeId=${mostrarMensaje.id}')" />
 		</jstl:if>
-	<br>
 		<jstl:if test="${mostrarMensaje.beneficiario.userAccount.id==user || mostrarMensaje.remitente.userAccount.id==user}">
 				<input type="button" class="btn btn-danger" value="<spring:message code="msg.delete" />"
 				onclick="javascript: location.replace('mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}');
