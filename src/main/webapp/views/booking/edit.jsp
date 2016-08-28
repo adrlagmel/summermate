@@ -42,6 +42,7 @@
 					<spring:message code="booking.bookingDate" />
 				</form:label>
 				<form:input path="fecha" cssClass="form-control" id="datetimepicker"/>	
+				<form:errors path="fecha" cssClass="error" />
 			<br/>
 									
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

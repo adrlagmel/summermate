@@ -95,21 +95,19 @@ public class ReservaUsuarioController extends AbstractController{
 			
 			long minutes = 60000;//millisecs
 
-			Calendar date = Calendar.getInstance();
-			date.setTime(form.getFecha());
-			
-			long t= date.getTimeInMillis();
-			
-			Date afterAddingTenMins = new Date(t + (59 * minutes));
-			
-			
-			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), afterAddingTenMins, form.getNegocio().getId());
-			
 			if(binding.hasErrors()){
 						result = createEditModelAndView(form);
 						result.addObject("aforoCompleto", false);
 						
 			}else{
+				Calendar date = Calendar.getInstance();
+				date.setTime(form.getFecha());
+				
+				long t= date.getTimeInMillis();
+				
+				Date afterAddingTenMins = new Date(t + (59 * minutes));
+				
+				Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), afterAddingTenMins, form.getNegocio().getId());
 				try{
 					if(form.getFecha().after(new Date())){
 						reserva = reservaService.reconstruct(form);

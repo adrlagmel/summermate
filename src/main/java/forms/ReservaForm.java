@@ -37,6 +37,7 @@ public class ReservaForm {
 		this.reservaId = reservaId;
 	}
 
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getFecha() {
