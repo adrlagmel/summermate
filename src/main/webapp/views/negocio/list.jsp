@@ -68,6 +68,7 @@
 	</display:column>
 	
 	</security:authorize> 
+	
 	<security:authorize access="hasRole('USUARIO')">
 		<display:column>
 		<jstl:if test="${row.negocioActivo}">

@@ -51,6 +51,7 @@ public class ValoracionNegocioEmpresarioController extends AbstractController {
 		
 	}
 	
+
 	protected ModelAndView createModelAndView(ValoracionNegocio vn) {
 		ModelAndView result;
 

@@ -134,6 +134,7 @@
 		<security:intercept-url pattern="/valoracionNegocio/usuario/list.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/delete.do" access="hasRole('USUARIO')"/>
 		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/listValoracionesNot.do" access="!hasRole('EMPRESARIO')"/>
 		
 		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasRole('USUARIO')"/>
 		
