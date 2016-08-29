@@ -11,18 +11,27 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.PlayaService;
+
+import domain.Playa;
 
 @Controller
 @RequestMapping("/welcome")
 public class WelcomeController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
+	
+	@Autowired
+	private PlayaService playaService;
 	
 	public WelcomeController() {
 		super();
@@ -35,13 +44,15 @@ public class WelcomeController extends AbstractController {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
-		
+		Collection<Playa> playas = playaService.findAllBeaches();
+
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 				
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
+		result.addObject("playas", playas);
 
 		return result;
 	}

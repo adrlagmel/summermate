@@ -118,7 +118,7 @@ public class PlayaAdminController extends AbstractController {
 		Assert.notNull(dv);
 	
 		playaService.delete(dv);
-		result = new ModelAndView("redirect:/list.do");
+		result = new ModelAndView("redirect:../list.do");
 
 		return result;
 		

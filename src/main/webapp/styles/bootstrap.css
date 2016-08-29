@@ -21,6 +21,7 @@ html {
 }
 body {
   margin: 0;
+  background-image: url(images/imagefondo.jpeg);
 }
 article,
 aside,
@@ -1414,9 +1415,9 @@ a.bg-danger:focus {
   background-color: #e4b9b9;
 }
 .page-header {
-  padding-bottom: 9px;
-  margin: 40px 0 20px;
-  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 15px;
+  margin: 80px 0 20px;
+  border-bottom: 2px solid #eeeeee;
 }
 ul,
 ol {

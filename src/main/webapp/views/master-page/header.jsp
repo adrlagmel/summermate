@@ -155,7 +155,7 @@
 </nav>
 
 	<div class="pull-right" style="margin-right: 5px;">
-		<a href="?language=en">en</a> | <a href="?language=es">es</a>
+		<a href="?language=en"><img src="images/english.png"/></a> | <a href="?language=es"><img src="images/espanol.png"/></a>
 	</div>
 
 </div> <!-- /container -->

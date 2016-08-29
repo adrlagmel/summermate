@@ -115,7 +115,7 @@ $(document).ready(function() {
 		</jstl:if>	
 		</div>
 		
-	<div class="" style="margin-top: 50px;">
+	<div class="" style="margin-top: 60px;">
 		<nav class="navbar navbar-default navbar-fixed-bottom footer-summermate">
 			<tiles:insertAttribute name="cookies" />
 			<div class="container">

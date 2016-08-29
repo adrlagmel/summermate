@@ -16,6 +16,7 @@
 #contenedor {
   width: 400px;
   margin: 0 auto;
+  background-image: url(images/imagefondo.jpeg);
 }
 
 
