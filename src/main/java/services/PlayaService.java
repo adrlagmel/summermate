@@ -113,7 +113,12 @@ public class PlayaService {
 	}
 	
 	
-	
+	public Collection<Playa> playaMejorValorada() {
+		Collection<Playa> res = playaRepository.findPlayaMejorValorada();
+		Assert.notNull(res);
+		return res;
+		
+	}
 	
 	private static double distance(double lat1, double lon1, double lat2, double lon2) {
 

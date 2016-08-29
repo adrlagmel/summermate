@@ -113,6 +113,7 @@
 					
 			  </ul>
 			</li>
+			<li><a href="administrador/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.negocios" /><span class="caret"></span></a>
               <ul class="dropdown-menu" >
