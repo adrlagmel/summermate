@@ -98,7 +98,7 @@ public class PlayaAdminController extends AbstractController {
 		}else{
 			try{
 				playaService.save(playa);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:../list.do");
 				
 			}catch(Throwable oops){
 				
@@ -181,7 +181,7 @@ public class PlayaAdminController extends AbstractController {
 				try{
 					
 					playaService.addImageToFoto(playaId, file.getBytes());
-					result = new ModelAndView("redirect:/list.do");
+					result = new ModelAndView("redirect:../list.do");
 					
 				}catch(Throwable oops){
 					boolean hasimage=true;

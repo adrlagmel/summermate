@@ -106,7 +106,7 @@ public class EventoEmpresarioController extends AbstractController{
 			result = new ModelAndView("evento/list");
 
 			result.addObject("eventos", eventos);
-			result.addObject("fechaActual", fechaActual);
+			
 			result.addObject("requestURI", "evento/empresario/listActivos.do");
 
 			return result;
@@ -123,7 +123,7 @@ public class EventoEmpresarioController extends AbstractController{
 			result = new ModelAndView("evento/list");
 
 			result.addObject("eventos", eventos);
-			result.addObject("fechaActual", fechaActual);
+		
 			result.addObject("requestURI", "evento/empresario/listInactivos.do");
 
 			return result;

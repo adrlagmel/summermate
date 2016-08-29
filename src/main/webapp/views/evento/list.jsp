@@ -38,6 +38,8 @@
 		</display:column>
 	</security:authorize>
 	
+	
+	
 	<display:column>
 		<jstl:if test="${row.imagen != null}">
 			<img class="img-responsive img-rounded" id="image" src="foto/displayImageEvento.do?eventoId=${row.id}" height="75" width="75"/><br />

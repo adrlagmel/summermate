@@ -37,7 +37,7 @@
 	<acme:textbox code="negocio.telefono" path="telefono" /><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" /><br/>
 	
-	<div style="width:50%;">
+	<div style="width:50%; margin:auto;">
 		<form:label path="playa">
 			<spring:message code="negocio.playa" />
 		</form:label>
@@ -45,10 +45,10 @@
 		<form:select items="${playas}" itemLabel="nombre" code="negocio.playa" path="playa" class="form-control"/>
 		<form:errors path="playa" cssClass="error" />
 	</div><br/>
-		
+	<div style="width:50%; margin: auto;" >	
 	<acme:submit name="save" code="negocio.save"/>
 	<acme:cancel code="negocio.cancel" url="/negocio/empresario/list.do" /> 
-	
+	</div>
 </form:form>
 
 

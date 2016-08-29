@@ -55,6 +55,22 @@ public class DenunciaEmpresarioController extends AbstractController {
 		return result;
 		
 	}
+	@RequestMapping(value="/listDenuncias", method = RequestMethod.GET)
+	public ModelAndView listDenunciasValoracion(@RequestParam int valoracionNegocioId){
+		
+		ModelAndView result;
+		Collection<DenunciaValoracion> vDenuncias = null;
+				
+		vDenuncias = denunciaValoracionService.denunciasDeUnaValoracion(valoracionNegocioId);
+		
+		result = new ModelAndView("denunciaValoracion/list");
+
+		result.addObject("vDenuncias", vDenuncias);
+		result.addObject("requestURI", "denunciaValoracion/empresario/listDenuncias.do");
+
+		return result;
+		
+	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam int valoracionNegocioId) {

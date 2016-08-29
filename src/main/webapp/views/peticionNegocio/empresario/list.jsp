@@ -26,11 +26,14 @@
 	<acme:textbox code="peticionNegocio.estado" path="estado" readonly="true" /><br/>
 	<acme:textbox code="peticionNegocio.comentarios" path="comentarios" readonly="true" /><br/>
 </jstl:if>
+<div style="width:50%; margin: auto;" >
 	<jstl:if test="${peticionNegocio == null}">
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<a href="peticionNegocio/empresario/enviar.do" class = "btn btn-primary"> <spring:message code="peticionNegocio.enviar" /></a>
 	</security:authorize>
 	</jstl:if>
-	
+	</div>
+	<div style="width:50%; margin: auto;" >
 	<acme:cancel url="/negocio/empresario/list.do" code="button.cancel"/>
+	</div>
 </form:form>

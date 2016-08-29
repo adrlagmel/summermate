@@ -16,9 +16,9 @@
 	<form:hidden path="comentarioUtil"/>
 	<br/>
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
-		<div style="width:50%; margin: auto;" >
+		
 	<acme:textarea code="valoracionNegocio.comentario" path="comentario" />	<br/>
-	</div>
+	
 		<div style="width:50%; margin: auto;" >
 		<form:label path="puntuacion">
 			<spring:message code="valoracionNegocio.puntuacion"/>

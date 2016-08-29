@@ -37,7 +37,12 @@
 		<a href="denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.denunciaValoracion" />')"><spring:message code="valoracionNegocio.borrar" /></a>
 	</display:column>
 	</security:authorize>	
-		
+	<security:authorize access="hasRole('USUARIO')">
+	<display:column sortable="false">
+		<a href="valoracionNegocio/usuario/list.do" class="btn btn-danger" ><spring:message code="valoracionNegocio.atras" /></a>
+	</display:column>
+	</security:authorize>
 		
 </display:table>
+
 </div>

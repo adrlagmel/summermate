@@ -34,29 +34,29 @@
 	}
 </script>
 
-	<div class="col-md-7  col-md-offset-2" style ="margin: auto;">
+	
+	<div class="col-md-7  col-md-offset-2">
 	
 		<form:form action="usuario/uploadImageUsuario.do?usuarioId=${usuarioId}" enctype="multipart/form-data">
 		
 		<jstl:if test="${!hasimage}">
-		<div style="width:50%; margin: auto;">
-			<img class="img-responsive img-circle" id="image" src="images/no-image.png" height="250" width="250" /><br /><br />
-		</div>
+		<img class="img-responsive img-rounded" id="image" src="images/no-image.png" height="350" width="590" /><br /><br />
 		</jstl:if>
 		<jstl:if test="${hasimage}">
-		<div style="width:50%; margin: auto;">
-			<img class="img-responsive img-circle" id="image" src="foto/displayImagePerfil.do?usuarioId=${usuarioId}" height="250" width="250"/><br /><br />
- 		</div>
+		<img class="img-responsive img-rounded" id="image" src="foto/displayImagePerfil.do?usuarioId=${usuarioId}" height="350" width="590"/><br /><br />
  		</jstl:if>
  		
  		<input type="file" name="foto" onchange="readURL(this);" />
 		
 			<div class="pull-right saveimic">
 			<acme:submit code="usuario.save" name="save" />
+			<acme:cancel code="usuario.return.link" url="/perfil/usuario.do" />
 			</div>
 		</form:form>
 	
 	</div>
-
+	
+	
+	
 </body>
 </html>

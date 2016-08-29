@@ -16,9 +16,9 @@
 	<form:hidden path="fecha"/>
 	
 	<acme:textbox code="valoracionPlaya.titulo" path="titulo" /> <br/>
-		<div style="width:50%; margin: auto;" >
-	<acme:textarea code="valoracionPlaya.comentario" path="comentario" /> <br/>	
 	
+	<acme:textarea code="valoracionPlaya.comentario" path="comentario" /> <br/>	
+		<div style="width:50%; margin: auto;" >
 	<form:label path="puntuacion">
 		<spring:message code="valoracionPlaya.puntuacion"/>
 	</form:label><br/>
@@ -35,7 +35,7 @@
 	<br/><br/>	
 	
 	<acme:submit name="save" code="valoracionPlaya.save"/>
-	<acme:cancel code="valoracionPlaya.atras" url="/playa/list.do" />
+	<acme:cancel code="valoracionPlaya.atras" url="/valoracionPlaya/usuario/list.do" />
 	</div>
 </form:form>
 

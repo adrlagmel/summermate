@@ -79,7 +79,7 @@ public class FotoController extends AbstractController {
 	@RequestMapping(value = "/displayImageEvento")
 	public void displayImageEvento(HttpServletResponse response,@RequestParam int eventoId) throws IOException{
 
-	    byte[] image = eventoService.findOne(eventoId).getImagen();
+	    byte[] image = eventoService.findOneToDisplay(eventoId).getImagen();
 	    
 	    response.setContentType("image/jpeg");
 	    OutputStream o = response.getOutputStream();

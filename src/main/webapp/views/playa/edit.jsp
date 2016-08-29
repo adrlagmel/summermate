@@ -19,13 +19,13 @@
 	
 	 	
  	<acme:textbox code="playa.nombre" path="nombre" /><br/>
- 	<div style="width:50%; margin: auto;" >
+ 	
 	<acme:textarea code="playa.descripcion" path="descripcion" /><br/>
-	</div>
+	
 	<acme:textbox code="playa.composicion" path="composicion" /><br/>
-	<div style="width:50%; margin: auto;" >
+	
 	<acme:textarea code="playa.servicios" path="servicios" /><br/>
-	</div>
+	
 	<acme:textbox  code="playa.extension" path="extension" /><br/>
 	
 	<fieldset>

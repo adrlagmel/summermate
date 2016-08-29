@@ -88,15 +88,17 @@
 			</jstl:if>
 		</display:column>
 		
-		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
-			<display:column>
-					<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.uploadCoordenates" /></a>
-			</display:column>
-		</jstl:if>
 		
-		<spring:message code="playa.delete" var="borrar" />
+			<display:column>
+			<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
+					<a href="playa/admin/uploadCoordenates.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.uploadCoordenates" /></a>
+			</jstl:if>
+			</display:column>
+		
+		
+		
 		<display:column>
-		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size() < 1}">
+		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size()<1}">
 			<a href="playa/admin/delete.do?playaId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="playa.confirmDelete" />')"><spring:message code="playa.delete" /></a>
 		</jstl:if>
 		</display:column>

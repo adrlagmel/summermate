@@ -139,6 +139,8 @@
 		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasRole('USUARIO')"/>
 		
 		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/listDenuncias.do" access="hasRole('USUARIO')"/>
+		
 		<security:intercept-url pattern="/denunciaValoracion/empresario/create.do" access="hasRole('EMPRESARIO')"/>
 		<security:intercept-url pattern="/denunciaValoracion/empresario/edit.do" access="hasRole('EMPRESARIO')"/>
 		<security:intercept-url pattern="/denunciaValoracion/empresario/borrar.do" access="hasRole('EMPRESARIO')"/>

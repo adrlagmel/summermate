@@ -27,9 +27,6 @@
 	<display:column property="puntuacion" title="${puntuacion}"
 		sortable="true" />
 		
-		<spring:message code="valoracionNegocio.comentarioUtil" var="comentarioUtil" />
-	<display:column property="comentarioUtil" title="${comentarioUtil}"
-		sortable="true" />
 		
 	<spring:message code="valoracionNegocio.reserva" var="reserva" />
 	<display:column property="reserva.codigo" title="${reserva}"
@@ -48,7 +45,11 @@
 	</display:column>
 	
 	<display:column sortable="false">
-		<a href="valoracionNegocio/usuario/borrar.do?valoracionNegocioId=${row.id}" class="btn btn-danger" ><spring:message code="valoracionNegocio.borrar" /></a>
+		<a href="valoracionNegocio/usuario/borrar.do?valoracionNegocioId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.valoracionNegocio" />')"><spring:message code="valoracionNegocio.borrar" /></a>
+	</display:column>
+	
+	<display:column sortable="false">
+		<a href="denunciaValoracion/empresario/listDenuncias.do?valoracionNegocioId=${row.id}" class="btn btn-success"><spring:message code="valoracionNegocio.denuncias" /></a>
 	</display:column>
 	</security:authorize>
 	

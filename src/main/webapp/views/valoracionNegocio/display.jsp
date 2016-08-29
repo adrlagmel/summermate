@@ -15,9 +15,9 @@
 	<form:hidden path="fecha"/>
 	
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" readonly="true"/><br/>
-		<div style="width:50%; margin: auto;" >
+		
 	<acme:textarea code="valoracionNegocio.comentario" path="comentario" readonly="true"/>	<br/>
-	</div>
+	
 	<acme:textbox code="valoracionNegocio.puntuacion" path="puntuacion" readonly="true"/>	<br/>
 	<acme:textbox code="valoracionNegocio.comentarioUtil" path="comentarioUtil" readonly="true"/>	<br/>
 		<div style="width:50%; margin: auto;" >

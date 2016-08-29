@@ -76,5 +76,14 @@ public class DenunciaValoracionService {
 		
 	}
 	
+	public Collection<DenunciaValoracion> denunciasDeUnaValoracion(int valoracionNegocioId){
+		
+		Collection<DenunciaValoracion> result = denunciaValoracionRepository.findDenunciasByValoracion(valoracionNegocioId);
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
 	
 }

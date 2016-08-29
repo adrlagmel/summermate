@@ -13,4 +13,10 @@ public interface DenunciaValoracionRepository extends JpaRepository<DenunciaValo
 	
 	@Query("select distinct d from DenunciaValoracion d where d.cliente.id=?1")
 	Collection<DenunciaValoracion> findDenunciasByEmpresario(int empresarioId);
+	
+	@Query("select distinct d from DenunciaValoracion d where d.valoracionNegocio.id=?1")
+	Collection<DenunciaValoracion> findDenunciasByValoracion(int valoracionNegocioId);
+	
+	
+	
 }
