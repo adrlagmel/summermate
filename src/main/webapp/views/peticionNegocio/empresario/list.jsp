@@ -18,7 +18,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form:form modelAttribute="peticionNegocio">
-
+<br/>
 <jstl:if test="${peticionNegocio != null}">
 	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true" /><br/>
 	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true" /><br/>

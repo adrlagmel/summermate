@@ -58,7 +58,7 @@
 	<acme:textbox code="register.email" path="registroForm.email"/><br />
 	
 	
-	<acme:textbox code="register.phone" path="registroForm.telefono" /><br />
+	<acme:textbox code="register.phone" placeholder="+34666666666" path="registroForm.telefono" /><br />
 	
 	<div style="width:50%; margin: auto;">
 		<form:label path="registroForm.fechaNacimiento">
