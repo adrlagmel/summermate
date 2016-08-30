@@ -23,7 +23,6 @@
 	<acme:textbox code="msg.sender" path="remitente.nombre" readonly="true" /><br>
 	<acme:textbox code="msg.recipient" path="beneficiario.nombre" readonly="true" /><br>
 	<acme:textbox code="msg.subject" path="asunto" readonly="true" /><br>
-	<div style="width:50%; margin: auto;" >
 	<acme:textarea code="msg.body" path="cuerpo" readonly="true" /><br>
 	
 		
@@ -41,7 +40,6 @@
 		
 	<input type="button" class="btn btn-primary" value="<spring:message code="msg.return.link" />"
 	onclick="javascript: location.replace('mensaje/actor/lista.do?carpetaId=${mostrarMensaje.carpeta.id}')" />
-	</div>
 	</form:form>
 		
 	

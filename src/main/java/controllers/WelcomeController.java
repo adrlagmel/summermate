@@ -40,7 +40,7 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required=false, defaultValue="John Doe") String name) {
+	public ModelAndView index(@RequestParam(required=false) String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;

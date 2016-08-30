@@ -39,9 +39,9 @@
 	<acme:textbox code="negocio.telefono" path="telefono" readonly="true"/><br/>
 	<acme:textbox code="negocio.paginaweb" path="paginaWeb" readonly="true"/><br/>
 	<acme:textbox code="negocio.valoracionMedia" path="valoracionMedia" readonly="true"/><br/>
+	<div style="width:50%; margin: auto;">
+		<a href="playa/display.do?playaId=${negocio.playa.id}" class="btn btn-success"><spring:message code="negocio.playa" /></a>
 	
-	<acme:textbox code="negocio.playa" path="nombre" readonly="true"/><br/>
-		<div style="width:50%; margin: auto;" >
 	<acme:cancel code="negocio.return" url="/negocio/list.do" /> 
 	</div>
 </form:form>

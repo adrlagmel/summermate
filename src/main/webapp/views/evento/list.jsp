@@ -28,6 +28,13 @@
 <display:table pagesize="5" class="table table-condensed" keepStatus="true" name="eventos" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
+	<display:column>
+		<jstl:if test="${row.imagen != null}">
+			<img class="img-responsive img-rounded" style = "margin: auto;" src="foto/displayImageEvento.do?eventoId=${row.id}" height="75" width="75" />
+		
+		</jstl:if>
+	</display:column>
+	
 	<security:authorize access="hasRole('EMPRESARIO')">
 		<display:column>
 		<security:authentication var="user" property="principal.id" />
@@ -37,14 +44,6 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
-	
-	
-	<display:column>
-		<jstl:if test="${row.imagen != null}">
-			<img class="img-responsive img-rounded" id="image" src="foto/displayImageEvento.do?eventoId=${row.id}" height="75" width="75"/><br />
-		</jstl:if>
-	</display:column>
 	
 	<spring:message code="evento.nombre" var="nombre" />
 	<display:column property="nombre" title="${nombre}" sortable="true" />

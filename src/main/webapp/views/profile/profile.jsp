@@ -23,9 +23,7 @@
 			<jstl:if test="${actor.imagen!=null}">
 				<img class="img-responsive img-circle" style = "margin: auto;" src="foto/displayImagePerfil.do?usuarioId=${actor.id}" height="250" width="250" />
 			</jstl:if>
-			<jstl:if test="${actor.imagen==null}">
-				<img class="img-responsive img-rounded" style = "margin: auto;" src="images/no-image.png" height="350" width="590" />
-			</jstl:if>
+		
 	<br/><br/>
 	</jstl:if>
 	

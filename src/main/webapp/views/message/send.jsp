@@ -46,17 +46,15 @@
 		
 		<b><spring:message code="msg.recipient"/>: </b><jstl:out value="${m.beneficiario.nombre}" />
 		
-	</jstl:if><br>
+	</jstl:if>
 	</div>
 	<acme:textbox code="msg.subject" path="asunto"/><br>
-	<div style="width:50%; margin: auto;" >
 	<acme:textarea code="msg.body" path="cuerpo"/><br>
-				
+	<div style="width:50%; margin: auto;" >	
 					
 	<acme:submit name="save" code="msg.send.link"/>				
 	
 	<acme:cancel url="/" code="msg.cancel.link"/>	
-	
-	</div>		
+	</div>
 
 </form:form>

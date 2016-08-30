@@ -282,7 +282,7 @@ public class EventoEmpresarioController extends AbstractController{
 			result = new ModelAndView("evento/"+selectView);
 
 			result.addObject("evento", evento);
-			result.addObject("message", null);
+			result.addObject("message", message);
 			result.addObject("hasimage", hasimage);
 			result.addObject("negocios", negocios);
 			

@@ -108,6 +108,7 @@ function deleteMarkers() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
 <style> 
  	body {
  	  background: url(images/summer-814679.png) no-repeat center center fixed; 
@@ -115,7 +116,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	  -moz-background-size: cover;
 	  -o-background-size: cover;
 	  background-size: cover;
-}</style><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+}</style>
+ <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ 
 
 
 <div class="container" style="margin-bottom:50px;">

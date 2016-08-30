@@ -52,10 +52,10 @@
 			<script type="text/javascript">
 				$('#datetimepicker').datetimepicker({format: 'd/m/Y H:00'});
 			</script>
-				
+			</div>
 			<acme:textarea code="booking.comments" path="comentarios" /><br/>
-			
-			<div style="width:50%;">
+			<div style="width:50%; margin: auto;">
+			<div>
 				<form:label path="comensales">
 					<spring:message code="booking.fumadores" />
 				</form:label>
@@ -66,7 +66,7 @@
 				</form:select>
 			</div><br/>
 			
-			<div style="width:50%;">
+			<div>
 				<form:label path="comensales">
 					<spring:message code="booking.comensales" />
 				</form:label>

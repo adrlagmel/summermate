@@ -56,8 +56,8 @@
 		$('#datetimepicker').datetimepicker({format: 'd/m/Y H:i'});
 	</script>
 		<div style="width:50%; margin: auto;" >
-	<acme:textarea code="evento.descripcion" path="descripcion" /><br/>
 	</div>
+	<acme:textarea code="evento.descripcion" path="descripcion" /><br/>
 	<acme:textbox code="evento.precio" path="precio" /><br/>
 	
 		<div style="width:50%; margin: auto;" >
