@@ -167,6 +167,24 @@ public class NegocioService {
 		return result;
 		
 	}
+	public Collection<Negocio> findNegocioMejorValorado(){
+				
+		Collection<Negocio> result = negocioRepository.findNegocioMejorValorado();
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
+	public Collection<Negocio> negociosConMasReservas(){
+		
+		Collection<Negocio> result = negocioRepository.findNegocioMasReservas();
+		Assert.notNull(result);
+		
+		return result;
+		
+	}
+	
 	
 	public Collection<Negocio> findByEmpresario(){
 		

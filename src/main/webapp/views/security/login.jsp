@@ -18,7 +18,10 @@
 
 
 <form:form action="j_spring_security_check" modelAttribute="credentials" class="form-horizontal" role="form">
-
+	
+	<br>
+	<br>
+	<div style="width:50%; margin: auto;" >
   <div class="form-group">
     <label for="ejemplo_email_3" class="col-lg-2 control-label"><spring:message code="security.username" /></label>
     <div class="col-lg-10">
@@ -45,6 +48,16 @@
 			<spring:message code="security.login.failed" />
 		</div>
 	</jstl:if>
-	
+	</div>
 	
 </form:form>
+
+
+<style> 
+ 	body {
+ 	  background: url(images/summer-814679.png) no-repeat center center fixed; 
+  		-webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+}</style><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

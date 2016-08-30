@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import services.ActorService;
+import services.NegocioService;
+import services.UsuarioService;
 
 import services.PlayaService;
 
@@ -17,7 +19,9 @@ import controllers.AbstractController;
 
 
 
+import domain.Negocio;
 import domain.Playa;
+import domain.Usuario;
 
 
 @Controller
@@ -31,6 +35,13 @@ public class DashboardAdministratorController extends AbstractController {
 	
 	@Autowired
 	private PlayaService playaService;
+	
+	@Autowired
+	private NegocioService negocioService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	
 
 	
@@ -51,10 +62,20 @@ public class DashboardAdministratorController extends AbstractController {
 			
 			//Lista de Consultas
 			Collection<Playa> playaMejorValorada = playaService.playaMejorValorada();
+			Collection<Playa> playaConMasValoraciones = playaService.findPlayaMasComentarios();
+			Integer masValoraciones = playaService.masValoraciones();
+			Collection<Negocio> negocioMejorValorado = negocioService.findNegocioMejorValorado();
+			Collection<Negocio> negocioMasReservas = negocioService.negocioConMasReservas();
+			Collection<Usuario> usuariosTotales = usuarioService.usuariosTotales();
 			result = new ModelAndView("administrator/dashboard");
 			
 			
 			result.addObject("playaMejorValorada", playaMejorValorada);
+			result.addObject("playaConMasValoraciones", playaConMasValoraciones);
+			result.addObject("masValoraciones", masValoraciones);
+			result.addObject("negocioMejorValorado", negocioMejorValorado);
+			result.addObject("negocioMasReservas", negocioMasReservas);
+			result.addObject("usuariosTotales", usuariosTotales);
 			
 			result.addObject("requestURI", "administrador/dashboard.do");
 			

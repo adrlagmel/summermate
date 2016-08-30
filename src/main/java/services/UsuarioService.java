@@ -114,6 +114,13 @@ public class UsuarioService {
 		 return res;
 	}
 	
+	public Collection<Usuario> usuariosTotales(){
+		Collection<Usuario> res = usuarioRepository.findAllUsuarios();
+		 Assert.notNull(res);
+		 
+		 return res;
+	}
+	
 	public Usuario findOne(int id){
 		Assert.isTrue(id != 0);
 		Usuario res;

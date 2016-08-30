@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Negocio;
+import domain.Playa;
 
 @Repository
 public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
@@ -28,5 +29,12 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	
 	@Query("select distinct n from Negocio n where n.empresario.id=?1 and n.negocioActivo = true)")
 	Collection<Negocio> findNegociosActivos(int empresarioId);
+	
+	@Query("select distinct n from Negocio n where n.valoracionMedia=(select max(valoracionMedia) from Negocio)")
+	Collection<Negocio> findNegocioMejorValorado();
+	
+	@Query("select n from Negocio n where n.reservas.size=(select max(n.reservas.size) from Negocio n)")
+	Collection<Negocio> findNegocioMasReservas();
+
 	
 }

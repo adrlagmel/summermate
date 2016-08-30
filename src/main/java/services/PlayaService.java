@@ -120,6 +120,21 @@ public class PlayaService {
 		
 	}
 	
+	public Collection<Playa> findPlayaMasComentarios() {
+		Collection<Playa> res = playaRepository.findPlayaMasComentarios();
+		Assert.notNull(res);
+		return res;
+		
+	}
+	
+	public Integer masValoraciones(){
+		Integer res = 0;
+		res = playaRepository.masValoraciones();		
+		return res;
+	}
+	
+	
+	
 	private static double distance(double lat1, double lon1, double lat2, double lon2) {
 
 		double theta = lon1 - lon2;
