@@ -2,6 +2,7 @@ package services;
 
 import java.util.Collection;
 
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Usuario;
 import forms.ActorEditPasswordForm;
 
 @Service
@@ -39,6 +39,14 @@ public class ActorService {
 	public Collection<Actor> findAll(){
 		
 		Collection<Actor> actors = actorRepository.findAll();
+		Assert.notNull(actors);
+		
+		return actors;
+	}
+	
+	public Collection<Actor> findAllMessages(){
+		
+		Collection<Actor> actors = actorRepository.findAllMessages(findByPrincipal().getUserAccount().getId());
 		Assert.notNull(actors);
 		
 		return actors;

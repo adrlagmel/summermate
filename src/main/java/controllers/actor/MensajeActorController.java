@@ -162,7 +162,7 @@ public class MensajeActorController extends AbstractController{
 			
 			result = new ModelAndView("mensaje/actor/enviar");
 			
-			Collection<Actor> actors = actorService.findAll();
+			Collection<Actor> actors = actorService.findAllMessages();
 			
 			result.addObject("actors",actors);
 			result.addObject("mensaje", mensaje);

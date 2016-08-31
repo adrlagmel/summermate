@@ -27,7 +27,7 @@
 	
 		
 	<security:authentication var="user" property="principal.id" />
-	
+	<div style="width:50%; margin: auto;" >	
 	<jstl:if test="${mostrarMensaje.beneficiario.userAccount.id==user}">
 	<input type="button" class="btn btn-success" value="<spring:message code="msg.reply.link" />"
 	onclick="javascript: location.replace('mensaje/actor/responder.do?mensajeId=${mostrarMensaje.id}')" />
@@ -37,9 +37,11 @@
 				onclick="javascript: location.replace('mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}');
 				javascript: return confirm('<spring:message code="msg.delete.del" />')" />
 		</jstl:if>
-		
+	
+	
 	<input type="button" class="btn btn-primary" value="<spring:message code="msg.return.link" />"
 	onclick="javascript: location.replace('mensaje/actor/lista.do?carpetaId=${mostrarMensaje.carpeta.id}')" />
+	</div>
 	</form:form>
 		
 	
