@@ -83,7 +83,7 @@
 	
 	<security:authorize access="hasRole('ADMINISTRADOR')">
 		<display:column>
-			<jstl:if test="${row.imagen==null}">
+			<jstl:if test="${row.imagen==null && row.administrador.userAccount.id == user}">
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}" class="btn btn-primary"><spring:message code="playa.uploadImage" /></a>
 			</jstl:if>
 		</display:column>
