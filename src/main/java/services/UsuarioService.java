@@ -13,7 +13,9 @@ import org.springframework.util.Assert;
 
 import domain.Carpeta;
 import domain.DenunciaValoracion;
+import domain.Empresario;
 import domain.Evento;
+import domain.Negocio;
 import domain.Reserva;
 import domain.Usuario;
 import domain.ValoracionPlaya;
@@ -223,6 +225,14 @@ public class UsuarioService {
 		
 		Assert.isTrue(findByPrincipal().equals(u));
 		
+		
+	}
+	public Collection<Usuario> searchUsuarioForApellido(String apellidos){
+		
+		Collection<Usuario> result = usuarioRepository.searchUsuarioForApellidos(apellidos);
+		Assert.notNull(result);
+		
+		return result;
 		
 	}
 	

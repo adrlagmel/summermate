@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Negocio;
 import domain.Usuario;
 import forms.UsuarioRegistroForm;
 
+import services.ActorService;
 import services.UsuarioService;
 
 @Controller
@@ -28,6 +33,9 @@ public class UsuarioController extends AbstractController{
 	
 			@Autowired
 			private UsuarioService usuarioService;
+			
+			@Autowired
+			private ActorService actorService;
 			
 						
 			// Constructors ---------------------------------------------------------------
@@ -42,6 +50,42 @@ public class UsuarioController extends AbstractController{
 			
 			
 			// Create methods --------------------------------------------------------------
+			
+			@RequestMapping(value="/list", method = RequestMethod.GET)
+			public ModelAndView list(){
+				
+				ModelAndView result;
+				Collection<Actor> usuarios = null;
+				
+				usuarios = actorService.findAll();
+				
+				result = new ModelAndView("usuario/list");
+
+				result.addObject("usuarios", usuarios);
+				result.addObject("actionURI","usuario/search.do");
+				result.addObject("requestURI", "usuario/list.do");
+
+				return result;
+				
+			}
+			
+			
+			@RequestMapping(value="/search", method = RequestMethod.GET)
+			public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
+				ModelAndView result;
+				
+				Collection<Actor> usuarios = actorService.searchUsuarioForApellido(s);
+				result = new ModelAndView("usuario/list");
+				result.addObject("usuarios", usuarios);
+				result.addObject("showError", showError);
+				result.addObject("showSuccess", showSuccess);
+				result.addObject("actionURI","usuario/search.do");
+				result.addObject("requestURI","usuario/search.do");
+				
+				return result;
+				
+			}
+			
 			
 			
 			@RequestMapping(value="/register", method = RequestMethod.GET)

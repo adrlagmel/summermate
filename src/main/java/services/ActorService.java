@@ -13,6 +13,7 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Usuario;
 import forms.ActorEditPasswordForm;
 
 @Service
@@ -41,6 +42,15 @@ public class ActorService {
 		Assert.notNull(actors);
 		
 		return actors;
+	}
+	
+public Collection<Actor> searchUsuarioForApellido(String apellidos){
+		
+		Collection<Actor> result = actorRepository.searchUsuarioForApellidos(apellidos);
+		Assert.notNull(result);
+		
+		return result;
+		
 	}
 	
 	public void savePassword(Actor actor){

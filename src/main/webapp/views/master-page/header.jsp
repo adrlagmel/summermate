@@ -129,6 +129,7 @@
               <ul class="dropdown-menu" >
 					<li><a href="carpeta/actor/lista.do"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;<spring:message code="master.page.folders.list" /></a></li>
 					<li><a href="mensaje/actor/enviar.do"><span class="glyphicon glyphicon-send"></span>&nbsp;<spring:message code="master.page.messages.send" /></a></li>
+					<li><a href="usuario/list.do">&nbsp;<spring:message code="master.page.search.users" /></a></li>
 			  </ul>
 			</li>
 			

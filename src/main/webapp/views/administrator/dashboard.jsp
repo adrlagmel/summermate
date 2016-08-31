@@ -19,8 +19,12 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<br>
+<br>
 <legend><spring:message code="dashboard.playa" /></legend>
-<b><spring:message code="dashboard.playaMejorValorada"/></b>
+<br>
+<h3><spring:message code="dashboard.playaMejorValorada"/></h3>
+
 <div class="table-responsive">
 <display:table name="playaMejorValorada" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.playa.nombre" var="nombre"/>
@@ -32,7 +36,9 @@
 </display:table>
 </div>
 
-<b><spring:message code="dashboard.playaConMasValoraciones"/></b>
+<br>
+<h3><spring:message code="dashboard.playaConMasValoraciones"/></h3>
+
 <div class="table-responsive">
 <display:table name="playaConMasValoraciones" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.playa.nombre" var="nombre"/>
@@ -44,8 +50,15 @@
 </display:table>
 </div>
 
+<br>
+<br>
+<br>
 <legend><spring:message code="dashboard.negocio" /></legend>
-<b><spring:message code="dashboard.negocioMejorValorado"/></b>
+<br>
+
+<h3><spring:message code="dashboard.negocioMejorValorado"/></h3>
+
+
 <div class="table-responsive">
 <display:table name="negocioMejorValorado" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.negocio.nombre" var="nombre"/>
@@ -57,7 +70,9 @@
 </display:table>
 </div>
 
-<b><spring:message code="dashboard.negocioMejorValorado"/></b>
+<br>
+<h3><spring:message code="dashboard.negocioMejorValorado"/></h3>
+
 <div class="table-responsive">
 <display:table name="negocioMasReservas" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.negocio.nombre" var="nombre"/>
@@ -69,8 +84,12 @@
 </display:table>
 </div>
 
+<br>
+<br>
+<br>
 <legend><spring:message code="dashboard.usuario" /></legend>
-<b><spring:message code="dashboard.usuariosTotales"/></b>
+<h3><spring:message code="dashboard.usuariosTotales"/></h3>
+
 <div class="table-responsive">
 <display:table name="usuariosTotales" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.usuario.nombre" var="nombre"/>

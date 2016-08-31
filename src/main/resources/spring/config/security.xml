@@ -53,7 +53,8 @@
 		<security:intercept-url pattern="/perfil/actor/editPassword.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/usuario/uploadImageUsuario.do" access="hasRole('USUARIO')" /> 
 		<security:intercept-url pattern="/usuario/displayImagePerfil.do" access="hasRole('USUARIO')" /> 
-		
+		<security:intercept-url pattern="/usuario/search.do" access="permitAll"/>
+		<security:intercept-url pattern="/usuario/list.do" access="permitAll"/>
 		
 		<security:intercept-url pattern="/playa/list.do" access="permitAll"/> 
 		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
