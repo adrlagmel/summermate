@@ -71,7 +71,7 @@ public class PeticionNegocio extends DomainEntity{
 		this.titulo = titulo;
 	}
 	
-	// Se guarda como texto (no como número de orden) para que añadir o
+	// Se guarda como texto (no como nÃºmero de orden) para que aÃ±adir o
 	// reordenar valores no cambie el significado de los datos existentes.
 	@NotNull
 	@Enumerated(EnumType.STRING)

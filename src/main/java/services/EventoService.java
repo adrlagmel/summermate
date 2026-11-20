@@ -230,7 +230,7 @@ public class EventoService {
 		Assert.isTrue(evento.getNegocio().getEmpresario().getUserAccount().equals(userAccount));
 	}
 	
-	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// Una subida vacÃ­a quita la imagen; si no es JPEG, PNG o WebP,
 	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToEvento(int eventoId, byte[] bytes) {
 		Evento e = findOneToEdit(eventoId);

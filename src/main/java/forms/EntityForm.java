@@ -1,11 +1,11 @@
 /* EntityForm.java
  *
  * Base de los formularios que editan una entidad. Los controladores enlazan
- * estos objetos en lugar de las entidades, así que solo se puede modificar lo
- * que el formulario declara (evita el "mass assignment": que alguien añada a la
- * petición campos como valoracionMedia o negocioActivo).
+ * estos objetos en lugar de las entidades, asÃ­ que solo se puede modificar lo
+ * que el formulario declara (evita el "mass assignment": que alguien aÃ±ada a la
+ * peticiÃ³n campos como valoracionMedia o negocioActivo).
  *
- * Se conserva la versión para no perder el bloqueo optimista que antes daba
+ * Se conserva la versiÃ³n para no perder el bloqueo optimista que antes daba
  * el merge de la entidad: si alguien la ha modificado mientras tanto, falla.
  */
 
@@ -40,13 +40,13 @@ public abstract class EntityForm {
 		return id == 0;
 	}
 
-	// Copia el id y la versión de la entidad (para mostrar el formulario).
+	// Copia el id y la versiÃ³n de la entidad (para mostrar el formulario).
 	protected void copyIdentity(DomainEntity entity) {
 		this.id = entity.getId();
 		this.version = entity.getVersion();
 	}
 
-	// Comprueba que la entidad no ha cambiado desde que se abrió el formulario.
+	// Comprueba que la entidad no ha cambiado desde que se abriÃ³ el formulario.
 	public void checkVersion(DomainEntity entity) {
 		if (entity.getVersion() != version)
 			throw new ObjectOptimisticLockingFailureException(entity.getClass(), entity.getId());

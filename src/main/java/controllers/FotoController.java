@@ -17,9 +17,9 @@ import services.PlayaService;
 import services.UsuarioService;
 import domain.Imagen;
 
-// Sirve las im·genes guardadas en la tabla imagen. Antes respondÌa siempre
-// image/jpeg (fuese lo que fuese el fichero) y, si no habÌa imagen o el id no
-// existÌa, fallaba con un NullPointerException (error 500).
+// Sirve las im√°genes guardadas en la tabla imagen. Antes respond√≠a siempre
+// image/jpeg (fuese lo que fuese el fichero) y, si no hab√≠a imagen o el id no
+// exist√≠a, fallaba con un NullPointerException (error 500).
 @Controller
 @RequestMapping("/foto")
 public class FotoController extends AbstractController {
@@ -64,8 +64,8 @@ public class FotoController extends AbstractController {
 	// Si la entidad no existe (los servicios lanzan IllegalArgumentException o
 	// devuelven null) o no tiene imagen, responde 404.
 	//
-	// Fase 3: cachÈ HTTP. Cada imagen tiene su propio id y al sustituirla se
-	// crea otra (orphanRemoval borra la anterior), asÌ que el id sirve de ETag.
+	// Fase 3: cach√© HTTP. Cada imagen tiene su propio id y al sustituirla se
+	// crea otra (orphanRemoval borra la anterior), as√≠ que el id sirve de ETag.
 	// Si el navegador ya la tiene (If-None-Match), se responde 304 sin leer los
 	// bytes: el proxy perezoso de Imagen da el id sin consultar la base de datos.
 	private void write(HttpServletRequest request, HttpServletResponse response, Supplier<Imagen> lookup) throws IOException {

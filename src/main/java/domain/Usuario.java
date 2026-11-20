@@ -45,7 +45,7 @@ public class Usuario extends Cliente{
 		public void setEstadoActual(String estadoActual) {
 			this.estadoActual = estadoActual;
 		}
-		//Atributo Derivado que ser· un contador de puntos de colaboraciÛn
+		//Atributo Derivado que ser√° un contador de puntos de colaboraci√≥n
 				
 		// Relationships -------------------------------
 		

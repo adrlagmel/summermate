@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /*
- * Test unitario (sin Spring ni base de datos) del codificador de contraseñas.
+ * Test unitario (sin Spring ni base de datos) del codificador de contraseÃ±as.
  */
 public class PasswordEncoderConfigTest {
 
-	// md5("admin"): así se guardaban las contraseñas en la versión original.
+	// md5("admin"): asÃ­ se guardaban las contraseÃ±as en la versiÃ³n original.
 	private static final String LEGACY_MD5 = "21232f297a57a5a743894a0e4a801fc3";
 
 	private final PasswordEncoder encoder = new PasswordEncoderConfig().passwordEncoder();

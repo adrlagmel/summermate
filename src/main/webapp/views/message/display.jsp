@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -33,8 +33,8 @@
 	onclick="javascript: location.replace('mensaje/actor/responder.do?mensajeId=${mostrarMensaje.id}')" />
 		</jstl:if>
 		<jstl:if test="${mostrarMensaje.beneficiario.userAccount.id==user || mostrarMensaje.remitente.userAccount.id==user}">
-				<%-- Antes navegaba a borrar.do antes de preguntar, así que borraba
-				     aunque se cancelase la confirmación. --%>
+				<%-- Antes navegaba a borrar.do antes de preguntar, asÃ­ que borraba
+				     aunque se cancelase la confirmaciÃ³n. --%>
 				<acme:postbutton url="mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}" code="msg.delete" confirmCode="msg.delete.del" />
 		</jstl:if>
 	

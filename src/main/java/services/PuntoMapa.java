@@ -1,6 +1,6 @@
 /* PuntoMapa.java
  *
- * Lo mínimo para pintar una playa en el mapa. Antes se cargaban las playas
+ * Lo mÃ­nimo para pintar una playa en el mapa. Antes se cargaban las playas
  * completas (con su imagen, valoraciones...) solo para leer cuatro campos.
  */
 

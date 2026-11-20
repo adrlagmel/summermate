@@ -1,8 +1,8 @@
 /* PaginaDisplaytag.java
  *
- * Adapta una p·gina de Spring Data (Page) a la interfaz que entiende
+ * Adapta una p√°gina de Spring Data (Page) a la interfaz que entiende
  * displaytag para paginar fuera de memoria: con esto, <display:table> pinta
- * los enlaces de p·gina y de ordenaciÛn pero no ordena ni corta la lista.
+ * los enlaces de p√°gina y de ordenaci√≥n pero no ordena ni corta la lista.
  */
 
 package controllers;
@@ -55,7 +55,7 @@ public class PaginaDisplaytag<T> implements PaginatedList {
 		return orden != null && orden.isDescending() ? SortOrderEnum.DESCENDING : SortOrderEnum.ASCENDING;
 	}
 
-	// Algunas JSP comprueban si el listado est· vacÌo (${negocios.isEmpty()})
+	// Algunas JSP comprueban si el listado est√° vac√≠o (${negocios.isEmpty()})
 	public boolean isEmpty() {
 		return page.isEmpty();
 	}

@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -22,7 +22,7 @@
 <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
@@ -61,7 +61,7 @@ $(document).ready(function() {
 			localStorage.controlcookie = (localStorage.controlcookie || 0);
 	
 			localStorage.controlcookie++; // incrementamos cuenta de la cookie
-			cookie1.style.display='none'; // Esconde la política de cookies
+			cookie1.style.display='none'; // Esconde la polÃ­tica de cookies
 	}
 	
 	function mostrarcookies() {

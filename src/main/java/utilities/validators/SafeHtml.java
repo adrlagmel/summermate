@@ -1,7 +1,7 @@
 /* SafeHtml.java
  *
  * Sustituye a org.hibernate.validator.constraints.SafeHtml, que Hibernate
- * Validator eliminó en la versión 6.2. Equivale al antiguo
+ * Validator eliminÃ³ en la versiÃ³n 6.2. Equivale al antiguo
  * @SafeHtml: no admite ninguna etiqueta HTML.
  */
 
@@ -26,7 +26,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface SafeHtml {
 
-	// Misma clave que la anotación original, para reutilizar las traducciones.
+	// Misma clave que la anotaciÃ³n original, para reutilizar las traducciones.
 	String message() default "{org.hibernate.validator.constraints.SafeHtml.message}";
 
 	Class<?>[] groups() default { };

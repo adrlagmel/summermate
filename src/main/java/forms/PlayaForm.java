@@ -1,8 +1,8 @@
 /* PlayaForm.java
  *
  * Campos editables de una playa. Antes se enlazaba la entidad entera y, como
- * el formulario no enviaba ni la imagen ni la valoración media, cada edición
- * las dejaba a null. La localización es un valor embebido y se edita completa.
+ * el formulario no enviaba ni la imagen ni la valoraciÃ³n media, cada ediciÃ³n
+ * las dejaba a null. La localizaciÃ³n es un valor embebido y se edita completa.
  */
 
 package forms;

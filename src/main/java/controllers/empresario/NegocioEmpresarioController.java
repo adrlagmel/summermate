@@ -248,7 +248,7 @@ public class NegocioEmpresarioController extends AbstractController{
 
 		// Ancillary methods ---------------------------------------------------------
 
-		// Formularios de alta y edición: trabajan con NegocioForm, no con la entidad.
+		// Formularios de alta y ediciÃ³n: trabajan con NegocioForm, no con la entidad.
 		protected ModelAndView createEditModelAndView(NegocioForm form, String selectView){
 			return createEditModelAndView(form, selectView, null);
 		}

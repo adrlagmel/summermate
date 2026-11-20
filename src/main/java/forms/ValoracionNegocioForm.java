@@ -2,7 +2,7 @@
  *
  * Lo que escribe un usuario al valorar un negocio tras su reserva. Fecha,
  * denuncias y comentarioUtil los gestiona el servicio. La reserva solo se usa
- * al crear la valoración (y debe ser del usuario); al editar se ignora.
+ * al crear la valoraciÃ³n (y debe ser del usuario); al editar se ignora.
  */
 
 package forms;

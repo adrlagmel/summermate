@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -21,7 +21,7 @@
 
 	<br>
 
-	<%-- El código y la fecha se asignan al enviar la petición --%>
+	<%-- El cÃ³digo y la fecha se asignan al enviar la peticiÃ³n --%>
 	<acme:textbox code="peticionNegocio.titulo" path="titulo"/><br/>
 	
 	<div style="width:50%; margin: auto;" >

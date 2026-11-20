@@ -1,7 +1,7 @@
 /* SafeHtmlValidator.java
  *
- * Valida que el texto no contenga HTML, igual que hacía Hibernate Validator con
- * WhiteListType.NONE (usa jsoup con una lista blanca vacía).
+ * Valida que el texto no contenga HTML, igual que hacÃ­a Hibernate Validator con
+ * WhiteListType.NONE (usa jsoup con una lista blanca vacÃ­a).
  */
 
 package utilities.validators;

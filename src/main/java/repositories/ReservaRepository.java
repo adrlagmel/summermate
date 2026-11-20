@@ -27,7 +27,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	Collection<Reserva> findReservasPorUsuario(int usuarioId);
 	
 	// Reservas de un empresario en el intervalo [desde, hasta). Antes usaba
-	// DATE_FORMAT, que es exclusivo de MySQL y además impedía usar índices.
+	// DATE_FORMAT, que es exclusivo de MySQL y ademÃ¡s impedÃ­a usar Ã­ndices.
 	@Query("select distinct s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
 	Collection<Reserva> search(int empresarioId, Date desde, Date hasta);
 

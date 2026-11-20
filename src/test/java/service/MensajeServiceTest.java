@@ -19,9 +19,9 @@ import domain.Mensaje;
 import forms.MensajeForm;
 
 /*
- * Envío de mensajes. Tras pasar a PostgreSQL dejó de funcionar sin que nada
- * avisara: los datos de ejemplo llamaban "entrada" a la bandeja que el código
- * busca como "Entrada" (MySQL no distinguía mayúsculas al comparar).
+ * EnvÃ­o de mensajes. Tras pasar a PostgreSQL dejÃ³ de funcionar sin que nada
+ * avisara: los datos de ejemplo llamaban "entrada" a la bandeja que el cÃ³digo
+ * busca como "Entrada" (MySQL no distinguÃ­a mayÃºsculas al comparar).
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {

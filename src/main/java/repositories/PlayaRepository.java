@@ -19,14 +19,14 @@ public interface PlayaRepository extends JpaRepository<Playa, Integer> {
 	Collection<Playa> findPlayaMejorValorada();
 	
 	// Fase 3: antes, para cada playa se contaban sus valoraciones y se
-	// comparaba con el máximo, que a su vez contaba las de todas las playas
-	// (subconsultas correlacionadas: coste cuadrático). Ahora se agrupa una
+	// comparaba con el mÃ¡ximo, que a su vez contaba las de todas las playas
+	// (subconsultas correlacionadas: coste cuadrÃ¡tico). Ahora se agrupa una
 	// sola vez las valoraciones por playa.
 	@Query("select p from Playa p where p.id in (select v.playa.id from ValoracionPlaya v group by v.playa.id"
 		+ " having count(v) >= all (select count(v2) from ValoracionPlaya v2 group by v2.playa.id))")
 	Collection<Playa> findPlayaMasComentarios();
 	
-	// La primera fila es el máximo (se pide con PageRequest.of(0, 1))
+	// La primera fila es el mÃ¡ximo (se pide con PageRequest.of(0, 1))
 	@Query("select count(v) from ValoracionPlaya v group by v.playa.id order by count(v) desc")
 	List<Long> valoracionesPorPlaya(Pageable pageable);
 
@@ -36,11 +36,11 @@ public interface PlayaRepository extends JpaRepository<Playa, Integer> {
 	@Query("select new services.PuntoMapa(p.id, p.nombre, p.localizacion.latitud, p.localizacion.longitud) from Playa p")
 	List<PuntoMapa> findPuntosMapa();
 
-	// Playas a menos de ?5 km de (?1, ?2), de la más cercana a la más lejana.
+	// Playas a menos de ?5 km de (?1, ?2), de la mÃ¡s cercana a la mÃ¡s lejana.
 	// El recuadro (?3 grados de latitud, ?4 de longitud) descarta enseguida
-	// las lejanas; la fórmula de Haversine (radio terrestre: 6371 km) da la
+	// las lejanas; la fÃ³rmula de Haversine (radio terrestre: 6371 km) da la
 	// distancia exacta sobre la esfera. Antes se cargaban todas las playas en
-	// memoria y se comparaban con un umbral de 10.000.000 km: devolvía todas.
+	// memoria y se comparaban con un umbral de 10.000.000 km: devolvÃ­a todas.
 	@Query("select p from Playa p"
 		+ " where p.localizacion.latitud between ?1 - ?3 and ?1 + ?3"
 		+ " and p.localizacion.longitud between ?2 - ?4 and ?2 + ?4"

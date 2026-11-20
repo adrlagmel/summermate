@@ -1,11 +1,11 @@
 /* PasswordEncoderConfig.java
  *
- * Codificador de contraseÒas de la aplicaciÛn.
+ * Codificador de contrase√±as de la aplicaci√≥n.
  *
- * Las contraseÒas nuevas se guardan con BCrypt y con el prefijo {bcrypt}.
+ * Las contrase√±as nuevas se guardan con BCrypt y con el prefijo {bcrypt}.
  * Los hashes antiguos (MD5 sin sal y sin prefijo) se siguen aceptando al
- * iniciar sesiÛn, y DaoAuthenticationProvider los vuelve a guardar en BCrypt
- * gracias a LoginService.updatePassword (migraciÛn transparente).
+ * iniciar sesi√≥n, y DaoAuthenticationProvider los vuelve a guardar en BCrypt
+ * gracias a LoginService.updatePassword (migraci√≥n transparente).
  */
 
 package security;
@@ -34,14 +34,14 @@ public class PasswordEncoderConfig {
 		encoders.put(CURRENT, new BCryptPasswordEncoder());
 
 		result = new DelegatingPasswordEncoder(CURRENT, encoders);
-		// Hashes sin prefijo: los MD5 de la versiÛn original del proyecto.
+		// Hashes sin prefijo: los MD5 de la versi√≥n original del proyecto.
 		result.setDefaultPasswordEncoderForMatches(legacyMd5());
 
 		return result;
 	}
 
-	// MD5 est· obsoleto (por eso Spring lo marca @Deprecated); solo se usa
-	// para comprobar contraseÒas antiguas, nunca para guardar nuevas.
+	// MD5 est√° obsoleto (por eso Spring lo marca @Deprecated); solo se usa
+	// para comprobar contrase√±as antiguas, nunca para guardar nuevas.
 	@SuppressWarnings("deprecation")
 	private static PasswordEncoder legacyMd5() {
 		return new MessageDigestPasswordEncoder("MD5");

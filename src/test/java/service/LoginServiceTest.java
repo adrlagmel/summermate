@@ -17,8 +17,8 @@ import security.LoginService;
 import utilities.AbstractTest;
 
 /*
- * Tests de caracterización: fijan el comportamiento actual del login para
- * que no cambie sin querer durante la migración.
+ * Tests de caracterizaciÃ³n: fijan el comportamiento actual del login para
+ * que no cambie sin querer durante la migraciÃ³n.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {

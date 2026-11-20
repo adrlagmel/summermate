@@ -27,9 +27,9 @@ import domain.Negocio;
 import domain.Reserva;
 
 /*
- * Reservas simult·neas contra el aforo. A diferencia del resto, este test no
- * es @Transactional: cada hilo hace su propia transacciÛn real, como dos
- * usuarios a la vez. "Comida Fast" tiene aforo 50; cinco reservas simult·neas
+ * Reservas simult√°neas contra el aforo. A diferencia del resto, este test no
+ * es @Transactional: cada hilo hace su propia transacci√≥n real, como dos
+ * usuarios a la vez. "Comida Fast" tiene aforo 50; cinco reservas simult√°neas
  * de 20 comensales para la misma hora: solo caben dos.
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -21,7 +21,7 @@ import utilities.AbstractTest;
 import domain.Negocio;
 
 /*
- * Las im·genes est·n en su propia tabla y se cargan de forma perezosa: un
+ * Las im√°genes est√°n en su propia tabla y se cargan de forma perezosa: un
  * listado de negocios no lee sus bytes hasta que alguien los pide.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,7 +44,7 @@ public class ImagenLazyTest extends AbstractTest {
 		authenticate("empresario1");
 		int id = negocioConImagen();
 
-		// Se vacÌa la cachÈ de primer nivel para leer de verdad de la base de datos
+		// Se vac√≠a la cach√© de primer nivel para leer de verdad de la base de datos
 		entityManager.flush();
 		entityManager.clear();
 
@@ -57,14 +57,14 @@ public class ImagenLazyTest extends AbstractTest {
 				assertTrue(Hibernate.isInitialized(negocio.getImagen()));
 				return;
 			}
-		throw new AssertionError("No se encontrÛ el negocio");
+		throw new AssertionError("No se encontr√≥ el negocio");
 	}
 
 	@Test
 	public void cambiarLaImagenBorraLaAnterior() {
 		authenticate("empresario1");
 		int id = negocioConImagen();
-		// Como en la aplicaciÛn, cada subida es una peticiÛn (y transacciÛn) distinta
+		// Como en la aplicaci√≥n, cada subida es una petici√≥n (y transacci√≥n) distinta
 		entityManager.flush();
 		entityManager.clear();
 

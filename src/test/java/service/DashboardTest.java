@@ -24,7 +24,7 @@ import domain.Playa;
 /*
  * Consultas del dashboard del administrador, reescritas con GROUP BY en la
  * Fase 3. Datos de PopulateDatabase.xml: "Comida Fast" y "Heladeria Fran"
- * tienen 2 reservas cada uno; Matalascañas y Playa de Regla, 1 valoración.
+ * tienen 2 reservas cada uno; MatalascaÃ±as y Playa de Regla, 1 valoraciÃ³n.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -49,7 +49,7 @@ public class DashboardTest extends AbstractTest {
 
 	@Test
 	public void playasConMasValoraciones() {
-		assertEquals(set("Matalascañas", "Playa de Regla"), nombres(playaService.findPlayaMasComentarios()));
+		assertEquals(set("MatalascaÃ±as", "Playa de Regla"), nombres(playaService.findPlayaMasComentarios()));
 		assertEquals(Integer.valueOf(1), playaService.masValoraciones());
 	}
 

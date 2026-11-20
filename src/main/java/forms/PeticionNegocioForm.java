@@ -1,8 +1,8 @@
 /* PeticionNegocioForm.java
  *
- * Lo único que escribe un empresario al pedir dar de alta su negocio. Código,
+ * Lo Ãºnico que escribe un empresario al pedir dar de alta su negocio. CÃ³digo,
  * fecha, estado y empresario los asigna PeticionNegocioService.create(); antes
- * iban como campos ocultos (incluido el estado, que podía llegar ya ACEPTADO).
+ * iban como campos ocultos (incluido el estado, que podÃ­a llegar ya ACEPTADO).
  */
 
 package forms;

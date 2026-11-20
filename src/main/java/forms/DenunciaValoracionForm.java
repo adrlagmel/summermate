@@ -1,7 +1,7 @@
 /* DenunciaValoracionForm.java
  *
- * Lo que escribe un empresario al denunciar una valoración de su negocio. El
- * cliente (denunciante) lo pone el servicio. La valoración solo se usa al crear
+ * Lo que escribe un empresario al denunciar una valoraciÃ³n de su negocio. El
+ * cliente (denunciante) lo pone el servicio. La valoraciÃ³n solo se usa al crear
  * la denuncia; al editar se ignora.
  */
 

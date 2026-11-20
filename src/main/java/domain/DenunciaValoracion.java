@@ -53,7 +53,7 @@ public class DenunciaValoracion extends DomainEntity {
 		this.comentario = comentario;
 	}
 	
-	// Se guarda como texto (no como número de orden) para que añadir o
+	// Se guarda como texto (no como nÃºmero de orden) para que aÃ±adir o
 	// reordenar valores no cambie el significado de los datos existentes.
 	@NotNull
 	@Enumerated(EnumType.STRING)

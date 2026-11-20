@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -39,7 +39,7 @@
 	<display:column property="apellidos" title="${apellidos}" sortable="true" />	
 	
 
-	<%-- El listado es público: el email solo se muestra a usuarios autenticados --%>
+	<%-- El listado es pÃºblico: el email solo se muestra a usuarios autenticados --%>
 	<security:authorize access="isAuthenticated()">
 	<spring:message code="usuario.email" var="email" />
 	<display:column property="email" title="${email}" sortable="true" />	

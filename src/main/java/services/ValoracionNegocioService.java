@@ -59,7 +59,7 @@ public class ValoracionNegocioService {
 	}
 	
 	// Copia en la entidad solo lo que escribe el usuario. save() comprueba que
-	// la reserva (y por tanto la valoración) es suya.
+	// la reserva (y por tanto la valoraciÃ³n) es suya.
 	public ValoracionNegocio reconstruct(ValoracionNegocioForm form){
 		ValoracionNegocio result;
 

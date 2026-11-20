@@ -1,14 +1,14 @@
 /* Paginacion.java
  *
  * Fase 3: los listados cargaban todas las filas y displaytag mostraba 5 en
- * memoria. Ahora se pide a la base de datos solo la p·gina que se ve.
+ * memoria. Ahora se pide a la base de datos solo la p√°gina que se ve.
  *
- * Spring rellena este objeto con los par·metros que genera displaytag al
+ * Spring rellena este objeto con los par√°metros que genera displaytag al
  * paginar u ordenar (configurados en displaytag.properties):
- *   page  n˙mero de p·gina, empezando en 1
+ *   page  n√∫mero de p√°gina, empezando en 1
  *   sort  propiedad por la que ordenar (la de la columna pulsada)
  *   dir   asc o desc
- * Basta con declararlo como par·metro del mÈtodo del controlador.
+ * Basta con declararlo como par√°metro del m√©todo del controlador.
  */
 
 package controllers;
@@ -65,7 +65,7 @@ public class Paginacion {
 		this.dir = dir;
 	}
 
-	// Solo se ordena por las propiedades permitidas: el par·metro "sort" llega
+	// Solo se ordena por las propiedades permitidas: el par√°metro "sort" llega
 	// del navegador y acaba en la consulta.
 	public Pageable playas() {
 		return pageable(PLAYAS_ORDEN, PLAYAS);

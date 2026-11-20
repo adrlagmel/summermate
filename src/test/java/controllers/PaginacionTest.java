@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 /*
- * TraducciÛn de los par·metros de displaytag (page empieza en 1, sort, dir) a
+ * Traducci√≥n de los par√°metros de displaytag (page empieza en 1, sort, dir) a
  * un Pageable de Spring Data. "sort" llega del navegador: solo se aceptan las
  * columnas ordenables de cada listado.
  */

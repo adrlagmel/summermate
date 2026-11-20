@@ -1,9 +1,9 @@
 /* ImagenService.java
  *
- * Crea im·genes a partir de lo que sube el usuario. El tipo se deduce de los
+ * Crea im√°genes a partir de lo que sube el usuario. El tipo se deduce de los
  * primeros bytes del fichero ("magic numbers"), no del nombre ni de la
  * cabecera Content-Type, que controla el navegador. Antes se aceptaba
- * cualquier fichero y se servÌa siempre como image/jpeg.
+ * cualquier fichero y se serv√≠a siempre como image/jpeg.
  */
 
 package services;
@@ -21,7 +21,7 @@ public class ImagenService {
 	public static final String	WEBP	= "image/webp";
 
 
-	// Devuelve null si no se ha subido nada (asÌ se borraba la imagen antes).
+	// Devuelve null si no se ha subido nada (as√≠ se borraba la imagen antes).
 	// Lanza IllegalArgumentException si el fichero no es JPEG, PNG o WebP.
 	public Imagen crear(byte[] datos) {
 		String tipo;

@@ -64,8 +64,8 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.username = username;
 	}
 
-	// Aquí se guarda el hash ({bcrypt}...), no la contraseña: la longitud
-	// de la contraseña en claro la validan los formularios.
+	// AquÃ­ se guarda el hash ({bcrypt}...), no la contraseÃ±a: la longitud
+	// de la contraseÃ±a en claro la validan los formularios.
 	@NotBlank
 	@Override
 	public String getPassword() {

@@ -62,7 +62,7 @@ public class PeticionNegocioEmpresarioController extends AbstractController{
 			
 		@RequestMapping(value="/enviar", method = RequestMethod.GET)
 		public ModelAndView send(){
-			// create() comprueba que el empresario puede enviar una petición
+			// create() comprueba que el empresario puede enviar una peticiÃ³n
 			peticionNegocioService.create();
 
 			return createEditModelAndView(new PeticionNegocioForm());

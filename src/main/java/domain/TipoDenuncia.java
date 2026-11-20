@@ -1,6 +1,6 @@
 /* TipoDenuncia.java
  *
- * Motivos por los que un empresario puede denunciar una valoración.
+ * Motivos por los que un empresario puede denunciar una valoraciÃ³n.
  */
 
 package domain;

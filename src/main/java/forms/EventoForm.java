@@ -1,8 +1,8 @@
 /* EventoForm.java
  *
  * Campos editables de un evento. No incluye usuarios (participantes), imagen
- * ni fechaRegistro: antes iban como campos ocultos y cualquiera podía
- * cambiarlos. El código se muestra pero no se puede modificar.
+ * ni fechaRegistro: antes iban como campos ocultos y cualquiera podÃ­a
+ * cambiarlos. El cÃ³digo se muestra pero no se puede modificar.
  */
 
 package forms;

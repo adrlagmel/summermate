@@ -22,7 +22,7 @@ import domain.ValoracionPlaya;
 @RequestMapping("/playa")
 public class PlayaController extends AbstractController {
 
-	// Radios (km) que se ofrecen en "Playas cerca de mí"
+	// Radios (km) que se ofrecen en "Playas cerca de mÃ­"
 	private static final List<Integer>	RADIOS_KM	= Arrays.asList(5, 10, 25, 50, 100, 200);
 
 

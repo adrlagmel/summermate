@@ -1,8 +1,8 @@
 /* Imagen.java
  *
- * Fase 2: las im·genes estaban en una columna byte[] de cada entidad (Negocio,
- * Playa, Evento, Usuario). JPA carga siempre los campos b·sicos, asÌ que un
- * listado de negocios traÌa todas sus fotos a memoria aunque no se mostraran.
+ * Fase 2: las im√°genes estaban en una columna byte[] de cada entidad (Negocio,
+ * Playa, Evento, Usuario). JPA carga siempre los campos b√°sicos, as√≠ que un
+ * listado de negocios tra√≠a todas sus fotos a memoria aunque no se mostraran.
  * Ahora viven en su propia tabla y las entidades las referencian con un
  * @OneToOne perezoso: los bytes solo se leen al servir la imagen.
  */

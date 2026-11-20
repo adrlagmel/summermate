@@ -18,10 +18,10 @@ import utilities.AbstractTest;
 import domain.Playa;
 
 /*
- * "Playas cerca de mí" se calcula en la base de datos. Distancias reales
- * desde La Caleta (Cádiz) a las playas de PopulateDatabase.xml: Playa de
- * Regla 25,7 km, Calas de Poniente 29,5 km, Matalascañas 55,5 km, La
- * Malagueta 170,4 km y De Nueva Almería 345,3 km.
+ * "Playas cerca de mÃ­" se calcula en la base de datos. Distancias reales
+ * desde La Caleta (CÃ¡diz) a las playas de PopulateDatabase.xml: Playa de
+ * Regla 25,7 km, Calas de Poniente 29,5 km, MatalascaÃ±as 55,5 km, La
+ * Malagueta 170,4 km y De Nueva AlmerÃ­a 345,3 km.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -51,7 +51,7 @@ public class PlayaCercanaTest extends AbstractTest {
 		assertEquals(5, playaService.nearToMe(LAT, LON, 200).size());
 	}
 
-	// Antes el umbral era 10.000.000 (en km) y devolvía todas las playas.
+	// Antes el umbral era 10.000.000 (en km) y devolvÃ­a todas las playas.
 	@Test
 	public void lasPlayasLejanasNoAparecen() {
 		assertEquals(Arrays.asList("La Malagueta"), nombres(playaService.nearToMe(36.717268, -4.410057, 25)));

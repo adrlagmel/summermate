@@ -2,7 +2,7 @@
  *
  * Campos que un empresario puede editar de su negocio. No incluye empresario,
  * negocioActivo, valoracionMedia, imagen ni colecciones: esos los gestiona el
- * servicio. (Antes, al no enviarse la imagen, cada edición la borraba.)
+ * servicio. (Antes, al no enviarse la imagen, cada ediciÃ³n la borraba.)
  */
 
 package forms;

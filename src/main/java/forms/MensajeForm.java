@@ -1,8 +1,8 @@
 /* MensajeForm.java
  *
  * Datos que el usuario escribe al enviar un mensaje. Remitente, carpeta y
- * fecha los pone el servicio; antes iban como campos ocultos y se podían
- * falsear (incluido el id, que permitía sobrescribir un mensaje existente).
+ * fecha los pone el servicio; antes iban como campos ocultos y se podÃ­an
+ * falsear (incluido el id, que permitÃ­a sobrescribir un mensaje existente).
  */
 
 package forms;

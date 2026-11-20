@@ -20,7 +20,7 @@ import domain.Negocio;
 import domain.Reserva;
 
 /*
- * Tests de caracterización de ReservaService sobre los datos de
+ * Tests de caracterizaciÃ³n de ReservaService sobre los datos de
  * PopulateDatabase.xml. empresario1 tiene "Comida Fast" con reservas el
  * 10 de agosto y el 10 de octubre de 2016 (ojo: en PopulateDatabase.xml las
  * fechas van en formato MM/dd/yyyy; el buscador usa dd/MM/yyyy).

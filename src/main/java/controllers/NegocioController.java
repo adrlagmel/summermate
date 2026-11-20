@@ -55,7 +55,7 @@ public class NegocioController extends AbstractController{
 
 			result.addObject("negocios", negocios);
 			result.addObject("actionURI","negocio/search.do");
-			// Antes apuntaba a list.do y al cambiar de p·gina se perdÌa la playa
+			// Antes apuntaba a list.do y al cambiar de p√°gina se perd√≠a la playa
 			result.addObject("requestURI", "negocio/listNegocios.do");
 
 			return result;

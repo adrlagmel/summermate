@@ -20,7 +20,7 @@ import utilities.validators.SafeHtml;
 
 import security.UserAccount;
 
-// Raíz de la jerarquía de actores: una tabla "actor" con los campos comunes y
+// RaÃ­z de la jerarquÃ­a de actores: una tabla "actor" con los campos comunes y
 // una tabla por subclase (administrador, cliente, usuario, empresario) unidas
 // por el id. Las consultas sobre Actor hacen JOIN, no UNION de tablas enteras.
 @Entity

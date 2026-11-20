@@ -235,7 +235,7 @@ public class NegocioService {
 	}
 	
 	
-	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// Una subida vacÃ­a quita la imagen; si no es JPEG, PNG o WebP,
 	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToNegocio(int negocioId, byte[] bytes) {
 		Negocio n  = findOneToEdit(negocioId);

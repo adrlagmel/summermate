@@ -98,7 +98,7 @@ public class PeticionNegocioAdministradorController extends AbstractController{
 		return result;
 	}
 
-	// El formulario solo lleva los comentarios; la petición se pasa aparte
+	// El formulario solo lleva los comentarios; la peticiÃ³n se pasa aparte
 	// ("peticion") para mostrar sus datos en modo solo lectura.
 	protected ModelAndView resolucionModelAndView(String view, PeticionNegocioResolucionForm form, String message){
 		ModelAndView result;

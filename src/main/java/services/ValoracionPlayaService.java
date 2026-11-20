@@ -101,8 +101,8 @@ public class ValoracionPlayaService {
 		return result;
 	}
 
-	// Antes no se comprobaba: cualquier usuario podía editar o borrar la
-	// valoración de otro cambiando el id.
+	// Antes no se comprobaba: cualquier usuario podÃ­a editar o borrar la
+	// valoraciÃ³n de otro cambiando el id.
 	public void checkPrincipal(ValoracionPlaya valoracionPlaya) {
 		Assert.notNull(valoracionPlaya);
 

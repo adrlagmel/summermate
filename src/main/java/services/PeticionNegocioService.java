@@ -148,7 +148,7 @@ public class PeticionNegocioService {
 		return result;
 	}
 
-	// Carga la petición y copia solo los comentarios del administrador.
+	// Carga la peticiÃ³n y copia solo los comentarios del administrador.
 	public PeticionNegocio reconstruct(PeticionNegocioResolucionForm form){
 		PeticionNegocio result = findOneToEdit(form.getId());
 

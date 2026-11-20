@@ -96,22 +96,22 @@ public class DatabaseUtil {
 		List<String> schemaScript;
 		Map<String, String> settings;
 
-		// En PostgreSQL no se puede borrar la base de datos a la que se est·
-		// conectado, asÌ que se vacÌa el esquema "public"...
+		// En PostgreSQL no se puede borrar la base de datos a la que se est√°
+		// conectado, as√≠ que se vac√≠a el esquema "public"...
 		schemaScript = new ArrayList<String>();
 		schemaScript.add("drop schema if exists public cascade");
 		schemaScript.add("create schema public");
 		executeScript(schemaScript);
 
 		// ... y se vuelve a abrir la unidad de persistencia pidiendo a JPA que
-		// cree las tablas (generaciÛn de esquema est·ndar de JPA 2.1).
+		// cree las tablas (generaci√≥n de esquema est√°ndar de JPA 2.1).
 		close();
 		settings = connectionProperties();
 		settings.put("javax.persistence.schema-generation.database.action", "create");
 		openEntityManager(settings);
 	}
 
-	// Lee la conexiÛn de propiedades del sistema o de variables de entorno,
+	// Lee la conexi√≥n de propiedades del sistema o de variables de entorno,
 	// con los mismos nombres y valores por defecto que spring/config/data.xml.
 	private static Map<String, String> connectionProperties() {
 		Map<String, String> result;

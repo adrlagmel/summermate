@@ -63,13 +63,13 @@ public class FormReconstructTest extends AbstractTest {
 	@Autowired
 	private PeticionNegocioService peticionNegocioService;
 
-	// Antes, editar un negocio borraba su imagen y permitía cambiar
-	// negocioActivo o valoracionMedia añadiendo campos a la petición.
+	// Antes, editar un negocio borraba su imagen y permitÃ­a cambiar
+	// negocioActivo o valoracionMedia aÃ±adiendo campos a la peticiÃ³n.
 	@Test
 	public void editarUnNegocioConservaLoQueNoEstaEnElFormulario() {
 		authenticate("empresario1");
 		Negocio negocio = negocio("Comida Fast");
-		// Cabecera mínima de un PNG: basta para que ImagenService lo acepte
+		// Cabecera mÃ­nima de un PNG: basta para que ImagenService lo acepte
 		byte[] imagen = { (byte) 0x89, 'P', 'N', 'G', 0x0D, 0x0A, 0x1A, 0x0A, 1, 2, 3 };
 		negocioService.addImageToNegocio(negocio.getId(), imagen);
 		negocio.setValoracionMedia(4.5);
@@ -110,11 +110,11 @@ public class FormReconstructTest extends AbstractTest {
 		Playa playa = playa("Playa de Regla");
 
 		PlayaForm form = new PlayaForm(playa);
-		form.setDescripcion("Nueva descripción");
+		form.setDescripcion("Nueva descripciÃ³n");
 		playaService.save(playaService.reconstruct(form));
 
 		Playa guardada = playaService.findOne(playa.getId());
-		assertEquals("Nueva descripción", guardada.getDescripcion());
+		assertEquals("Nueva descripciÃ³n", guardada.getDescripcion());
 		assertEquals(Double.valueOf(8.0), guardada.getValoracionMedia());
 	}
 
@@ -124,10 +124,10 @@ public class FormReconstructTest extends AbstractTest {
 		ValoracionPlaya valoracion = valoracionPlayaService.valoracionesDeUsuario().iterator().next();
 
 		ValoracionPlayaForm form = new ValoracionPlayaForm(valoracion);
-		form.setTitulo("Otro título");
+		form.setTitulo("Otro tÃ­tulo");
 		valoracionPlayaService.save(valoracionPlayaService.reconstruct(form));
 
-		assertEquals("Otro título", valoracionPlayaService.findOne(valoracion.getId()).getTitulo());
+		assertEquals("Otro tÃ­tulo", valoracionPlayaService.findOne(valoracion.getId()).getTitulo());
 	}
 
 	// Antes no se comprobaba el propietario al editar ni al borrar.
@@ -164,7 +164,7 @@ public class FormReconstructTest extends AbstractTest {
 		authenticate("empresario2");
 		DenunciaValoracionForm form = new DenunciaValoracionForm();
 		form.setValoracionNegocio(valoracion("Falta de higiene!"));
-		form.setTitulo("Título");
+		form.setTitulo("TÃ­tulo");
 		form.setComentario("Comentario");
 		form.setTipo(TipoDenuncia.BURLA);
 
@@ -176,7 +176,7 @@ public class FormReconstructTest extends AbstractTest {
 		authenticate("empresario1");
 		DenunciaValoracionForm form = new DenunciaValoracionForm();
 		form.setValoracionNegocio(valoracion("Falta de higiene!"));
-		form.setTitulo("Título");
+		form.setTitulo("TÃ­tulo");
 		form.setComentario("Comentario");
 		form.setTipo(TipoDenuncia.BURLA);
 
@@ -222,6 +222,6 @@ public class FormReconstructTest extends AbstractTest {
 			for (ValoracionNegocio v : valoracionNegocioService.valoracionesNegocioDeUnNegocio(n.getId()))
 				if (v.getTitulo().equals(titulo))
 					return v;
-		throw new AssertionError("No existe la valoración " + titulo);
+		throw new AssertionError("No existe la valoraciÃ³n " + titulo);
 	}
 }

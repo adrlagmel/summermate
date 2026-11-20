@@ -26,9 +26,9 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	@Query("select distinct s from Negocio s where s.empresario.id=?1")
 	Collection<Negocio> findByEmpresario(int empresarioId);
 	
-	// Mismo cambio que en PlayaRepository.findPlayaMasComentarios: un ˙nico
+	// Mismo cambio que en PlayaRepository.findPlayaMasComentarios: un √∫nico
 	// GROUP BY en lugar de subconsultas correlacionadas. El dashboard muestra
-	// el empresario, asÌ que se trae en la misma consulta.
+	// el empresario, as√≠ que se trae en la misma consulta.
 	@Query("select n from Negocio n join fetch n.empresario where n.id in (select r.negocio.id from Reserva r group by r.negocio.id"
 		+ " having count(r) >= all (select count(r2) from Reserva r2 group by r2.negocio.id))")
 	Collection<Negocio> negocioConMasReservas();
@@ -58,7 +58,7 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	Page<Negocio> findByPlaya(int playaId, Pageable pageable);
 
 	// SELECT ... FOR UPDATE: bloquea la fila del negocio hasta que termine la
-	// transacciÛn. Lo usa ReservaService para que dos reservas simult·neas no
+	// transacci√≥n. Lo usa ReservaService para que dos reservas simult√°neas no
 	// puedan superar juntas el aforo.
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select n from Negocio n where n.id = ?1")

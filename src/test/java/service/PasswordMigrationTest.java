@@ -23,8 +23,8 @@ import utilities.AbstractTest;
 import domain.Administrador;
 
 /*
- * Migración de contraseñas: un usuario con un hash MD5 de la versión original
- * inicia sesión y su hash se reescribe en BCrypt. El proveedor se monta igual
+ * MigraciÃ³n de contraseÃ±as: un usuario con un hash MD5 de la versiÃ³n original
+ * inicia sesiÃ³n y su hash se reescribe en BCrypt. El proveedor se monta igual
  * que en spring/config/security.xml.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -80,7 +80,7 @@ public class PasswordMigrationTest extends AbstractTest {
 			assertEquals(LEGACY_MD5, userAccountRepository.findByUsername("usuario1").getPassword());
 			return;
 		}
-		throw new AssertionError("Debería rechazar la contraseña");
+		throw new AssertionError("DeberÃ­a rechazar la contraseÃ±a");
 	}
 
 	@Test

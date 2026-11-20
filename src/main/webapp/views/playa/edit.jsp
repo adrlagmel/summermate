@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -55,10 +55,10 @@
 			
 			<form:select path="localizacion.provincia" class="form-control" code="playa.localizacion.provincia">
 				<form:option value="Almeria" label="Almeria" />		
-				<form:option value="Cádiz" label="Cádiz" />	
+				<form:option value="CÃ¡diz" label="CÃ¡diz" />	
 				<form:option value="Granada" label="Granada" />	
 				<form:option value="Huelva" label="Huelva" />	
-				<form:option value="Málaga" label="Málaga" />	
+				<form:option value="MÃ¡laga" label="MÃ¡laga" />	
 			</form:select>
 			<form:errors path="localizacion.provincia" cssClass="error" />
 		</div><br/>

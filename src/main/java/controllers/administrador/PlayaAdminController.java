@@ -208,7 +208,7 @@ public class PlayaAdminController extends AbstractController {
 			
 
 	
-	// Formularios de alta y edición: trabajan con PlayaForm, no con la entidad.
+	// Formularios de alta y ediciÃ³n: trabajan con PlayaForm, no con la entidad.
 	protected ModelAndView createEditModelAndView(PlayaForm form, String selectView){
 		return createEditModelAndView(form, selectView, null);
 	}

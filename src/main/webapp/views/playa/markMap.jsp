@@ -1,5 +1,5 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
@@ -296,7 +296,7 @@ jQuery(document).ready(function($) {
     }
 }
 
-</script>´
+</script>Â´
 
 
 

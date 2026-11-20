@@ -8,7 +8,7 @@ import org.junit.Test;
 import domain.Imagen;
 
 /*
- * Test unitario de la detección del tipo de imagen por su contenido.
+ * Test unitario de la detecciÃ³n del tipo de imagen por su contenido.
  */
 public class ImagenServiceTest {
 
@@ -35,7 +35,7 @@ public class ImagenServiceTest {
 		assertNull(service.crear(null));
 	}
 
-	// Un HTML con extensión .jpg ya no se acepta (ni se sirve como imagen).
+	// Un HTML con extensiÃ³n .jpg ya no se acepta (ni se sirve como imagen).
 	@Test(expected = IllegalArgumentException.class)
 	public void rechazaFicherosQueNoSonImagenes() {
 		service.crear("<html><script>alert(1)</script></html>".getBytes());

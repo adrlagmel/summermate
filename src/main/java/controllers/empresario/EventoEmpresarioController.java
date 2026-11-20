@@ -265,7 +265,7 @@ public class EventoEmpresarioController extends AbstractController{
 				return result;
 			}
 		
-		// Formularios de alta y edición: trabajan con EventoForm, no con la entidad.
+		// Formularios de alta y ediciÃ³n: trabajan con EventoForm, no con la entidad.
 		protected ModelAndView createEditModelAndView(EventoForm form, String selectView){
 			return createEditModelAndView(form, selectView, null);
 		}

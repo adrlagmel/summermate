@@ -23,7 +23,7 @@
 	<packaging>war</packaging>
 	
 	<properties>
-		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
 
 		<spring.version>5.3.39</spring.version>

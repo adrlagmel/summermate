@@ -1,7 +1,7 @@
 /* ValoracionPlayaForm.java
  *
  * Lo que escribe un usuario al valorar una playa. Usuario y fecha los pone el
- * servicio. La playa solo se usa al crear la valoración; al editar se ignora.
+ * servicio. La playa solo se usa al crear la valoraciÃ³n; al editar se ignora.
  */
 
 package forms;

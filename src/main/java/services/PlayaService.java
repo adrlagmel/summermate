@@ -116,7 +116,7 @@ public class PlayaService {
 		Assert.isTrue(playa.getAdministrador().getUserAccount().equals(userAccount));
 	}
 	
-	// Una subida vacÌa quita la imagen; si no es JPEG, PNG o WebP,
+	// Una subida vac√≠a quita la imagen; si no es JPEG, PNG o WebP,
 	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToFoto(int playaId, byte[] bytes) {
 		Playa p = findOne(playaId);
@@ -132,7 +132,7 @@ public class PlayaService {
 		return nearToMe(lat, lon, RADIO_POR_DEFECTO_KM);
 	}
 
-	// Playas a menos de radioKm, de la m·s cercana a la m·s lejana.
+	// Playas a menos de radioKm, de la m√°s cercana a la m√°s lejana.
 	public List<Playa> nearToMe(double lat, double lon, double radioKm) {
 		double margenLatitud, margenLongitud;
 
@@ -140,7 +140,7 @@ public class PlayaService {
 		Assert.isTrue(radioKm > 0 && radioKm <= RADIO_MAXIMO_KM);
 
 		// Un grado de latitud son unos 111 km; uno de longitud, menos cuanto
-		// m·s lejos del ecuador (se multiplica por el coseno de la latitud).
+		// m√°s lejos del ecuador (se multiplica por el coseno de la latitud).
 		margenLatitud = radioKm / 111.0;
 		margenLongitud = radioKm / (111.0 * Math.max(Math.cos(Math.toRadians(lat)), 0.01));
 

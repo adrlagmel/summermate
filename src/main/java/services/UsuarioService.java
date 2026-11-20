@@ -242,7 +242,7 @@ public class UsuarioService {
 		
 	}
 	
-	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// Una subida vacÃ­a quita la imagen; si no es JPEG, PNG o WebP,
 	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToUsuario(int usuarioId, byte[] bytes) {
 		Usuario usuario = findOneToEdit(usuarioId);

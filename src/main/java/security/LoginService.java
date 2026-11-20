@@ -48,7 +48,7 @@ public class LoginService implements UserDetailsService, UserDetailsPasswordServ
 		return result;
 	}
 
-	// Spring Security llama a este método tras un login correcto cuando el
+	// Spring Security llama a este mÃ©todo tras un login correcto cuando el
 	// hash guardado no usa el algoritmo actual (p. ej. un MD5 antiguo), para
 	// guardarlo de nuevo con BCrypt.
 	@Override

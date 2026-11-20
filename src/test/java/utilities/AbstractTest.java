@@ -26,7 +26,7 @@ public abstract class AbstractTest {
 	// Base de datos de pruebas ---------------------------
 	//
 	// Se arranca un PostgreSQL desechable en Docker una sola vez por JVM y se
-	// publica su conexión como propiedades del sistema (DB_URL, DB_USER y
+	// publica su conexiÃ³n como propiedades del sistema (DB_URL, DB_USER y
 	// DB_PASSWORD), que es lo que leen spring/config/data.xml y DatabaseUtil.
 	// El bloque static se ejecuta antes de que Spring cree el contexto.
 

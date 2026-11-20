@@ -81,8 +81,8 @@ public class ReservaService {
 		}
 		
 		// Fase 3: se bloquea el negocio antes de contar los comensales. Sin
-		// esto, dos reservas a la vez leÌan la misma ocupaciÛn y ambas pasaban
-		// la comprobaciÛn aunque juntas superasen el aforo. La segunda espera
+		// esto, dos reservas a la vez le√≠an la misma ocupaci√≥n y ambas pasaban
+		// la comprobaci√≥n aunque juntas superasen el aforo. La segunda espera
 		// a que la primera termine y ya la ve.
 		Negocio negocio = negocioService.bloquearParaReservar(reserva.getNegocio().getId());
 		Assert.isTrue(negocio.getNegocioActivo());
@@ -97,8 +97,8 @@ public class ReservaService {
 		Date startMoment = stMoment.getTime();
 		Date endMoment = enMoment.getTime();
 		
-		// Antes solo se comprobaba si ya habÌa reservas en esa franja, asÌ que
-		// la primera podÌa superar el aforo ella sola.
+		// Antes solo se comprobaba si ya hab√≠a reservas en esa franja, as√≠ que
+		// la primera pod√≠a superar el aforo ella sola.
 		Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, negocio.getId());
 		comensales = comensales + reserva.getComensales();
 		Assert.isTrue(comensales.compareTo(negocio.getAforo())<=0);
@@ -140,7 +140,7 @@ public class ReservaService {
 		Empresario empresario = empresarioService.findByPrincipal();
 		Date[] dia = diaCompleto(fecha);
 
-		// Una fecha mal escrita nunca coincidÌa con ninguna reserva.
+		// Una fecha mal escrita nunca coincid√≠a con ninguna reserva.
 		if(dia == null)
 			return new ArrayList<Reserva>();
 
@@ -150,8 +150,8 @@ public class ReservaService {
 		return result;
 	}
 
-	// [inicio del dÌa, inicio del dÌa siguiente) para una fecha dd/MM/yyyy, o
-	// null si no es una fecha v·lida.
+	// [inicio del d√≠a, inicio del d√≠a siguiente) para una fecha dd/MM/yyyy, o
+	// null si no es una fecha v√°lida.
 	private static Date[] diaCompleto(String fecha){
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar hasta = Calendar.getInstance();

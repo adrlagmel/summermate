@@ -96,7 +96,7 @@ public class DenunciaValoracionService {
 		return result;
 	}
 
-	// Antes no se comprobaba: cualquier empresario podía editar o borrar la
+	// Antes no se comprobaba: cualquier empresario podÃ­a editar o borrar la
 	// denuncia de otro cambiando el id.
 	public void checkPrincipal(DenunciaValoracion denuncia) {
 		Assert.notNull(denuncia);

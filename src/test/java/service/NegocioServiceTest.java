@@ -20,7 +20,7 @@ import utilities.AbstractTest;
 import domain.Negocio;
 
 /*
- * Tests de caracterización de NegocioService sobre los datos de
+ * Tests de caracterizaciÃ³n de NegocioService sobre los datos de
  * PopulateDatabase.xml.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +33,7 @@ public class NegocioServiceTest extends AbstractTest {
 	@Autowired
 	private NegocioService negocioService;
 
-	// En MySQL "like" no distinguía mayúsculas; en PostgreSQL sí, así que la
+	// En MySQL "like" no distinguÃ­a mayÃºsculas; en PostgreSQL sÃ­, asÃ­ que la
 	// consulta usa lower() para conservar el comportamiento.
 	@Test
 	public void buscarPorCiudadNoDistingueMayusculas() {
@@ -57,7 +57,7 @@ public class NegocioServiceTest extends AbstractTest {
 		assertTrue(negocio.getNegocioActivo());
 	}
 
-	// empresario3 tiene la petición de negocio PENDIENTE.
+	// empresario3 tiene la peticiÃ³n de negocio PENDIENTE.
 	@Test(expected = IllegalArgumentException.class)
 	public void empresarioConPeticionPendienteNoPuedeCrearNegocio() {
 		authenticate("empresario3");

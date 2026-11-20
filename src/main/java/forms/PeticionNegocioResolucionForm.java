@@ -1,7 +1,7 @@
 /* PeticionNegocioResolucionForm.java
  *
- * Lo que escribe un administrador al aceptar o rechazar una petición: solo los
- * comentarios. El resto de datos se muestran, pero no se envían.
+ * Lo que escribe un administrador al aceptar o rechazar una peticiÃ³n: solo los
+ * comentarios. El resto de datos se muestran, pero no se envÃ­an.
  */
 
 package forms;
