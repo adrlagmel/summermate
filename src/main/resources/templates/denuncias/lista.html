@@ -22,9 +22,9 @@
 				<a th:href="@{/negocios/{id}(id=${d.valoracionNegocio.reserva.negocio.id})}" th:text="${d.valoracionNegocio.reserva.negocio.nombre}">Negocio</a>
 				· «<span th:text="${d.valoracionNegocio.titulo}">valoración</span>»
 			</p>
-			<div class="d-flex gap-2">
-				<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/denuncias/{id}/editar(id=${d.id})}" th:text="#{denunciaValoracion.editar}">Editar</a>
-				<form th:replace="~{fragments/ui :: boton(@{/empresario/denuncias/{id}(id=${d.id})}, 'delete', #{denunciaValoracion.borrar}, 'btn-outline-danger', #{denunciaValoracion.borrar} + '?')}"></form>
+			<div class="d-flex gap-2" th:if="${d.cliente.userAccount.id == #authentication.principal.id}">
+				<a class="btn btn-sm btn-outline-secondary" th:href="@{/denuncias/{id}/editar(id=${d.id})}" th:text="#{denunciaValoracion.editar}">Editar</a>
+				<form th:replace="~{fragments/ui :: boton(@{/denuncias/{id}(id=${d.id})}, 'delete', #{denunciaValoracion.borrar}, 'btn-outline-danger', #{denunciaValoracion.borrar} + '?')}"></form>
 			</div>
 		</article>
 	</div>

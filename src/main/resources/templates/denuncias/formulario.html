@@ -12,7 +12,7 @@
 			<p class="fw-semibold mb-1" th:text="${form.valoracionNegocio.titulo}">Título</p>
 			<p class="mb-0" th:text="${form.valoracionNegocio.comentario}">Comentario</p>
 		</blockquote>
-		<form th:action="${form.id == 0} ? @{/empresario/valoraciones/{id}/denuncias(id=${form.valoracionNegocio.id})} : @{/empresario/denuncias/{id}(id=${form.id})}"
+		<form th:action="${form.id == 0} ? @{/denuncias(valoracion=${form.valoracionNegocio.id})} : @{/denuncias/{id}(id=${form.id})}"
 			th:object="${form}" method="post" novalidate>
 			<input th:if="${form.id != 0}" type="hidden" name="_method" value="put">
 			<input type="hidden" th:field="*{version}">
@@ -20,14 +20,14 @@
 			<div class="mb-3">
 				<label class="form-label" for="tipo" th:text="#{denunciaValoracion.tipo}">Tipo</label>
 				<select class="form-select" th:field="*{tipo}" th:classappend="${#fields.hasErrors('tipo')} ? 'is-invalid'">
-					<option th:each="t : ${tipos}" th:value="${t}" th:text="${t.name() == 'FALSEDAD'} ? #{denunciaValoracion.falso} : (${t.name() == 'BURLA'} ? #{denunciaValoracion.burla} : #{denunciaValoracion.rechazo})">Tipo</option>
+					<option th:each="t : ${tipos}" th:value="${t}" th:text="#{|denuncia.tipo.${t.name()}|}">Tipo</option>
 				</select>
 				<div class="invalid-feedback" th:errors="*{tipo}">Error</div>
 			</div>
 			<div th:replace="~{fragments/ui :: area('comentario', #{denunciaValoracion.comentario})}"></div>
 			<div class="d-flex gap-2">
 				<button type="submit" class="btn btn-primary" th:text="#{denunciaValoracion.save}">Guardar</button>
-				<a class="btn btn-outline-secondary" th:href="@{/empresario/denuncias}" th:text="#{denunciaValoracion.atras}">Atrás</a>
+				<a class="btn btn-outline-secondary" th:href="@{/denuncias}" th:text="#{denunciaValoracion.atras}">Atrás</a>
 			</div>
 		</form>
 	</div>

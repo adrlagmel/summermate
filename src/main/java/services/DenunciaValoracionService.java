@@ -12,7 +12,7 @@ import security.UserAccount;
 import security.LoginService;
 
 import domain.DenunciaValoracion;
-import domain.Empresario;
+import domain.Cliente;
 import domain.ValoracionNegocio;
 import forms.DenunciaValoracionForm;
 
@@ -26,17 +26,24 @@ public class DenunciaValoracionService {
 	
 	@Autowired
 	private EmpresarioService empresarioService;
+
+	@Autowired
+	private repositories.ClienteRepository clienteRepository;
 	
 	public DenunciaValoracionService() {
 
 		super();
 
 	}
+	// Cualquier cliente (usuario o empresario) puede denunciar una valoración
+	// de negocio, salvo la suya y solo una vez.
 	public DenunciaValoracion create(ValoracionNegocio vn){
-		Empresario empresario = empresarioService.findByPrincipal();
-		
+		Cliente cliente = clientePrincipal();
+		Assert.notNull(vn);
+		Assert.isTrue(puedeDenunciar(cliente, vn));
+
 		DenunciaValoracion dv= new DenunciaValoracion();
-		dv.setCliente(empresario);
+		dv.setCliente(cliente);
 		dv.setValoracionNegocio(vn);
 			
 		return dv;
@@ -49,9 +56,6 @@ public class DenunciaValoracionService {
 		if(form.isNew()){
 			ValoracionNegocio vn = form.getValoracionNegocio();
 
-			// Solo se pueden denunciar valoraciones de un negocio propio.
-			Assert.notNull(vn);
-			Assert.isTrue(vn.getReserva().getNegocio().getEmpresario().getUserAccount().equals(LoginService.getPrincipal()));
 			result = create(vn);
 		}else{
 			result = findOneToEdit(form.getId());
@@ -106,9 +110,29 @@ public class DenunciaValoracionService {
 	}
 
 	
-	public Collection<DenunciaValoracion> denunciasDelEmpresario(){
-		Empresario e = empresarioService.findByPrincipal();
-		int id = e.getId();
+	public Cliente clientePrincipal(){
+		Cliente cliente = clienteRepository.findByUserAccountId(LoginService.getPrincipal().getId());
+		Assert.notNull(cliente);
+		return cliente;
+	}
+
+	public boolean puedeDenunciar(Cliente cliente, ValoracionNegocio vn){
+		return vn.getReserva().getUsuario().getId() != cliente.getId()
+			&& !denunciaValoracionRepository.yaDenunciada(cliente.getId(), vn.getId());
+	}
+
+	// Moderación del administrador: descartar una denuncia sin tocar la valoración.
+	public void descartar(DenunciaValoracion dv){
+		Assert.notNull(dv);
+		denunciaValoracionRepository.delete(dv);
+	}
+
+	public java.util.List<DenunciaValoracion> findAllParaModerar(){
+		return denunciaValoracionRepository.findAllParaModerar();
+	}
+
+	public Collection<DenunciaValoracion> misDenuncias(){
+		int id = clientePrincipal().getId();
 		Collection<DenunciaValoracion> result = denunciaValoracionRepository.findDenunciasByEmpresario(id);
 		Assert.notNull(result);
 		

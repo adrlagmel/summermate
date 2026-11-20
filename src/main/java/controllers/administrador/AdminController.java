@@ -80,6 +80,12 @@ public class AdminController {
 	private AdministradorService	administradorService;
 
 	@Autowired
+	private services.DenunciaValoracionService	denunciaService;
+
+	@Autowired
+	private services.ValoracionNegocioService	valoracionNegocioService;
+
+	@Autowired
 	private SmartValidator			validator;
 
 
@@ -95,6 +101,52 @@ public class AdminController {
 		model.addAttribute("usuarios", usuarioService.usuariosTotales(paginacion.actores()));
 
 		return "admin/dashboard";
+	}
+
+	// Moderación (Fase 6) ---------------------------------------------------
+
+	@GetMapping("/negocios")
+	public String negocios(Paginacion paginacion, Model model) {
+		model.addAttribute("negocios", negocioService.findAll(paginacion.negocios()));
+
+		return "admin/negocios";
+	}
+
+	@PostMapping("/negocios/{id}/suspension")
+	public String suspenderNegocio(@PathVariable int id, RedirectAttributes redirect) {
+		negocioService.moderar(negocioService.findOneToDisplay(id), false);
+		redirect.addFlashAttribute("aviso", "fase5.guardado");
+		return "redirect:/admin/negocios";
+	}
+
+	@DeleteMapping("/negocios/{id}/suspension")
+	public String reactivarNegocio(@PathVariable int id, RedirectAttributes redirect) {
+		negocioService.moderar(negocioService.findOneToDisplay(id), true);
+		redirect.addFlashAttribute("aviso", "fase5.guardado");
+		return "redirect:/admin/negocios";
+	}
+
+	@GetMapping("/denuncias")
+	public String denuncias(Model model) {
+		model.addAttribute("denuncias", denunciaService.findAllParaModerar());
+
+		return "admin/denuncias";
+	}
+
+	// Descarta la denuncia y deja la valoración
+	@DeleteMapping("/denuncias/{id}")
+	public String descartarDenuncia(@PathVariable int id, RedirectAttributes redirect) {
+		denunciaService.descartar(denunciaService.findOne(id));
+		redirect.addFlashAttribute("aviso", "denuncia.descartada");
+		return "redirect:/admin/denuncias";
+	}
+
+	// Retira la valoración denunciada (y con ella sus denuncias)
+	@DeleteMapping("/valoraciones/negocios/{id}")
+	public String retirarValoracion(@PathVariable int id, RedirectAttributes redirect) {
+		valoracionNegocioService.retirarPorModeracion(valoracionNegocioService.findOne(id));
+		redirect.addFlashAttribute("aviso", "denuncia.valoracionRetirada");
+		return "redirect:/admin/denuncias";
 	}
 
 	// Playas ----------------------------------------------------------------

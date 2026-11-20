@@ -60,7 +60,11 @@
 				<p class="mb-1" th:text="${v.comentario}">Comentario</p>
 				<div class="d-flex justify-content-between align-items-center">
 					<small class="text-body-secondary" th:text="|${v.reserva.usuario.nombre} · ${#temporals.format(v.fecha, 'dd/MM/yyyy')}|">Ana · 01/08/2026</small>
-					<a th:if="${esMio}" class="btn btn-sm btn-outline-danger" th:href="@{/empresario/valoraciones/{id}/denuncias/nueva(id=${v.id})}" th:text="#{fase5.denunciar}">Denunciar</a>
+					<span class="d-flex gap-2">
+						<a th:if="${esMio}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/valoraciones/{id}/denuncias(id=${v.id})}" th:text="#{denuncia.verDenuncias}">Ver denuncias</a>
+						<a sec:authorize="hasAnyAuthority('USUARIO', 'EMPRESARIO')" th:if="${v.reserva.usuario.userAccount.id != #authentication.principal.id}"
+							class="btn btn-sm btn-outline-danger" th:href="@{/denuncias/nueva(valoracion=${v.id})}" th:text="#{fase5.denunciar}">Denunciar</a>
+					</span>
 				</div>
 			</article>
 		</div>

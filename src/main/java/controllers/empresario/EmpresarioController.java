@@ -31,9 +31,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.Paginacion;
 import domain.DenunciaValoracion;
+import domain.ValoracionNegocio;
 import domain.TipoDenuncia;
 import forms.DenunciaValoracionForm;
 import forms.PeticionNegocioForm;
+import utilities.Assert;
 import services.DenunciaValoracionService;
 import services.EmpresarioService;
 import services.PeticionNegocioService;
@@ -79,70 +81,16 @@ public class EmpresarioController {
 
 	// Denuncias -------------------------------------------------------------
 
-	@GetMapping("/denuncias")
-	public String denuncias(Model model) {
-		model.addAttribute("denuncias", denunciaService.denunciasDelEmpresario());
-
-		return "denuncias/lista";
-	}
-
 	@GetMapping("/valoraciones/{id}/denuncias")
 	public String denunciasDeValoracion(@PathVariable int id, Model model) {
-		model.addAttribute("valoracion", valoracionNegocioService.findOne(id));
+		ValoracionNegocio valoracion = valoracionNegocioService.findOne(id);
+		// Solo las de valoraciones de sus negocios.
+		Assert.notNull(valoracion);
+		Assert.isTrue(valoracion.getReserva().getNegocio().getEmpresario().getUserAccount().getId() == security.LoginService.getPrincipal().getId());
+		model.addAttribute("valoracion", valoracion);
 		model.addAttribute("denuncias", denunciaService.denunciasDeUnaValoracion(id));
 
 		return "denuncias/lista";
-	}
-
-	@GetMapping("/valoraciones/{id}/denuncias/nueva")
-	public String nuevaDenuncia(@PathVariable int id, Model model) {
-		return formulario(model, new DenunciaValoracionForm(denunciaService.create(valoracionNegocioService.findOne(id))));
-	}
-
-	@PostMapping("/valoraciones/{id}/denuncias")
-	public String crearDenuncia(@PathVariable int id, @ModelAttribute("form") DenunciaValoracionForm form, BindingResult binding, Model model, RedirectAttributes redirect) {
-		form.setId(0);
-		form.setValoracionNegocio(valoracionNegocioService.findOne(id));
-		return guardar(form, binding, model, redirect);
-	}
-
-	@GetMapping("/denuncias/{id}/editar")
-	public String editarDenuncia(@PathVariable int id, Model model) {
-		return formulario(model, new DenunciaValoracionForm(denunciaService.findOneToEdit(id)));
-	}
-
-	@PutMapping("/denuncias/{id}")
-	public String actualizarDenuncia(@PathVariable int id, @ModelAttribute("form") DenunciaValoracionForm form, BindingResult binding, Model model, RedirectAttributes redirect) {
-		DenunciaValoracion actual = denunciaService.findOneToEdit(id);
-
-		form.setId(id);
-		form.setValoracionNegocio(actual.getValoracionNegocio());
-		return guardar(form, binding, model, redirect);
-	}
-
-	@DeleteMapping("/denuncias/{id}")
-	public String borrarDenuncia(@PathVariable int id, RedirectAttributes redirect) {
-		denunciaService.delete(denunciaService.findOneToEdit(id));
-		redirect.addFlashAttribute("aviso", "fase5.borrado");
-
-		return "redirect:/empresario/denuncias";
-	}
-
-	private String guardar(DenunciaValoracionForm form, BindingResult binding, Model model, RedirectAttributes redirect) {
-		validator.validate(form, binding);
-		if (binding.hasErrors())
-			return formulario(model, form);
-
-		denunciaService.save(denunciaService.reconstruct(form));
-		redirect.addFlashAttribute("aviso", "fase5.guardado");
-		return "redirect:/empresario/denuncias";
-	}
-
-	private static String formulario(Model model, DenunciaValoracionForm form) {
-		model.addAttribute("form", form);
-		model.addAttribute("tipos", TipoDenuncia.values());
-
-		return "denuncias/formulario";
 	}
 
 	// Petición de negocio ---------------------------------------------------

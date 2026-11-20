@@ -247,17 +247,41 @@ class FormulariosWebTest extends AbstractWebTest {
 
 	@Test
 	void denunciarValoracion() throws Exception {
-		mvc.perform(post("/empresario/valoraciones/1/denuncias").with(como("empresario1")).with(csrf())
+		mvc.perform(post("/denuncias").param("valoracion", "1").with(como("empresario1")).with(csrf())
 			.param("titulo", "Falsa").param("comentario", "Nunca vino").param("tipo", "FALSEDAD"))
-			.andExpect(redirectedUrl("/empresario/denuncias"));
+			.andExpect(redirectedUrl("/denuncias"));
 		assertEquals(1, contar("select count(*) from denunciavaloracion where titulo = 'Falsa' and valoracionnegocio_id = 1"));
 	}
 
+	// Fase 6: cualquier cliente puede denunciar, no solo el dueño del negocio.
 	@Test
-	void noSePuedeDenunciarLaValoracionDeOtroNegocio() throws Exception {
-		// La valoración 3 es de un negocio de empresario2
-		mvc.perform(post("/empresario/valoraciones/3/denuncias").with(como("empresario1")).with(csrf())
-			.param("titulo", "Falsa").param("comentario", "x").param("tipo", "FALSEDAD"))
+	void unUsuarioDenunciaLaValoracionDeOtro() throws Exception {
+		// La valoración 1 es de usuario1; denuncia usuario2
+		mvc.perform(post("/denuncias").param("valoracion", "1").with(como("usuario2")).with(csrf())
+			.param("titulo", "Ofensiva").param("comentario", "Insulta al camarero").param("tipo", "BURLA"))
+			.andExpect(redirectedUrl("/denuncias"));
+		assertEquals(1, contar("select count(*) from denunciavaloracion d join actor a on a.id = d.cliente_id join useraccount u on u.id = a.useraccount_id where u.username = 'usuario2' and d.valoracionnegocio_id = 1"));
+	}
+
+	@Test
+	void nadieDenunciaSuPropiaValoracion() throws Exception {
+		mvc.perform(post("/denuncias").param("valoracion", "1").with(como("usuario1")).with(csrf())
+			.param("titulo", "Yo").param("comentario", "x").param("tipo", "FALSEDAD"))
+			.andExpect(status().isForbidden());
+	}
+
+	@Test
+	void unaValoracionSeDenunciaUnaSolaVez() throws Exception {
+		// empresario1 ya denunció la valoración 2 en los datos de ejemplo
+		mvc.perform(post("/denuncias").param("valoracion", "2").with(como("empresario1")).with(csrf())
+			.param("titulo", "Otra vez").param("comentario", "x").param("tipo", "FALSEDAD"))
+			.andExpect(status().isForbidden());
+	}
+
+	@Test
+	void elAdministradorNoDenuncia() throws Exception {
+		mvc.perform(post("/denuncias").param("valoracion", "1").with(como("admin")).with(csrf())
+			.param("titulo", "x").param("comentario", "x").param("tipo", "FALSEDAD"))
 			.andExpect(status().isForbidden());
 	}
 

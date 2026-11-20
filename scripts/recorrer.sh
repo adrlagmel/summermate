@@ -63,11 +63,11 @@ pedir usuario1 /empresario/negocios 403
 entrar empresario1
 echo "Empresario (empresario1)"
 for r in / /empresario/negocios /empresario/negocios/nuevo /empresario/eventos /empresario/eventos/nuevo /empresario/reservas \
-	"/empresario/reservas?fecha=2016-08-10" /empresario/denuncias /empresario/peticion /perfil /perfil/editar /carpetas /negocios; do
+	"/empresario/reservas?fecha=2016-08-10" /denuncias /empresario/peticion /perfil /perfil/editar /carpetas /negocios; do
 	pedir empresario1 "$r"
 done
 for r in /empresario/negocios/1/editar /empresario/negocios/1/imagen /empresario/eventos/1/participantes \
-	/empresario/valoraciones/1/denuncias/nueva /empresario/valoraciones/1/denuncias /empresario/denuncias/1/editar; do
+	"/denuncias/nueva?valoracion=1" /empresario/valoraciones/2/denuncias /denuncias/1/editar; do
 	pedir empresario1 "$r"
 done
 # Los eventos de ejemplo ya se celebraron: no se pueden editar (regla de EventoService)

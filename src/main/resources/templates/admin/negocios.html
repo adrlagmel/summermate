@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- admin/negocios.html: moderación de negocios (Fase 6). El administrador ve todos, también los suspendidos. -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{moderacion.negocios}">Moderar negocios</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-3" th:text="#{moderacion.negocios}">Moderar negocios</h1>
+	<p th:if="${negocios.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay negocios.</p>
+	<div class="table-responsive" th:unless="${negocios.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{negocio.nombre})}">Nombre</th>
+					<th scope="col" th:text="#{peticionNegocio.empresario}">Empresario</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('playa.nombre', #{negocio.playa})}">Playa</th>
+					<th scope="col" class="text-end" th:insert="~{fragments/ui :: orden('valoracionMedia', #{negocio.valoracionMedia})}">Valoración</th>
+					<th scope="col"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${negocios}">
+					<td>
+						<a th:href="@{/negocios/{id}(id=${row.id})}" th:text="${row.nombre}">Negocio</a>
+						<span th:unless="${row.negocioActivo}" class="badge text-bg-secondary estado ms-1" th:text="#{fase5.negocio.suspendido}">Suspendido</span>
+					</td>
+					<td th:text="|${row.empresario.nombre} ${row.empresario.apellidos}|">Empresario</td>
+					<td th:text="${row.playa?.nombre}">Playa</td>
+					<td class="text-end puntuacion" th:text="${row.valoracionMedia} ? ${#numbers.formatDecimal(row.valoracionMedia, 1, 1)} : '—'">8,0</td>
+					<td class="text-end text-nowrap">
+						<th:block th:if="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/admin/negocios/{id}/suspension(id=${row.id})}, 'post', #{negocio.baja}, 'btn-outline-danger', #{negocio.confirmBaja})}"></form></th:block>
+						<th:block th:unless="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/admin/negocios/{id}/suspension(id=${row.id})}, 'delete', #{negocio.alta}, 'btn-outline-success', #{negocio.confirmaAlta})}"></form></th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${negocios})}"></nav>
+</div>
+</body>
+</html>

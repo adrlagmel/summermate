@@ -38,6 +38,9 @@ public class ValoracionNegocioService {
 	
 	@Autowired
 	private NegocioRepository negocioRepository;
+
+	@Autowired
+	private AdministradorService administradorService;
 	
 	public ValoracionNegocioService() {
 
@@ -89,6 +92,17 @@ public class ValoracionNegocioService {
 	// valoración todavía dentro y quedaba desfasada.
 	public void delete(ValoracionNegocio vNegocio){
 		checkPrincipal(vNegocio);
+		borrar(vNegocio);
+	}
+
+	// Moderación: el administrador retira una valoración denunciada.
+	public void retirarPorModeracion(ValoracionNegocio vNegocio){
+		Assert.notNull(vNegocio);
+		administradorService.checkPrincipal();
+		borrar(vNegocio);
+	}
+
+	private void borrar(ValoracionNegocio vNegocio){
 
 		Negocio negocio = vNegocio.getReserva().getNegocio();
 

@@ -6,6 +6,7 @@ package web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -89,5 +90,41 @@ class FuncionesMemoriaWebTest extends AbstractWebTest {
 		mvc.perform(post("/empresario/peticion").with(como("empresario1")).with(csrf()).param("_method", "delete"))
 			.andExpect(status().isForbidden());
 		assertEquals(1, contar("select count(*) from peticionnegocio where id = 1"));
+	}
+
+	// Moderación del administrador ------------------------------------------------
+
+	@Test
+	void elAdministradorVeLasDenuncias() throws Exception {
+		mvc.perform(get("/admin/denuncias").with(como("admin"))).andExpect(status().isOk());
+		mvc.perform(get("/admin/negocios").with(como("admin"))).andExpect(status().isOk());
+		mvc.perform(get("/admin/denuncias").with(como("empresario1"))).andExpect(status().isForbidden());
+	}
+
+	@Test
+	void descartarUnaDenunciaDejaLaValoracion() throws Exception {
+		mvc.perform(post("/admin/denuncias/1").with(como("admin")).with(csrf()).param("_method", "delete"))
+			.andExpect(redirectedUrl("/admin/denuncias"));
+		assertEquals(0, contar("select count(*) from denunciavaloracion where id = 1"));
+		assertEquals(1, contar("select count(*) from valoracionnegocio where id = 2"));
+	}
+
+	@Test
+	void retirarLaValoracionDenunciadaRecalculaLaMedia() throws Exception {
+		// Comida Fast: valoraciones 1 (7) y 2 (3, denunciada)
+		mvc.perform(post("/admin/valoraciones/negocios/2").with(como("admin")).with(csrf()).param("_method", "delete"))
+			.andExpect(redirectedUrl("/admin/denuncias"));
+		assertEquals(0, contar("select count(*) from valoracionnegocio where id = 2"));
+		assertEquals(0, contar("select count(*) from denunciavaloracion where valoracionnegocio_id = 2"));
+		assertEquals(7, contar("select round(valoracionmedia)::int from negocio where id = 1"));
+	}
+
+	@Test
+	void elAdministradorSuspendeYReactivaCualquierNegocio() throws Exception {
+		mvc.perform(post("/admin/negocios/2/suspension").with(como("admin")).with(csrf()))
+			.andExpect(redirectedUrl("/admin/negocios"));
+		assertEquals(0, contar("select count(*) from negocio where id = 2 and negocioactivo"));
+		mvc.perform(post("/admin/negocios/2/suspension").with(como("admin")).with(csrf()).param("_method", "delete"));
+		assertEquals(1, contar("select count(*) from negocio where id = 2 and negocioactivo"));
 	}
 }

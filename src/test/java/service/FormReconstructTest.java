@@ -160,7 +160,7 @@ public class FormReconstructTest extends AbstractTest {
 	public void unEmpresarioNoPuedeEditarLaDenunciaDeOtro() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			authenticate("empresario1");
-			int id = denunciaValoracionService.denunciasDelEmpresario().iterator().next().getId();
+			int id = denunciaValoracionService.misDenuncias().iterator().next().getId();
 			authenticate("empresario2");
 
 			denunciaValoracionService.findOneToEdit(id);
@@ -168,11 +168,12 @@ public class FormReconstructTest extends AbstractTest {
 		});
 	}
 
-	// valoracionNegocio2 es de "Comida Fast", que no es de empresario2.
+	// Fase 6: denuncia cualquier cliente, pero una sola vez por valoración.
+	// empresario1 ya denunció "Falta de higiene!" en los datos de ejemplo.
 	@Test
-	public void soloSePuedenDenunciarValoracionesDeUnNegocioPropio() {
+	public void unaValoracionNoSeDenunciaDosVeces() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			authenticate("empresario2");
+			authenticate("empresario1");
 			DenunciaValoracionForm form = new DenunciaValoracionForm();
 			form.setValoracionNegocio(valoracion("Falta de higiene!"));
 			form.setTitulo("Título");
@@ -185,8 +186,8 @@ public class FormReconstructTest extends AbstractTest {
 	}
 
 	@Test
-	public void unEmpresarioDenunciaUnaValoracionDeSuNegocio() {
-		authenticate("empresario1");
+	public void unEmpresarioDenunciaUnaValoracionDeOtroNegocio() {
+		authenticate("empresario2");
 		DenunciaValoracionForm form = new DenunciaValoracionForm();
 		form.setValoracionNegocio(valoracion("Falta de higiene!"));
 		form.setTitulo("Título");
@@ -196,7 +197,7 @@ public class FormReconstructTest extends AbstractTest {
 		DenunciaValoracion denuncia = denunciaValoracionService.reconstruct(form);
 		denunciaValoracionService.save(denuncia);
 
-		assertEquals("empresario1", denuncia.getCliente().getUserAccount().getUsername());
+		assertEquals("empresario2", denuncia.getCliente().getUserAccount().getUsername());
 	}
 
 	// El administrador solo puede escribir comentarios al resolver.

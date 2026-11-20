@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- admin/denuncias.html: denuncias de valoraciones pendientes de revisar (Fase 6) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{moderacion.denuncias}">Denuncias</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-1" th:text="#{moderacion.denuncias}">Denuncias</h1>
+	<p class="text-body-secondary" th:text="#{moderacion.denuncias.ayuda}">Descarta la denuncia si la valoración es correcta, o retira la valoración.</p>
+
+	<p th:if="${#lists.isEmpty(denuncias)}" class="text-body-secondary mt-3" th:text="#{fase5.vacio}">No hay denuncias.</p>
+	<div class="list-group mt-3" th:unless="${#lists.isEmpty(denuncias)}">
+		<article class="list-group-item" th:each="d : ${denuncias}" th:with="v=${d.valoracionNegocio}">
+			<div class="d-flex flex-wrap justify-content-between gap-2">
+				<strong th:text="${d.titulo}">Título</strong>
+				<span class="badge text-bg-warning estado" th:text="${d.tipo}">FALSEDAD</span>
+			</div>
+			<p class="mb-1" th:text="${d.comentario}">Motivo</p>
+			<p class="small text-body-secondary mb-2" th:text="|#{moderacion.denunciadaPor} ${d.cliente.nombre} ${d.cliente.apellidos}|">Denunciada por</p>
+			<blockquote class="border-start ps-3 mb-2">
+				<p class="mb-1"><strong th:text="${v.titulo}">Valoración</strong> <span class="badge text-bg-primary puntuacion" th:text="|${v.puntuacion}/10|">3/10</span></p>
+				<p class="mb-1" th:text="${v.comentario}">Comentario</p>
+				<footer class="small text-body-secondary">
+					<span th:text="${v.reserva.usuario.nombre}">Ana</span> ·
+					<a th:href="@{/negocios/{id}(id=${v.reserva.negocio.id})}" th:text="${v.reserva.negocio.nombre}">Negocio</a>
+				</footer>
+			</blockquote>
+			<div class="d-flex flex-wrap gap-2">
+				<form th:replace="~{fragments/ui :: boton(@{/admin/denuncias/{id}(id=${d.id})}, 'delete', #{moderacion.descartar}, 'btn-outline-secondary', null)}"></form>
+				<form th:replace="~{fragments/ui :: boton(@{/admin/valoraciones/negocios/{id}(id=${v.id})}, 'delete', #{moderacion.retirar}, 'btn-outline-danger', #{moderacion.retirar.confirmar})}"></form>
+			</div>
+		</article>
+	</div>
+</div>
+</body>
+</html>

@@ -60,7 +60,6 @@
 						<li><a class="dropdown-item" th:href="@{/empresario/eventos/nuevo}" th:text="#{master.page.eventos.register}">Registrar evento</a></li>
 						<li><a class="dropdown-item" th:href="@{/empresario/reservas}" th:text="#{master.page.reservas}">Reservas</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" th:href="@{/empresario/denuncias}" th:text="#{master.page.denuncia.listAll}">Mis denuncias</a></li>
 						<li><a class="dropdown-item" th:href="@{/empresario/peticion}" th:text="#{master.page.peticionnegocio.empresario.list}">Petición de negocio</a></li>
 					</ul>
 				</li>
@@ -72,6 +71,8 @@
 						<li><a class="dropdown-item" th:href="@{/admin/dashboard}" th:text="#{master.page.dashboard}">Panel de control</a></li>
 						<li><a class="dropdown-item" th:href="@{/admin/playas/nueva}" th:text="#{master.page.playa.create}">Crear playa</a></li>
 						<li><a class="dropdown-item" th:href="@{/admin/peticiones}" th:text="#{master.page.peticionnegocio.listAll}">Peticiones</a></li>
+						<li><a class="dropdown-item" th:href="@{/admin/negocios}" th:text="#{moderacion.negocios}">Moderar negocios</a></li>
+						<li><a class="dropdown-item" th:href="@{/admin/denuncias}" th:text="#{moderacion.denuncias}">Denuncias</a></li>
 						<li><a class="dropdown-item" th:href="@{/admin/administradores/nuevo}" th:text="#{master.page.register.admin}">Nuevo administrador</a></li>
 					</ul>
 				</li>
@@ -111,6 +112,7 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end">
 						<li sec:authorize="hasAnyAuthority('USUARIO','EMPRESARIO')"><a class="dropdown-item" th:href="@{/perfil}" th:text="#{master.page.profile.usuario}">Mi perfil</a></li>
+						<li sec:authorize="hasAnyAuthority('USUARIO','EMPRESARIO')"><a class="dropdown-item" th:href="@{/denuncias}" th:text="#{master.page.denuncia.listAll}">Mis denuncias</a></li>
 						<li><a class="dropdown-item" th:href="@{/perfil/contrasena}" th:text="#{master.page.profile.editPassword}">Cambiar contraseña</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li>

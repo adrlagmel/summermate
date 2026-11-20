@@ -137,6 +137,15 @@ public class NegocioService {
 		negocioRepository.delete(negocio);
 	}
 
+	// Moderación: el administrador suspende o reactiva cualquier negocio.
+	public void moderar(Negocio negocio, boolean activo){
+		Assert.notNull(negocio);
+		administradorService.checkPrincipal();
+
+		negocio.setNegocioActivo(activo);
+		negocioRepository.save(negocio);
+	}
+
 	public void suspenderNegocio(Negocio negocio){
 		checkPrincipal(negocio);
 		Assert.notNull(negocio);
