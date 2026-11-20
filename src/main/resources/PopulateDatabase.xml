@@ -811,7 +811,7 @@
 	
 	<!-- CARPETA -->
 	<bean id="carpeta1" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="administrador1"/>
                 <property name="mensajes">
                 <list>
@@ -829,7 +829,7 @@
         </bean>
         
         <bean id="carpeta3" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario1"/>
                 <property name="mensajes">
                 <list>
@@ -847,7 +847,7 @@
         </bean>
         
         <bean id="carpeta5" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario1"/>
                 <property name="mensajes">
                 <list>
@@ -865,7 +865,7 @@
         </bean>
         
         <bean id="carpeta7" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario2"/>
                 <property name="mensajes">
                 <list>
@@ -883,7 +883,7 @@
         </bean>
         
         <bean id="carpeta9" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario2"/>
                 <property name="mensajes">
                 <list>
@@ -901,7 +901,7 @@
         </bean>
         
         <bean id="carpeta11" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario3"/>
                 <property name="mensajes">
                 <list>
@@ -919,7 +919,7 @@
         </bean>
         
         <bean id="carpeta13" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario3"/>
                 <property name="mensajes">
                 <list>
@@ -937,7 +937,7 @@
         </bean>
         
         <bean id="carpeta15" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="administrador2"/>
                 <property name="mensajes">
                 <list>
@@ -955,7 +955,7 @@
         </bean>
         
         <bean id="carpeta17" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario4"/>
                 <property name="mensajes">
                 <list>
@@ -973,7 +973,7 @@
         </bean>
         
         <bean id="carpeta19" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario5"/>
                 <property name="mensajes">
                 <list>
@@ -991,7 +991,7 @@
         </bean>
         
         <bean id="carpeta21" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario6"/>
                 <property name="mensajes">
                 <list>
@@ -1009,7 +1009,7 @@
         </bean>
         
         <bean id="carpeta23" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario4"/>
                 <property name="mensajes">
                 <list>
@@ -1027,7 +1027,7 @@
         </bean>
         
         <bean id="carpeta25" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario5"/>
                 <property name="mensajes">
                 <list>
@@ -1045,7 +1045,7 @@
         </bean>
         
         <bean id="carpeta27" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario6"/>
                 <property name="mensajes">
                 <list>
@@ -1063,7 +1063,7 @@
         </bean>
         
         <bean id="carpeta29" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario7"/>
                 <property name="mensajes">
                 <list>
@@ -1081,7 +1081,7 @@
         </bean>
         
         <bean id="carpeta31" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="usuario8"/>
                 <property name="mensajes">
                 <list>
@@ -1099,7 +1099,7 @@
         </bean>
         
         <bean id="carpeta33" class="domain.Carpeta">
-                <property name="nombre" value="entrada"/>
+                <property name="nombre" value="Entrada"/>
                 <property name="actor" ref="empresario7"/>
                 <property name="mensajes">
                 <list>

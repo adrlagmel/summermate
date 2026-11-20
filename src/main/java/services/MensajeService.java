@@ -14,6 +14,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Carpeta;
 import domain.Mensaje;
+import forms.MensajeForm;
 
 @Service
 @Transactional
@@ -57,6 +58,17 @@ public class MensajeService {
 
 	}
 	
+	// Un formulario siempre crea un mensaje nuevo del usuario autenticado.
+	public Mensaje reconstruct(MensajeForm form){
+		Mensaje result = create();
+
+		result.setBeneficiario(form.getBeneficiario());
+		result.setAsunto(form.getAsunto());
+		result.setCuerpo(form.getCuerpo());
+
+		return result;
+	}
+
 	public void save(Mensaje mensaje){
 
 		checkPrincipal(mensaje);

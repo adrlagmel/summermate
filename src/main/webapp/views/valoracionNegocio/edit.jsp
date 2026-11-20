@@ -12,8 +12,6 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="reserva"/>
-	<form:hidden path="fecha"/>
-	<form:hidden path="comentarioUtil"/>
 	<br/>
 	<acme:textbox code="valoracionNegocio.titulo" path="titulo" />	<br/>
 		

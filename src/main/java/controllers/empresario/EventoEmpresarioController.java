@@ -27,6 +27,7 @@ import domain.Evento;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Usuario;
+import forms.EventoForm;
 
 @Controller
 @RequestMapping("/evento/empresario")
@@ -165,7 +166,7 @@ public class EventoEmpresarioController extends AbstractController{
 					ModelAndView result;
 					
 					Evento evento = eventoService.create();		
-					result 		  = createEditModelAndView(evento, "register");
+					result 		  = createEditModelAndView(new EventoForm(evento), "register");
 				
 				return result;		
 				}
@@ -180,32 +181,32 @@ public class EventoEmpresarioController extends AbstractController{
 				
 				Assert.isTrue(evento.getNegocio().getNegocioActivo());
 				
-				result 		  = createEditModelAndView(evento, "edit");
+				result 		  = createEditModelAndView(new EventoForm(evento), "edit");
 				
 				return result;			
 			}
 	
 				
 			@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
-			public ModelAndView save(@ModelAttribute("evento") @Valid Evento evento, BindingResult binding){
+			public ModelAndView save(@ModelAttribute("evento") @Valid EventoForm form, BindingResult binding){
 				
 			ModelAndView result;
 				if(binding.hasErrors()){
-					result = createEditModelAndView(evento, "edit");
+					result = createEditModelAndView(form, "edit");
 					
 				}else{
 					try{
-						if(evento.getFechaCelebracion().after(new Date())){
-										
+						if(form.getFechaCelebracion().after(new Date())){
+							Evento evento = eventoService.reconstruct(form);
 							Assert.isTrue(evento.getNegocio().getNegocioActivo());
 							
 							eventoService.save(evento);
 							result = new ModelAndView("redirect:list.do");
 						}else
-							result = createEditModelAndView(evento, "edit", "evento.dates.error");
+							result = createEditModelAndView(form, "edit", "evento.dates.error");
 												
 					}catch(Throwable oops){
-						result = createEditModelAndView(evento, "edit", "evento.commit.error");
+						result = createEditModelAndView(form, "edit", "evento.commit.error");
 					}		
 				}
 			return result;
@@ -261,6 +262,24 @@ public class EventoEmpresarioController extends AbstractController{
 				return result;
 			}
 		
+		// Formularios de alta y edición: trabajan con EventoForm, no con la entidad.
+		protected ModelAndView createEditModelAndView(EventoForm form, String selectView){
+			return createEditModelAndView(form, selectView, null);
+		}
+
+		protected ModelAndView createEditModelAndView(EventoForm form, String selectView, String message){
+			ModelAndView result;
+			boolean hasimage = !form.isNew() && eventoService.findOneToDisplay(form.getId()).getImagen() != null;
+
+			result = new ModelAndView("evento/"+selectView);
+			result.addObject("evento", form);
+			result.addObject("message", message);
+			result.addObject("hasimage", hasimage);
+			result.addObject("negocios", negocioService.findNegociosActivos(empresarioService.findByPrincipal().getId()));
+
+			return result;
+		}
+
 		protected ModelAndView createEditModelAndView(Evento evento, String selectView){
 			ModelAndView result;
 				

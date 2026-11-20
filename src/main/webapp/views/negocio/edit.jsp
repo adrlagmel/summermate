@@ -22,11 +22,6 @@
 
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="eventos"/>
-	<form:hidden path="reservas"/>
-	<form:hidden path="empresario"/>
-	<form:hidden path="calendarioNegocios"/>
-	<form:hidden path="negocioActivo"/>
 	
 	<acme:textbox code="negocio.nombre" path="nombre" /><br/>
 	<acme:textbox code="negocio.tipo" path="tipo" /><br/>
@@ -47,11 +42,11 @@
 	</div><br/>
 	
 		<div style="width:50%; margin: auto;" >
-	<jstl:if test="${negocio.imagen!=null}">
+	<jstl:if test="${hasimage}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImageNegocio.do?negocioId=${negocio.id}" height="350" width="590" />
 	</jstl:if>
-	<jstl:if test="${negocio.imagen==null}">
+	<jstl:if test="${!hasimage}">
 		<b><spring:message code="negocio.imagen" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>

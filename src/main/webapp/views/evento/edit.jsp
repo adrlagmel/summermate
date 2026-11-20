@@ -33,9 +33,6 @@
        
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="usuarios"/>
-	<form:hidden path="fechaRegistro"/>
-	<form:hidden path="imagen"/>
 	
 	<acme:textbox code="evento.codigo" path="codigo" readonly = "true" /><br/>
 	<acme:textbox code="evento.nombre" path="nombre" />	<br/>

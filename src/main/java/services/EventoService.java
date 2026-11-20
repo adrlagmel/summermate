@@ -18,6 +18,7 @@ import utilities.validators.RandomString;
 import domain.Evento;
 import domain.Empresario;
 import domain.Usuario;
+import forms.EventoForm;
 
 @Service
 @Transactional
@@ -62,6 +63,26 @@ public class EventoService {
 		return result;
 	}
 	
+	// Copia en la entidad solo los campos editables del formulario.
+	public Evento reconstruct(EventoForm form){
+		Evento result;
+
+		if(form.isNew()){
+			result = create();
+		}else{
+			result = findOneToEdit(form.getId());
+			form.checkVersion(result);
+		}
+
+		result.setNombre(form.getNombre());
+		result.setDescripcion(form.getDescripcion());
+		result.setFechaCelebracion(form.getFechaCelebracion());
+		result.setPrecio(form.getPrecio());
+		result.setNegocio(form.getNegocio());
+
+		return result;
+	}
+
 	public void save(Evento evento){
 		checkPrincipal(evento);
 		

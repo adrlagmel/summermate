@@ -23,6 +23,7 @@ import services.ValoracionNegocioService;
 import controllers.AbstractController;
 import domain.Reserva;
 import domain.ValoracionNegocio;
+import forms.ValoracionNegocioForm;
 
 @Controller
 @RequestMapping("/valoracionNegocio/usuario")
@@ -74,7 +75,7 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		Reserva r = reservaService.findOneToEdit(reservaId);
 		ValoracionNegocio vn = valoracionNegocioService.create(r);
 		
-		result = createModelAndView(vn);
+		result = createModelAndView(new ValoracionNegocioForm(vn));
 		result.addObject("reserva", r);
 
 		return result;
@@ -86,21 +87,21 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		ValoracionNegocio vNegocio = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
 		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
 		
-		result = createModelAndView(vNegocio);
+		result = createModelAndView(new ValoracionNegocioForm(vNegocio));
 		result.addObject("requestURI", "valoracionNegocio/usuario/edit.do?valoracionNegocioId="+vNegocio.getId());
 		return result;
 	}
 
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid @ModelAttribute ValoracionNegocio vn, BindingResult bindingResult) {
+	public ModelAndView save(@Valid @ModelAttribute("valoracionNegocio") ValoracionNegocioForm vn, BindingResult bindingResult) {
 		ModelAndView result;
 
 		if (bindingResult.hasErrors()) {
 			result = createModelAndView(vn);
 		} else {
 			try {
-				valoracionNegocioService.save(vn);
+				valoracionNegocioService.save(valoracionNegocioService.reconstruct(vn));
 				result = new ModelAndView("redirect:../../valoracionNegocio/usuario/list.do");
 			} catch (Throwable oops) {
 				result = createModelAndView(vn, "valoracionNegocio.commit.error");
@@ -123,7 +124,7 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		
 	}
 	
-	protected ModelAndView createModelAndView(ValoracionNegocio vn) {
+	protected ModelAndView createModelAndView(ValoracionNegocioForm vn) {
 		ModelAndView result;
 
 		result = createModelAndView(vn, null);
@@ -131,7 +132,7 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(ValoracionNegocio vn, String message) {
+	protected ModelAndView createModelAndView(ValoracionNegocioForm vn, String message) {
 		ModelAndView result;
 		
 		result = new ModelAndView("valoracionNegocio/edit");

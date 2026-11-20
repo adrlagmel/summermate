@@ -21,6 +21,7 @@ import services.ValoracionNegocioService;
 import controllers.AbstractController;
 import domain.DenunciaValoracion;
 import domain.ValoracionNegocio;
+import forms.DenunciaValoracionForm;
 
 
 @Controller
@@ -82,7 +83,7 @@ public class DenunciaEmpresarioController extends AbstractController {
 		vn = valoracionNegocioService.findOneToEdit(valoracionNegocioId);
 		dv = denunciaValoracionService.create(vn);
 		
-		result = createModelAndView(dv);
+		result = createModelAndView(new DenunciaValoracionForm(dv));
 		result.addObject("reserva", vn);
 		
 
@@ -96,21 +97,21 @@ public class DenunciaEmpresarioController extends AbstractController {
 		//vNegocio.setFecha(new Date (System.currentTimeMillis()-1000));
 		
 		Assert.notNull(dv);
-		result = createModelAndView(dv);
+		result = createModelAndView(new DenunciaValoracionForm(dv));
 		result.addObject("requestURI", "denunciaValoracion/empresario/edit.do?denunciaValoracionId="+dv.getId());
 		return result;
 	}
 
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid @ModelAttribute DenunciaValoracion dv, BindingResult bindingResult) {
+	public ModelAndView save(@Valid @ModelAttribute("denunciaValoracion") DenunciaValoracionForm dv, BindingResult bindingResult) {
 		ModelAndView result;
 
 		if (bindingResult.hasErrors()) {
 			result = createModelAndView(dv);
 		} else {
 			try {
-				denunciaValoracionService.save(dv);
+				denunciaValoracionService.save(denunciaValoracionService.reconstruct(dv));
 				result = new ModelAndView("redirect:../../denunciaValoracion/empresario/list.do");
 			} catch (Throwable oops) {
 				result = createModelAndView(dv, "denunciaValoracion.commit.error");
@@ -134,7 +135,7 @@ public class DenunciaEmpresarioController extends AbstractController {
 		
 	}
 	
-	protected ModelAndView createModelAndView(DenunciaValoracion dv) {
+	protected ModelAndView createModelAndView(DenunciaValoracionForm dv) {
 		ModelAndView result;
 
 		result = createModelAndView(dv, null);
@@ -142,7 +143,7 @@ public class DenunciaEmpresarioController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(DenunciaValoracion dv, String message) {
+	protected ModelAndView createModelAndView(DenunciaValoracionForm dv, String message) {
 		ModelAndView result;
 		
 		ArrayList<String> tiposDenuncia = new ArrayList<String>();

@@ -39,8 +39,11 @@
 	<display:column property="apellidos" title="${apellidos}" sortable="true" />	
 	
 
+	<%-- El listado es público: el email solo se muestra a usuarios autenticados --%>
+	<security:authorize access="isAuthenticated()">
 	<spring:message code="usuario.email" var="email" />
 	<display:column property="email" title="${email}" sortable="true" />	
+	</security:authorize>
 </display:table>
 </div>
 

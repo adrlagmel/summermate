@@ -22,6 +22,7 @@ import controllers.AbstractController;
 import domain.Actor;
 import domain.Carpeta;
 import domain.Mensaje;
+import forms.MensajeForm;
 
 import services.ActorService;
 import services.CarpetaService;
@@ -83,23 +84,19 @@ public class MensajeActorController extends AbstractController{
 			
 			ModelAndView result;
 			
-			Mensaje mensaje;
-			
-			mensaje = mensajeService.create();
-			
-			result= createNewModelAndView(mensaje);
+			result= createNewModelAndView(new MensajeForm());
 			
 			return result;
 			
 		}
 		@RequestMapping(value = "/enviar", method = RequestMethod.POST, params = "save")
-		public ModelAndView send(@ModelAttribute("m") @Valid Mensaje m, BindingResult binding) {
+		public ModelAndView send(@ModelAttribute("m") @Valid MensajeForm m, BindingResult binding) {
 			ModelAndView result;
 			if (binding.hasErrors()) {
 				result = createNewModelAndView(m);
 			} else {
 				try {				
-					mensajeService.save(m);
+					mensajeService.save(mensajeService.reconstruct(m));
 					result = new ModelAndView("redirect:../../carpeta/actor/lista.do");
 				} catch (Throwable oops) {
 
@@ -132,9 +129,9 @@ public class MensajeActorController extends AbstractController{
 			
 			ModelAndView result;
 			
-			Mensaje mensaje,aux;
+			Mensaje aux;
+			MensajeForm mensaje = new MensajeForm();
 			aux 	= mensajeService.findOne(mensajeId);
-			mensaje = mensajeService.create();
 			Assert.notNull(aux);
 			
 			mensaje.setBeneficiario(aux.getRemitente());
@@ -151,13 +148,13 @@ public class MensajeActorController extends AbstractController{
 		}
 		
 		
-		protected ModelAndView createNewModelAndView(Mensaje m) {
+		protected ModelAndView createNewModelAndView(MensajeForm m) {
 			ModelAndView result;
 			result = createNewModelAndView(m, null);
 			return result;
 		}
 
-		protected ModelAndView createNewModelAndView(Mensaje m,	String mensaje) {
+		protected ModelAndView createNewModelAndView(MensajeForm m,	String mensaje) {
 			ModelAndView result;
 			
 			result = new ModelAndView("mensaje/actor/enviar");
@@ -170,13 +167,13 @@ public class MensajeActorController extends AbstractController{
 			return result;
 		}
 		
-		protected ModelAndView createReplyModelAndView(Mensaje m) {
+		protected ModelAndView createReplyModelAndView(MensajeForm m) {
 			ModelAndView result;
 			result = createReplyModelAndView(m, null);
 			return result;
 		}
 
-		protected ModelAndView createReplyModelAndView(Mensaje m, String mensaje) {
+		protected ModelAndView createReplyModelAndView(MensajeForm m, String mensaje) {
 			ModelAndView result;
 			result = new ModelAndView("mensaje/actor/responder");
 			

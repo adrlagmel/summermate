@@ -22,6 +22,7 @@ import domain.Evento;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Reserva;
+import forms.NegocioForm;
 
 @Service
 @Transactional
@@ -69,6 +70,28 @@ public class NegocioService {
 		return result;
 	}
 	
+	// Copia en la entidad solo los campos editables del formulario.
+	public Negocio reconstruct(NegocioForm form){
+		Negocio result;
+
+		if(form.isNew()){
+			result = create();
+		}else{
+			result = findOneToEdit(form.getId());
+			form.checkVersion(result);
+		}
+
+		result.setNombre(form.getNombre());
+		result.setTipo(form.getTipo());
+		result.setDescripcion(form.getDescripcion());
+		result.setTelefono(form.getTelefono());
+		result.setPaginaWeb(form.getPaginaWeb());
+		result.setAforo(form.getAforo());
+		result.setPlaya(form.getPlaya());
+
+		return result;
+	}
+
 	public void save(Negocio negocio){
 		checkPrincipal(negocio);
 		

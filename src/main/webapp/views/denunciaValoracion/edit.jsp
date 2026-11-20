@@ -12,7 +12,6 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="valoracionNegocio"/>
-	<form:hidden path="cliente"/>
 	
 	
 	<acme:textbox code="denunciaValoracion.titulo" path="titulo" />	<br/>

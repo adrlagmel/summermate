@@ -20,6 +20,7 @@ import domain.Negocio;
 import domain.Reserva;
 import domain.Usuario;
 import domain.ValoracionNegocio;
+import forms.ValoracionNegocioForm;
 
 @Service
 @Transactional
@@ -57,6 +58,26 @@ public class ValoracionNegocioService {
 		return vn;
 	}
 	
+	// Copia en la entidad solo lo que escribe el usuario. save() comprueba que
+	// la reserva (y por tanto la valoración) es suya.
+	public ValoracionNegocio reconstruct(ValoracionNegocioForm form){
+		ValoracionNegocio result;
+
+		if(form.isNew()){
+			result = create(form.getReserva());
+		}else{
+			result = findOneToEdit(form.getId());
+			checkPrincipal(result);
+			form.checkVersion(result);
+		}
+
+		result.setTitulo(form.getTitulo());
+		result.setComentario(form.getComentario());
+		result.setPuntuacion(form.getPuntuacion());
+
+		return result;
+	}
+
 	public void save(ValoracionNegocio vn) { 
 		checkPrincipal(vn);
 		Integer idNegocio = vn.getReserva().getNegocio().getId();

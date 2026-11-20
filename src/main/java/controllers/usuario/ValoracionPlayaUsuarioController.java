@@ -21,6 +21,7 @@ import services.ValoracionPlayaService;
 import controllers.AbstractController;
 import domain.Playa;
 import domain.ValoracionPlaya;
+import forms.ValoracionPlayaForm;
 
 
 
@@ -66,7 +67,7 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 		p = playaService.findOneToEdit(playaId);
 		vp = valoracionPlayaService.create(p);
 		
-		result = createModelAndView(vp);
+		result = createModelAndView(new ValoracionPlayaForm(vp));
 		result.addObject("playa", p);
 		
 
@@ -81,21 +82,21 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 		//vPlaya.setFecha(new Date (System.currentTimeMillis()-1000));
 		
 		Assert.notNull(vPlaya);
-		result = createModelAndView(vPlaya);
+		result = createModelAndView(new ValoracionPlayaForm(vPlaya));
 		result.addObject("requestURI", "valoracionPlaya/usuario/edit.do?valoracionPlayaId="+vPlaya.getId());
 		return result;
 	}
 
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid @ModelAttribute ValoracionPlaya vp, BindingResult bindingResult) {
+	public ModelAndView save(@Valid @ModelAttribute("valoracionPlaya") ValoracionPlayaForm vp, BindingResult bindingResult) {
 		ModelAndView result;
 
 		if (bindingResult.hasErrors()) {
 			result = createModelAndView(vp);
 		} else {
 			try {
-				valoracionPlayaService.save(vp);
+				valoracionPlayaService.save(valoracionPlayaService.reconstruct(vp));
 				result = new ModelAndView("redirect:../../valoracionPlaya/usuario/list.do");
 			} catch (Throwable oops) {
 				result = createModelAndView(vp, "valoracionPlaya.commit.error");
@@ -119,7 +120,7 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 		
 	}
 	
-	protected ModelAndView createModelAndView(ValoracionPlaya vp) {
+	protected ModelAndView createModelAndView(ValoracionPlayaForm vp) {
 		ModelAndView result;
 
 		result = createModelAndView(vp, null);
@@ -127,7 +128,7 @@ public class ValoracionPlayaUsuarioController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(ValoracionPlaya vp, String message) {
+	protected ModelAndView createModelAndView(ValoracionPlayaForm vp, String message) {
 		ModelAndView result;
 		
 		result = new ModelAndView("valoracionPlaya/edit");

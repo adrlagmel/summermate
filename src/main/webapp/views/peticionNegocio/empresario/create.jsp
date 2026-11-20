@@ -19,23 +19,11 @@
 
 <form:form action="peticionNegocio/empresario/enviar.do" modelAttribute="peticionNegocio">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="administrador" />
-	<form:hidden path="empresario" />
-	<form:hidden path="estado" />
 	<br>
-	<security:authorize access="hasAuthority('EMPRESARIO')">
-		<form:hidden path="comentarios" />
-	</security:authorize>
 
-	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/><br/>
+	<%-- El código y la fecha se asignan al enviar la petición --%>
 	<acme:textbox code="peticionNegocio.titulo" path="titulo"/><br/>
 	
-	<security:authorize access="hasAuthority('ADMINISTRADOR')">
-		<acme:textarea code="peticionNegocio.comentarios" path="comentarios"/><br/>
-	</security:authorize>
 	<div style="width:50%; margin: auto;" >
 	<acme:submit name="save" code="peticionNegocio.guardar"/>
 	<acme:cancel code="peticionNegocio.cancelar" url="/peticionNegocio/empresario/list.do" />

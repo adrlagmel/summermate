@@ -25,6 +25,7 @@ import domain.Empresario;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Playa;
+import forms.NegocioForm;
 
 @Controller
 @RequestMapping("/negocio/empresario")
@@ -112,7 +113,7 @@ public class NegocioEmpresarioController extends AbstractController{
 			ModelAndView result;
 					
 			Negocio negocio = negocioService.create();		
-			result 			= createEditModelAndView(negocio, "register");
+			result 			= createEditModelAndView(new NegocioForm(negocio), "register");
 			
 			return result;
 						
@@ -123,7 +124,7 @@ public class NegocioEmpresarioController extends AbstractController{
 			ModelAndView result;
 			
 			Negocio negocio = negocioService.findOneToEdit(negocioId);
-			result 			= createEditModelAndView(negocio, "edit");
+			result 			= createEditModelAndView(new NegocioForm(negocio), "edit");
 			
 			return result;
 						
@@ -141,19 +142,21 @@ public class NegocioEmpresarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@ModelAttribute("negocio") @Valid Negocio negocio, BindingResult binding){
+		public ModelAndView save(@ModelAttribute("negocio") @Valid NegocioForm form, BindingResult binding){
 			
 		ModelAndView result;
+		String view = form.isNew() ? "register" : "edit";
+
 		if(binding.hasErrors()){
-			result = createEditModelAndView(negocio, "edit");
+			result = createEditModelAndView(form, view);
 			
 		}else{
 			try{
-				negocioService.save(negocio);
+				negocioService.save(negocioService.reconstruct(form));
 				result = new ModelAndView("redirect:list.do");
 				
 			}catch(Throwable oops){
-				result = createEditModelAndView(negocio, "edit", "negocio.commit.error");
+				result = createEditModelAndView(form, view, "negocio.commit.error");
 			}		
 		}
 			
@@ -241,6 +244,24 @@ public class NegocioEmpresarioController extends AbstractController{
 					
 
 		// Ancillary methods ---------------------------------------------------------
+
+		// Formularios de alta y edición: trabajan con NegocioForm, no con la entidad.
+		protected ModelAndView createEditModelAndView(NegocioForm form, String selectView){
+			return createEditModelAndView(form, selectView, null);
+		}
+
+		protected ModelAndView createEditModelAndView(NegocioForm form, String selectView, String message){
+			ModelAndView result;
+			boolean hasimage = !form.isNew() && negocioService.findOneToDisplay(form.getId()).getImagen() != null;
+
+			result = new ModelAndView("negocio/"+selectView);
+			result.addObject("negocio", form);
+			result.addObject("playas", playaService.findAllBeaches());
+			result.addObject("message", message);
+			result.addObject("hasimage", hasimage);
+
+			return result;
+		}
 		
 		protected ModelAndView createEditModelAndView(Negocio negocio, String selectView){
 			ModelAndView result;

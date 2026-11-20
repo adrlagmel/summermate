@@ -19,6 +19,8 @@ import utilities.validators.RandomString;
 import domain.Administrador;
 import domain.Empresario;
 import domain.PeticionNegocio;
+import forms.PeticionNegocioResolucionForm;
+import forms.PeticionNegocioForm;
 
 @Service
 @Transactional
@@ -137,6 +139,24 @@ public class PeticionNegocioService {
 		return peticionNegocioRepository.findByEmpresarioId(empresario.getId());
 	}
 	
+	public PeticionNegocio reconstruct(PeticionNegocioForm form){
+		PeticionNegocio result = create();
+
+		result.setTitulo(form.getTitulo());
+
+		return result;
+	}
+
+	// Carga la petición y copia solo los comentarios del administrador.
+	public PeticionNegocio reconstruct(PeticionNegocioResolucionForm form){
+		PeticionNegocio result = findOneToEdit(form.getId());
+
+		form.checkVersion(result);
+		result.setComentarios(form.getComentarios());
+
+		return result;
+	}
+
 	public void reject(PeticionNegocio peticionNegocio){
 		checkPrincipal(peticionNegocio);
 		Administrador administrador = administradorService.findByPrincipal();

@@ -20,6 +20,7 @@ import domain.Localizacion;
 import domain.Negocio;
 import domain.Playa;
 import domain.ValoracionPlaya;
+import forms.PlayaForm;
 
 @Service
 @Transactional
@@ -68,6 +69,28 @@ public class PlayaService {
 		return result;
 	}
 	
+	// Copia en la entidad solo los campos editables del formulario.
+	public Playa reconstruct(PlayaForm form){
+		Playa result;
+
+		if(form.isNew()){
+			result = create();
+		}else{
+			result = findOneToEdit(form.getId());
+			checkPrincipal(result);
+			form.checkVersion(result);
+		}
+
+		result.setNombre(form.getNombre());
+		result.setDescripcion(form.getDescripcion());
+		result.setComposicion(form.getComposicion());
+		result.setServicios(form.getServicios());
+		result.setExtension(form.getExtension());
+		result.setLocalizacion(form.getLocalizacion());
+
+		return result;
+	}
+
 	public void save(Playa playa){	
 		checkPrincipal(playa);
 		

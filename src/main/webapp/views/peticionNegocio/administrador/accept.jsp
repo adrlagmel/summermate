@@ -21,14 +21,12 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="administrador" />
-	<form:hidden path="empresario" />
 	<br/>
-	<acme:textbox code="peticionNegocio.empresario" path="empresario.nombre" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.codigo" path="codigo" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.titulo" path="titulo" readonly="true"/><br/>
-	<acme:textbox code="peticionNegocio.estado" path="estado" readonly="true"/><br/>
+	<acme:readonly code="peticionNegocio.empresario" value="${peticion.empresario.nombre}"/><br/>
+	<acme:readonly code="peticionNegocio.codigo" value="${peticion.codigo}"/><br/>
+	<acme:readonly code="peticionNegocio.fecha" value="${peticion.fecha}"/><br/>
+	<acme:readonly code="peticionNegocio.titulo" value="${peticion.titulo}"/><br/>
+	<acme:readonly code="peticionNegocio.estado" value="${peticion.estado}"/><br/>
 	<acme:textarea code="peticionNegocio.comentarios" path="comentarios"/><br/>
 	
 	<spring:message code="peticionNegocio.aceptar.confirmar" var="confirmar"/>

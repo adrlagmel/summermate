@@ -11,9 +11,6 @@
 		
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="administrador"/>
-	<form:hidden path="negocios"/>
-	<form:hidden path="valoracionPlayas"/>
 	<form:hidden path="localizacion.latitud" id="lat"/>
 	<form:hidden path="localizacion.longitud" id="lon"/>
 	
@@ -80,11 +77,11 @@
    		
    	</script>
    	<div style="width:50%; margin: auto;" >
-   <jstl:if test="${playa.imagen!=null}">
+   <jstl:if test="${hasimage}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="foto/displayImage.do?playaId=${playa.id}" height="350" width="590" />
 	</jstl:if>
-	<jstl:if test="${playa.imagen==null}">
+	<jstl:if test="${!hasimage}">
 		<b><spring:message code="playa.foto" /></b><br/><br/>
 		<img class="img-responsive img-rounded" src="images/no-image.png" height="350" width="590" />
 	</jstl:if>

@@ -19,11 +19,7 @@
 
 <form:form action="mensaje/actor/enviar.do" modelAttribute="m">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="remitente" />
-	<form:hidden path="carpeta" />
-	<form:hidden path="fechaEnvio" /><br><br>
+	<br><br>
 	<div style="width:50%; margin: auto;" >
 	<jstl:if test="${m.beneficiario == null}">
 	

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.PlayaService;
 import controllers.AbstractController;
 import domain.Playa;
+import forms.PlayaForm;
 
 @Controller
 @RequestMapping("/playa/admin")
@@ -57,7 +58,7 @@ public class PlayaAdminController extends AbstractController {
 					
 			Playa playa = playaService.create();
 			
-			result =  createEditModelAndView(playa, "create");
+			result =  createEditModelAndView(new PlayaForm(playa), "create");
 			
 			return result;
 	}
@@ -82,27 +83,29 @@ public class PlayaAdminController extends AbstractController {
 			
 			Playa playa = playaService.findOneToEdit(playaId);
 			
-			result = createEditModelAndView(playa, "edit");
+			result = createEditModelAndView(new PlayaForm(playa), "edit");
 			
 			return result;
 					
 	}
 	
 	@RequestMapping(value="/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("playa") @Valid Playa playa, BindingResult binding){
+	public ModelAndView save(@ModelAttribute("playa") @Valid PlayaForm form, BindingResult binding){
 		
 	ModelAndView result;
+	String view = form.isNew() ? "create" : "edit";
+
 		if(binding.hasErrors()){
-			result = createEditModelAndView(playa, "edit");
+			result = createEditModelAndView(form, view);
 			
 		}else{
 			try{
-				playaService.save(playa);
+				playaService.save(playaService.reconstruct(form));
 				result = new ModelAndView("redirect:../list.do");
 				
 			}catch(Throwable oops){
 				
-				result = createEditModelAndView(playa, "edit", "playa.commit.error");
+				result = createEditModelAndView(form, view, "playa.commit.error");
 			}		
 		}
 			
@@ -202,6 +205,23 @@ public class PlayaAdminController extends AbstractController {
 			
 
 	
+	// Formularios de alta y edición: trabajan con PlayaForm, no con la entidad.
+	protected ModelAndView createEditModelAndView(PlayaForm form, String selectView){
+		return createEditModelAndView(form, selectView, null);
+	}
+
+	protected ModelAndView createEditModelAndView(PlayaForm form, String selectView, String message){
+		ModelAndView result;
+		boolean hasimage = !form.isNew() && playaService.findOne(form.getId()).getImagen() != null;
+
+		result = new ModelAndView("playa/"+selectView);
+		result.addObject("playa", form);
+		result.addObject("message", message);
+		result.addObject("hasimage", hasimage);
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(Playa playa, String selectView){
 		
 		ModelAndView result;
