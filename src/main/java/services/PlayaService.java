@@ -104,7 +104,9 @@ public class PlayaService {
 
 	public void delete(Playa playa){
 		Assert.notNull(playa);
-		Assert.isTrue(playa.getNegocios().size()<1);
+		// CRQ-0008: solo se borra una playa sin negocios ni valoraciones.
+		Assert.isTrue(playa.getNegocios().isEmpty());
+		Assert.isTrue(playa.getValoracionPlayas().isEmpty());
 		
 		playaRepository.delete(playa);
 	}

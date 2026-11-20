@@ -24,8 +24,10 @@
 				<div class="col-md-6 mb-3">
 					<label class="form-label" for="sexo" th:text="#{register.sex}">Sexo</label>
 					<select class="form-select" th:field="*{sexo}">
-						<option value="HOMBRE" th:text="#{fase5.sexo.hombre}">Hombre</option>
-						<option value="MUJER" th:text="#{fase5.sexo.mujer}">Mujer</option>
+						<option value="" th:text="#{sexo.noDecir}">Prefiero no decirlo</option>
+							<option value="MUJER" th:text="#{fase5.sexo.mujer}">Mujer</option>
+							<option value="HOMBRE" th:text="#{fase5.sexo.hombre}">Hombre</option>
+							<option value="OTRO" th:text="#{sexo.otro}">Otro</option>
 					</select>
 				</div>
 			</div>

@@ -85,18 +85,19 @@ public class ValoracionNegocioService {
 		vn.getReserva().getNegocio().setValoracionMedia(valoracionNegocioRepository.valoracionMediaNegocio(idNegocio));
 	}
 	
+	// La media se recalcula después de borrar: antes se calculaba con la
+	// valoración todavía dentro y quedaba desfasada.
 	public void delete(ValoracionNegocio vNegocio){
 		checkPrincipal(vNegocio);
-		
-		Negocio negocio = negocioService.findOneToDisplay(vNegocio.getReserva().getNegocio().getId());
-		Double valorMedio = valoracionNegocioRepository.valoracionMediaNegocio(negocio.getId());
-				
-		negocio.setValoracionMedia(valorMedio);
-		
-		negocioRepository.save(negocio);
-		valoracionNegocioRepository.delete(vNegocio);
-		
+
+		Negocio negocio = vNegocio.getReserva().getNegocio();
+
 		vNegocio.getReserva().setValoracionNegocio(null);
+		valoracionNegocioRepository.delete(vNegocio);
+		valoracionNegocioRepository.flush();
+
+		negocio.setValoracionMedia(valoracionNegocioRepository.valoracionMediaNegocio(negocio.getId()));
+		negocioRepository.save(negocio);
 	}
 	
 	public ValoracionNegocio findOne(int id) {

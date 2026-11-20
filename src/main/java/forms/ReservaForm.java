@@ -1,5 +1,6 @@
 package forms;
 
+import org.hibernate.validator.constraints.Range;
 import java.time.LocalDateTime;
 
 import jakarta.validation.Valid;
@@ -63,7 +64,7 @@ public class ReservaForm {
 	}
 	
 	@NotNull
-	@Min(1) // Not necessary because an exception is thrown
+	@Range(min = 1, max = 10)
 	public Integer getComensales() {
 		return comensales;
 	}

@@ -163,6 +163,7 @@ public class PeticionNegocioService {
 		Administrador administrador = administradorService.findByPrincipal();
 		
 		peticionNegocio.setAdministrador(administrador);
+		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.PENDIENTE);
 		peticionNegocio.setEstado(EstadoPeticion.RECHAZADO);
 		peticionNegocioRepository.save(peticionNegocio);
 	}
@@ -172,6 +173,7 @@ public class PeticionNegocioService {
 		Administrador administrator = administradorService.findByPrincipal();
 		
 		peticionNegocio.setAdministrador(administrator);
+		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.PENDIENTE);
 		peticionNegocio.setEstado(EstadoPeticion.ACEPTADO);
 		peticionNegocioRepository.save(peticionNegocio);
 	}

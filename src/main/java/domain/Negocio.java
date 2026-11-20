@@ -111,7 +111,7 @@ public class Negocio extends DomainEntity{
 	}
 	
 	@NotNull
-	@Range(min=0, max=200)
+	@Range(min=1, max=500)
 	public Integer getAforo() {
 		return aforo;
 	}
@@ -136,8 +136,9 @@ public class Negocio extends DomainEntity{
 	private Collection<CalendarioNegocio> calendarioNegocios;
 	private Playa 					  	  playa;
 		
+	@NotNull
 	@Valid
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	public Empresario getEmpresario() {
 		return empresario;
 	}

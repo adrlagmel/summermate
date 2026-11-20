@@ -1,5 +1,7 @@
 package forms;
 
+import domain.Sexo;
+
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.Min;
@@ -27,7 +29,7 @@ public class UsuarioEditForm {
 	private LocalDate   fechaNacimiento;
 	private String nacionalidad;
 	private String direccion;
-	private String sexo;
+	private Sexo sexo;
 	
 	private String  estadoActual;
 	private Integer nivelColaborador;
@@ -101,13 +103,11 @@ public class UsuarioEditForm {
 		this.telefono = telefono;
 	}
 	
-	@NotBlank
-	@SafeHtml
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

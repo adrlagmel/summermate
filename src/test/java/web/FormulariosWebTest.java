@@ -90,9 +90,9 @@ class FormulariosWebTest extends AbstractWebTest {
 
 	@Test
 	void registroDeEmpresario() throws Exception {
-		mvc.perform(registro("/registro/empresario", "empresa95").param("cif", "B12345678"))
+		mvc.perform(registro("/registro/empresario", "empresa95").param("cif", "B12345674"))
 			.andExpect(redirectedUrl("/login"));
-		assertEquals(1, contar("select count(*) from empresario e join actor a on a.id = e.id join useraccount u on u.id = a.useraccount_id where u.username = 'empresa95' and e.cif = 'B12345678'"));
+		assertEquals(1, contar("select count(*) from empresario e join actor a on a.id = e.id join useraccount u on u.id = a.useraccount_id where u.username = 'empresa95' and e.cif = 'B12345674'"));
 	}
 
 	// AdministradorRegistroForm ---------------------------------------------
@@ -131,9 +131,17 @@ class FormulariosWebTest extends AbstractWebTest {
 	void editarPerfilDeEmpresario() throws Exception {
 		mvc.perform(post("/perfil").with(como("empresario1")).with(csrf()).param("_method", "put").param("tipo", "empresario")
 			.param("nombre", "Pepe").param("apellidos", "X").param("email", "pepe@example.com").param("telefono", "+34600000002")
-			.param("fechaNacimiento", "1980-01-01").param("nacionalidad", "E").param("direccion", "C").param("sexo", "HOMBRE").param("cif", "B99"))
+			.param("fechaNacimiento", "1980-01-01").param("nacionalidad", "E").param("direccion", "C").param("sexo", "HOMBRE").param("cif", "B99999997"))
 			.andExpect(redirectedUrl("/perfil"));
-		assertEquals(1, contar("select count(*) from empresario where id = 3 and cif = 'B99'"));
+		assertEquals(1, contar("select count(*) from empresario where id = 3 and cif = 'B99999997'"));
+	}
+
+	@Test
+	void editarPerfilDeEmpresarioConCifMal() throws Exception {
+		mvc.perform(post("/perfil").with(como("empresario1")).with(csrf()).param("_method", "put").param("tipo", "empresario")
+			.param("nombre", "Pepe").param("apellidos", "X").param("email", "pepe@example.com").param("telefono", "+34600000002")
+			.param("fechaNacimiento", "1980-01-01").param("nacionalidad", "E").param("direccion", "C").param("cif", "B99999990"))
+			.andExpect(status().isOk()).andExpect(model().attributeHasFieldErrors("form", "cif"));
 	}
 
 	// ActorEditPasswordForm ---------------------------------------------------
@@ -161,11 +169,9 @@ class FormulariosWebTest extends AbstractWebTest {
 		mvc.perform(post("/mensajes").with(como("usuario1")).with(csrf())
 			.param("beneficiario", "3").param("asunto", "Hola").param("cuerpo", "¿Tenéis mesa?"))
 			.andExpect(redirectedUrl("/carpetas"));
-		// Fallo heredado (para la Fase 6): MensajeService.save() guarda el mismo
-		// objeto dos veces cambiándole la carpeta, así que solo queda la copia de
-		// la bandeja de entrada del destinatario y el remitente no la ve en
-		// "enviados". Este test fija el comportamiento actual.
-		assertEquals(1, contar("select count(*) from mensaje m join carpeta c on c.id = m.carpeta_id where m.asunto = 'Hola' and c.actor_id = 3"));
+		// Una copia en la entrada del destinatario y otra en "Enviados" del remitente.
+		assertEquals(1, contar("select count(*) from mensaje m join carpeta c on c.id = m.carpeta_id where m.asunto = 'Hola' and c.actor_id = 3 and c.nombre = 'Entrada'"));
+		assertEquals(1, contar("select count(*) from mensaje m join carpeta c on c.id = m.carpeta_id where m.asunto = 'Hola' and c.actor_id = m.remitente_id and c.nombre = 'Enviados'"));
 	}
 
 	@Test
@@ -270,7 +276,7 @@ class FormulariosWebTest extends AbstractWebTest {
 	void crearNegocioConAforoExcesivo() throws Exception {
 		mvc.perform(post("/empresario/negocios").with(como("empresario1")).with(csrf())
 			.param("nombre", "Grande").param("tipo", "Bar").param("descripcion", "x")
-			.param("telefono", "+34956000000").param("aforo", "500").param("playa", "3"))
+			.param("telefono", "+34956000000").param("aforo", "501").param("playa", "3"))
 			.andExpect(status().isOk()).andExpect(model().attributeHasFieldErrors("form", "aforo"));
 	}
 

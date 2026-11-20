@@ -1,5 +1,9 @@
 package domain;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.time.LocalDateTime;
 
@@ -33,7 +37,7 @@ public class Evento extends DomainEntity{
 	private String			codigo;
 	private String 			nombre;
 	private String 			descripcion;
-	private Double 			precio;
+	private BigDecimal 		precio;
 	private Imagen			imagen;
 	private LocalDateTime 			fechaRegistro;
 	private LocalDateTime 			fechaCelebracion;
@@ -69,10 +73,14 @@ public class Evento extends DomainEntity{
 		this.codigo = codigo;
 	}
 	
-	public Double getPrecio(){
+	@NotNull
+	@DecimalMin("0.00")
+	@Digits(integer = 5, fraction = 2)
+	@Column(precision = 7, scale = 2)
+	public BigDecimal getPrecio(){
 		return precio;
 	}
-	public void setPrecio(Double precio){
+	public void setPrecio(BigDecimal precio){
 		this.precio = precio;
 	}
 	

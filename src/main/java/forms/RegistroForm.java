@@ -1,5 +1,7 @@
 package forms;
 
+import domain.Sexo;
+
 import java.time.LocalDate;
 
 
@@ -31,7 +33,7 @@ public class RegistroForm {
 	private LocalDate fechaNacimiento;
 	private String nacionalidad;
 	private String direccion;
-	private String sexo;
+	private Sexo sexo;
 	
 	private Boolean contractAccepted;
 	
@@ -103,13 +105,11 @@ public class RegistroForm {
 		this.telefono = telefono;
 	}
 	
-	@NotBlank
-	@SafeHtml
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

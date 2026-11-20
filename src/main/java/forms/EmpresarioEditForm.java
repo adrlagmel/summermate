@@ -1,5 +1,9 @@
 package forms;
 
+import jakarta.validation.constraints.NotBlank;
+import utilities.validators.NifCif;
+import domain.Sexo;
+
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +11,6 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,7 +24,7 @@ public class EmpresarioEditForm {
 	private LocalDate   fechaNacimiento;
 	private String nacionalidad;
 	private String direccion;
-	private String sexo;
+	private Sexo sexo;
 	
 	private String  cif;
 	
@@ -65,13 +68,11 @@ public class EmpresarioEditForm {
 		this.telefono = telefono;
 	}
 	
-	@NotBlank
-	@SafeHtml
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
@@ -108,7 +109,7 @@ public class EmpresarioEditForm {
 	}
 	
 	@NotBlank
-	@SafeHtml
+	@NifCif
 	public String getCif() {
 		return cif;
 	}

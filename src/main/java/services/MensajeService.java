@@ -69,53 +69,57 @@ public class MensajeService {
 		return result;
 	}
 
+	// Un mensaje nuevo se guarda dos veces: una copia en "Enviados" del
+	// remitente y otra en "Entrada" del destinatario. Cada uno borra la suya
+	// sin tocar la del otro.
 	public void save(Mensaje mensaje){
 
 		checkPrincipal(mensaje);
 		Assert.isTrue(!mensaje.getBeneficiario().equals(mensaje.getRemitente()));
-		
-		
-		if(mensaje.getId() != 0)
+
+		if(mensaje.getId() != 0){
 			mensajeRepository.save(mensaje);
-
-		if(mensaje.getId() == 0){
-			
-			Actor remitente = actorService.findByPrincipal();
-
-			mensaje.setRemitente(remitente);
-			Carpeta outbox = carpetaService.findEnviadosActor(remitente);
-			mensaje.setCarpeta(outbox);
-
-			LocalDateTime d = LocalDateTime.now().minusSeconds(1);
-
-			mensaje.setFechaEnvio(d);
-			
-			mensajeRepository.save(mensaje);
-			
-			Mensaje mensajeToSend = mensaje;
-			Actor beneficiario = mensaje.getBeneficiario();
-			Carpeta carpeta = carpetaService.findEntradaActor(beneficiario);
-			mensajeToSend.setCarpeta(carpeta);
-
-			mensajeRepository.save(mensajeToSend);
-
+			return;
 		}
 
+		Actor remitente = actorService.findByPrincipal();
+		LocalDateTime fecha = LocalDateTime.now().minusSeconds(1);
+
+		mensaje.setRemitente(remitente);
+		mensaje.setFechaEnvio(fecha);
+		mensaje.setCarpeta(carpetaService.findEnviadosActor(remitente));
+		mensajeRepository.save(mensaje);
+
+		Mensaje copia = new Mensaje();
+		copia.setRemitente(remitente);
+		copia.setBeneficiario(mensaje.getBeneficiario());
+		copia.setAsunto(mensaje.getAsunto());
+		copia.setCuerpo(mensaje.getCuerpo());
+		copia.setFechaEnvio(fecha);
+		copia.setCarpeta(carpetaService.findEntradaActor(mensaje.getBeneficiario()));
+		mensajeRepository.save(copia);
+
 	}
-	
+	// Cada actor solo ve las copias que están en sus carpetas.
 	public Mensaje findOne(int mensajeId){
 
 		Mensaje mensaje = mensajeRepository.findById(mensajeId).orElse(null);
 
-		checkPrincipal(mensaje);
+		checkPropietario(mensaje);
 
 		return mensaje;
 
 	}
-	
+
+	private void checkPropietario(Mensaje mensaje) {
+		Assert.notNull(mensaje);
+		Assert.isTrue(mensaje.getCarpeta().getActor().getUserAccount().equals(LoginService.getPrincipal()));
+	}
+
 	public void delete(Mensaje mensaje){
 
-		checkPrincipal(mensaje);
+		// Solo se borra la copia que está en una carpeta propia.
+		checkPropietario(mensaje);
 
 		mensajeRepository.delete(mensaje);
 

@@ -93,7 +93,7 @@ public class NegocioForm extends EntityForm {
 	}
 
 	@NotNull
-	@Range(min = 0, max = 200)
+	@Range(min = 1, max = 500)
 	public Integer getAforo() {
 		return aforo;
 	}

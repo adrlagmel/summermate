@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
@@ -100,8 +101,10 @@ public class ValoracionNegocio extends DomainEntity{
 	}
 	
 	
+	// Al borrar la valoración se borran sus denuncias; antes el borrado fallaba
+	// por la clave ajena en cuanto alguien la había denunciado.
 	@Valid
-	@OneToMany(mappedBy="valoracionNegocio")
+	@OneToMany(mappedBy="valoracionNegocio", cascade = CascadeType.REMOVE)
 	public Collection<DenunciaValoracion> getDenuncias() {
 		return denuncias;
 	}

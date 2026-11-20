@@ -3,6 +3,9 @@ package service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,14 @@ public class MensajeServiceTest extends AbstractTest {
 	@Autowired
 	private CarpetaService carpetaService;
 
+	@PersistenceContext
+	private EntityManager em;
+
+	private long enEntrada(Actor actor, String asunto) {
+		return em.createQuery("select count(m) from Mensaje m where m.carpeta = :c and m.asunto = :a", Long.class)
+			.setParameter("c", carpetaService.findEntradaActor(actor)).setParameter("a", asunto).getSingleResult();
+	}
+
 	@Test
 	public void todosLosActoresTienenSusCarpetasPorDefecto() {
 		for (Actor actor : actorService.findAll()) {
@@ -41,7 +52,7 @@ public class MensajeServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void unMensajeLlegaALaBandejaDeEntradaDelDestinatario() {
+	public void unMensajeQuedaEnEnviadosYEnLaEntradaDelDestinatario() {
 		authenticate("usuario1");
 		Actor destinatario = actorService.findAllMessages().iterator().next();
 
@@ -52,7 +63,25 @@ public class MensajeServiceTest extends AbstractTest {
 		Mensaje mensaje = mensajeService.reconstruct(form);
 		mensajeService.save(mensaje);
 
-		assertEquals(carpetaService.findEntradaActor(destinatario), mensaje.getCarpeta());
+		Actor remitente = actorService.findByPrincipal();
+		assertEquals(carpetaService.findEnviadosActor(remitente), mensaje.getCarpeta());
+		assertEquals(1L, enEntrada(destinatario, "Hola"));
 		assertEquals("usuario1", mensaje.getRemitente().getUserAccount().getUsername());
+	}
+
+	@Test
+	public void borrarLaCopiaEnviadaNoBorraLaDelDestinatario() {
+		authenticate("usuario1");
+		Actor destinatario = actorService.findAllMessages().iterator().next();
+
+		MensajeForm form = new MensajeForm();
+		form.setBeneficiario(destinatario);
+		form.setAsunto("Borrable");
+		form.setCuerpo("Prueba");
+		Mensaje enviado = mensajeService.reconstruct(form);
+		mensajeService.save(enviado);
+		mensajeService.delete(enviado);
+
+		assertEquals(1L, enEntrada(destinatario, "Borrable"));
 	}
 }

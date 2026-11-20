@@ -1,5 +1,7 @@
 package domain;
 
+import jakarta.validation.constraints.NotBlank;
+import utilities.validators.NifCif;
 import java.util.Collection;
 
 
@@ -21,8 +23,8 @@ public class Empresario extends Cliente{
 	
 	private String cif;
 	
-	@Pattern(regexp = "^\\w+$")
-	@SafeHtml
+	@NotBlank
+	@NifCif
 	public String getCif() {
 		return cif;
 

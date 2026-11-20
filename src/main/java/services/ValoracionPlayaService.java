@@ -76,6 +76,7 @@ public class ValoracionPlayaService {
 		checkPrincipal(vPlaya);
 		Integer id = vPlaya.getPlaya().getId();
 		valoracionPlayaRepository.delete(vPlaya);
+		valoracionPlayaRepository.flush();
 		vPlaya.getPlaya().setValoracionMedia(valoracionPlayaRepository.valoracionMediaPlaya(id));
 
 		

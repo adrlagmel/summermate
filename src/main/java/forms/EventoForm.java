@@ -7,6 +7,9 @@
 
 package forms;
 
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +27,7 @@ public class EventoForm extends EntityForm {
 	private String	nombre;
 	private String	descripcion;
 	private LocalDateTime	fechaCelebracion;
-	private Double	precio;
+	private BigDecimal	precio;
 	private Negocio	negocio;
 
 	public EventoForm() {
@@ -79,11 +82,14 @@ public class EventoForm extends EntityForm {
 		this.fechaCelebracion = fechaCelebracion;
 	}
 
-	public Double getPrecio() {
+	@NotNull
+	@DecimalMin("0.00")
+	@Digits(integer = 5, fraction = 2)
+	public BigDecimal getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Double precio) {
+	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
 

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.time.LocalDate;
 
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
@@ -25,7 +27,7 @@ public abstract class Cliente extends Actor{
 	private LocalDate 		fechaNacimiento;
 	private String 		nacionalidad;
 	private String		direccion;
-	private String		sexo;
+	private Sexo		sexo;
 	
 	
 	@NotBlank
@@ -65,12 +67,11 @@ public abstract class Cliente extends Actor{
 		this.direccion = direccion;
 	}
 	
-	@NotBlank
-	@SafeHtml
-	public String getSexo(){
+	@Enumerated(EnumType.STRING)
+	public Sexo getSexo(){
 		return sexo;
 	}
-	public void setSexo(String sexo){
+	public void setSexo(Sexo sexo){
 		this.sexo = sexo;
 	}
 	

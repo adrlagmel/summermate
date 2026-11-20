@@ -16,6 +16,8 @@
 package utilities;
 
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.sql.DataSource;
 
@@ -23,7 +25,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
@@ -64,7 +67,10 @@ public abstract class AbstractTest {
 		// de la transacción del test, y todo se deshace al terminar.
 		Connection connection = DataSourceUtils.getConnection(dataSource);
 		try {
-			ScriptUtils.executeSqlScript(connection, new ClassPathResource("db/dev/V1000__datos_ejemplo.sql"));
+			Resource[] scripts = new PathMatchingResourcePatternResolver().getResources("classpath:db/dev/V*.sql");
+			Arrays.sort(scripts, Comparator.comparingInt(r -> Integer.parseInt(r.getFilename().replaceAll("^V(\\d+)__.*", "$1"))));
+			for (Resource script : scripts)
+				ScriptUtils.executeSqlScript(connection, script);
 		} finally {
 			DataSourceUtils.releaseConnection(connection, dataSource);
 		}

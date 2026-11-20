@@ -28,13 +28,13 @@ import domain.Reserva;
 /*
  * Reservas simultáneas contra el aforo. A diferencia del resto, este test no
  * es @Transactional: cada hilo hace su propia transacción real, como dos
- * usuarios a la vez. "Comida Fast" tiene aforo 50; cinco reservas simultáneas
- * de 20 comensales para la misma hora: solo caben dos.
+ * usuarios a la vez. Se deja "Comida Fast" con aforo 20; cinco reservas
+ * simultáneas de 10 comensales (el máximo) para la misma hora: solo caben dos.
  */
 public class AforoConcurrenteTest extends AbstractTest {
 
 	private static final int			HILOS		= 5;
-	private static final int			COMENSALES	= 20;
+	private static final int			COMENSALES	= 10;
 
 	@Autowired
 	private ReservaService				reservaService;
@@ -48,7 +48,7 @@ public class AforoConcurrenteTest extends AbstractTest {
 	@Test
 	public void reservasSimultaneasNoSuperanElAforo() throws Exception {
 		final TransactionTemplate tx = new TransactionTemplate(transactionManager);
-		final int negocioId = tx.execute(status -> comidaFast().getId());
+		final int negocioId = tx.execute(status -> conAforo(20).getId());
 		final LocalDateTime fecha = dentroDeUnaSemanaALas(14);
 		final CountDownLatch salida = new CountDownLatch(1);
 		ExecutorService pool = Executors.newFixedThreadPool(HILOS);
@@ -96,13 +96,19 @@ public class AforoConcurrenteTest extends AbstractTest {
 
 			tx.execute(status -> {
 				Reserva reserva = reservaService.create();
-				reserva.setNegocio(comidaFast());
+				reserva.setNegocio(conAforo(8));
 				reserva.setFecha(dentroDeUnaSemanaALas(15));
-				reserva.setComensales(60);
+				reserva.setComensales(10);
 				return reservaService.save(reserva);
 			});
 	
 		});
+	}
+
+	private Negocio conAforo(int aforo) {
+		Negocio negocio = comidaFast();
+		negocio.setAforo(aforo);
+		return negocio;
 	}
 
 	private Negocio comidaFast() {

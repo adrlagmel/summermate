@@ -1,5 +1,7 @@
 package forms;
 
+import jakarta.validation.constraints.NotBlank;
+import utilities.validators.NifCif;
 import jakarta.validation.Valid;
 
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +17,8 @@ public class EmpresarioRegistroForm {
 
 	private RegistroForm registroForm;
 
-	@Pattern(regexp = "^\\w+$")
-	@SafeHtml
+	@NotBlank
+	@NifCif
 	public String getCif() {
 		return cif;
 	}

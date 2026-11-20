@@ -1,5 +1,6 @@
 package domain;
 
+import org.hibernate.validator.constraints.Range;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Access;
@@ -79,7 +80,8 @@ public class Reserva extends DomainEntity{
 		this.comentarios = comentarios;
 	}
 	
-	@Min(1)
+	@NotNull
+	@Range(min = 1, max = 10)
 	public Integer getComensales() {
 		return comensales;
 	}
