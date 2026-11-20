@@ -24,6 +24,9 @@
 	
 	<properties>
 	    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+	    	<java.version>1.8</java.version>
+	    	<argLine>-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED</argLine>
+	    	<testcontainers.version>1.21.3</testcontainers.version>
   	</properties>
 
 	<!-- Indexing information -->
@@ -41,14 +44,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.13.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<showWarnings>true</showWarnings>
-					<compilerArguments>
-						<Xlint />
-					</compilerArguments>
+					<compilerArgs>
+						<arg>-Xlint</arg>
+						<arg>-Xlint:-options</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 
@@ -87,34 +91,12 @@
 		</plugins>
 	</build>
 
-	<!-- Repositories to download components -->
-
-	<repositories>
-
-		<!-- Spring repository -->
-
-		<repository>
-			<id>springsource</id>
-			<name>SpringSource Repository</name>
-			<url>http://repo.springsource.org/release</url>
-		</repository>
-
-		<!-- Apache repository -->
-
-		<repository>
-			<id>apache</id>
-			<url>https://repository.apache.org/content/repositories/snapshots</url>
-		</repository>
-
-		<!-- Default repository -->
-
-		<repository>
-			<id>central</id>
-			<url>http://repo.maven.apache.org/maven2</url>
-		</repository>
-
-	</repositories>
 	
+	<!-- Spring 4.0 y Hibernate 4.3 generan proxies por reflexión sobre
+	     java.lang.ClassLoader; desde Java 9 hay que abrir ese paquete.
+	     Java 8 no conoce la opción y la ignora gracias al -XX previo.
+	     Lo mismo se aplica a la JVM de Maven en .mvn/jvm.config. -->
+
 	<!--  Dependencies -->
 
 	<dependencies>
@@ -196,7 +178,8 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.2.4.RELEASE</version>
+			<version>4.0.0.RELEASE</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- Apache -->
@@ -219,12 +202,12 @@
 			<version>2.2.2</version>
 		</dependency>
 
-		<!-- MySQL -->
+		<!-- PostgreSQL -->
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.26</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.4</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -260,6 +243,13 @@
 		</dependency>
 			
 		<!-- Javax -->
+
+		<!-- JAXB salió del JDK en Java 11 y Hibernate Validator 4.3 lo necesita -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -303,7 +293,17 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Testcontainers: PostgreSQL desechable para los tests -->
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- Dependency patches -->
