@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -78,7 +79,7 @@ public class Mensaje extends DomainEntity{
 	
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Actor getRemitente() {
 		return remitente;
 	}
@@ -88,7 +89,7 @@ public class Mensaje extends DomainEntity{
 	
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Actor getBeneficiario() {
 		return beneficiario;
 	}
@@ -98,7 +99,7 @@ public class Mensaje extends DomainEntity{
 	
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Carpeta getCarpeta() {
 		return carpeta;
 	}

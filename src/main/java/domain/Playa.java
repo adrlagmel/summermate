@@ -131,7 +131,7 @@ public class Playa extends DomainEntity{
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Administrador getAdministrador() {
 		return administrador;
 	}

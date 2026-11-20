@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -80,7 +81,7 @@ public class CalendarioNegocio extends DomainEntity{
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Negocio getNegocio() {
 		return negocio;
 	}

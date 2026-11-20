@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -49,7 +50,7 @@ public class Carpeta extends DomainEntity{
 	private Collection<Mensaje> mensajes;
 
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Actor getActor() {
 		return actor;
 	}

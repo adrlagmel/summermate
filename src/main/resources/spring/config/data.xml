@@ -55,6 +55,10 @@
 	<util:properties id="jpaProperties">
 		<prop key="hibernate.format_sql">true</prop>
 		<prop key="hibernate.show_sql">false</prop>
+		<!-- Fase 3: al recorrer una relación perezosa en un listado, Hibernate
+		     carga las de hasta 25 filas en una sola consulta (IN (...)) en vez
+		     de una consulta por fila (el problema "N+1"). -->
+		<prop key="hibernate.default_batch_fetch_size">25</prop>
 		<!-- <prop key="hibernate.hbm2ddl.auto">verify</prop> -->
 		
 	</util:properties>

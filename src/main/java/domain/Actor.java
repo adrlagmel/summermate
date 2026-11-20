@@ -10,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -79,7 +80,7 @@ public abstract class Actor extends DomainEntity {
 	 
 	 @NotNull
 	 @Valid
-	 @OneToOne(cascade=CascadeType.ALL,optional = false)
+	 @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL,optional = false)
 	 public UserAccount getUserAccount() {
 	  return userAccount;
 	 }

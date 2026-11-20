@@ -137,7 +137,7 @@ public class Negocio extends DomainEntity{
 	private Playa 					  	  playa;
 		
 	@Valid
-	@ManyToOne(optional = true)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	public Empresario getEmpresario() {
 		return empresario;
 	}
@@ -167,7 +167,7 @@ public class Negocio extends DomainEntity{
 	}
 	
 	@Valid
-	@ManyToOne(optional = true)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	public Playa getPlaya() {
 		return playa;
 	}

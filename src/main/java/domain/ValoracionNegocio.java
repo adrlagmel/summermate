@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -94,7 +95,7 @@ public class ValoracionNegocio extends DomainEntity{
 	private Collection <DenunciaValoracion> denuncias;
 	
 	@Valid
-	@OneToOne(optional= false)
+	@OneToOne(fetch = FetchType.LAZY, optional= false)
 	public Reserva getReserva() {
 		return reserva;
 	}

@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Index;
+import javax.persistence.FetchType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -99,7 +100,7 @@ public class PeticionNegocio extends DomainEntity{
 
 	@NotNull
 	@Valid
-	@OneToOne(optional=false)
+	@OneToOne(fetch = FetchType.LAZY, optional=false)
 	public Empresario getEmpresario() {
 		return empresario;
 	}
@@ -109,7 +110,7 @@ public class PeticionNegocio extends DomainEntity{
 	}
 
 	@Valid
-	@ManyToOne(optional=true)
+	@ManyToOne(fetch = FetchType.LAZY, optional=true)
 	public Administrador getAdministrador() {
 		return administrador;
 	}

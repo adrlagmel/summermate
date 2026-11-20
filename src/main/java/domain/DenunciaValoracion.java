@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
 import javax.validation.Valid;
 
@@ -69,7 +70,7 @@ public class DenunciaValoracion extends DomainEntity {
 	private Cliente cliente;
 
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public ValoracionNegocio getValoracionNegocio() {
 		return valoracionNegocio;
 	}
@@ -78,7 +79,7 @@ public class DenunciaValoracion extends DomainEntity {
 	}
 	
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	public Cliente getCliente() {
 		return cliente;
 	}
