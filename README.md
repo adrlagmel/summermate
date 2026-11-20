@@ -37,7 +37,8 @@ usuarios, empresarios y administradores.
 
 Usuarios de ejemplo (la contraseña es igual que el nombre de usuario):
 `admin`, `administrador2`, `usuario1`…`usuario8` y `empresario1`…`empresario7`
-(salvo `empresario4`, que tiene otra contraseña).
+(salvo `empresario4`, cuya contraseña es `empresario`). Se guardan con BCrypt;
+`java utilities.HashPassword` genera hashes nuevos.
 
 ## Configuración
 
