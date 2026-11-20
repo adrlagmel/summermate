@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- mensajes/carpetas.html: carpetas del actor (antes folder/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.folders.list}">Carpetas</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h1 class="mb-0" th:text="#{master.page.folders.list}">Carpetas</h1>
+		<a class="btn btn-primary" th:href="@{/mensajes/nuevo}"><i class="bi bi-send" aria-hidden="true"></i> <span th:text="#{msg.new.send.link}">Nuevo mensaje</span></a>
+	</div>
+	<div class="list-group">
+		<a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+			th:each="c : ${carpetas}" th:href="@{/carpetas/{id}(id=${c.id})}">
+			<span><i class="bi bi-folder2" aria-hidden="true"></i> <span th:text="${c.nombre}">Entrada</span></span>
+			<span class="badge text-bg-secondary rounded-pill" th:text="${#lists.size(c.mensajes)}">0</span>
+		</a>
+	</div>
+</div>
+</body>
+</html>

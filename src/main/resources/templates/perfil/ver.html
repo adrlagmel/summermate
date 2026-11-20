@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- perfil/ver.html: perfil del actor conectado (antes profile/profile.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.profile}">Perfil</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row g-4">
+	<div class="col-md-4 col-lg-3" th:if="${esUsuario}">
+		<th:block th:replace="~{fragments/ui :: imagen('usuarios', ${actor.id}, ${actor.imagen != null}, 'foto')}"></th:block>
+		<a class="btn btn-sm btn-outline-primary w-100 mt-2" th:href="@{/perfil/foto}" th:text="#{profile.uploadImage}">Cambiar foto</a>
+	</div>
+	<div class="col">
+		<h1 th:text="|${actor.nombre} ${actor.apellidos}|">Nombre</h1>
+		<p class="text-body-secondary" th:text="${actor.userAccount.username}">usuario</p>
+		<dl class="ficha row">
+			<dt class="col-sm-4" th:text="#{actor.email}">Email</dt>
+			<dd class="col-sm-8" th:text="${actor.email}">correo</dd>
+			<th:block th:if="${esCliente}">
+				<dt class="col-sm-4" th:text="#{actor.phone}">Teléfono</dt>
+				<dd class="col-sm-8" th:text="${actor.telefono}">tel</dd>
+				<dt class="col-sm-4" th:text="#{register.birthDate}">Nacimiento</dt>
+				<dd class="col-sm-8" th:text="${#temporals.format(actor.fechaNacimiento, 'dd/MM/yyyy')}">01/01/1990</dd>
+				<dt class="col-sm-4" th:text="#{register.nacionality}">Nacionalidad</dt>
+				<dd class="col-sm-8" th:text="${actor.nacionalidad}">Española</dd>
+				<dt class="col-sm-4" th:text="#{register.address}">Dirección</dt>
+				<dd class="col-sm-8" th:text="${actor.direccion}">Calle</dd>
+			</th:block>
+			<th:block th:if="${esUsuario}">
+				<dt class="col-sm-4" th:text="#{usuario.estadoActual}">Estado</dt>
+				<dd class="col-sm-8" th:text="${actor.estadoActual}">Estado</dd>
+			</th:block>
+			<th:block th:if="${esEmpresario}">
+				<dt class="col-sm-4" th:text="#{empresario.cif}">CIF</dt>
+				<dd class="col-sm-8" th:text="${actor.cif}">CIF</dd>
+			</th:block>
+		</dl>
+		<div class="d-flex flex-wrap gap-2">
+			<a th:if="${esCliente}" class="btn btn-primary" th:href="@{/perfil/editar}" th:text="#{profile.editar}">Editar</a>
+			<a class="btn btn-outline-secondary" th:href="@{/perfil/contrasena}" th:text="#{master.page.profile.editPassword}">Cambiar contraseña</a>
+		</div>
+	</div>
+</div>
+</body>
+</html>

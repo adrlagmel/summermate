@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- admin/administrador.html: alta de otro administrador (antes register/register.jsp con isAdministrador) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.register.admin}">Nuevo administrador</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-7">
+		<h1 class="mb-4" th:text="#{master.page.register.admin}">Nuevo administrador</h1>
+		<form th:action="@{/admin/administradores}" th:object="${form}" method="post" novalidate>
+			<div th:replace="~{fragments/ui :: campo('username', #{register.username}, 'text')}"></div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('password', #{register.password}, 'password')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('verifyPassword', #{register.verify.password}, 'password')}"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('nombre', #{register.name}, 'text')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('apellidos', #{register.surname}, 'text')}"></div>
+			</div>
+			<div th:replace="~{fragments/ui :: campo('email', #{register.email}, 'email')}"></div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{register.save}">Registrar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/admin/dashboard}" th:text="#{register.cancel}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

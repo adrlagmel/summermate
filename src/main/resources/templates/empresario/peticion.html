@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+  empresario/peticion.html: petición para poder crear negocios (antes
+  peticionNegocio/empresario/list.jsp y create.jsp).
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.peticionnegocio.empresario.list}">Petición de negocio</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-3" th:text="#{master.page.peticionnegocio.empresario.list}">Petición de negocio</h1>
+
+		<div th:if="${peticion}" class="card mb-4">
+			<div class="card-body">
+				<div class="d-flex flex-wrap justify-content-between gap-2">
+					<h2 class="h5 mb-1" th:text="${peticion.titulo}">Título</h2>
+					<span class="badge estado align-self-start"
+						th:classappend="${peticion.estado.name() == 'ACEPTADO'} ? 'text-bg-success' : (${peticion.estado.name() == 'RECHAZADO'} ? 'text-bg-danger' : 'text-bg-warning')"
+						th:text="${peticion.estado}">PENDIENTE</span>
+				</div>
+				<p class="small text-body-secondary mb-2"
+					th:text="|#{peticionNegocio.codigo}: ${peticion.codigo} · ${#temporals.format(peticion.fecha, 'dd/MM/yyyy HH:mm')}|">Código · fecha</p>
+				<p th:if="${peticion.comentarios}" class="mb-0"><strong th:text="|#{peticionNegocio.comentarios}:|">Comentarios:</strong> <span th:text="${peticion.comentarios}">…</span></p>
+				<a th:if="${peticion.estado.name() == 'ACEPTADO'}" class="btn btn-primary mt-3" th:href="@{/empresario/negocios/nuevo}" th:text="#{negocio.create}">Crear negocio</a>
+			</div>
+		</div>
+
+		<form th:if="${puedeEnviar}" th:action="@{/empresario/peticion}" th:object="${form}" method="post" novalidate>
+			<p th:text="#{negocio.register.necesario}">Para crear negocios, envía una petición.</p>
+			<div th:replace="~{fragments/ui :: campo('titulo', #{peticionNegocio.titulo}, 'text')}"></div>
+			<button type="submit" class="btn btn-primary" th:text="#{peticionnegocio.send}">Enviar</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>

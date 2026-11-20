@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  reservas/lista.html: reservas del usuario (/mis/reservas) o de los negocios
+  del empresario (/empresario/reservas, con búsqueda por fecha). Antes
+  booking/list.jsp.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${deEmpresario} ? #{master.page.reservas} : #{master.page.reservas.my}">Reservas</title>
+</head>
+<body>
+<div layout:fragment="contenido" th:with="ahora=${#temporals.createNow()}">
+	<h1 class="mb-3" th:text="${deEmpresario} ? #{master.page.reservas} : #{master.page.reservas.my}">Reservas</h1>
+
+	<form th:if="${deEmpresario}" method="get" class="row g-2 mb-3" role="search">
+		<div class="col-auto">
+			<label class="visually-hidden" for="fecha" th:text="#{booking.searchByDate}">Fecha</label>
+			<input class="form-control" type="date" id="fecha" name="fecha" th:value="${fecha}">
+		</div>
+		<div class="col-auto">
+			<button type="submit" class="btn btn-outline-primary" th:text="#{booking.search}">Buscar</button>
+			<a th:if="${fecha}" class="btn btn-link" th:href="@{/empresario/reservas}" th:text="#{fase5.eventos.todos}">Todas</a>
+		</div>
+	</form>
+
+	<p th:if="${reservas.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay reservas.</p>
+
+	<div class="table-responsive" th:unless="${reservas.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col" th:insert="~{fragments/ui :: orden('fecha', #{booking.bookingDate})}">Fecha</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('negocio.nombre', #{booking.negocio})}">Negocio</th>
+					<th scope="col" th:if="${deEmpresario}" th:text="#{dashboard.usuario}">Usuario</th>
+					<th scope="col" class="text-end" th:insert="~{fragments/ui :: orden('comensales', #{booking.comensales})}">Comensales</th>
+					<th scope="col" th:text="#{booking.fumadores}">Fumadores</th>
+					<th scope="col" th:text="#{booking.code}">Código</th>
+					<th scope="col" th:unless="${deEmpresario}"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="r : ${reservas}">
+					<td class="text-nowrap" th:text="${#temporals.format(r.fecha, 'dd/MM/yyyy HH:mm')}">01/08/2026 14:00</td>
+					<td><a th:href="@{/negocios/{id}(id=${r.negocio.id})}" th:text="${r.negocio.nombre}">Negocio</a></td>
+					<td th:if="${deEmpresario}" th:text="|${r.usuario.nombre} ${r.usuario.apellidos}|">Ana</td>
+					<td class="text-end puntuacion" th:text="${r.comensales}">2</td>
+					<td th:text="${r.fumadores} ? #{booking.yes} : #{booking.no}">No</td>
+					<td class="font-monospace" th:text="${r.codigo}">ABC</td>
+					<td th:unless="${deEmpresario}" class="text-end text-nowrap">
+						<th:block th:if="${r.fecha.isAfter(ahora)}">
+							<form th:replace="~{fragments/ui :: boton(@{/mis/reservas/{id}(id=${r.id})}, 'delete', #{booking.delete}, 'btn-outline-danger', #{booking.confirmDelete})}"></form>
+						</th:block>
+						<th:block th:unless="${r.fecha.isAfter(ahora)}">
+							<a th:if="${r.valoracionNegocio == null}" class="btn btn-sm btn-outline-primary" th:href="@{/mis/reservas/{id}/valoracion/nueva(id=${r.id})}" th:text="#{valoracionNegocio.create}">Valorar</a>
+							<a th:unless="${r.valoracionNegocio == null}" class="btn btn-sm btn-outline-secondary" th:href="@{/mis/valoraciones/negocios/{id}/editar(id=${r.valoracionNegocio.id})}" th:text="#{valoracionNegocio.editar}">Editar valoración</a>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${reservas})}"></nav>
+</div>
+</body>
+</html>

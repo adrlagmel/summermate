@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+  admin/playa.html: alta y edición de una playa (antes playa/edit.jsp). Las
+  coordenadas de una playa nueva se escriben aquí; después se cambian en
+  /admin/playas/{id}/ubicacion con el mapa.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${form.id == 0} ? #{master.page.playa.create} : #{playa.editar}">Playa</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-9">
+		<h1 class="mb-4" th:text="${form.id == 0} ? #{master.page.playa.create} : #{playa.editar}">Playa</h1>
+		<form th:action="${form.id == 0} ? @{/admin/playas} : @{/admin/playas/{id}(id=${form.id})}" th:object="${form}" method="post" novalidate>
+			<input th:if="${form.id != 0}" type="hidden" name="_method" value="put">
+			<input type="hidden" th:field="*{version}">
+			<fieldset class="mb-3">
+				<div th:replace="~{fragments/ui :: campo('nombre', #{playa.nombre}, 'text')}"></div>
+				<div th:replace="~{fragments/ui :: area('descripcion', #{playa.descripcion})}"></div>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('composicion', #{playa.composicion}, 'text')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('extension', #{playa.extension}, 'number')}"></div>
+				</div>
+				<div th:replace="~{fragments/ui :: area('servicios', #{playa.servicios})}"></div>
+			</fieldset>
+			<fieldset class="mb-3">
+				<legend class="h5" th:text="#{playa.localizacion}">Localización</legend>
+				<div class="row">
+					<div class="col-md-3" th:insert="~{fragments/ui :: campo('localizacion.via', #{playa.localizacion.tipoVia}, 'text')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('localizacion.nombreVia', #{playa.localizacion.nombreVia}, 'text')}"></div>
+					<div class="col-md-3" th:insert="~{fragments/ui :: campo('localizacion.numeroVia', #{playa.localizacion.numero}, 'number')}"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-3" th:insert="~{fragments/ui :: campo('localizacion.codigoPostal', #{playa.localizacion.codigoPostal}, 'number')}"></div>
+					<div class="col-md-5" th:insert="~{fragments/ui :: campo('localizacion.ciudad', #{playa.localizacion.ciudad}, 'text')}"></div>
+					<div class="col-md-4" th:insert="~{fragments/ui :: campo('localizacion.provincia', #{playa.localizacion.provincia}, 'text')}"></div>
+				</div>
+				<div class="row" th:if="${form.id == 0}">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('localizacion.latitud', #{fase5.latitud}, 'number')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('localizacion.longitud', #{fase5.longitud}, 'number')}"></div>
+				</div>
+			</fieldset>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{playa.save}">Guardar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/playas}" th:text="#{playa.atras}">Atrás</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+  admin/ubicacion.html: fijar en el mapa la ubicación de una playa (antes
+  playa/markMap.jsp, que guardaba con un GET). El marcador se arrastra o se
+  pulsa en el mapa, lo que rellena latitud y longitud; se guarda con un POST
+  que lleva el token CSRF.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{playa.uploadCoordenates}">Ubicación</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-1" th:text="#{playa.uploadCoordenates}">Ubicación</h1>
+	<p class="text-body-secondary" th:text="${playa.nombre}">Playa</p>
+	<p class="small" th:text="#{fase5.ubicacion.ayuda}">Arrastra el marcador o pulsa en el mapa.</p>
+
+	<div class="mb-3" th:insert="~{fragments/mapa :: mapa(${puntos}, ${centro}, 13)}"></div>
+
+	<form th:action="@{/admin/playas/{id}/ubicacion(id=${playa.id})}" th:object="${form}" method="post" class="row g-2 align-items-end" novalidate>
+		<div class="col-sm-4" th:insert="~{fragments/ui :: campo('latitud', #{fase5.latitud}, 'number')}"></div>
+		<div class="col-sm-4" th:insert="~{fragments/ui :: campo('longitud', #{fase5.longitud}, 'number')}"></div>
+		<div class="col-sm-4 mb-3 d-flex gap-2">
+			<button type="submit" class="btn btn-primary" th:text="#{playa.save}">Guardar</button>
+			<a class="btn btn-outline-secondary" th:href="@{/playas/{id}(id=${playa.id})}" th:text="#{playa.atras}">Atrás</a>
+		</div>
+	</form>
+</div>
+</body>
+</html>

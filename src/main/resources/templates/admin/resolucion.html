@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- admin/resolucion.html: aceptar o rechazar una petición (antes peticionNegocio/administrador/accept.jsp y reject.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${decision == 'aceptacion'} ? #{peticionNegocio.administrador.aceptar.text} : #{peticionNegocio.administrador.rechazar.text}">Resolver</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-7">
+		<h1 class="mb-3" th:text="${decision == 'aceptacion'} ? #{peticionNegocio.administrador.aceptar.text} : #{peticionNegocio.administrador.rechazar.text}">Resolver</h1>
+		<dl class="ficha row">
+			<dt class="col-sm-4" th:text="#{peticionNegocio.titulo}">Título</dt>
+			<dd class="col-sm-8" th:text="${peticion.titulo}">Título</dd>
+			<dt class="col-sm-4" th:text="#{peticionNegocio.empresario}">Empresario</dt>
+			<dd class="col-sm-8" th:text="|${peticion.empresario.nombre} ${peticion.empresario.apellidos}|">Empresario</dd>
+			<dt class="col-sm-4" th:text="#{peticionNegocio.codigo}">Código</dt>
+			<dd class="col-sm-8 font-monospace" th:text="${peticion.codigo}">ABC</dd>
+		</dl>
+		<form th:action="@{/admin/peticiones/{id}/{d}(id=${peticion.id},d=${decision})}" th:object="${form}" method="post"
+			th:attr="data-confirmar=${decision == 'aceptacion'} ? #{peticionNegocio.aceptar.confirmar} : #{peticionNegocio.rechazar.confirmar}" novalidate>
+			<input type="hidden" th:field="*{version}">
+			<div th:replace="~{fragments/ui :: area('comentarios', #{peticionNegocio.comentarios})}"></div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn" th:classappend="${decision == 'aceptacion'} ? 'btn-success' : 'btn-danger'"
+					th:text="${decision == 'aceptacion'} ? #{peticionNegocio.accept.aceptar} : #{peticionNegocio.rechazar.aceptar}">Aceptar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/admin/peticiones}" th:text="#{peticionNegocio.cancelar}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

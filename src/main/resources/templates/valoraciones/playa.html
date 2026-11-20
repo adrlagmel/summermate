@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- valoraciones/playa.html: crear o editar la valoración de una playa (antes valoracionPlaya/edit.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{valoracionPlaya.valoracionPlaya}">Valorar playa</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-7">
+		<h1 class="mb-1" th:text="#{valoracionPlaya.valoracionPlaya}">Valorar playa</h1>
+		<p class="text-body-secondary" th:text="${form.playa.nombre}">Playa</p>
+		<form th:action="${form.id == 0} ? @{/playas/{id}/valoraciones(id=${form.playa.id})} : @{/mis/valoraciones/playas/{id}(id=${form.id})}"
+			th:object="${form}" method="post" novalidate>
+			<input th:if="${form.id != 0}" type="hidden" name="_method" value="put">
+			<input type="hidden" th:field="*{version}">
+			<div th:replace="~{fragments/ui :: campo('titulo', #{valoracionPlaya.titulo}, 'text')}"></div>
+			<div th:replace="~{fragments/ui :: area('comentario', #{valoracionPlaya.comentario})}"></div>
+			<div th:replace="~{fragments/ui :: puntuacion(#{valoracionPlaya.puntuacion})}"></div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{valoracionPlaya.save}">Guardar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/playas/{id}(id=${form.playa.id})}" th:text="#{valoracionPlaya.atras}">Atrás</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

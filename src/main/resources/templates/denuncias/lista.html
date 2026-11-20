@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- denuncias/lista.html: denuncias del empresario o de una valoración (antes denunciaValoracion/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.denuncia.listAll}">Mis denuncias</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-1" th:text="#{master.page.denuncia.listAll}">Mis denuncias</h1>
+	<p th:if="${valoracion}" class="text-body-secondary" th:text="|${valoracion.reserva.negocio.nombre} · ${valoracion.titulo}|">Valoración</p>
+
+	<p th:if="${#lists.isEmpty(denuncias)}" class="text-body-secondary mt-3" th:text="#{fase5.vacio}">Ninguna.</p>
+	<div class="list-group mt-3" th:unless="${#lists.isEmpty(denuncias)}">
+		<article class="list-group-item" th:each="d : ${denuncias}">
+			<div class="d-flex flex-wrap justify-content-between gap-2">
+				<strong th:text="${d.titulo}">Título</strong>
+				<span class="badge text-bg-warning estado" th:text="${d.tipo}">FALSEDAD</span>
+			</div>
+			<p class="mb-1" th:text="${d.comentario}">Comentario</p>
+			<p class="small text-body-secondary mb-2">
+				<span th:text="#{denunciaValoracion.negocio}">Negocio</span>:
+				<a th:href="@{/negocios/{id}(id=${d.valoracionNegocio.reserva.negocio.id})}" th:text="${d.valoracionNegocio.reserva.negocio.nombre}">Negocio</a>
+				· «<span th:text="${d.valoracionNegocio.titulo}">valoración</span>»
+			</p>
+			<div class="d-flex gap-2">
+				<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/denuncias/{id}/editar(id=${d.id})}" th:text="#{denunciaValoracion.editar}">Editar</a>
+				<form th:replace="~{fragments/ui :: boton(@{/empresario/denuncias/{id}(id=${d.id})}, 'delete', #{denunciaValoracion.borrar}, 'btn-outline-danger', #{denunciaValoracion.borrar} + '?')}"></form>
+			</div>
+		</article>
+	</div>
+</div>
+</body>
+</html>

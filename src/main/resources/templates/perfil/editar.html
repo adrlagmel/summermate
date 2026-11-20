@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- perfil/editar.html: edición del perfil de usuario o empresario (antes profile/editprofile.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{profile.editar}">Editar perfil</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-4" th:text="#{profile.editar}">Editar perfil</h1>
+		<form th:action="@{/perfil}" th:object="${form}" method="post" novalidate>
+			<input type="hidden" name="_method" value="put">
+			<input type="hidden" name="tipo" th:value="${esUsuario} ? 'usuario' : 'empresario'">
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('nombre', #{register.name}, 'text')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('apellidos', #{register.surname}, 'text')}"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('email', #{register.email}, 'email')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('telefono', #{register.phone}, 'tel')}"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('fechaNacimiento', #{register.birthDate}, 'date')}"></div>
+				<div class="col-md-6 mb-3">
+					<label class="form-label" for="sexo" th:text="#{register.sex}">Sexo</label>
+					<select class="form-select" th:field="*{sexo}">
+						<option value="HOMBRE" th:text="#{fase5.sexo.hombre}">Hombre</option>
+						<option value="MUJER" th:text="#{fase5.sexo.mujer}">Mujer</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('nacionalidad', #{register.nacionality}, 'text')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('direccion', #{register.address}, 'text')}"></div>
+			</div>
+			<th:block th:if="${esUsuario}"><div th:replace="~{fragments/ui :: area('estadoActual', #{usuario.estadoActual})}"></div></th:block>
+			<th:block th:unless="${esUsuario}"><div th:replace="~{fragments/ui :: campo('cif', #{empresario.cif}, 'text')}"></div></th:block>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{fase5.guardar}">Guardar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/perfil}" th:text="#{fase5.cancelar}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- mensajes/mensaje.html: un mensaje (antes message/display.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${mensaje.asunto}">Mensaje</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/carpetas}" th:text="#{master.page.folders.list}">Carpetas</a></li>
+			<li class="breadcrumb-item"><a th:href="@{/carpetas/{id}(id=${mensaje.carpeta.id})}" th:text="${mensaje.carpeta.nombre}">Entrada</a></li>
+			<li class="breadcrumb-item active" aria-current="page" th:text="${mensaje.asunto}">Asunto</li>
+		</ol>
+	</nav>
+	<article class="card">
+		<div class="card-header">
+			<h1 class="h4 mb-1" th:text="${mensaje.asunto}">Asunto</h1>
+			<small class="text-body-secondary">
+				<span th:text="|#{msg.sender}: ${mensaje.remitente.nombre} ${mensaje.remitente.apellidos}|">De</span> ·
+				<span th:text="|#{msg.recipient}: ${mensaje.beneficiario.nombre} ${mensaje.beneficiario.apellidos}|">Para</span> ·
+				<span th:text="${#temporals.format(mensaje.fechaEnvio, 'dd/MM/yyyy HH:mm')}">01/08/2026</span>
+			</small>
+		</div>
+		<div class="card-body">
+			<p class="mb-0" style="white-space: pre-line" th:text="${mensaje.cuerpo}">Cuerpo</p>
+		</div>
+		<div class="card-footer d-flex gap-2">
+			<a class="btn btn-primary btn-sm" th:href="@{/mensajes/{id}/respuesta(id=${mensaje.id})}" th:text="#{msg.reply.link}">Responder</a>
+			<form th:replace="~{fragments/ui :: boton(@{/mensajes/{id}(id=${mensaje.id})}, 'delete', #{msg.delete}, 'btn-outline-danger', #{msg.delete} + '?')}"></form>
+		</div>
+	</article>
+</div>
+</body>
+</html>

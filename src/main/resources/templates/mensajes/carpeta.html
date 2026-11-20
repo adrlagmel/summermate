@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- mensajes/carpeta.html: mensajes de una carpeta (antes message/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${carpeta.nombre}">Carpeta</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/carpetas}" th:text="#{master.page.folders.list}">Carpetas</a></li>
+			<li class="breadcrumb-item active" aria-current="page" th:text="${carpeta.nombre}">Entrada</li>
+		</ol>
+	</nav>
+	<h1 class="mb-3" th:text="${carpeta.nombre}">Entrada</h1>
+
+	<p th:if="${#lists.isEmpty(carpeta.mensajes)}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay mensajes.</p>
+	<div class="table-responsive" th:unless="${#lists.isEmpty(carpeta.mensajes)}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col" th:text="#{msg.moment}">Fecha</th>
+					<th scope="col" th:text="#{msg.sender}">Emisor</th>
+					<th scope="col" th:text="#{msg.recipient}">Receptor</th>
+					<th scope="col" th:text="#{msg.subject}">Asunto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="m : ${carpeta.mensajes}">
+					<td class="text-nowrap" th:text="${#temporals.format(m.fechaEnvio, 'dd/MM/yyyy HH:mm')}">01/08/2026</td>
+					<td th:text="|${m.remitente.nombre} ${m.remitente.apellidos}|">Ana</td>
+					<td th:text="|${m.beneficiario.nombre} ${m.beneficiario.apellidos}|">Luis</td>
+					<td><a th:href="@{/mensajes/{id}(id=${m.id})}" th:text="${m.asunto}">Asunto</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

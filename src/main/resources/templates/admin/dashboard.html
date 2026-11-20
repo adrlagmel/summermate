@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  admin/dashboard.html: panel de control (antes administrator/dashboard.jsp).
+  Se corrigen dos rótulos que estaban mal: la tabla de "más reservas" salía
+  como "mejor valorado" y la columna de número de valoraciones como "Provincia".
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.dashboard}">Panel de control</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-4" th:text="#{master.page.dashboard}">Panel de control</h1>
+
+	<div class="row g-3 mb-4">
+		<div class="col-md-6 col-xl-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h2 class="h6 text-body-secondary" th:text="#{dashboard.playaMejorValorada}">Playa mejor valorada</h2>
+					<p class="mb-0" th:each="p : ${playaMejorValorada}">
+						<a th:href="@{/playas/{id}(id=${p.id})}" th:text="${p.nombre}">Playa</a>
+						<span class="puntuacion" th:text="${#numbers.formatDecimal(p.valoracionMedia, 1, 1)}">9,0</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h2 class="h6 text-body-secondary" th:text="#{dashboard.playaConMasValoraciones}">Playa con más valoraciones</h2>
+					<p class="mb-0" th:each="p : ${playaConMasValoraciones}">
+						<a th:href="@{/playas/{id}(id=${p.id})}" th:text="${p.nombre}">Playa</a>
+						<span class="badge text-bg-secondary" th:text="${masValoraciones}">3</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h2 class="h6 text-body-secondary" th:text="#{dashboard.negocioMejorValorado}">Negocio mejor valorado</h2>
+					<p class="mb-0" th:each="n : ${negocioMejorValorado}">
+						<a th:href="@{/negocios/{id}(id=${n.id})}" th:text="${n.nombre}">Negocio</a>
+						<span class="puntuacion" th:text="${#numbers.formatDecimal(n.valoracionMedia, 1, 1)}">9,0</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-xl-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h2 class="h6 text-body-secondary" th:text="#{fase5.dashboard.masReservas}">Negocio con más reservas</h2>
+					<p class="mb-0" th:each="n : ${negocioMasReservas}">
+						<a th:href="@{/negocios/{id}(id=${n.id})}" th:text="${n.nombre}">Negocio</a>
+						<span class="small text-body-secondary" th:text="${n.empresario?.nombre}">Empresario</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="h4" th:text="|#{dashboard.usuariosTotales} (${usuarios.totalElements})|">Usuarios</h2>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{dashboard.usuario.nombre})}">Nombre</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('apellidos', #{dashboard.usuario.apellidos})}">Apellidos</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('email', #{usuario.email})}">Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="u : ${usuarios}">
+					<td th:text="${u.nombre}">Ana</td>
+					<td th:text="${u.apellidos}">García</td>
+					<td th:text="${u.email}">ana@example.com</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${usuarios})}"></nav>
+</div>
+</body>
+</html>

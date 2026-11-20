@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- mensajes/nuevo.html: escribir o responder un mensaje (antes message/send.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.messages.send}">Enviar mensaje</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-4" th:text="#{master.page.messages.send}">Enviar mensaje</h1>
+		<form th:action="@{/mensajes}" th:object="${form}" method="post" novalidate>
+			<div class="mb-3">
+				<label class="form-label" for="beneficiario" th:text="#{msg.recipient}">Destinatario</label>
+				<select class="form-select" th:field="*{beneficiario}" th:classappend="${#fields.hasErrors('beneficiario')} ? 'is-invalid'">
+					<option value="" th:text="#{fase5.elegir}">Elige…</option>
+					<option th:each="a : ${actores}" th:value="${a.id}" th:text="|${a.nombre} ${a.apellidos} (${a.userAccount.username})|">Ana</option>
+				</select>
+				<div class="invalid-feedback" th:errors="*{beneficiario}">Error</div>
+			</div>
+			<div th:replace="~{fragments/ui :: campo('asunto', #{msg.subject}, 'text')}"></div>
+			<div class="mb-3">
+				<label class="form-label" for="cuerpo" th:text="#{msg.body}">Mensaje</label>
+				<textarea class="form-control" rows="8" th:field="*{cuerpo}" th:classappend="${#fields.hasErrors('cuerpo')} ? 'is-invalid'"></textarea>
+				<div class="invalid-feedback" th:errors="*{cuerpo}">Error</div>
+			</div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{msg.send.link}">Enviar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/carpetas}" th:text="#{msg.cancel.link}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

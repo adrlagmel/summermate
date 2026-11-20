@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- valoraciones/mis-playas.html: valoraciones de playas del usuario (antes valoracionPlaya/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.valoracionPlaya.listUsuarioValoraciones}">Mis valoraciones de playas</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-3" th:text="#{master.page.valoracionPlaya.listUsuarioValoraciones}">Mis valoraciones de playas</h1>
+	<p th:if="${#lists.isEmpty(valoraciones)}" class="text-body-secondary" th:text="#{fase5.valoraciones.ninguna}">Ninguna.</p>
+	<div class="list-group" th:unless="${#lists.isEmpty(valoraciones)}">
+		<article class="list-group-item" th:each="v : ${valoraciones}">
+			<div class="d-flex flex-wrap justify-content-between gap-2">
+				<div>
+					<a class="fw-semibold" th:href="@{/playas/{id}(id=${v.playa.id})}" th:text="${v.playa.nombre}">Playa</a>
+					<span class="text-body-secondary" th:text="|· ${v.titulo}|">Título</span>
+				</div>
+				<span class="badge text-bg-primary puntuacion align-self-start" th:text="|${v.puntuacion}/10|">8/10</span>
+			</div>
+			<p class="mb-2" th:text="${v.comentario}">Comentario</p>
+			<div class="d-flex gap-2">
+				<a class="btn btn-sm btn-outline-secondary" th:href="@{/mis/valoraciones/playas/{id}/editar(id=${v.id})}" th:text="#{valoracionPlaya.editar}">Editar</a>
+				<form th:replace="~{fragments/ui :: boton(@{/mis/valoraciones/playas/{id}(id=${v.id})}, 'delete', #{valoracionPlaya.borrar}, 'btn-outline-danger', #{valoracionNegocio.confirmDelete})}"></form>
+			</div>
+		</article>
+	</div>
+</div>
+</body>
+</html>

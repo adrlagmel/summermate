@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- negocios/formulario.html: alta y edición de un negocio (antes negocio/register.jsp y negocio/edit.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${form.id == 0} ? #{negocio.create} : #{negocio.edit}">Negocio</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-4" th:text="${form.id == 0} ? #{negocio.create} : #{negocio.edit}">Negocio</h1>
+		<form th:action="${form.id == 0} ? @{/empresario/negocios} : @{/empresario/negocios/{id}(id=${form.id})}" th:object="${form}" method="post" novalidate>
+			<input th:if="${form.id != 0}" type="hidden" name="_method" value="put">
+			<input type="hidden" th:field="*{version}">
+			<div class="row">
+				<div class="col-md-7" th:insert="~{fragments/ui :: campo('nombre', #{negocio.nombre}, 'text')}"></div>
+				<div class="col-md-5" th:insert="~{fragments/ui :: campo('tipo', #{negocio.tipo}, 'text')}"></div>
+			</div>
+			<div th:replace="~{fragments/ui :: area('descripcion', #{negocio.descripcion})}"></div>
+			<div class="row">
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('telefono', #{negocio.telefono}, 'tel')}"></div>
+				<div class="col-md-6" th:insert="~{fragments/ui :: campo('paginaWeb', #{negocio.paginaweb}, 'url')}"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4" th:insert="~{fragments/ui :: campo('aforo', #{negocio.aforo}, 'number')}"></div>
+				<div class="col-md-8 mb-3">
+					<label class="form-label" for="playa" th:text="#{negocio.playa}">Playa</label>
+					<select class="form-select" th:field="*{playa}" th:classappend="${#fields.hasErrors('playa')} ? 'is-invalid'">
+						<option value="" th:text="#{fase5.elegir}">Elige…</option>
+						<option th:each="p : ${playas}" th:value="${p.id}" th:text="|${p.nombre} (${p.localizacion.ciudad})|">Playa</option>
+					</select>
+					<div class="invalid-feedback" th:errors="*{playa}">Error</div>
+				</div>
+			</div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{negocio.save}">Guardar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/empresario/negocios}" th:text="#{negocio.cancel}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
