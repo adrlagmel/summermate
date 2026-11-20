@@ -1,15 +1,14 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import security.Authority;
@@ -20,10 +19,6 @@ import utilities.AbstractTest;
  * Tests de caracterización: fijan el comportamiento actual del login para
  * que no cambie sin querer durante la migración.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class LoginServiceTest extends AbstractTest {
 
@@ -45,9 +40,12 @@ public class LoginServiceTest extends AbstractTest {
 	}
 
 	// Hoy un usuario inexistente se rechaza con un Assert de Spring.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void usuarioInexistenteSeRechaza() {
-		loginService.loadUserByUsername("no-existe");
+		assertThrows(IllegalArgumentException.class, () -> {
+			loginService.loadUserByUsername("no-existe");
+	
+		});
 	}
 
 	private static boolean tieneRol(UserDetails user, String rol) {

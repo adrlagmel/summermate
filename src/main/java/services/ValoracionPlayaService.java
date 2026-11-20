@@ -2,12 +2,12 @@ package services;
 
 import java.util.Collection;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.ValoracionPlayaRepository;
 import security.UserAccount;
@@ -40,7 +40,7 @@ public class ValoracionPlayaService {
 		vp.setPlaya(p);
 		vp.setUsuario(u);
 		vp.setTitulo("");
-		vp.setFecha(new Date());
+		vp.setFecha(LocalDateTime.now());
 		vp.setComentario("");
 		vp.setPuntuacion(0);
 		return vp;

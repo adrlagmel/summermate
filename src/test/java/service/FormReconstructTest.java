@@ -1,15 +1,14 @@
 package service;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.DenunciaValoracionService;
@@ -38,10 +37,6 @@ import forms.ValoracionPlayaForm;
  * tests comprueban que reconstruct() solo copia lo que el formulario declara,
  * que se mantiene el bloqueo optimista y que se comprueba el propietario.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class FormReconstructTest extends AbstractTest {
 
@@ -85,22 +80,28 @@ public class FormReconstructTest extends AbstractTest {
 		assertTrue(guardado.getNegocioActivo());
 	}
 
-	@Test(expected = ObjectOptimisticLockingFailureException.class)
+	@Test
 	public void unaVersionAntiguaDelFormularioSeRechaza() {
-		authenticate("empresario1");
-		NegocioForm form = new NegocioForm(negocio("Comida Fast"));
-		form.setVersion(form.getVersion() - 1);
+		assertThrows(ObjectOptimisticLockingFailureException.class, () -> {
+			authenticate("empresario1");
+			NegocioForm form = new NegocioForm(negocio("Comida Fast"));
+			form.setVersion(form.getVersion() - 1);
 
-		negocioService.reconstruct(form);
+			negocioService.reconstruct(form);
+	
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void unEmpresarioNoPuedeEditarElNegocioDeOtro() {
-		authenticate("empresario1");
-		NegocioForm form = new NegocioForm(negocio("Comida Fast"));
-		authenticate("empresario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("empresario1");
+			NegocioForm form = new NegocioForm(negocio("Comida Fast"));
+			authenticate("empresario2");
 
-		negocioService.reconstruct(form);
+			negocioService.reconstruct(form);
+	
+		});
 	}
 
 	// Antes, editar una playa dejaba valoracionMedia a null.
@@ -131,44 +132,56 @@ public class FormReconstructTest extends AbstractTest {
 	}
 
 	// Antes no se comprobaba el propietario al editar ni al borrar.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void unUsuarioNoPuedeEditarLaValoracionDeOtro() {
-		authenticate("usuario1");
-		int id = valoracionPlayaService.valoracionesDeUsuario().iterator().next().getId();
-		authenticate("usuario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("usuario1");
+			int id = valoracionPlayaService.valoracionesDeUsuario().iterator().next().getId();
+			authenticate("usuario2");
 
-		valoracionPlayaService.findOneToEdit(id);
+			valoracionPlayaService.findOneToEdit(id);
+	
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void unUsuarioNoPuedeBorrarLaValoracionDeOtro() {
-		authenticate("usuario1");
-		ValoracionPlaya valoracion = valoracionPlayaService.valoracionesDeUsuario().iterator().next();
-		authenticate("usuario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("usuario1");
+			ValoracionPlaya valoracion = valoracionPlayaService.valoracionesDeUsuario().iterator().next();
+			authenticate("usuario2");
 
-		valoracionPlayaService.delete(valoracion);
+			valoracionPlayaService.delete(valoracion);
+	
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void unEmpresarioNoPuedeEditarLaDenunciaDeOtro() {
-		authenticate("empresario1");
-		int id = denunciaValoracionService.denunciasDelEmpresario().iterator().next().getId();
-		authenticate("empresario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("empresario1");
+			int id = denunciaValoracionService.denunciasDelEmpresario().iterator().next().getId();
+			authenticate("empresario2");
 
-		denunciaValoracionService.findOneToEdit(id);
+			denunciaValoracionService.findOneToEdit(id);
+	
+		});
 	}
 
 	// valoracionNegocio2 es de "Comida Fast", que no es de empresario2.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void soloSePuedenDenunciarValoracionesDeUnNegocioPropio() {
-		authenticate("empresario2");
-		DenunciaValoracionForm form = new DenunciaValoracionForm();
-		form.setValoracionNegocio(valoracion("Falta de higiene!"));
-		form.setTitulo("Título");
-		form.setComentario("Comentario");
-		form.setTipo(TipoDenuncia.BURLA);
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("empresario2");
+			DenunciaValoracionForm form = new DenunciaValoracionForm();
+			form.setValoracionNegocio(valoracion("Falta de higiene!"));
+			form.setTitulo("Título");
+			form.setComentario("Comentario");
+			form.setTipo(TipoDenuncia.BURLA);
 
-		denunciaValoracionService.reconstruct(form);
+			denunciaValoracionService.reconstruct(form);
+	
+		});
 	}
 
 	@Test

@@ -1,7 +1,7 @@
 package repositories;
 
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 import org.springframework.data.domain.Page;
@@ -26,10 +26,10 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 	Collection<Usuario> findParticipantsByEvento(int eventoId);
 	
 	@Query("select distinct s from Evento s where s.fechaCelebracion >= ?1")
-	Collection<Evento> findEventosActivos(Date fechaActual);
+	Collection<Evento> findEventosActivos(LocalDateTime fechaActual);
 	
 	@Query("select distinct s from Evento s where s.fechaCelebracion <= ?1")
-	Collection<Evento> findEventosInactivos(Date fechaActual);
+	Collection<Evento> findEventosInactivos(LocalDateTime fechaActual);
 
 	// Fase 3: versiones paginadas (Pageable) para los listados ------------
 
@@ -37,9 +37,9 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 	Page<Evento> findByEmpresario(int empresarioId, Pageable pageable);
 
 	@Query("select s from Evento s where s.fechaCelebracion >= ?1")
-	Page<Evento> findEventosActivos(Date fechaActual, Pageable pageable);
+	Page<Evento> findEventosActivos(LocalDateTime fechaActual, Pageable pageable);
 
 	@Query("select s from Evento s where s.fechaCelebracion <= ?1")
-	Page<Evento> findEventosInactivos(Date fechaActual, Pageable pageable);
+	Page<Evento> findEventosInactivos(LocalDateTime fechaActual, Pageable pageable);
 
 }

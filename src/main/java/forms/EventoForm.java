@@ -7,9 +7,9 @@
 
 package forms;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +23,7 @@ public class EventoForm extends EntityForm {
 	private String	codigo;
 	private String	nombre;
 	private String	descripcion;
-	private Date	fechaCelebracion;
+	private LocalDateTime	fechaCelebracion;
 	private Double	precio;
 	private Negocio	negocio;
 
@@ -70,12 +70,12 @@ public class EventoForm extends EntityForm {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getFechaCelebracion() {
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	public LocalDateTime getFechaCelebracion() {
 		return fechaCelebracion;
 	}
 
-	public void setFechaCelebracion(Date fechaCelebracion) {
+	public void setFechaCelebracion(LocalDateTime fechaCelebracion) {
 		this.fechaCelebracion = fechaCelebracion;
 	}
 

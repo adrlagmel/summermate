@@ -1,0 +1,79 @@
+# Configuración de SummerMate (Spring Boot). La conexión se lee de las
+# variables de entorno DB_URL, DB_USER y DB_PASSWORD; los valores por defecto
+# son los del docker-compose.yml de desarrollo.
+
+spring:
+  application:
+    name: summermate
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/summermate}
+    username: ${DB_USER:summermate}
+    password: ${DB_PASSWORD:summermate}
+  jpa:
+    # Las vistas recorren relaciones perezosas al pintarse (como hacía
+    # OpenEntityManagerInViewInterceptor). Se deja explícito para que Spring
+    # Boot no avise en cada arranque.
+    open-in-view: true
+    hibernate:
+      # El esquema lo crea Flyway; Hibernate solo comprueba que coincide.
+      ddl-auto: validate
+      # Mismos nombres de tablas y columnas que antes de Spring Boot (Boot usa
+      # por defecto snake_case: calendario_negocio en vez de calendarionegocio)
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    properties:
+      hibernate:
+        # Fase 3: carga por lotes de relaciones perezosas (evita el N+1)
+        default_batch_fetch_size: 25
+  flyway:
+    locations: classpath:db/migration
+  messages:
+    basename: messages
+    fallback-to-system-locale: false
+  mvc:
+    # Permite PUT y DELETE desde formularios HTML con un campo oculto _method
+    hiddenmethod:
+      filter:
+        enabled: true
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 4MB
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+  level:
+    org.hibernate.orm.deprecation: error
+
+---
+# Perfil de desarrollo: carga los datos de ejemplo (antes PopulateDatabase.xml)
+# y desactiva la caché de plantillas. mvn spring-boot:run lo activa.
+spring:
+  config:
+    activate:
+      on-profile: dev
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev
+  thymeleaf:
+    cache: false
+
+---
+# Perfil para medir el rendimiento (scripts/medir.sh): registra cada
+# sentencia SQL que lanza Hibernate en target/sql.log.
+spring:
+  config:
+    activate:
+      on-profile: sql
+logging:
+  file:
+    name: target/sql.log
+  pattern:
+    file: "@@SQL %m%n"
+  level:
+    root: warn
+    org.hibernate.SQL: debug

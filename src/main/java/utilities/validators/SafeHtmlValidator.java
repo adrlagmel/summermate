@@ -6,8 +6,8 @@
 
 package utilities.validators;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;

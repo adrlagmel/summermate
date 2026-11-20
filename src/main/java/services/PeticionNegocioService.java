@@ -3,13 +3,13 @@ package services;
 import java.util.Collection;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.PeticionNegocioRepository;
 import security.Authority;
@@ -59,7 +59,7 @@ public class PeticionNegocioService {
 		RandomString rs = new RandomString(6);
 		String randomStr = rs.nextString();
 		
-		res.setFecha(new Date(System.currentTimeMillis()-1000));
+		res.setFecha(LocalDateTime.now().minusSeconds(1));
 		res.setCodigo(randomStr);
 		res.setEstado(EstadoPeticion.PENDIENTE);
 		res.setEmpresario(empresario);
@@ -73,7 +73,7 @@ public class PeticionNegocioService {
 		
 		if(peticionNegocio.getId() == 0){
 			Assert.isTrue(canCreatePeticionNegocio());
-			peticionNegocio.setFecha(new Date(System.currentTimeMillis()-1000));
+			peticionNegocio.setFecha(LocalDateTime.now().minusSeconds(1));
 			peticionNegocio.setEstado(EstadoPeticion.PENDIENTE);
 		}
 		

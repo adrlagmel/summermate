@@ -1,23 +1,20 @@
 package domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.FetchType;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(indexes = {
@@ -36,18 +33,16 @@ public class Mensaje extends DomainEntity{
 	
 	// Attributes ----------------------------
 	
-	private Date fechaEnvio;
+	private LocalDateTime fechaEnvio;
 	private String asunto;
 	private String cuerpo;
 	
 	@NotNull
 	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFechaEnvio() {
+	public LocalDateTime getFechaEnvio() {
 		return fechaEnvio;
 	}
-	public void setFechaEnvio(Date fechaEnvio) {
+	public void setFechaEnvio(LocalDateTime fechaEnvio) {
 		this.fechaEnvio = fechaEnvio;
 	}
 	

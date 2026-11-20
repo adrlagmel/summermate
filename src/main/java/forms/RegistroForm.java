@@ -1,16 +1,14 @@
 package forms;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,7 +28,7 @@ public class RegistroForm {
 	private String email;
 		
 	private String telefono;
-	private Date fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	private String nacionalidad;
 	private String direccion;
 	private String sexo;
@@ -117,13 +115,12 @@ public class RegistroForm {
 
 	@NotNull
 	@Past
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	public Date getFechaNacimiento(){
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	public LocalDate getFechaNacimiento(){
 		return fechaNacimiento;
 	}
 	
-	public void setFechaNacimiento(Date fechaNacimiento){
+	public void setFechaNacimiento(LocalDate fechaNacimiento){
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	

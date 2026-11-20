@@ -1,18 +1,15 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.PeticionNegocioService;
@@ -23,10 +20,6 @@ import domain.PeticionNegocio;
 /*
  * Estados de las peticiones de negocio como enum (EstadoPeticion).
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class PeticionNegocioServiceTest extends AbstractTest {
 

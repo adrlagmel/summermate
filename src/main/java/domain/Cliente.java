@@ -2,30 +2,27 @@
 
 import java.util.Collection;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public abstract class Cliente extends Actor{
 	
 	private String 		telefono;
-	private Date 		fechaNacimiento;
+	private LocalDate 		fechaNacimiento;
 	private String 		nacionalidad;
 	private String		direccion;
 	private String		sexo;
@@ -43,12 +40,10 @@ public abstract class Cliente extends Actor{
 	
 	@NotNull
 	@Past
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	public Date getFechaNacimiento(){
+	public LocalDate getFechaNacimiento(){
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento){
+	public void setFechaNacimiento(LocalDate fechaNacimiento){
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	

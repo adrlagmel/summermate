@@ -2,24 +2,21 @@ package domain;
 
 import java.util.Collection;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.FetchType;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.FetchType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import utilities.validators.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -35,7 +32,7 @@ public class ValoracionNegocio extends DomainEntity{
 	// Attributes --------------------
 	
 	private String 	titulo;
-	private Date 	fecha;
+	private LocalDateTime 	fecha;
 	private Integer puntuacion;
 	private String 	comentario;
 	private Integer comentarioUtil;
@@ -51,13 +48,11 @@ public class ValoracionNegocio extends DomainEntity{
 	}
 	
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 	

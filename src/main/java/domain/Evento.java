@@ -1,29 +1,26 @@
 package domain;
 
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.persistence.Access;
+import jakarta.persistence.Access;
 
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(indexes = {
@@ -38,8 +35,8 @@ public class Evento extends DomainEntity{
 	private String 			descripcion;
 	private Double 			precio;
 	private Imagen			imagen;
-	private Date 			fechaRegistro;
-	private Date 			fechaCelebracion;
+	private LocalDateTime 			fechaRegistro;
+	private LocalDateTime 			fechaCelebracion;
 		
 	
 	@NotBlank
@@ -92,24 +89,20 @@ public class Evento extends DomainEntity{
 	}
 	
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFechaRegistro() {
+	public LocalDateTime getFechaRegistro() {
 		return fechaRegistro;
 	}
 	
-	public void setFechaRegistro(Date fechaRegistro) {
+	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 	
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFechaCelebracion() {
+	public LocalDateTime getFechaCelebracion() {
 		return fechaCelebracion;
 	}
 	
-	public void setFechaCelebracion(Date fechaCelebracion) {
+	public void setFechaCelebracion(LocalDateTime fechaCelebracion) {
 		this.fechaCelebracion = fechaCelebracion;
 	}
 	

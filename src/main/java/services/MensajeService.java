@@ -1,12 +1,12 @@
 package services;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.MensajeRepository;
 import security.LoginService;
@@ -48,7 +48,7 @@ public class MensajeService {
 		Actor remitente = actorService.findByPrincipal();
 
 		mensaje.setRemitente(remitente);
-		mensaje.setFechaEnvio(new Date());
+		mensaje.setFechaEnvio(LocalDateTime.now());
 
 		Carpeta carpeta = carpetaService.findEnviadosActor(remitente);
 
@@ -86,7 +86,7 @@ public class MensajeService {
 			Carpeta outbox = carpetaService.findEnviadosActor(remitente);
 			mensaje.setCarpeta(outbox);
 
-			Date d = new Date(System.currentTimeMillis() - 1000);
+			LocalDateTime d = LocalDateTime.now().minusSeconds(1);
 
 			mensaje.setFechaEnvio(d);
 			

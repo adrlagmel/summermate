@@ -3,13 +3,10 @@ package service;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.annotation.Rollback;
 
 import domain.Administrador;
@@ -19,10 +16,6 @@ import domain.Carpeta;
 import services.AdministradorService;
 import utilities.AbstractTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 @Rollback(false)
 public class AdministradorServicePositiveTest extends AbstractTest{

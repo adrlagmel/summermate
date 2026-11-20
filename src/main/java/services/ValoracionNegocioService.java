@@ -3,12 +3,12 @@ package services;
 import java.util.ArrayList;
 
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.NegocioRepository;
 import repositories.ValoracionNegocioRepository;
@@ -45,14 +45,14 @@ public class ValoracionNegocioService {
 
 	}
 	public ValoracionNegocio create(Reserva r){
-		Assert.isTrue(r.getFecha().compareTo(new Date())<=0);
+		Assert.isTrue(!r.getFecha().isAfter(LocalDateTime.now()));
 		
 		ValoracionNegocio vn= new ValoracionNegocio();
 		Collection<DenunciaValoracion> denuncias = new ArrayList<DenunciaValoracion>();
 		
 		vn.setDenuncias(denuncias);
 		
-		vn.setFecha(new Date());
+		vn.setFecha(LocalDateTime.now());
 		vn.setReserva(r);
 		
 		return vn;

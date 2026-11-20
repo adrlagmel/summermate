@@ -1,10 +1,12 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -12,11 +14,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -32,10 +31,6 @@ import domain.Reserva;
  * usuarios a la vez. "Comida Fast" tiene aforo 50; cinco reservas simultáneas
  * de 20 comensales para la misma hora: solo caben dos.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 public class AforoConcurrenteTest extends AbstractTest {
 
 	private static final int			HILOS		= 5;
@@ -54,7 +49,7 @@ public class AforoConcurrenteTest extends AbstractTest {
 	public void reservasSimultaneasNoSuperanElAforo() throws Exception {
 		final TransactionTemplate tx = new TransactionTemplate(transactionManager);
 		final int negocioId = tx.execute(status -> comidaFast().getId());
-		final Date fecha = dentroDeUnaSemanaALas(14);
+		final LocalDateTime fecha = dentroDeUnaSemanaALas(14);
 		final CountDownLatch salida = new CountDownLatch(1);
 		ExecutorService pool = Executors.newFixedThreadPool(HILOS);
 		List<Future<Boolean>> resultados = new ArrayList<Future<Boolean>>();
@@ -93,17 +88,20 @@ public class AforoConcurrenteTest extends AbstractTest {
 
 	// Una reserva sola tampoco puede superar el aforo (antes la primera de
 	// cada franja no se comprobaba).
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void unaSolaReservaNoPuedeSuperarElAforo() {
-		TransactionTemplate tx = new TransactionTemplate(transactionManager);
-		authenticate("usuario1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			TransactionTemplate tx = new TransactionTemplate(transactionManager);
+			authenticate("usuario1");
 
-		tx.execute(status -> {
-			Reserva reserva = reservaService.create();
-			reserva.setNegocio(comidaFast());
-			reserva.setFecha(dentroDeUnaSemanaALas(15));
-			reserva.setComensales(60);
-			return reservaService.save(reserva);
+			tx.execute(status -> {
+				Reserva reserva = reservaService.create();
+				reserva.setNegocio(comidaFast());
+				reserva.setFecha(dentroDeUnaSemanaALas(15));
+				reserva.setComensales(60);
+				return reservaService.save(reserva);
+			});
+	
 		});
 	}
 
@@ -114,13 +112,7 @@ public class AforoConcurrenteTest extends AbstractTest {
 		throw new AssertionError("No existe Comida Fast");
 	}
 
-	private static Date dentroDeUnaSemanaALas(int hora) {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DAY_OF_MONTH, 7);
-		c.set(Calendar.HOUR_OF_DAY, hora);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		c.set(Calendar.MILLISECOND, 0);
-		return c.getTime();
+	private static LocalDateTime dentroDeUnaSemanaALas(int hora) {
+		return LocalDate.now().plusDays(7).atTime(hora, 0);
 	}
 }

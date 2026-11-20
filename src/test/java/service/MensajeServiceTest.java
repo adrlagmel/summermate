@@ -1,13 +1,10 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.ActorService;
@@ -23,10 +20,6 @@ import forms.MensajeForm;
  * avisara: los datos de ejemplo llamaban "entrada" a la bandeja que el código
  * busca como "Entrada" (MySQL no distinguía mayúsculas al comparar).
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class MensajeServiceTest extends AbstractTest {
 
@@ -42,8 +35,8 @@ public class MensajeServiceTest extends AbstractTest {
 	@Test
 	public void todosLosActoresTienenSusCarpetasPorDefecto() {
 		for (Actor actor : actorService.findAll()) {
-			assertNotNull(actor.getUserAccount().getUsername(), carpetaService.findEntradaActor(actor));
-			assertNotNull(actor.getUserAccount().getUsername(), carpetaService.findEnviadosActor(actor));
+			assertNotNull(carpetaService.findEntradaActor(actor), actor.getUserAccount().getUsername());
+			assertNotNull(carpetaService.findEnviadosActor(actor), actor.getUserAccount().getUsername());
 		}
 	}
 

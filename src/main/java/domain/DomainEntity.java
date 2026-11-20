@@ -15,16 +15,15 @@
 
 package domain;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Version;
 
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 @MappedSuperclass
 @Access(AccessType.PROPERTY)
@@ -43,17 +42,12 @@ public abstract class DomainEntity {
 	private int	version;
 
 
-	// Una secuencia por entidad (por ejemplo, negocio_seq). Hibernate reserva
-	// los ids de 50 en 50 (optimizador pooled-lo), así que no consulta la
-	// secuencia en cada inserción y puede agrupar los INSERT en lotes.
+	// Una secuencia por entidad (por ejemplo, negocio_seq) de la que Hibernate
+	// reserva los ids de 50 en 50, así que no la consulta en cada inserción y
+	// puede agrupar los INSERT en lotes. En Hibernate 5 había que configurarlo
+	// con @GenericGenerator; en Hibernate 6 es el comportamiento por defecto.
 	@Id
-	@GeneratedValue(generator = "secuencia")
-	@GenericGenerator(name = "secuencia", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-		@Parameter(name = "prefer_sequence_per_entity", value = "true"),
-		@Parameter(name = "sequence_name_suffix", value = "_seq"),
-		@Parameter(name = "increment_size", value = "50"),
-		@Parameter(name = "optimizer", value = "pooled-lo")
-	})
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public int getId() {
 		return id;
 	}

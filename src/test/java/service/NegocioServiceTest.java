@@ -1,18 +1,17 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.NegocioService;
@@ -23,10 +22,6 @@ import domain.Negocio;
  * Tests de caracterización de NegocioService sobre los datos de
  * PopulateDatabase.xml.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class NegocioServiceTest extends AbstractTest {
 
@@ -58,20 +53,26 @@ public class NegocioServiceTest extends AbstractTest {
 	}
 
 	// empresario3 tiene la petición de negocio PENDIENTE.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void empresarioConPeticionPendienteNoPuedeCrearNegocio() {
-		authenticate("empresario3");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("empresario3");
 
-		negocioService.create();
+			negocioService.create();
+	
+		});
 	}
 
 	// "Comida Fast" es de empresario1.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void empresarioNoPuedeEditarNegocioAjeno() {
-		int id = buscar("Comida Fast").getId();
-		authenticate("empresario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			int id = buscar("Comida Fast").getId();
+			authenticate("empresario2");
 
-		negocioService.findOneToEdit(id);
+			negocioService.findOneToEdit(id);
+	
+		});
 	}
 
 	private Negocio buscar(String nombre) {

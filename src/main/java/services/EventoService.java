@@ -3,15 +3,15 @@ package services;
 import java.util.ArrayList;
 
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.EventoRepository;
 import security.LoginService;
@@ -63,7 +63,7 @@ public class EventoService {
 		result.setCodigo(randomStr);
 		
 		result.setUsuarios(new ArrayList<Usuario>());
-		result.setFechaRegistro(new Date(System.currentTimeMillis()));
+		result.setFechaRegistro(LocalDateTime.now());
 
 		return result;
 	}
@@ -91,8 +91,8 @@ public class EventoService {
 	public void save(Evento evento){
 		checkPrincipal(evento);
 		
-		evento.setFechaRegistro(new Date(System.currentTimeMillis()));
-		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
+		evento.setFechaRegistro(LocalDateTime.now());
+		Assert.isTrue(!evento.getFechaCelebracion().isBefore(LocalDateTime.now()));
 		Assert.isTrue(evento.getNegocio().getNegocioActivo());
 		
 		eventoRepository.save(evento);
@@ -108,7 +108,7 @@ public class EventoService {
 	}
 	
 	public Collection<Evento> EventosActivos(){
-		Date ahora = new Date();
+		LocalDateTime ahora = LocalDateTime.now();
 		Collection<Evento> result = eventoRepository.findEventosActivos(ahora);
 		Assert.notNull(result);
 		
@@ -117,7 +117,7 @@ public class EventoService {
 	}
 	
 	public Collection<Evento> EventosInactivos(){
-		Date ahora = new Date();
+		LocalDateTime ahora = LocalDateTime.now();
 		Collection<Evento> result = eventoRepository.findEventosInactivos(ahora);
 		Assert.notNull(result);
 		
@@ -129,7 +129,7 @@ public class EventoService {
 		Evento evento = eventoRepository.findById(eventoId).orElse(null);
 				
 		checkPrincipal(evento);
-		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
+		Assert.isTrue(!evento.getFechaCelebracion().isBefore(LocalDateTime.now()));
 		
 		return evento;
 	}
@@ -139,9 +139,9 @@ public class EventoService {
 	}
 	
 	public void participate(Evento evento, Usuario usuario) {
-		Date fechaActual = new Date();
+		LocalDateTime fechaActual = LocalDateTime.now();
 		Assert.isTrue(!evento.getUsuarios().contains(usuario));
-		Assert.isTrue(evento.getFechaCelebracion().after(fechaActual));
+		Assert.isTrue(evento.getFechaCelebracion().isAfter(fechaActual));
 		
 		usuario.getEventos().add(evento);
 		evento.getUsuarios().add(usuario);
@@ -151,9 +151,9 @@ public class EventoService {
 	}
 	
 	public void unregister(Evento evento, Usuario usuario) {
-		Date fechaActual = new Date();
+		LocalDateTime fechaActual = LocalDateTime.now();
 		Assert.isTrue(evento.getUsuarios().contains(usuario));
-		Assert.isTrue(evento.getFechaCelebracion().after(fechaActual));
+		Assert.isTrue(evento.getFechaCelebracion().isAfter(fechaActual));
 		
 		usuario.getEventos().remove(evento);
 		evento.getUsuarios().remove(usuario);
@@ -246,11 +246,11 @@ public class EventoService {
 	}
 
 	public Page<Evento> EventosActivos(Pageable pageable){
-		return eventoRepository.findEventosActivos(new Date(), pageable);
+		return eventoRepository.findEventosActivos(LocalDateTime.now(), pageable);
 	}
 
 	public Page<Evento> EventosInactivos(Pageable pageable){
-		return eventoRepository.findEventosInactivos(new Date(), pageable);
+		return eventoRepository.findEventosInactivos(LocalDateTime.now(), pageable);
 	}
 
 	public Page<Evento> findByEmpresario(Pageable pageable){

@@ -1,18 +1,17 @@
 package service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
+import org.springframework.transaction.annotation.Transactional;
+import jakarta.validation.ConstraintViolationException;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import repositories.AdministradorRepository;
@@ -23,10 +22,6 @@ import domain.PeticionNegocio;
 import domain.Playa;
 import utilities.AbstractTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class AdministradorServiceNegativeTest extends AbstractTest{
 	
@@ -46,28 +41,31 @@ public class AdministradorServiceNegativeTest extends AbstractTest{
 			/*
 			 * Register to the system as a administrador. Negative case. Not all fields.
 			 */
-			@Test(expected=ConstraintViolationException.class)
-			public void registerAthleteNegativeCase(){
-				unauthenticate();
-				Administrador admin = administradorService.create();
+			@Test
+			public void registerAthleteNegativeCase() {
+				assertThrows(ConstraintViolationException.class, () -> {
+					unauthenticate();
+					Administrador admin = administradorService.create();
 				
-				admin.getUserAccount().setUsername("athleteTest");
-				admin.getUserAccount().setPassword("athleteTest");
+					admin.getUserAccount().setUsername("athleteTest");
+					admin.getUserAccount().setPassword("athleteTest");
 				
-				Collection<Carpeta> carpetas = new ArrayList<Carpeta>();
-				Collection<Playa> playas = new ArrayList<Playa>();
-				Collection<PeticionNegocio> peticiones = new ArrayList<PeticionNegocio>();
+					Collection<Carpeta> carpetas = new ArrayList<Carpeta>();
+					Collection<Playa> playas = new ArrayList<Playa>();
+					Collection<PeticionNegocio> peticiones = new ArrayList<PeticionNegocio>();
 				
 				
-				// Sin nombre (campo @NotBlank): debe fallar la validación.
-				admin.setNombre(null);
-				admin.setApellidos("apellidosTest");
-				admin.setEmail("test@test.test");
-				admin.setCarpetas(carpetas);
-				admin.setPeticionNegocios(peticiones);
-				admin.setPlayas(playas);
-				administradorService.save(admin);
-				administradorRepository.flush();
+					// Sin nombre (campo @NotBlank): debe fallar la validación.
+					admin.setNombre(null);
+					admin.setApellidos("apellidosTest");
+					admin.setEmail("test@test.test");
+					admin.setCarpetas(carpetas);
+					admin.setPeticionNegocios(peticiones);
+					admin.setPlayas(playas);
+					administradorService.save(admin);
+					administradorRepository.flush();
+			
+				});
 			}
 
 }

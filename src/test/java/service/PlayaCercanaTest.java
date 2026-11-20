@@ -1,16 +1,15 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.PlayaService;
@@ -23,10 +22,6 @@ import domain.Playa;
  * Regla 25,7 km, Calas de Poniente 29,5 km, Matalascañas 55,5 km, La
  * Malagueta 170,4 km y De Nueva Almería 345,3 km.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class PlayaCercanaTest extends AbstractTest {
 
@@ -57,9 +52,12 @@ public class PlayaCercanaTest extends AbstractTest {
 		assertEquals(Arrays.asList("La Malagueta"), nombres(playaService.nearToMe(36.717268, -4.410057, 25)));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void rechazaRadiosFueraDeRango() {
-		playaService.nearToMe(LAT, LON, 5000);
+		assertThrows(IllegalArgumentException.class, () -> {
+			playaService.nearToMe(LAT, LON, 5000);
+	
+		});
 	}
 
 	private static List<String> nombres(java.util.Collection<Playa> playas) {

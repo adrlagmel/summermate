@@ -1,9 +1,11 @@
 package services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
 
 import domain.Imagen;
 
@@ -36,14 +38,20 @@ public class ImagenServiceTest {
 	}
 
 	// Un HTML con extensión .jpg ya no se acepta (ni se sirve como imagen).
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void rechazaFicherosQueNoSonImagenes() {
-		service.crear("<html><script>alert(1)</script></html>".getBytes());
+		assertThrows(IllegalArgumentException.class, () -> {
+			service.crear("<html><script>alert(1)</script></html>".getBytes());
+	
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void rechazaFormatosNoAdmitidos() {
-		service.crear("GIF89a......".getBytes());
+		assertThrows(IllegalArgumentException.class, () -> {
+			service.crear("GIF89a......".getBytes());
+	
+		});
 	}
 
 	@Test

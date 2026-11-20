@@ -1,12 +1,10 @@
 package forms;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
@@ -22,7 +20,7 @@ public class ReservaForm {
 	private String  comentarios;
 	private Boolean fumadores;
 	private Integer comensales;
-	private Date    fecha;
+	private LocalDateTime    fecha;
 	
 	private Negocio negocio;
 		
@@ -37,13 +35,12 @@ public class ReservaForm {
 	}
 
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFecha() {
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 

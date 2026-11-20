@@ -1,20 +1,22 @@
 package services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import java.util.Collection;
-import java.util.Date;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import utilities.Assert;
 
 import repositories.ReservaRepository;
 import security.LoginService;
@@ -30,6 +32,8 @@ import forms.ReservaForm;
 @Service
 @Transactional
 public class ReservaService {
+
+	private static final DateTimeFormatter DIA_ES = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 	
 	// Managed repository ----------------------------------------------------
 	
@@ -68,7 +72,7 @@ public class ReservaService {
 		
 		reserva.setUsuario(athlete);
 		reserva.setCodigo(randomStr);
-		reserva.setFechaCreacion(new Date());
+		reserva.setFechaCreacion(LocalDateTime.now());
 				
 		return reserva;
 	}
@@ -77,7 +81,7 @@ public class ReservaService {
 		checkPrincipal(reserva);
 
 		if(reserva.getId()==0){
-			reserva.setFechaCreacion(new Date(System.currentTimeMillis()-1000));
+			reserva.setFechaCreacion(LocalDateTime.now().minusSeconds(1));
 		}
 		
 		// Fase 3: se bloquea el negocio antes de contar los comensales. Sin
@@ -87,15 +91,8 @@ public class ReservaService {
 		Negocio negocio = negocioService.bloquearParaReservar(reserva.getNegocio().getId());
 		Assert.isTrue(negocio.getNegocioActivo());
 		
-		Calendar stMoment = Calendar.getInstance();
-		stMoment.setTime(reserva.getFecha());
-		
-		Calendar enMoment = Calendar.getInstance();
-		enMoment.setTime(reserva.getFecha());
-		enMoment.add(Calendar.HOUR_OF_DAY, 1);
-		
-		Date startMoment = stMoment.getTime();
-		Date endMoment = enMoment.getTime();
+		LocalDateTime startMoment = reserva.getFecha();
+		LocalDateTime endMoment = startMoment.plusHours(1);
 		
 		// Antes solo se comprobaba si ya había reservas en esa franja, así que
 		// la primera podía superar el aforo ella sola.
@@ -103,24 +100,13 @@ public class ReservaService {
 		comensales = comensales + reserva.getComensales();
 		Assert.isTrue(comensales.compareTo(negocio.getAforo())<=0);
 		
-		Assert.isTrue(reserva.getFecha().compareTo(new Date()) >= 0);
+		Assert.isTrue(!reserva.getFecha().isBefore(LocalDateTime.now()));
 		
-		Calendar sMoment = Calendar.getInstance();
-		sMoment.setTime(reserva.getFecha());
-		sMoment.set(Calendar.SECOND, 0);
-		sMoment.set(Calendar.MILLISECOND, 0);
-		
-		Calendar sMomentToCheck = Calendar.getInstance();
-		sMomentToCheck.setTime(reserva.getFecha());
-			
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-		sMomentToCheck.set(Calendar.MINUTE, 0);
-		sMomentToCheck.set(Calendar.SECOND, 0);
-		sMomentToCheck.set(Calendar.MILLISECOND, 0);
-		
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)<=0);
+		// Solo de 12:00 a 24:00
+		LocalDateTime hora = reserva.getFecha().truncatedTo(ChronoUnit.MINUTES);
+		LocalDate dia = hora.toLocalDate();
+		Assert.isTrue(!hora.isBefore(dia.atTime(12, 0)));
+		Assert.isTrue(!hora.isAfter(dia.plusDays(1).atStartOfDay()));
 		
 		Reserva saved = reservaRepository.save(reserva);
 		calendarioNegocioService.create(saved);
@@ -138,7 +124,7 @@ public class ReservaService {
 	
 	public Collection<Reserva> searchByDate(String fecha){
 		Empresario empresario = empresarioService.findByPrincipal();
-		Date[] dia = diaCompleto(fecha);
+		LocalDateTime[] dia = diaCompleto(fecha);
 
 		// Una fecha mal escrita nunca coincidía con ninguna reserva.
 		if(dia == null)
@@ -150,23 +136,26 @@ public class ReservaService {
 		return result;
 	}
 
-	// [inicio del día, inicio del día siguiente) para una fecha dd/MM/yyyy, o
-	// null si no es una fecha válida.
-	private static Date[] diaCompleto(String fecha){
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar hasta = Calendar.getInstance();
-		Date desde;
+	// [inicio del día, inicio del día siguiente) para una fecha en formato
+	// dd/MM/aaaa o aaaa-MM-dd (el de <input type="date">), o null si no es
+	// una fecha válida.
+	private static LocalDateTime[] diaCompleto(String fecha){
+		LocalDate dia = null;
 
-		formato.setLenient(false);
-		try {
-			desde = formato.parse(fecha.trim());
-		} catch (ParseException e) {
+		if(fecha == null)
 			return null;
+		for(DateTimeFormatter formato : new DateTimeFormatter[] { DIA_ES, DateTimeFormatter.ISO_LOCAL_DATE }){
+			try {
+				dia = LocalDate.parse(fecha.trim(), formato);
+				break;
+			} catch (DateTimeParseException e) {
+				// se prueba el siguiente formato
+			}
 		}
-		hasta.setTime(desde);
-		hasta.add(Calendar.DAY_OF_MONTH, 1);
+		if(dia == null)
+			return null;
 
-		return new Date[] { desde, hasta.getTime() };
+		return new LocalDateTime[] { dia.atStartOfDay(), dia.plusDays(1).atStartOfDay() };
 	}
 	
 	// Other business methods ------------------------------------------------
@@ -276,7 +265,7 @@ public class ReservaService {
 
 	public Page<Reserva> searchByDate(String fecha, Pageable pageable){
 		Empresario empresario = empresarioService.findByPrincipal();
-		Date[] dia = diaCompleto(fecha);
+		LocalDateTime[] dia = diaCompleto(fecha);
 
 		if(dia == null)
 			return Page.empty(pageable);

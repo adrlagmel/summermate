@@ -1,16 +1,15 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Calendar;
-import java.util.Date;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import services.NegocioService;
@@ -25,10 +24,6 @@ import domain.Reserva;
  * 10 de agosto y el 10 de octubre de 2016 (ojo: en PopulateDatabase.xml las
  * fechas van en formato MM/dd/yyyy; el buscador usa dd/MM/yyyy).
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class ReservaServiceTest extends AbstractTest {
 
@@ -71,31 +66,40 @@ public class ReservaServiceTest extends AbstractTest {
 		assertTrue(saved.getId() > 0);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void noSePuedeReservarEnElPasado() {
-		authenticate("usuario1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("usuario1");
 
-		reservaService.save(nuevaReserva(dentroDeDias(-7, 13), 2));
+			reservaService.save(nuevaReserva(dentroDeDias(-7, 13), 2));
+	
+		});
 	}
 
 	// Solo se admiten reservas de 12:00 a 24:00.
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void noSePuedeReservarAntesDeMediodia() {
-		authenticate("usuario1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("usuario1");
 
-		reservaService.save(nuevaReserva(dentroDeDias(7, 10), 2));
+			reservaService.save(nuevaReserva(dentroDeDias(7, 10), 2));
+	
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void usuarioNoPuedeVerReservaAjena() {
-		authenticate("usuario1");
-		int id = reservaService.findReservasByUsuario().iterator().next().getId();
-		authenticate("usuario2");
+		assertThrows(IllegalArgumentException.class, () -> {
+			authenticate("usuario1");
+			int id = reservaService.findReservasByUsuario().iterator().next().getId();
+			authenticate("usuario2");
 
-		reservaService.findOneToEdit(id);
+			reservaService.findOneToEdit(id);
+	
+		});
 	}
 
-	private Reserva nuevaReserva(Date fecha, int comensales) {
+	private Reserva nuevaReserva(LocalDateTime fecha, int comensales) {
 		Reserva reserva = reservaService.create();
 		reserva.setNegocio(comidaFast());
 		reserva.setFecha(fecha);
@@ -110,13 +114,7 @@ public class ReservaServiceTest extends AbstractTest {
 		throw new AssertionError("No existe el negocio Comida Fast");
 	}
 
-	private static Date dentroDeDias(int dias, int hora) {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DAY_OF_MONTH, dias);
-		c.set(Calendar.HOUR_OF_DAY, hora);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		c.set(Calendar.MILLISECOND, 0);
-		return c.getTime();
+	private static LocalDateTime dentroDeDias(int dias, int hora) {
+		return LocalDate.now().plusDays(dias).atTime(hora, 0);
 	}
 }

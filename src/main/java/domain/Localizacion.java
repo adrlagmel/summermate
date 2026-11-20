@@ -1,11 +1,11 @@
 package domain;
 
-import javax.persistence.Access;
+import jakarta.persistence.Access;
 
-import javax.persistence.AccessType;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;

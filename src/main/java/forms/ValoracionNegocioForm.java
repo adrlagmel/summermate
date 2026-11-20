@@ -7,7 +7,7 @@
 
 package forms;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 import org.hibernate.validator.constraints.Range;

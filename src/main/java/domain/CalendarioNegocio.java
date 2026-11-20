@@ -1,23 +1,20 @@
 package domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.FetchType;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(indexes = {
@@ -29,8 +26,8 @@ public class CalendarioNegocio extends DomainEntity{
 
 	// Attributes ----------------------------
 	
-	private Date fechaInicio;
-	private Date fechaFin;
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFin;
 	private String anotacionesReserva;
 	private String codigoNegocio;
 	
@@ -44,24 +41,20 @@ public class CalendarioNegocio extends DomainEntity{
 	}
 	
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFechaInicio() {
+	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 	
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getFechaFin() {
+	public LocalDateTime getFechaFin() {
 		return fechaFin;
 	}
 	
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(LocalDateTime fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	

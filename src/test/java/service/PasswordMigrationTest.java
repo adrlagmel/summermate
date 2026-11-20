@@ -1,18 +1,15 @@
 package service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import security.LoginService;
@@ -27,10 +24,6 @@ import domain.Administrador;
  * inicia sesión y su hash se reescribe en BCrypt. El proveedor se monta igual
  * que en spring/config/security.xml.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
 @Transactional
 public class PasswordMigrationTest extends AbstractTest {
 
@@ -51,7 +44,7 @@ public class PasswordMigrationTest extends AbstractTest {
 
 	private DaoAuthenticationProvider provider;
 
-	@Before
+	@BeforeEach
 	public void configurarProveedor() {
 		provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(loginService);
@@ -87,7 +80,7 @@ public class PasswordMigrationTest extends AbstractTest {
 	public void losDatosDeEjemploYaUsanBcrypt() {
 		for (UserAccount account : userAccountRepository.findAll())
 			if (!account.getUsername().equals("usuario1"))
-				assertTrue(account.getUsername(), account.getPassword().startsWith("{bcrypt}"));
+				assertTrue(account.getPassword().startsWith("{bcrypt}"), account.getUsername());
 	}
 
 	@Test

@@ -1,17 +1,17 @@
 package domain;
 
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.FetchType;
-import javax.validation.constraints.NotNull;
-import javax.validation.Valid;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;

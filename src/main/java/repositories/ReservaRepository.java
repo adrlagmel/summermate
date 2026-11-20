@@ -1,7 +1,7 @@
 package repositories;
 
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +29,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	// Reservas de un empresario en el intervalo [desde, hasta). Antes usaba
 	// DATE_FORMAT, que es exclusivo de MySQL y además impedía usar índices.
 	@Query("select distinct s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
-	Collection<Reserva> search(int empresarioId, Date desde, Date hasta);
+	Collection<Reserva> search(int empresarioId, LocalDateTime desde, LocalDateTime hasta);
 
 	// Fase 3: versiones paginadas (Pageable) para los listados ------------
 
@@ -44,6 +44,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
 	@Query(value = "select s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3",
 		countQuery = "select count(s) from Reserva s where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
-	Page<Reserva> search(int empresarioId, Date desde, Date hasta, Pageable pageable);
+	Page<Reserva> search(int empresarioId, LocalDateTime desde, LocalDateTime hasta, Pageable pageable);
 
 }

@@ -13,7 +13,6 @@ package utilities.internal;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import org.apache.commons.lang.StringUtils;
 
 public class ConsoleReader {
 	private InputStreamReader stream;
@@ -35,7 +34,7 @@ public class ConsoleReader {
 		do {
 			System.out.printf(prompt);
 			line = reader.readLine();
-			line = StringUtils.trim(line);
+			line = line == null ? null : line.trim();
 			buffer.append(line);
 			buffer.append(' ');
 			prompt = "\t> ";
@@ -44,7 +43,7 @@ public class ConsoleReader {
 		if (line != null && line.endsWith(";") && buffer.length() >= 2)
 			buffer.deleteCharAt(buffer.length() - 2);
 		
-		result = StringUtils.trim(buffer.toString());
+		result = buffer.toString().trim();
 		
 		return result;
 	}
@@ -54,7 +53,7 @@ public class ConsoleReader {
 		
 		System.out.printf("> ");
 		result = reader.readLine();
-		result = StringUtils.trim(result);
+		result = result == null ? null : result.trim();
 		
 		return result;
 	}

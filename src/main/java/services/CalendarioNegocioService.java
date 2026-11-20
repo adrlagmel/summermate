@@ -1,195 +1,139 @@
 package services;
 
-import java.util.Calendar;
-
-
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Date;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+import org.springframework.transaction.annotation.Transactional;
+import utilities.Assert;
 
 import repositories.CalendarioNegocioRepository;
 import domain.CalendarioNegocio;
 import domain.Negocio;
 import domain.Reserva;
 
+// Franjas ocupadas de cada negocio. Cada reserva crea una franja de una hora
+// (create(Reserva)); el aforo se comprueba sumando los comensales de las
+// franjas que se solapan.
+//
+// Fase 4: java.util.Date/Calendar pasan a java.time sin cambiar la lógica.
+// La parte que gestiona el empresario (save) sigue igual que antes: valida
+// pero no guarda nada. Se arreglará junto con el resto del calendario.
 @Service
 @Transactional
 public class CalendarioNegocioService {
-	
-	// Managed repository ----------------------------------------------------
-	
+
+	// Las reservas se admiten desde las 12:00 hasta la medianoche
+	private static final LocalTime	APERTURA	= LocalTime.NOON;
+
 	@Autowired
-	private CalendarioNegocioRepository calendarioNegocioRepository;
-	
-	// Supporting services ---------------------------------------------------
-	
+	private CalendarioNegocioRepository	calendarioNegocioRepository;
+
 	@Autowired
-	private NegocioService negocioService;
-	
-	// Constructor -----------------------------------------------------------
-	
-	public CalendarioNegocioService(){
-		
-	}
-	
-	// Simple CRUD Methods ---------------------------------------------------
-	
-	
-	public CalendarioNegocio create(int negocioId){
+	private NegocioService				negocioService;
+
+
+	public CalendarioNegocio create(int negocioId) {
 		CalendarioNegocio negocioCalendario = new CalendarioNegocio();
-		
 		Negocio negocio = negocioService.findOneToEdit(negocioId);
-		
+
 		negocioCalendario.setNegocio(negocio);
-		
+
 		return negocioCalendario;
 	}
-	
-	public CalendarioNegocio findOneToEdit(int sportCenterCalendarId){
-		CalendarioNegocio sportCenterCalendar = calendarioNegocioRepository.findById(sportCenterCalendarId).orElse(null);
-		checkPrincipal(sportCenterCalendar);
-		
-		return sportCenterCalendar;
-	}
-	
-	public void create(Reserva reserva){
-		
+
+	// Franja de 59 minutos a partir de la hora de la reserva, el mismo día y
+	// dentro del horario.
+	public void create(Reserva reserva) {
 		CalendarioNegocio result = new CalendarioNegocio();
-		
-		Calendar sMoment = Calendar.getInstance();
-		sMoment.setTime(reserva.getFecha());
-		
-		Calendar eMoment = Calendar.getInstance();
-		eMoment.setTime(reserva.getFecha());
-		eMoment.add(Calendar.MINUTE, 59);
-		
-		Date startMoment = sMoment.getTime();
-		Date endMoment = eMoment.getTime();
-		
-		Calendar sMomentToCheck = Calendar.getInstance();
-		sMomentToCheck.setTime(reserva.getFecha());
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 0);
-		sMomentToCheck.set(Calendar.MINUTE, 0);
-		sMomentToCheck.set(Calendar.SECOND, 0);
-		sMomentToCheck.set(Calendar.MILLISECOND, 0);
-		
-		Calendar eMomentToCheck = Calendar.getInstance();
-		eMomentToCheck.setTime(endMoment);
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 0);
-		eMomentToCheck.set(Calendar.MINUTE, 0);
-		eMomentToCheck.set(Calendar.SECOND, 0);
-		eMomentToCheck.set(Calendar.MILLISECOND, 0);
-		
-		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
-		
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
-		
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0);
-		Assert.isTrue(eMoment.compareTo(eMomentToCheck)<=0);
-		
+		LocalDateTime inicio = reserva.getFecha();
+		LocalDateTime fin = inicio.plusMinutes(59);
+
+		Assert.isTrue(inicio.toLocalDate().equals(fin.toLocalDate()));
+		Assert.isTrue(!inicio.isBefore(apertura(inicio.toLocalDate())));
+		Assert.isTrue(!fin.isAfter(cierre(fin.toLocalDate())));
+
 		result.setCodigoNegocio(reserva.getCodigo());
-		
-		if(findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId()) < reserva.getNegocio().getAforo()){
-		
+
+		if (findComensalesPorFechaDeReserva(inicio, fin, reserva.getNegocio().getId()) < reserva.getNegocio().getAforo()) {
 			result.setNegocio(reserva.getNegocio());
-			result.setFechaInicio(startMoment);
-			result.setFechaFin(endMoment);
+			result.setFechaInicio(inicio);
+			result.setFechaFin(fin);
 			result.setAnotacionesReserva(reserva.getCodigo());
 			calendarioNegocioRepository.save(result);
 		}
-		}
-		
-	public void save(CalendarioNegocio calendarioNegocio){
+	}
+
+	public void save(CalendarioNegocio calendarioNegocio) {
+		LocalDateTime inicio, fin;
+
 		checkPrincipal(calendarioNegocio);
-		
-		Assert.isTrue(calendarioNegocio.getFechaInicio().after(new Date()) 
-				&& calendarioNegocio.getFechaFin().after(calendarioNegocio.getFechaInicio()));
-				
-		Calendar sMoment = Calendar.getInstance();
-		sMoment.setTime(calendarioNegocio.getFechaInicio());
-		
-		Calendar eMoment = Calendar.getInstance();
-		eMoment.setTime(calendarioNegocio.getFechaFin());
+		inicio = calendarioNegocio.getFechaInicio();
+		fin = calendarioNegocio.getFechaFin();
 
-		
-		Calendar sMomentToCheck = Calendar.getInstance();
-		sMomentToCheck.setTime(calendarioNegocio.getFechaInicio());
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 0);
-		sMomentToCheck.set(Calendar.MINUTE, 0);
-		sMomentToCheck.set(Calendar.SECOND, 0);
-		sMomentToCheck.set(Calendar.MILLISECOND, 0);
-		
-		Calendar eMomentToCheck = Calendar.getInstance();
-		eMomentToCheck.setTime(calendarioNegocio.getFechaFin());
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 0);
-		eMomentToCheck.set(Calendar.MINUTE, 0);
-		eMomentToCheck.set(Calendar.SECOND, 0);
-		eMomentToCheck.set(Calendar.MILLISECOND, 0);
-		
-		Assert.isTrue(sMomentToCheck.equals(eMomentToCheck));
-		
-		sMomentToCheck.set(Calendar.HOUR_OF_DAY, 12);
-		eMomentToCheck.set(Calendar.HOUR_OF_DAY, 24);
+		Assert.isTrue(inicio.isAfter(LocalDateTime.now()) && fin.isAfter(inicio));
+		Assert.isTrue(inicio.toLocalDate().equals(fin.toLocalDate()));
+		Assert.isTrue(!inicio.isBefore(apertura(inicio.toLocalDate())) && !fin.isAfter(cierre(fin.toLocalDate())));
 
-		Assert.isTrue(sMoment.compareTo(sMomentToCheck)>=0 && eMoment.compareTo(eMomentToCheck)<=0);
-		
-		Collection<CalendarioNegocio> negocioCalendars = findNegocioCalendarByBookingDates(calendarioNegocio.getFechaInicio(), 
-				calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
-		
+		Collection<CalendarioNegocio> negocioCalendars = findNegocioCalendarByBookingDates(inicio, fin, calendarioNegocio.getNegocio().getId());
+
 		if (negocioCalendars.size() > 0) {
-			Integer comensales = findComensalesPorFechaDeReserva(calendarioNegocio.getFechaInicio(), calendarioNegocio.getFechaFin(), calendarioNegocio.getNegocio().getId());
-			
-			Assert.isTrue(comensales.compareTo(calendarioNegocio.getNegocio().getAforo())<=0);			
+			Integer comensales = findComensalesPorFechaDeReserva(inicio, fin, calendarioNegocio.getNegocio().getId());
+			Assert.isTrue(comensales.compareTo(calendarioNegocio.getNegocio().getAforo()) <= 0);
 		}
 	}
-	
-	// Other business methods ------------------------------------------------
-	
+
+	public CalendarioNegocio findOneToEdit(int calendarioId) {
+		CalendarioNegocio calendario = calendarioNegocioRepository.findById(calendarioId).orElse(null);
+
+		checkPrincipal(calendario);
+
+		return calendario;
+	}
+
 	public void checkPrincipal(CalendarioNegocio calendarioNegocio) {
 		Assert.notNull(calendarioNegocio);
-		
 		negocioService.checkPrincipal(calendarioNegocio.getNegocio());
 	}
-	
-	public Collection<CalendarioNegocio> findNegocioCalendarByBookingDates(Date startMoment, Date endMoment, int negocioId){
-		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findCalendarioNegocioPorFechaDeReserva(startMoment, endMoment, negocioId);
+
+	public Collection<CalendarioNegocio> findNegocioCalendarByBookingDates(LocalDateTime inicio, LocalDateTime fin, int negocioId) {
+		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findCalendarioNegocioPorFechaDeReserva(inicio, fin, negocioId);
 		Assert.notNull(calendars);
-		
+
 		return calendars;
 	}
-	
-	public Integer findComensalesPorFechaDeReserva(Date startMoment, Date endMoment, int negocioId){
-		Integer comensales = calendarioNegocioRepository.findComensalesPorFechaDeReserva(startMoment, endMoment, negocioId);
-		
-		return comensales;
+
+	public Integer findComensalesPorFechaDeReserva(LocalDateTime inicio, LocalDateTime fin, int negocioId) {
+		return calendarioNegocioRepository.findComensalesPorFechaDeReserva(inicio, fin, negocioId);
 	}
-	
-	
-	public CalendarioNegocio findByCodigoNegocio(String codigoId){
-		CalendarioNegocio calendarioNegocio = calendarioNegocioRepository.findByCodigoNegocio(codigoId);
-		
-		return calendarioNegocio;
+
+	public CalendarioNegocio findByCodigoNegocio(String codigoId) {
+		return calendarioNegocioRepository.findByCodigoNegocio(codigoId);
 	}
-	
-	public void delete(String codigoId){
+
+	public void delete(String codigoId) {
 		CalendarioNegocio calendarioNegocio = findByCodigoNegocio(codigoId);
 		Assert.notNull(calendarioNegocio);
-		
+
 		calendarioNegocioRepository.delete(calendarioNegocio);
 	}
-	
-	public Collection<CalendarioNegocio> findAllByNegocios(int negocioId){
+
+	public Collection<CalendarioNegocio> findAllByNegocios(int negocioId) {
 		Collection<CalendarioNegocio> calendars = calendarioNegocioRepository.findByNegocio(negocioId);
 		Assert.notNull(calendars);
-		
+
 		return calendars;
 	}
-	
+
+	private static LocalDateTime apertura(LocalDate dia) {
+		return dia.atTime(APERTURA);
+	}
+
+	private static LocalDateTime cierre(LocalDate dia) {
+		return dia.plusDays(1).atStartOfDay();
+	}
+
 }
