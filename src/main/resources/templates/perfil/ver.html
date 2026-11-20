@@ -35,6 +35,21 @@
 				<dd class="col-sm-8" th:text="${actor.cif}">CIF</dd>
 			</th:block>
 		</dl>
+		<section th:if="${colaboracion}" class="card mb-4" aria-labelledby="colaboracion">
+			<div class="card-body">
+				<div class="d-flex flex-wrap justify-content-between align-items-baseline gap-2">
+					<h2 id="colaboracion" class="h5 mb-0" th:text="#{colaboracion.titulo}">Nivel de colaboración</h2>
+					<span class="badge text-bg-primary fs-6" th:text="#{|colaboracion.nivel.${colaboracion.nivel()}|}">Veraneante</span>
+				</div>
+				<p class="mb-2 puntuacion" th:text="#{colaboracion.puntos(${colaboracion.puntos()})}">60 puntos</p>
+				<p th:if="${colaboracion.faltan() > 0}" class="small text-body-secondary mb-2" th:text="#{colaboracion.faltan(${colaboracion.faltan()})}">Te faltan 90 puntos</p>
+				<ul class="small text-body-secondary mb-0">
+					<li th:text="#{colaboracion.valoraciones(${colaboracion.valoracionesPlaya() + colaboracion.valoracionesNegocio()})}">3 valoraciones</li>
+					<li th:text="#{colaboracion.votos(${colaboracion.votosUtiles()})}">4 votos útiles</li>
+					<li th:text="#{colaboracion.reservas(${colaboracion.reservasPasadas()})}">2 reservas</li>
+				</ul>
+			</div>
+		</section>
 		<div class="d-flex flex-wrap gap-2">
 			<a th:if="${esCliente}" class="btn btn-primary" th:href="@{/perfil/editar}" th:text="#{profile.editar}">Editar</a>
 			<a class="btn btn-outline-secondary" th:href="@{/perfil/contrasena}" th:text="#{master.page.profile.editPassword}">Cambiar contraseña</a>

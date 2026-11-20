@@ -257,4 +257,20 @@ public class UsuarioService {
 		return usuarioRepository.findAll(pageable);
 	}
 
+	// Nivel de colaboración: los cuatro recuentos en una sola consulta.
+	@org.springframework.transaction.annotation.Transactional(readOnly = true)
+	public Colaboracion colaboracion(int usuarioId) {
+		Object[] fila = (Object[]) entityManager.createNativeQuery("""
+			select
+				(select count(*) from valoracionplaya where usuario_id = :id),
+				(select count(*) from valoracionnegocio v join reserva r on r.id = v.reserva_id where r.usuario_id = :id),
+				(select coalesce(sum(v.comentarioutil), 0) from valoracionnegocio v join reserva r on r.id = v.reserva_id where r.usuario_id = :id),
+				(select count(*) from reserva where usuario_id = :id and fecha < now())
+			""").setParameter("id", usuarioId).getSingleResult();
+		return new Colaboracion(((Number) fila[0]).intValue(), ((Number) fila[1]).intValue(), ((Number) fila[2]).intValue(), ((Number) fila[3]).intValue());
+	}
+
+	@jakarta.persistence.PersistenceContext
+	private jakarta.persistence.EntityManager entityManager;
+
 }

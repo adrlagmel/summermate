@@ -9,6 +9,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -157,5 +158,15 @@ class FuncionesMemoriaWebTest extends AbstractWebTest {
 	@Test
 	void laFichaDelNegocioSinSesion() throws Exception {
 		mvc.perform(get("/negocios/1")).andExpect(status().isOk());
+	}
+
+	// Nivel de colaboración --------------------------------------------------------
+
+	@Test
+	void elPerfilMuestraElNivelDeColaboracion() throws Exception {
+		// usuario1: una valoración de playa, una de negocio y una reserva pasada = 25 puntos
+		mvc.perform(get("/perfil").with(como("usuario1")))
+			.andExpect(status().isOk())
+			.andExpect(model().attribute("colaboracion", new services.Colaboracion(1, 1, 0, 1)));
 	}
 }

@@ -68,6 +68,8 @@ public class PerfilController {
 		model.addAttribute("esCliente", actor instanceof domain.Cliente);
 		model.addAttribute("esUsuario", actor instanceof Usuario);
 		model.addAttribute("esEmpresario", actor instanceof Empresario);
+		if (actor instanceof Usuario)
+			model.addAttribute("colaboracion", usuarioService.colaboracion(actor.getId()));
 
 		return "perfil/ver";
 	}
