@@ -16,6 +16,8 @@ import services.UsuarioService;
 import services.PlayaService;
 
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 
 
 
@@ -56,7 +58,7 @@ public class DashboardAdministratorController extends AbstractController {
 		// Listing methods -----------------------------------------------------------
 		
 		@RequestMapping(value="/dashboard", method = RequestMethod.GET)
-		public ModelAndView dashboard(){
+		public ModelAndView dashboard(Paginacion paginacion){
 			
 			ModelAndView result;
 			
@@ -66,7 +68,7 @@ public class DashboardAdministratorController extends AbstractController {
 			Integer masValoraciones = playaService.masValoraciones();
 			Collection<Negocio> negocioMejorValorado = negocioService.findNegocioMejorValorado();
 			Collection<Negocio> negocioMasReservas = negocioService.negocioConMasReservas();
-			Collection<Usuario> usuariosTotales = usuarioService.usuariosTotales();
+			PaginaDisplaytag<Usuario> usuariosTotales = new PaginaDisplaytag<>(usuarioService.usuariosTotales(paginacion.actores()));
 			result = new ModelAndView("administrator/dashboard");
 			
 			

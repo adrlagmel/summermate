@@ -2,6 +2,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -36,5 +38,15 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	@Query("select n from Negocio n where n.reservas.size=(select max(n.reservas.size) from Negocio n)")
 	Collection<Negocio> findNegocioMasReservas();
 
-	
+	// Fase 3: versiones paginadas (Pageable) para los listados ------------
+
+	@Query("select s from Negocio s where lower(s.playa.localizacion.ciudad) like lower(concat('%', ?1, '%'))")
+	Page<Negocio> search(String s, Pageable pageable);
+
+	@Query("select s from Negocio s where s.empresario.id = ?1")
+	Page<Negocio> findByEmpresario(int empresarioId, Pageable pageable);
+
+	@Query("select n from Negocio n where n.playa.id = ?1")
+	Page<Negocio> findByPlaya(int playaId, Pageable pageable);
+
 }

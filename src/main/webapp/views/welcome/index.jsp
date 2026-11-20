@@ -28,9 +28,9 @@ function initialize() {
 	<jstl:forEach var="playa" items="${playas}">
 	var id= "${playa.id}";
 	var name="${playa.nombre}";
-	var lat2="${playa.localizacion.latitud}";
-	var lon2="${playa.localizacion.longitud}";
-	var pos = new google.maps.LatLng("${playa.localizacion.latitud}", "${playa.localizacion.longitud}");
+	var lat2="${playa.latitud}";
+	var lon2="${playa.longitud}";
+	var pos = new google.maps.LatLng("${playa.latitud}", "${playa.longitud}");
 	addMarker(pos, id, name, lat2, lon2);
 	</jstl:forEach>
 	

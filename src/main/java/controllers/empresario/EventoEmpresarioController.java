@@ -22,6 +22,8 @@ import services.EventoService;
 import services.NegocioService;
 import services.PeticionNegocioService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Empresario;
 import domain.Evento;
 import domain.Negocio;
@@ -61,12 +63,12 @@ public class EventoEmpresarioController extends AbstractController{
 		
 
 		@RequestMapping(value="/list", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			
-			eventos = eventoService.findByEmpresario();
+			eventos = new PaginaDisplaytag<>(eventoService.findByEmpresario(paginacion.eventos()));
 			
 			result = new ModelAndView("evento/list");
 
@@ -98,12 +100,12 @@ public class EventoEmpresarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/listActivos", method = RequestMethod.GET)
-		public ModelAndView listActivos(){
+		public ModelAndView listActivos(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			
-			eventos = eventoService.EventosActivos();
+			eventos = new PaginaDisplaytag<>(eventoService.EventosActivos(paginacion.eventos()));
 			Date fechaActual	= new Date();
 			result = new ModelAndView("evento/list");
 
@@ -115,12 +117,12 @@ public class EventoEmpresarioController extends AbstractController{
 			
 		}
 		@RequestMapping(value="/listInactivos", method = RequestMethod.GET)
-		public ModelAndView listInactivos(){
+		public ModelAndView listInactivos(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			
-			eventos = eventoService.EventosInactivos();
+			eventos = new PaginaDisplaytag<>(eventoService.EventosInactivos(paginacion.eventos()));
 			Date fechaActual	= new Date();
 			result = new ModelAndView("evento/list");
 

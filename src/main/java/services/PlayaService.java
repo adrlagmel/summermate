@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -180,4 +183,15 @@ public class PlayaService {
 	private static double rad2deg(double rad) {
 		return (rad * 180 / Math.PI);
 	}
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Playa> findAll(Pageable pageable){
+		return playaRepository.findAll(pageable);
+	}
+
+	public List<PuntoMapa> findPuntosMapa(){
+		return playaRepository.findPuntosMapa();
+	}
+
 }

@@ -50,7 +50,7 @@
 </security:authorize>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="false" name="reservas" requestURI="${requestURI}" id="row">
+<display:table class="table table-condensed" name="reservas" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
 	<spring:message code="booking.code" var="code" />

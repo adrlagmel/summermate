@@ -30,12 +30,10 @@ public class NegocioController extends AbstractController{
 		// Listing methods ---------------------------------------------------------------
 		
 		@RequestMapping(value="/list", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Negocio> negocios = null;
-			
-			negocios = negocioService.findAll();
+			PaginaDisplaytag<Negocio> negocios = new PaginaDisplaytag<>(negocioService.findAll(paginacion.negocios()));
 			
 			result = new ModelAndView("negocio/list");
 
@@ -48,18 +46,17 @@ public class NegocioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/listNegocios", method = RequestMethod.GET)
-		public ModelAndView listNegocios(@RequestParam int playaId){
+		public ModelAndView listNegocios(@RequestParam int playaId, Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Negocio> negocios = null;
-			
-			negocios = negocioService.findNegociosDePlaya(playaId);
+			PaginaDisplaytag<Negocio> negocios = new PaginaDisplaytag<>(negocioService.findNegociosDePlaya(playaId, paginacion.negocios()));
 			
 			result = new ModelAndView("negocio/list");
 
 			result.addObject("negocios", negocios);
 			result.addObject("actionURI","negocio/search.do");
-			result.addObject("requestURI", "negocio/list.do");
+			// Antes apuntaba a list.do y al cambiar de página se perdía la playa
+			result.addObject("requestURI", "negocio/listNegocios.do");
 
 			return result;
 			
@@ -67,10 +64,10 @@ public class NegocioController extends AbstractController{
 		
 		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
-		public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
+		public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess, Paginacion paginacion){
 			ModelAndView result;
 			
-			Collection<Negocio> negocios = negocioService.searchByTown(s);
+			PaginaDisplaytag<Negocio> negocios = new PaginaDisplaytag<>(negocioService.searchByTown(s, paginacion.negocios()));
 			result = new ModelAndView("negocio/list");
 			result.addObject("negocios", negocios);
 			result.addObject("showError", showError);

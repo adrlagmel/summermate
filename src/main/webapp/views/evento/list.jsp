@@ -26,7 +26,7 @@
 
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="true" name="eventos" requestURI="${requestURI}" id="row">
+<display:table class="table table-condensed" name="eventos" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
 	<display:column>

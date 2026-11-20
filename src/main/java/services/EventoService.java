@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -236,5 +238,25 @@ public class EventoService {
 
 		save(e);
 	}
-	
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Evento> findAll(Pageable pageable){
+		return eventoRepository.findAll(pageable);
+	}
+
+	public Page<Evento> EventosActivos(Pageable pageable){
+		return eventoRepository.findEventosActivos(new Date(), pageable);
+	}
+
+	public Page<Evento> EventosInactivos(Pageable pageable){
+		return eventoRepository.findEventosInactivos(new Date(), pageable);
+	}
+
+	public Page<Evento> findByEmpresario(Pageable pageable){
+		Empresario empresario = empresarioService.findByPrincipal();
+
+		return eventoRepository.findByEmpresario(empresario.getId(), pageable);
+	}
+
 }

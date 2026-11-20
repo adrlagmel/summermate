@@ -91,7 +91,7 @@
 <h3><spring:message code="dashboard.usuariosTotales"/></h3>
 
 <div class="table-responsive">
-<display:table name="usuariosTotales" class="table table-condensed" sort="list" pagesize="5" requestURI="${requestURI}" id="table1">
+<display:table name="usuariosTotales" class="table table-condensed" requestURI="${requestURI}" id="table1">
 	<spring:message code="dashboard.usuario.nombre" var="nombre"/>
 	<display:column property="nombre" title="${nombre}" sortable="false"/>
 	

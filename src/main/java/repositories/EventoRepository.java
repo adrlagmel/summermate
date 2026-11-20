@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Date;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -28,5 +30,16 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 	
 	@Query("select distinct s from Evento s where s.fechaCelebracion <= ?1")
 	Collection<Evento> findEventosInactivos(Date fechaActual);
-	
+
+	// Fase 3: versiones paginadas (Pageable) para los listados ------------
+
+	@Query("select s from Evento s where s.negocio.empresario.id = ?1")
+	Page<Evento> findByEmpresario(int empresarioId, Pageable pageable);
+
+	@Query("select s from Evento s where s.fechaCelebracion >= ?1")
+	Page<Evento> findEventosActivos(Date fechaActual, Pageable pageable);
+
+	@Query("select s from Evento s where s.fechaCelebracion <= ?1")
+	Page<Evento> findEventosInactivos(Date fechaActual, Pageable pageable);
+
 }

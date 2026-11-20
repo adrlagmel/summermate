@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -248,4 +250,11 @@ public class UsuarioService {
 
 		saveImage(usuario);
 	}
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Usuario> usuariosTotales(Pageable pageable){
+		return usuarioRepository.findAll(pageable);
 	}
+
+}

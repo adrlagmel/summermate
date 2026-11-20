@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.PlayaService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Playa;
 import forms.PlayaForm;
 
@@ -39,14 +41,15 @@ public class PlayaAdminController extends AbstractController {
 	// Index ------------------------------------------------------------------
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(Paginacion paginacion){
 
 		ModelAndView result;
-		Collection<Playa> playas = playaService.findAllBeaches();
+		PaginaDisplaytag<Playa> playas = new PaginaDisplaytag<>(playaService.findAll(paginacion.playas()));
 
 		result = new ModelAndView("playa/list");
 		result.addObject("playas", playas);
-		result.addObject("requestURI", "playa/list.do");
+		result.addObject("puntosMapa", playaService.findPuntosMapa());
+		result.addObject("requestURI", "playa/admin/list.do");
 		return result;
 	}
 	

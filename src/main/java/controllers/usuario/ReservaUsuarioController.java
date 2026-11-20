@@ -20,6 +20,8 @@ import services.CalendarioNegocioService;
 import services.NegocioService;
 import services.ReservaService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Negocio;
 import domain.Reserva;
 import forms.ReservaForm;
@@ -49,10 +51,10 @@ public class ReservaUsuarioController extends AbstractController{
 		
 		
 		@RequestMapping(value="/lista", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Reserva> reservas = reservaService.findReservasByUsuario();
+			PaginaDisplaytag<Reserva> reservas = new PaginaDisplaytag<>(reservaService.findReservasByUsuario(paginacion.reservas()));
 			
 			result = new ModelAndView("reserva/lista");
 

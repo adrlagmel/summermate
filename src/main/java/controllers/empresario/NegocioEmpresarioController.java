@@ -21,6 +21,8 @@ import services.NegocioService;
 import services.PeticionNegocioService;
 import services.PlayaService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Empresario;
 import domain.Negocio;
 import domain.PeticionNegocio;
@@ -54,10 +56,10 @@ public class NegocioEmpresarioController extends AbstractController{
 		// Listing methods ---------------------------------------------------------------
 		
 		@RequestMapping(value="/list", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Negocio> negocios = null;
+			PaginaDisplaytag<Negocio> negocios = null;
 			
 			Empresario empresario = empresarioService.findByPrincipal();
 			PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
@@ -76,7 +78,7 @@ public class NegocioEmpresarioController extends AbstractController{
 					estado = true;
 				}
 				
-				negocios = negocioService.findByEmpresario();
+				negocios = new PaginaDisplaytag<>(negocioService.findByEmpresario(paginacion.negocios()));
 				
 				result = new ModelAndView("negocio/list");
 	
@@ -91,10 +93,10 @@ public class NegocioEmpresarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
-		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
+		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess, Paginacion paginacion){
 			ModelAndView result;
 			
-			Collection<Negocio> negocios = negocioService.searchByTown(s);
+			PaginaDisplaytag<Negocio> negocios = new PaginaDisplaytag<>(negocioService.searchByTown(s, paginacion.negocios()));
 			result = new ModelAndView("negocio/list");
 			result.addObject("negocios", negocios);
 			result.addObject("showError", showError);

@@ -36,13 +36,14 @@ public class PlayaController extends AbstractController {
 	// Index ------------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(Paginacion paginacion){
 
 		ModelAndView result;
-		Collection<Playa> playas = playaService.findAllBeaches();
+		PaginaDisplaytag<Playa> playas = new PaginaDisplaytag<>(playaService.findAll(paginacion.playas()));
 
 		result = new ModelAndView("playa/list");
 		result.addObject("playas", playas);
+		result.addObject("puntosMapa", playaService.findPuntosMapa());
 		result.addObject("requestURI", "playa/list.do");
 		return result;
 	}

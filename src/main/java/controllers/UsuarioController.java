@@ -52,12 +52,10 @@ public class UsuarioController extends AbstractController{
 			// Create methods --------------------------------------------------------------
 			
 			@RequestMapping(value="/list", method = RequestMethod.GET)
-			public ModelAndView list(){
+			public ModelAndView list(Paginacion paginacion){
 				
 				ModelAndView result;
-				Collection<Actor> usuarios = null;
-				
-				usuarios = actorService.findAll();
+				PaginaDisplaytag<Actor> usuarios = new PaginaDisplaytag<>(actorService.findAll(paginacion.actores()));
 				
 				result = new ModelAndView("usuario/list");
 
@@ -71,10 +69,10 @@ public class UsuarioController extends AbstractController{
 			
 			
 			@RequestMapping(value="/search", method = RequestMethod.GET)
-			public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
+			public ModelAndView search(@RequestParam String s,@RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess, Paginacion paginacion){
 				ModelAndView result;
 				
-				Collection<Actor> usuarios = actorService.searchUsuarioForApellido(s);
+				PaginaDisplaytag<Actor> usuarios = new PaginaDisplaytag<>(actorService.searchUsuarioForApellido(s, paginacion.actores()));
 				result = new ModelAndView("usuario/list");
 				result.addObject("usuarios", usuarios);
 				result.addObject("showError", showError);

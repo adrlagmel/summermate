@@ -28,7 +28,7 @@
 </form><br/>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="false" name="usuarios" requestURI="${requestURI}" id="row">
+<display:table class="table table-condensed" name="usuarios" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	
 

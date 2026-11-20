@@ -13,6 +13,7 @@ package controllers;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.PlayaService;
+import services.PuntoMapa;
 
 import domain.Playa;
 
@@ -44,7 +46,8 @@ public class WelcomeController extends AbstractController {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
-		Collection<Playa> playas = playaService.findAllBeaches();
+		// Para el mapa solo hacen falta id, nombre y coordenadas
+		List<PuntoMapa> playas = playaService.findPuntosMapa();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ReservaService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Reserva;
 
 @Controller
@@ -33,10 +35,10 @@ public class ReservaEmpresarioController extends AbstractController{
 		
 		
 		@RequestMapping(value="/lista", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Reserva> reservas = reservaService.findReservasPorEmpresario();
+			PaginaDisplaytag<Reserva> reservas = new PaginaDisplaytag<>(reservaService.findReservasPorEmpresario(paginacion.reservas()));
 			
 			result = new ModelAndView("reserva/lista");
 
@@ -48,10 +50,10 @@ public class ReservaEmpresarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/search", method = RequestMethod.GET)
-		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess){
+		public ModelAndView search(@RequestParam String s, @RequestParam(required=false) Boolean showError, @RequestParam(required=false) Boolean showSuccess, Paginacion paginacion){
 			ModelAndView result;
 			
-			Collection<Reserva> reservas = reservaService.searchByDate(s);
+			PaginaDisplaytag<Reserva> reservas = new PaginaDisplaytag<>(reservaService.searchByDate(s, paginacion.reservas()));
 			result = new ModelAndView("reserva/lista");
 			
 			result.addObject("reservas", reservas);

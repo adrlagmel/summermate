@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -241,4 +243,25 @@ public class NegocioService {
 
 		save(n);
 	}
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Negocio> findAll(Pageable pageable){
+		return negocioRepository.findAll(pageable);
+	}
+
+	public Page<Negocio> findNegociosDePlaya(int playaId, Pageable pageable){
+		return negocioRepository.findByPlaya(playaId, pageable);
+	}
+
+	public Page<Negocio> searchByTown(String town, Pageable pageable){
+		return negocioRepository.search(town, pageable);
+	}
+
+	public Page<Negocio> findByEmpresario(Pageable pageable){
+		Empresario empresario = empresarioService.findByPrincipal();
+
+		return negocioRepository.findByEmpresario(empresario.getId(), pageable);
+	}
+
 }

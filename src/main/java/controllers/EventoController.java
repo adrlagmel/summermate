@@ -34,12 +34,10 @@ public class EventoController extends AbstractController{
 		
 
 		@RequestMapping(value="/list", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
-			
-			eventos = eventoService.findAll();
+			PaginaDisplaytag<Evento> eventos = new PaginaDisplaytag<>(eventoService.findAll(paginacion.eventos()));
 			
 			result = new ModelAndView("evento/list");
 

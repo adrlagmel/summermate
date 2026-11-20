@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -134,28 +136,35 @@ public class ReservaService {
 	
 	public Collection<Reserva> searchByDate(String fecha){
 		Empresario empresario = empresarioService.findByPrincipal();
-		
-		Collection<Reserva> result;
-		Date desde;
-		Calendar hasta;
+		Date[] dia = diaCompleto(fecha);
+
+		// Una fecha mal escrita nunca coincidía con ninguna reserva.
+		if(dia == null)
+			return new ArrayList<Reserva>();
+
+		Collection<Reserva> result = reservaRepository.search(empresario.getId(), dia[0], dia[1]);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	// [inicio del día, inicio del día siguiente) para una fecha dd/MM/yyyy, o
+	// null si no es una fecha válida.
+	private static Date[] diaCompleto(String fecha){
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar hasta = Calendar.getInstance();
+		Date desde;
 
 		formato.setLenient(false);
 		try {
 			desde = formato.parse(fecha.trim());
 		} catch (ParseException e) {
-			// Una fecha mal escrita nunca coincidía con ninguna reserva.
-			return new ArrayList<Reserva>();
+			return null;
 		}
-		hasta = Calendar.getInstance();
 		hasta.setTime(desde);
 		hasta.add(Calendar.DAY_OF_MONTH, 1);
 
-		result = reservaRepository.search(empresario.getId(), desde, hasta.getTime());
-		Assert.notNull(result);
-		
-		return result;
-		
+		return new Date[] { desde, hasta.getTime() };
 	}
 	
 	// Other business methods ------------------------------------------------
@@ -247,6 +256,30 @@ public class ReservaService {
 		
 		Assert.isTrue(reserva.getUsuario().getUserAccount().equals(userAccount) || reserva.getNegocio().getEmpresario().getUserAccount().equals(userAccount));
 		
+	}
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Reserva> findReservasPorEmpresario(Pageable pageable){
+		int empresarioId = empresarioService.findByPrincipal().getId();
+
+		return reservaRepository.findReservasPorEmpresario(empresarioId, pageable);
+	}
+
+	public Page<Reserva> findReservasByUsuario(Pageable pageable){
+		Usuario usuario = usuarioService.findByPrincipal();
+
+		return reservaRepository.findReservasPorUsuario(usuario.getId(), pageable);
+	}
+
+	public Page<Reserva> searchByDate(String fecha, Pageable pageable){
+		Empresario empresario = empresarioService.findByPrincipal();
+		Date[] dia = diaCompleto(fecha);
+
+		if(dia == null)
+			return Page.empty(pageable);
+
+		return reservaRepository.search(empresario.getId(), dia[0], dia[1], pageable);
 	}
 
 }

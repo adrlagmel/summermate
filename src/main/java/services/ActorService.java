@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -104,6 +106,16 @@ public Collection<Actor> searchUsuarioForApellido(String apellidos){
 		result.getUserAccount().setPassword(form.getPassword());
 		
 		return result;
+	}
+
+	// Fase 3: listados paginados en la base de datos ---------------------
+
+	public Page<Actor> findAll(Pageable pageable){
+		return actorRepository.findAll(pageable);
+	}
+
+	public Page<Actor> searchUsuarioForApellido(String apellidos, Pageable pageable){
+		return actorRepository.searchUsuarioForApellidos(apellidos, pageable);
 	}
 
 }

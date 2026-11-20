@@ -3,6 +3,8 @@ package repositories;
 import java.util.Collection;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,4 +22,10 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	
 	@Query("select a from Actor a where a.userAccount.id!=?1")
 	Collection<Actor> findAllMessages(int actorId);
+
+	// Fase 3: versiones paginadas (Pageable) para los listados ------------
+
+	@Query("select a from Actor a where lower(a.apellidos) like lower(concat('%', ?1, '%'))")
+	Page<Actor> searchUsuarioForApellidos(String apellidos, Pageable pageable);
+
 }

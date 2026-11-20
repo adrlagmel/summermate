@@ -15,6 +15,8 @@ import services.EventoService;
 import services.PlayaService;
 import services.UsuarioService;
 import controllers.AbstractController;
+import controllers.PaginaDisplaytag;
+import controllers.Paginacion;
 import domain.Evento;
 import domain.Playa;
 import domain.Usuario;
@@ -43,13 +45,13 @@ public class EventoUsuarioController extends AbstractController{
 		// Listing methods ---------------------------------------------------------------
 		
 		@RequestMapping(value="/list", method = RequestMethod.GET)
-		public ModelAndView list(){
+		public ModelAndView list(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			Date fechaActual	= new Date();
 			
-			eventos = eventoService.findAll();
+			eventos = new PaginaDisplaytag<>(eventoService.findAll(paginacion.eventos()));
 			Usuario usuario = usuarioService.findByPrincipal();
 			
 			result = new ModelAndView("evento/list");
@@ -65,12 +67,12 @@ public class EventoUsuarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/listActivos", method = RequestMethod.GET)
-		public ModelAndView listActivos(){
+		public ModelAndView listActivos(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			
-			eventos = eventoService.EventosActivos();
+			eventos = new PaginaDisplaytag<>(eventoService.EventosActivos(paginacion.eventos()));
 			Usuario usuario = usuarioService.findByPrincipal();
 			Date fechaActual	= new Date();
 			result = new ModelAndView("evento/list");
@@ -85,12 +87,12 @@ public class EventoUsuarioController extends AbstractController{
 		}
 		
 		@RequestMapping(value="/listInactivos", method = RequestMethod.GET)
-		public ModelAndView listInactivos(){
+		public ModelAndView listInactivos(Paginacion paginacion){
 			
 			ModelAndView result;
-			Collection<Evento> eventos = null;
+			PaginaDisplaytag<Evento> eventos;
 			
-			eventos = eventoService.EventosInactivos();
+			eventos = new PaginaDisplaytag<>(eventoService.EventosInactivos(paginacion.eventos()));
 			Usuario usuario = usuarioService.findByPrincipal();
 			Date fechaActual	= new Date();
 			result = new ModelAndView("evento/list");

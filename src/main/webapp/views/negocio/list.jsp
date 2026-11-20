@@ -29,7 +29,7 @@
 </form><br/>
 
 <div class="table-responsive">
-<display:table pagesize="5" class="table table-condensed" keepStatus="false" name="negocios" requestURI="${requestURI}" id="row">
+<display:table class="table table-condensed" name="negocios" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
 	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<display:column>

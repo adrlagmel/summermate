@@ -2,6 +2,8 @@ package repositories;
 
 import java.util.Collection;
 
+import java.util.List;
+import services.PuntoMapa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,11 @@ public interface PlayaRepository extends JpaRepository<Playa, Integer> {
 	
 	@Query("select max(p.valoracionPlayas.size) from Playa p")
 	Integer masValoraciones();
+
+	// Fase 3: versiones paginadas (Pageable) para los listados ------------
+
+	// Solo lo necesario para el mapa (sin cargar las entidades completas)
+	@Query("select new services.PuntoMapa(p.id, p.nombre, p.localizacion.latitud, p.localizacion.longitud) from Playa p")
+	List<PuntoMapa> findPuntosMapa();
 
 }
