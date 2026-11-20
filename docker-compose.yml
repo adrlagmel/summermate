@@ -1,7 +1,10 @@
-# Base de datos de desarrollo de SummerMate.
-#   docker compose up -d
-# Los valores por defecto coinciden con los de spring/config/data.xml; se
-# pueden cambiar en un fichero .env (ver .env.example).
+# SummerMate con Docker Compose.
+#
+#   docker compose up -d                  solo la base de datos (para mvn spring-boot:run)
+#   docker compose --profile app up -d    base de datos y aplicación en http://localhost:8080
+#
+# Los valores por defecto coinciden con los de application.yml; se pueden
+# cambiar en un fichero .env (ver .env.example).
 services:
   db:
     image: postgres:16-alpine
@@ -19,6 +22,22 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+
+  app:
+    build: .
+    container_name: summermate-app
+    profiles: ["app"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${DB_NAME:-summermate}
+      DB_USER: ${DB_USER:-summermate}
+      DB_PASSWORD: ${DB_PASSWORD:-summermate}
+      # dev carga los datos de ejemplo; déjalo vacío para arrancar sin ellos
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE-dev}
+    ports:
+      - "${APP_PORT:-8080}:8080"
 
 volumes:
   summermate-data:
