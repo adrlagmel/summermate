@@ -7,6 +7,9 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -26,7 +29,7 @@ public class Negocio extends DomainEntity{
 	private String 			telefono;
 	private String 			paginaWeb;
 	private Integer 		aforo;
-	private byte[]          imagen;
+	private Imagen          imagen;
 	private Double 			valoracionMedia;
 	private Boolean 		negocioActivo;
 	
@@ -88,11 +91,14 @@ public class Negocio extends DomainEntity{
 		this.paginaWeb = paginaWeb;
 	}
 		
-	public byte[] getImagen() {
+	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
+	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	public Imagen getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
 	}
 	

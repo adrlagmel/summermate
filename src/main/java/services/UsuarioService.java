@@ -39,6 +39,9 @@ public class UsuarioService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
+	private ImagenService imagenService;
+
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	
@@ -237,15 +240,12 @@ public class UsuarioService {
 		
 	}
 	
-	public void addImageToNegocio(int usuarioId, byte[] bytes) {
+	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// ImagenService.crear lanza IllegalArgumentException.
+	public void addImageToUsuario(int usuarioId, byte[] bytes) {
 		Usuario usuario = findOneToEdit(usuarioId);
-		
-		if(bytes.length==0){
-			usuario.setImagen(null);
-		}else{
-			usuario.setImagen(bytes);
-		}
-		
+		usuario.setImagen(imagenService.crear(bytes));
+
 		saveImage(usuario);
 	}
 	}

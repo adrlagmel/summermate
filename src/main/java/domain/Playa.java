@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -32,7 +34,7 @@ public class Playa extends DomainEntity{
 	private String 	servicios;
 	private Integer	extension;
 	private Localizacion localizacion;
-	private byte[] imagen;
+	private Imagen imagen;
 	private Double valoracionMedia;
 	
 	public Double getValoracionMedia() {
@@ -103,11 +105,14 @@ public class Playa extends DomainEntity{
 		this.localizacion = localizacion;
 	}
 	
-	public byte[] getImagen() {
+	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
+	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	public Imagen getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
 	}
 	

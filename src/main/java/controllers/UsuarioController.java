@@ -171,7 +171,7 @@ public class UsuarioController extends AbstractController{
 				Usuario u = usuarioService.findOneToEdit(usuarioId);
 				try{
 					
-					usuarioService.addImageToNegocio(usuarioId, file.getBytes());
+					usuarioService.addImageToUsuario(usuarioId, file.getBytes());
 					result = new ModelAndView("redirect:/#");
 					
 				}catch(Throwable oops){

@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +29,7 @@ public class Evento extends DomainEntity{
 	private String 			nombre;
 	private String 			descripcion;
 	private Double 			precio;
-	private byte[]			imagen;
+	private Imagen			imagen;
 	private Date 			fechaRegistro;
 	private Date 			fechaCelebracion;
 		
@@ -68,11 +71,14 @@ public class Evento extends DomainEntity{
 		this.precio = precio;
 	}
 	
-	public byte[] getImagen() {
+	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
+	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	public Imagen getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(Imagen imagen) {
 		this.imagen= imagen;
 	}
 	

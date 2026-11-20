@@ -34,6 +34,9 @@ public class NegocioService {
 	private NegocioRepository negocioRepository;
 	
 	// Supporting services ---------------------------------------------------
+
+	@Autowired
+	private ImagenService imagenService;
 	
 	@Autowired
 	private EmpresarioService empresarioService;
@@ -229,16 +232,12 @@ public class NegocioService {
 	}
 	
 	
+	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToNegocio(int negocioId, byte[] bytes) {
-		
 		Negocio n  = findOneToEdit(negocioId);
-		if(bytes.length==0){
-		
-			n.setImagen(null);
-		}else{
-			n.setImagen(bytes);
-		}
-		
+		n.setImagen(imagenService.crear(bytes));
+
 		save(n);
 	}
 }

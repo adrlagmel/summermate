@@ -30,6 +30,9 @@ public class EventoService {
 	private EventoRepository eventoRepository;
 	
 	// Supporting services ---------------------------------------------------
+
+	@Autowired
+	private ImagenService imagenService;
 	
 	@Autowired
 	private EmpresarioService empresarioService;
@@ -225,16 +228,12 @@ public class EventoService {
 		Assert.isTrue(evento.getNegocio().getEmpresario().getUserAccount().equals(userAccount));
 	}
 	
+	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToEvento(int eventoId, byte[] bytes) {
-		
 		Evento e = findOneToEdit(eventoId);
-		if(bytes.length==0){
-		
-			e.setImagen(null);
-		}else{
-			e.setImagen(bytes);
-		}
-		
+		e.setImagen(imagenService.crear(bytes));
+
 		save(e);
 	}
 	

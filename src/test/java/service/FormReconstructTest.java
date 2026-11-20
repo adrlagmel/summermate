@@ -67,7 +67,8 @@ public class FormReconstructTest extends AbstractTest {
 	public void editarUnNegocioConservaLoQueNoEstaEnElFormulario() {
 		authenticate("empresario1");
 		Negocio negocio = negocio("Comida Fast");
-		byte[] imagen = { 1, 2, 3 };
+		// Cabecera mínima de un PNG: basta para que ImagenService lo acepte
+		byte[] imagen = { (byte) 0x89, 'P', 'N', 'G', 0x0D, 0x0A, 0x1A, 0x0A, 1, 2, 3 };
 		negocioService.addImageToNegocio(negocio.getId(), imagen);
 		negocio.setValoracionMedia(4.5);
 
@@ -77,7 +78,7 @@ public class FormReconstructTest extends AbstractTest {
 
 		Negocio guardado = negocioService.findOneToDisplay(negocio.getId());
 		assertEquals("Comida Fast 2", guardado.getNombre());
-		assertArrayEquals(imagen, guardado.getImagen());
+		assertArrayEquals(imagen, guardado.getImagen().getDatos());
 		assertEquals(Double.valueOf(4.5), guardado.getValoracionMedia());
 		assertTrue(guardado.getNegocioActivo());
 	}

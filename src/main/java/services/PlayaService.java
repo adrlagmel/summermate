@@ -28,6 +28,9 @@ public class PlayaService {
 	
 	@Autowired
 	private PlayaRepository playaRepository;
+
+	@Autowired
+	private ImagenService imagenService;
 	
 	@Autowired
 	private AdministradorService administradorService;
@@ -111,16 +114,12 @@ public class PlayaService {
 		Assert.isTrue(playa.getAdministrador().getUserAccount().equals(userAccount));
 	}
 	
+	// Una subida vacía quita la imagen; si no es JPEG, PNG o WebP,
+	// ImagenService.crear lanza IllegalArgumentException.
 	public void addImageToFoto(int playaId, byte[] bytes) {
-		System.out.println("metodo de add");
 		Playa p = findOne(playaId);
-		if(bytes.length==0){
-		
-			p.setImagen(null);
-		}else{
-			p.setImagen(bytes);
-		}
-		
+		p.setImagen(imagenService.crear(bytes));
+
 		save(p);
 	}
 	

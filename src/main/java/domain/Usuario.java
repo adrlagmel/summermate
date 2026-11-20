@@ -7,6 +7,9 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -19,13 +22,16 @@ public class Usuario extends Cliente{
 	// Attributes ----------------------------------
 	
 		private String estadoActual;
-		private byte[]	imagen;
+		private Imagen	imagen;
 		
-		public byte[] getImagen() {
+		// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
+		// orphanRemoval: al cambiarla o quitarla se borra la anterior.
+		@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+		public Imagen getImagen() {
 			return imagen;
 		}
 
-		public void setImagen(byte[] imagen) {
+		public void setImagen(Imagen imagen) {
 			this.imagen= imagen;
 		}
 		

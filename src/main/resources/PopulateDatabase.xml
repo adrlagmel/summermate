@@ -1511,7 +1511,6 @@
         <property name="precio" value="150.0"/>
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
-        <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio1"/>
 		<property name="usuarios">
 			<list>
@@ -1527,7 +1526,6 @@
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="10.0"/>
-        <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
 		<property name="usuarios">
 			<list>
@@ -1543,7 +1541,6 @@
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="5.0"/>
-        <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio2"/>
 		<property name="usuarios">
 			<list>
@@ -1559,7 +1556,6 @@
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="10.0"/>
-        <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio4"/>
 		<property name="usuarios">
 			<list>
@@ -1575,7 +1571,6 @@
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="0.0"/>
-        <property name="imagen" value=""/>
 		<property name="negocio" ref="negocio3"/>
 		<property name="usuarios">
 			<list>
@@ -1591,7 +1586,6 @@
         <property name="fechaRegistro" value="06/06/2016 12:00"/>
         <property name="fechaCelebracion" value="07/07/2016 10:00"/>
         <property name="precio" value="15.0"/>
-        <property name="imagen" value=""/>
         <property name="negocio" ref="negocio4"/>
 		<property name="usuarios">
 			<list>
