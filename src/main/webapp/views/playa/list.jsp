@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form action="playa/nearToMe.do" method="get" name="nearToMe">
 						<input type="text" name="lat" id="lat" class="hidden"/>
@@ -99,7 +100,7 @@
 		
 		<display:column>
 		<jstl:if test="${row.administrador.userAccount.id == user && row.negocios.size()<1}">
-			<a href="playa/admin/delete.do?playaId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="playa.confirmDelete" />')"><spring:message code="playa.delete" /></a>
+			<acme:postbutton url="playa/admin/delete.do?playaId=${row.id}" code="playa.delete" confirmCode="playa.confirmDelete" />
 		</jstl:if>
 		</display:column>
 	</security:authorize>

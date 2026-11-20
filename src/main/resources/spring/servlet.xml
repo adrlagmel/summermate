@@ -161,5 +161,7 @@
     	<!-- Maximum file size in bytes -->
     	<property name="maxUploadSize" value="3000000"/>
 	</bean>
+	<!-- Nombre que busca MultipartFilter (ver web.xml) -->
+	<alias name="multipartResolver" alias="filterMultipartResolver" />
 
 </beans>

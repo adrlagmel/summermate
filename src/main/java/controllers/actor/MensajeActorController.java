@@ -110,7 +110,7 @@ public class MensajeActorController extends AbstractController{
 			return result;
 		}
 		
-		@RequestMapping(value="/borrar", method = RequestMethod.GET)
+		@RequestMapping(value="/borrar", method = RequestMethod.POST)
 		public ModelAndView delete(@RequestParam int mensajeId){
 			
 			ModelAndView result;

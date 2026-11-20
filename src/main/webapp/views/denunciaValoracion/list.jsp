@@ -6,6 +6,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="true"
@@ -34,7 +35,7 @@
 	
 	<spring:message code="denunciaValoracion.borrar"  var="borrar" />
 	<display:column sortable="false">
-		<a href="denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.denunciaValoracion" />')"><spring:message code="valoracionNegocio.borrar" /></a>
+		<acme:postbutton url="denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}" code="valoracionNegocio.borrar" confirmCode="msg.delete.denunciaValoracion" />
 	</display:column>
 	</security:authorize>	
 	<security:authorize access="hasAuthority('USUARIO')">

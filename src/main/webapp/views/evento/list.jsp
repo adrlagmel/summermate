@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 <%-- <form action="${actionURI}">
@@ -65,14 +66,14 @@
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<display:column>
 		<jstl:if test="${!row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
-				<a href="evento/usuario/signup.do?eventoId=${row.id}" class="btn btn-success"><spring:message code="evento.signup" /></a>
+				<acme:postbutton url="evento/usuario/signup.do?eventoId=${row.id}" code="evento.signup" cssClass="btn btn-success" />
 		</jstl:if>	
 	</display:column>
 	
 	<display:column>
 		<spring:message code="evento.confirmDelete" var="confirm"/>
 		<jstl:if test="${row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
-				<a href="evento/usuario/unregister.do?eventoId=${row.id}" onclick="return confirm('${confirm}')" class = "btn btn-danger"><spring:message code="evento.unregister" /></a>
+				<acme:postbutton url="evento/usuario/unregister.do?eventoId=${row.id}" code="evento.unregister" confirmCode="evento.confirmDelete" />
 		</jstl:if>	
 	</display:column>	
 	</security:authorize>

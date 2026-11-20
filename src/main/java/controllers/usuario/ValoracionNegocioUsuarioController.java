@@ -109,7 +109,7 @@ public class ValoracionNegocioUsuarioController extends AbstractController {
 		return result;
 	}
 	
-	@RequestMapping(value= "/borrar", method = RequestMethod.GET)
+	@RequestMapping(value= "/borrar", method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam int valoracionNegocioId){
 		ModelAndView result;
 		

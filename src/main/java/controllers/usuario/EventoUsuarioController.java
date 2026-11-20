@@ -125,7 +125,7 @@ public class EventoUsuarioController extends AbstractController{
 	// Create and edition methods -------------------------------------------------
 			
 		
-		@RequestMapping(value="/signup", method = RequestMethod.GET)
+		@RequestMapping(value="/signup", method = RequestMethod.POST)
 		public ModelAndView signup(@RequestParam int eventoId){
 						
 			ModelAndView result;
@@ -141,7 +141,7 @@ public class EventoUsuarioController extends AbstractController{
 				
 		}
 		
-		@RequestMapping(value="/unregister", method = RequestMethod.GET)
+		@RequestMapping(value="/unregister", method = RequestMethod.POST)
 		public ModelAndView unregister(@RequestParam int eventoId){
 						
 			ModelAndView result;

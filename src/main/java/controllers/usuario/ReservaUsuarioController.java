@@ -136,7 +136,7 @@ public class ReservaUsuarioController extends AbstractController{
 		}
 			
 
-		@RequestMapping(value="/delete", method = RequestMethod.GET)
+		@RequestMapping(value="/delete", method = RequestMethod.POST)
 		public ModelAndView delete(@RequestParam int reservaId){
 			
 			ModelAndView result;

@@ -33,9 +33,9 @@
 	onclick="javascript: location.replace('mensaje/actor/responder.do?mensajeId=${mostrarMensaje.id}')" />
 		</jstl:if>
 		<jstl:if test="${mostrarMensaje.beneficiario.userAccount.id==user || mostrarMensaje.remitente.userAccount.id==user}">
-				<input type="button" class="btn btn-danger" value="<spring:message code="msg.delete" />"
-				onclick="javascript: location.replace('mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}');
-				javascript: return confirm('<spring:message code="msg.delete.del" />')" />
+				<%-- Antes navegaba a borrar.do antes de preguntar, así que borraba
+				     aunque se cancelase la confirmación. --%>
+				<acme:postbutton url="mensaje/actor/borrar.do?mensajeId=${mostrarMensaje.id}" code="msg.delete" confirmCode="msg.delete.del" />
 		</jstl:if>
 	
 	

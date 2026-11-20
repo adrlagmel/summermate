@@ -109,7 +109,7 @@ public class PlayaAdminController extends AbstractController {
 	return result;
 	}
 	
-	@RequestMapping(value="/delete", method = RequestMethod.GET)
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam int playaId){
 		
 		ModelAndView result;

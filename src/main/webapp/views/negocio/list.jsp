@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 <form class="form-inline" action="${actionURI}">
@@ -94,14 +95,14 @@
 		<display:column>
 			<spring:message code="negocio.confirmBaja" var= "confirm" />
 			<jstl:if test="${row.empresario.userAccount.id == user && row.negocioActivo}">
-				<a href="negocio/empresario/suspender.do?negocioId=${row.id}" class="btn btn-danger" onclick="return confirm('${confirm}')"><spring:message code="negocio.baja" /></a>
+				<acme:postbutton url="negocio/empresario/suspender.do?negocioId=${row.id}" code="negocio.baja" confirmCode="negocio.confirmBaja" />
 			</jstl:if>
 		</display:column>
 		
 		<display:column>
 			<spring:message code="negocio.confirmaAlta" var= "confirm2" />
 			<jstl:if test="${row.empresario.userAccount.id == user && !row.negocioActivo}">
-				<a href="negocio/empresario/alta.do?negocioId=${row.id}" class="btn btn-danger" onclick="return confirm('${confirm2}')"><spring:message code="negocio.alta" /></a>
+				<acme:postbutton url="negocio/empresario/alta.do?negocioId=${row.id}" code="negocio.alta" confirmCode="negocio.confirmaAlta" />
 			</jstl:if>
 		</display:column>
 	</security:authorize>

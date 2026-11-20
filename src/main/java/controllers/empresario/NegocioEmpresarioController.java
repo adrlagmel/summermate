@@ -160,7 +160,7 @@ public class NegocioEmpresarioController extends AbstractController{
 		return result;
 	}
 		
-		@RequestMapping(value="/suspender", method = RequestMethod.GET)
+		@RequestMapping(value="/suspender", method = RequestMethod.POST)
 		public ModelAndView suspender(@RequestParam int negocioId){
 			
 			ModelAndView result;
@@ -176,7 +176,7 @@ public class NegocioEmpresarioController extends AbstractController{
 			
 		}
 		
-		@RequestMapping(value="/alta", method = RequestMethod.GET)
+		@RequestMapping(value="/alta", method = RequestMethod.POST)
 		public ModelAndView alta(@RequestParam int negocioId){
 			
 			ModelAndView result;
