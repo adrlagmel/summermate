@@ -98,6 +98,15 @@ public class EventoService {
 		eventoRepository.save(evento);
 	}
 	
+	// UC0004: un evento solo se borra si nadie se ha inscrito.
+	public void delete(Evento evento){
+		checkPrincipal(evento);
+		Assert.isTrue(evento.getUsuarios().isEmpty());
+
+		evento.getNegocio().getEventos().remove(evento);
+		eventoRepository.delete(evento);
+	}
+
 	public Collection<Evento> findAll(){
 		
 		Collection<Evento> result = eventoRepository.findAll();

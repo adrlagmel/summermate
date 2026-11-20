@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -35,6 +36,12 @@ public class NegocioService {
 	
 	@Autowired
 	private NegocioRepository negocioRepository;
+
+	@Autowired
+	private repositories.ReservaRepository reservaRepository;
+
+	@Autowired
+	private repositories.CalendarioNegocioRepository calendarioNegocioRepository;
 	
 	// Supporting services ---------------------------------------------------
 
@@ -110,6 +117,26 @@ public class NegocioService {
 		negocioRepository.save(negocio);
 	}
 	
+	// UC0009 / OBJ-0011: un negocio solo se borra si no tiene eventos ni
+	// reservas pendientes. Las reservas ya pasadas se borran con él, junto con
+	// sus valoraciones y las denuncias de esas valoraciones.
+	public boolean sePuedeBorrar(Negocio negocio){
+		LocalDateTime ahora = LocalDateTime.now();
+		return negocio.getEventos().isEmpty()
+			&& negocio.getReservas().stream().noneMatch(r -> r.getFecha().isAfter(ahora));
+	}
+
+	public void delete(Negocio negocio){
+		checkPrincipal(negocio);
+		Assert.isTrue(sePuedeBorrar(negocio));
+
+		reservaRepository.deleteAll(negocio.getReservas());
+		calendarioNegocioRepository.deleteAll(negocio.getCalendarioNegocios());
+		if (negocio.getPlaya() != null)
+			negocio.getPlaya().getNegocios().remove(negocio);
+		negocioRepository.delete(negocio);
+	}
+
 	public void suspenderNegocio(Negocio negocio){
 		checkPrincipal(negocio);
 		Assert.notNull(negocio);

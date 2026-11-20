@@ -162,6 +162,13 @@ public class EmpresarioController {
 		return "redirect:/empresario/peticion";
 	}
 
+	@DeleteMapping("/peticion")
+	public String cancelarPeticion(RedirectAttributes redirect) {
+		peticionService.cancelar(peticionService.findByEmpresarioId(empresarioService.findByPrincipal().getId()));
+		redirect.addFlashAttribute("aviso", "peticion.cancelada");
+		return "redirect:/empresario/peticion";
+	}
+
 	private String vistaPeticion(Model model, PeticionNegocioForm form) {
 		model.addAttribute("peticion", peticionService.findByEmpresarioId(empresarioService.findByPrincipal().getId()));
 		model.addAttribute("puedeEnviar", peticionService.canCreatePeticionNegocio());

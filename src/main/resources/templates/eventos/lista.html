@@ -53,6 +53,7 @@
 							<a th:if="${futuro}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/editar(id=${row.id})}" th:text="#{evento.edit}">Editar</a>
 							<a th:if="${futuro}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/imagen(id=${row.id})}" th:text="#{evento.uploadImage}">Imagen</a>
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/participantes(id=${row.id})}" th:text="#{evento.participantes}">Participantes</a>
+							<form th:replace="~{fragments/ui :: boton(@{/empresario/eventos/{id}(id=${row.id})}, 'delete', #{evento.borrar}, 'btn-outline-danger', #{evento.borrar.confirmar})}"></form>
 						</th:block>
 					</td>
 				</tr>

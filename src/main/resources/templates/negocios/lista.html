@@ -66,6 +66,7 @@
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/valoraciones(id=${row.id})}" th:text="#{negocio.valoracionesNegocio.list}">Valoraciones</a>
 							<th:block th:if="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'post', #{negocio.baja}, 'btn-outline-danger', #{negocio.confirmBaja})}"></form></th:block>
 							<th:block th:unless="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'delete', #{negocio.alta}, 'btn-outline-success', #{negocio.confirmaAlta})}"></form></th:block>
+							<form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}(id=${row.id})}, 'delete', #{negocio.borrar}, 'btn-outline-danger', #{negocio.borrar.confirmar})}"></form>
 						</th:block>
 					</td>
 				</tr>

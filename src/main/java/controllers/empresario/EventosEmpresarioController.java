@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.SmartValidator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,6 +98,20 @@ public class EventosEmpresarioController {
 		eventoService.findOneToEdit(id);
 		form.setId(id);
 		return guardar(form, binding, model, redirect);
+	}
+
+	@DeleteMapping("/{id}")
+	public String borrar(@PathVariable int id, RedirectAttributes redirect) {
+		Evento evento = eventoService.findOne(id);
+		eventoService.checkPrincipal(evento);
+
+		if (!evento.getUsuarios().isEmpty()) {
+			redirect.addFlashAttribute("message", "evento.borrar.noSePuede");
+			return "redirect:/empresario/eventos";
+		}
+		eventoService.delete(evento);
+		redirect.addFlashAttribute("aviso", "fase5.borrado");
+		return "redirect:/empresario/eventos";
 	}
 
 	@GetMapping("/{id}/participantes")

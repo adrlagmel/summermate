@@ -113,6 +113,19 @@ public class NegociosEmpresarioController {
 		return "redirect:/empresario/negocios";
 	}
 
+	@DeleteMapping("/{id}")
+	public String borrar(@PathVariable int id, RedirectAttributes redirect) {
+		Negocio negocio = negocioService.findOneToEdit(id);
+
+		if (!negocioService.sePuedeBorrar(negocio)) {
+			redirect.addFlashAttribute("message", "negocio.borrar.noSePuede");
+			return "redirect:/empresario/negocios";
+		}
+		negocioService.delete(negocio);
+		redirect.addFlashAttribute("aviso", "fase5.borrado");
+		return "redirect:/empresario/negocios";
+	}
+
 	@DeleteMapping("/{id}/suspension")
 	public String reactivar(@PathVariable int id, RedirectAttributes redirect) {
 		Negocio negocio = negocioService.findOneToEdit(id);

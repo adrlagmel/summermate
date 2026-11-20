@@ -80,6 +80,16 @@ public class PeticionNegocioService {
 		return peticionNegocioRepository.save(peticionNegocio);
 	}
 	
+	// Cancelar petición: el empresario retira la suya mientras está pendiente
+	// y puede enviar otra más tarde.
+	public void cancelar(PeticionNegocio peticionNegocio){
+		Assert.notNull(peticionNegocio);
+		Assert.isTrue(peticionNegocio.getEmpresario().getUserAccount().equals(LoginService.getPrincipal()));
+		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.PENDIENTE);
+
+		peticionNegocioRepository.delete(peticionNegocio);
+	}
+
 	public void delete(PeticionNegocio peticionNegocio){
 		checkPrincipal(peticionNegocio);
 					
