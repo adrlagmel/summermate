@@ -126,6 +126,23 @@ public class Reserva extends DomainEntity{
 	}
 	
 	
+	// Mesa asignada (solo en negocios con mesas)
+	private Mesa mesa;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	public Mesa getMesa() {
+		return mesa;
+	}
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
+
+	// Hasta cuándo ocupa la reserva su mesa o sus plazas
+	@jakarta.persistence.Transient
+	public java.time.LocalDateTime getFin() {
+		return fecha == null || negocio == null ? null : fecha.plusMinutes(negocio.getDuracionReserva());
+	}
+
 	@Valid
 	@OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
 	public ValoracionNegocio getValoracionNegocio() {

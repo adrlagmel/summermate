@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import controllers.Paginacion;
 import domain.Negocio;
 import forms.ReservaForm;
-import services.CalendarioNegocioService;
+import services.AgendaService;
 import services.NegocioService;
 import services.ReservaService;
 import utilities.Assert;
@@ -41,8 +41,6 @@ public class ReservasUsuarioController {
 	@Autowired
 	private NegocioService				negocioService;
 
-	@Autowired
-	private CalendarioNegocioService	calendarioNegocioService;
 
 	@Autowired
 	private SmartValidator				validator;
@@ -84,16 +82,17 @@ public class ReservasUsuarioController {
 
 		try {
 			reservaService.save(reservaService.reconstruct(form));
-		} catch (IllegalArgumentException rechazada) {
-			// Como antes: si es por aforo, se dice cuántas plazas quedan
-			Integer ocupadas = calendarioNegocioService.findComensalesPorFechaDeReserva(form.getFecha(), form.getFecha().plusMinutes(59), id);
-			int libres = form.getNegocio().getAforo() - (ocupadas == null ? 0 : ocupadas);
-
-			if (libres < form.getComensales()) {
-				model.addAttribute("message", "booking.error.aforo");
-				model.addAttribute("libres", Math.max(libres, 0));
-			} else
-				model.addAttribute("message", "booking.commit.error");
+		} catch (AgendaService.ReservaRechazada rechazada) {
+			// Se dice por qué no cabe y, si es por aforo, cuántas plazas quedan
+			switch (rechazada.motivo) {
+				case AFORO -> {
+					model.addAttribute("message", "booking.error.aforo");
+					model.addAttribute("libres", rechazada.libres);
+				}
+				case SIN_MESA -> model.addAttribute("message", "reserva.error.sinMesa");
+				case CERRADO -> model.addAttribute("message", "reserva.error.cerrado");
+				default -> model.addAttribute("message", "booking.commit.error");
+			}
 			return formulario(model, form);
 		}
 		redirect.addFlashAttribute("aviso", "fase5.reserva.ok");

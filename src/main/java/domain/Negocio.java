@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalTime;
 import java.util.Collection;
 
 import jakarta.persistence.Access;
@@ -7,6 +8,7 @@ import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToOne;
@@ -133,7 +135,8 @@ public class Negocio extends DomainEntity{
 	private Empresario 					  empresario;
 	private Collection<Evento> 		      eventos;
 	private Collection<Reserva> 		  reservas;
-	private Collection<CalendarioNegocio> calendarioNegocios;
+	private Collection<Mesa>			  mesas;
+	private Collection<Cierre>			  cierres;
 	private Playa 					  	  playa;
 		
 	@NotNull
@@ -177,13 +180,63 @@ public class Negocio extends DomainEntity{
 		this.playa = playa;
 	}
 	
-	@NotNull
-	@OneToMany(mappedBy = "negocio")
-	public Collection<CalendarioNegocio> getCalendarioNegocios() {
-		return calendarioNegocios;
+	// Mesas del negocio (OBJ-0034). Sin mesas, las reservas solo se limitan
+	// por el aforo; con mesas, cada reserva ocupa una.
+	@OneToMany(mappedBy = "negocio", cascade = CascadeType.REMOVE)
+	@OrderBy("capacidad, nombre")
+	public Collection<Mesa> getMesas() {
+		return mesas;
 	}
 
-	public void setCalendarioNegocios(Collection<CalendarioNegocio> calendarioNegocios) {
-		this.calendarioNegocios = calendarioNegocios;
+	public void setMesas(Collection<Mesa> mesas) {
+		this.mesas = mesas;
+	}
+
+	// Días en que el negocio no admite reservas
+	@OneToMany(mappedBy = "negocio", cascade = CascadeType.REMOVE)
+	@OrderBy("fecha")
+	public Collection<Cierre> getCierres() {
+		return cierres;
+	}
+
+	public void setCierres(Collection<Cierre> cierres) {
+		this.cierres = cierres;
+	}
+
+	// Horario (Fase 6) ----------------------
+
+	private LocalTime	horaApertura	= LocalTime.of(12, 0);
+	private LocalTime	horaCierre		= LocalTime.MIDNIGHT;
+	private Integer		duracionReserva	= 60;
+
+	// Primera hora a la que se puede reservar
+	@NotNull
+	public LocalTime getHoraApertura() {
+		return horaApertura;
+	}
+
+	public void setHoraApertura(LocalTime horaApertura) {
+		this.horaApertura = horaApertura;
+	}
+
+	// Hora de cierre; 00:00 significa medianoche (fin del día)
+	@NotNull
+	public LocalTime getHoraCierre() {
+		return horaCierre;
+	}
+
+	public void setHoraCierre(LocalTime horaCierre) {
+		this.horaCierre = horaCierre;
+	}
+
+	// Minutos que ocupa una reserva (la mesa o las plazas)
+	@NotNull
+	@Range(min = 15, max = 240)
+	public Integer getDuracionReserva() {
+		return duracionReserva;
+	}
+
+	public void setDuracionReserva(Integer duracionReserva) {
+		this.duracionReserva = duracionReserva;
 	}
 }

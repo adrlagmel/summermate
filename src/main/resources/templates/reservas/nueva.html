@@ -9,6 +9,7 @@
 	<div class="col-lg-7">
 		<h1 class="mb-1" th:text="#{booking.create}">Reservar</h1>
 		<p class="text-body-secondary" th:text="|${form.negocio.nombre} · #{negocio.aforo}: ${form.negocio.aforo}|">Negocio</p>
+		<p class="small text-body-secondary" th:text="#{reserva.horario(${#temporals.format(form.negocio.horaApertura, 'HH:mm')}, ${#temporals.format(form.negocio.horaCierre, 'HH:mm')}, ${form.negocio.duracionReserva})}">Se reserva de 12:00 a 00:00; cada reserva dura 60 minutos.</p>
 		<div th:if="${libres != null}" class="alert alert-warning" th:text="|#{booking.seats}: ${libres}|">Plazas libres</div>
 
 		<form th:action="@{/negocios/{id}/reservas(id=${form.negocio.id})}" th:object="${form}" method="post" novalidate>

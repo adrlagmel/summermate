@@ -10,9 +10,6 @@
  *   /valoracionNegocio/empresario/listValoraciones.do -> GET /empresario/negocios/{id}/valoraciones
  *   /negocio/empresario/search.do              -> GET /negocios?ciudad= (era la misma búsqueda pública)
  *
- * /calendarioNegocio/empresario/deleteDates.do no se migra: ninguna página
- * enlazaba con ella y CalendarioNegocioService.save() no guarda nada. Queda
- * pendiente de la revisión del calendario.
  */
 
 package controllers.empresario;

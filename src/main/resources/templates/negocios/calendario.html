@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- negocios/calendario.html: calendario del negocio para su empresario (Fase 6) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="|#{calendario.titulo} · ${negocio.nombre}|">Calendario</title>
+</head>
+<body>
+<div layout:fragment="contenido" th:with="base=|/empresario/negocios/${negocio.id}|">
+	<div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+		<div>
+			<h1 class="mb-0" th:text="#{calendario.titulo}">Calendario</h1>
+			<p class="text-body-secondary mb-0"><a th:href="@{/negocios/{id}(id=${negocio.id})}" th:text="${negocio.nombre}">Negocio</a></p>
+		</div>
+		<form class="d-flex align-items-center gap-2" th:action="@{|${base}/calendario|}" method="get">
+			<a class="btn btn-outline-secondary" th:href="@{|${base}/calendario|(dia=${dia.minusDays(1)})}" th:attr="aria-label=#{calendario.anterior}">
+				<i class="bi bi-chevron-left" aria-hidden="true"></i></a>
+			<label class="visually-hidden" for="dia" th:text="#{calendario.dia}">Día</label>
+			<input class="form-control" type="date" id="dia" name="dia" th:value="${dia}" onchange="this.form.submit()">
+			<a class="btn btn-outline-secondary" th:href="@{|${base}/calendario|(dia=${dia.plusDays(1)})}" th:attr="aria-label=#{calendario.siguiente}">
+				<i class="bi bi-chevron-right" aria-hidden="true"></i></a>
+		</form>
+	</div>
+
+	<div class="row g-4">
+		<!-- Ocupación y reservas del día -->
+		<div class="col-lg-7">
+			<h2 class="h5" th:text="${#temporals.format(dia, 'EEEE d MMMM yyyy')}">sábado 1 agosto 2026</h2>
+			<div th:if="${cerrado}" class="alert alert-secondary" th:text="#{calendario.cerrado}">Cerrado este día.</div>
+
+			<div class="table-responsive" th:unless="${cerrado}">
+				<table class="table table-sm align-middle">
+					<thead>
+						<tr>
+							<th scope="col" th:text="#{calendario.hora}">Hora</th>
+							<th scope="col" class="w-50" th:text="#{calendario.ocupacion}">Ocupación</th>
+							<th scope="col" class="text-end" th:text="${mesas.empty} ? #{calendario.plazasLibres} : #{calendario.mesasLibres}">Libres</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="f : ${franjas}" th:with="pct=${negocio.aforo > 0 ? (f.comensales() * 100 / negocio.aforo) : 0}">
+							<td class="puntuacion" th:text="${#temporals.format(f.inicio(), 'HH:mm')}">13:00</td>
+							<td>
+								<div class="progress" role="progressbar" th:attr="aria-valuenow=${f.comensales()},aria-valuemax=${negocio.aforo},aria-label=#{calendario.ocupacion}">
+									<div class="progress-bar" th:classappend="${f.llena()} ? 'bg-danger' : (${pct >= 75} ? 'bg-warning' : '')"
+										th:style="|width: ${pct > 100 ? 100 : pct}%|"></div>
+								</div>
+							</td>
+							<td class="text-end puntuacion" th:text="${f.mesasLibres() != null} ? ${f.mesasLibres()} : ${f.plazasLibres() < 0 ? 0 : f.plazasLibres()}">20</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 class="h5 mt-4" th:text="#{calendario.reservas}">Reservas</h2>
+			<p th:if="${#lists.isEmpty(reservas)}" class="text-body-secondary" th:text="#{calendario.sinReservas}">Ninguna.</p>
+			<ul class="list-group" th:unless="${#lists.isEmpty(reservas)}">
+				<li class="list-group-item d-flex flex-wrap justify-content-between gap-2" th:each="r : ${reservas}">
+					<span>
+						<strong class="puntuacion" th:text="${#temporals.format(r.fecha, 'HH:mm')}">14:00</strong>
+						<span th:text="|${r.usuario.nombre} ${r.usuario.apellidos}|">Ana</span>
+						<small class="text-body-secondary d-block" th:if="${r.comentarios}" th:text="${r.comentarios}">Comentario</small>
+					</span>
+					<span class="text-nowrap">
+						<span class="badge text-bg-primary" th:text="#{calendario.comensales(${r.comensales})}">4 personas</span>
+						<span th:if="${r.mesa}" class="badge text-bg-secondary" th:text="${r.mesa.nombre}">Mesa 3</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Configuración -->
+		<div class="col-lg-5 d-flex flex-column gap-4">
+			<section class="card">
+				<div class="card-body">
+					<h2 class="h5" th:text="#{calendario.horario}">Horario</h2>
+					<form th:action="@{|${base}/horario|}" method="post" class="row g-2 align-items-end">
+						<input type="hidden" name="_method" value="put">
+						<div class="col-6">
+							<label class="form-label" for="horaApertura" th:text="#{calendario.apertura}">Apertura</label>
+							<input class="form-control" type="time" id="horaApertura" name="horaApertura" th:value="${#temporals.format(negocio.horaApertura, 'HH:mm')}" required>
+						</div>
+						<div class="col-6">
+							<label class="form-label" for="horaCierre" th:text="#{calendario.cierreHora}">Cierre</label>
+							<input class="form-control" type="time" id="horaCierre" name="horaCierre" th:value="${#temporals.format(negocio.horaCierre, 'HH:mm')}" required>
+						</div>
+						<div class="col-8">
+							<label class="form-label" for="duracionReserva" th:text="#{calendario.duracion}">Duración de una reserva (min)</label>
+							<input class="form-control" type="number" id="duracionReserva" name="duracionReserva" min="15" max="240" step="15" th:value="${negocio.duracionReserva}" required>
+						</div>
+						<div class="col-4">
+							<button type="submit" class="btn btn-primary w-100" th:text="#{calendario.guardar}">Guardar</button>
+						</div>
+						<p class="form-text mb-0" th:text="#{calendario.horario.ayuda}">00:00 es medianoche.</p>
+					</form>
+				</div>
+			</section>
+
+			<section class="card">
+				<div class="card-body">
+					<h2 class="h5" th:text="#{calendario.mesas}">Mesas</h2>
+					<p class="small text-body-secondary" th:text="${mesas.empty} ? #{calendario.mesas.sin(${negocio.aforo})} : #{calendario.mesas.con}">Sin mesas se limita por aforo.</p>
+					<ul class="list-group mb-3" th:unless="${mesas.empty}">
+						<li class="list-group-item d-flex justify-content-between align-items-center" th:each="m : ${mesas}">
+							<span><span th:text="${m.nombre}">Mesa 1</span> · <span class="text-body-secondary" th:text="#{calendario.comensales(${m.capacidad})}">4 personas</span></span>
+							<form th:replace="~{fragments/ui :: boton(@{|${base}/mesas/${m.id}|}, 'delete', #{calendario.quitar}, 'btn-outline-danger', null)}"></form>
+						</li>
+					</ul>
+					<form th:action="@{|${base}/mesas|}" method="post" class="row g-2 align-items-end">
+						<div class="col-6">
+							<label class="form-label" for="nombreMesa" th:text="#{calendario.mesa.nombre}">Nombre</label>
+							<input class="form-control" id="nombreMesa" name="nombre" maxlength="40" required th:placeholder="#{calendario.mesa.ejemplo}">
+						</div>
+						<div class="col-3">
+							<label class="form-label" for="capacidad" th:text="#{calendario.mesa.capacidad}">Plazas</label>
+							<input class="form-control" type="number" id="capacidad" name="capacidad" min="1" max="20" value="4" required>
+						</div>
+						<div class="col-3">
+							<button type="submit" class="btn btn-outline-primary w-100" th:text="#{calendario.anadir}">Añadir</button>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section class="card">
+				<div class="card-body">
+					<h2 class="h5" th:text="#{calendario.cierres}">Días cerrados</h2>
+					<ul class="list-group mb-3" th:unless="${#lists.isEmpty(cierres)}">
+						<li class="list-group-item d-flex justify-content-between align-items-center" th:each="c : ${cierres}">
+							<span><span class="puntuacion" th:text="${#temporals.format(c.fecha, 'dd/MM/yyyy')}">01/08/2026</span>
+								<small class="text-body-secondary" th:if="${c.motivo}" th:text="| · ${c.motivo}|">· Vacaciones</small></span>
+							<form th:replace="~{fragments/ui :: boton(@{|${base}/cierres/${c.id}|}, 'delete', #{calendario.abrir}, 'btn-outline-secondary', null)}"></form>
+						</li>
+					</ul>
+					<form th:action="@{|${base}/cierres|}" method="post" class="row g-2 align-items-end">
+						<div class="col-6">
+							<label class="form-label" for="fechaCierre" th:text="#{calendario.dia}">Día</label>
+							<input class="form-control" type="date" id="fechaCierre" name="fecha" th:min="${hoy}" required>
+						</div>
+						<div class="col-6">
+							<label class="form-label" for="motivo" th:text="#{calendario.motivo}">Motivo</label>
+							<input class="form-control" id="motivo" name="motivo" maxlength="120">
+						</div>
+						<div class="col-12">
+							<button type="submit" class="btn btn-outline-primary" th:text="#{calendario.cerrarDia}">Cerrar ese día</button>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+</body>
+</html>

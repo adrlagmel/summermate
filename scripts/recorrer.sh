@@ -63,7 +63,7 @@ pedir usuario1 /empresario/negocios 403
 entrar empresario1
 echo "Empresario (empresario1)"
 for r in / /empresario/negocios /empresario/negocios/nuevo /empresario/eventos /empresario/eventos/nuevo /empresario/reservas \
-	"/empresario/reservas?fecha=2016-08-10" /denuncias /empresario/peticion /perfil /perfil/editar /carpetas /negocios; do
+	"/empresario/reservas?fecha=2016-08-10" /denuncias /empresario/negocios/1/calendario /empresario/premium /empresario/peticion /perfil /perfil/editar /carpetas /negocios; do
 	pedir empresario1 "$r"
 done
 for r in /empresario/negocios/1/editar /empresario/negocios/1/imagen /empresario/eventos/1/participantes \

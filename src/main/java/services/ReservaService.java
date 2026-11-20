@@ -22,7 +22,6 @@ import repositories.ReservaRepository;
 import security.LoginService;
 import security.UserAccount;
 import utilities.validators.RandomString;
-import domain.CalendarioNegocio;
 import domain.Empresario;
 import domain.Negocio;
 import domain.Reserva;
@@ -50,7 +49,7 @@ public class ReservaService {
 	private EmpresarioService empresarioService;
 	
 	@Autowired
-	private CalendarioNegocioService calendarioNegocioService;
+	private AgendaService agendaService;
 	
 	@Autowired
 	private NegocioService negocioService;
@@ -91,33 +90,15 @@ public class ReservaService {
 		Negocio negocio = negocioService.bloquearParaReservar(reserva.getNegocio().getId());
 		Assert.isTrue(negocio.getNegocioActivo());
 		
-		LocalDateTime startMoment = reserva.getFecha();
-		LocalDateTime endMoment = startMoment.plusHours(1);
-		
-		// Antes solo se comprobaba si ya había reservas en esa franja, así que
-		// la primera podía superar el aforo ella sola.
-		Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, negocio.getId());
-		comensales = comensales + reserva.getComensales();
-		Assert.isTrue(comensales.compareTo(negocio.getAforo())<=0);
-		
-		Assert.isTrue(!reserva.getFecha().isBefore(LocalDateTime.now()));
-		
-		// Solo de 12:00 a 24:00
-		LocalDateTime hora = reserva.getFecha().truncatedTo(ChronoUnit.MINUTES);
-		LocalDate dia = hora.toLocalDate();
-		Assert.isTrue(!hora.isBefore(dia.atTime(12, 0)));
-		Assert.isTrue(!hora.isAfter(dia.plusDays(1).atStartOfDay()));
-		
-		Reserva saved = reservaRepository.save(reserva);
-		calendarioNegocioService.create(saved);
-		
-		return saved;
+		// Fase 6: horario, días cerrados, aforo o mesa (ver AgendaService)
+		agendaService.comprobarYAsignar(reserva, negocio);
+
+		return reservaRepository.save(reserva);
 	}
 	
 	public void delete(Reserva reserva){
 		Assert.notNull(reserva);
 		
-		calendarioNegocioService.delete(reserva.getCodigo());
 		reservaRepository.delete(reserva);
 		
 	}

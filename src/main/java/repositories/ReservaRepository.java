@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
@@ -45,5 +46,16 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query(value = "select s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio join fetch s.usuario where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3",
 		countQuery = "select count(s) from Reserva s where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
 	Page<Reserva> search(int empresarioId, LocalDateTime desde, LocalDateTime hasta, Pageable pageable);
+
+	// Fase 6: ocupación. Una reserva que empieza en f ocupa [f, f + duración),
+	// así que se solapa con [inicio, fin) si f está en (inicio - duración, fin).
+	@Query("select coalesce(sum(r.comensales), 0) from Reserva r where r.negocio.id = ?1 and r.fecha > ?2 and r.fecha < ?3")
+	int comensalesSolapados(int negocioId, LocalDateTime desde, LocalDateTime hasta);
+
+	@Query("select r.mesa.id from Reserva r where r.negocio.id = ?1 and r.mesa is not null and r.fecha > ?2 and r.fecha < ?3")
+	List<Integer> mesasOcupadas(int negocioId, LocalDateTime desde, LocalDateTime hasta);
+
+	@Query("select r from Reserva r join fetch r.usuario left join fetch r.mesa where r.negocio.id = ?1 and r.fecha >= ?2 and r.fecha < ?3 order by r.fecha")
+	List<Reserva> delDia(int negocioId, LocalDateTime inicio, LocalDateTime fin);
 
 }

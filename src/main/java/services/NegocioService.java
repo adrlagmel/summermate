@@ -19,7 +19,6 @@ import utilities.Assert;
 import repositories.NegocioRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.CalendarioNegocio;
 import domain.Empresario;
 import domain.Evento;
 import domain.Negocio;
@@ -40,8 +39,7 @@ public class NegocioService {
 	@Autowired
 	private repositories.ReservaRepository reservaRepository;
 
-	@Autowired
-	private repositories.CalendarioNegocioRepository calendarioNegocioRepository;
+
 	
 	// Supporting services ---------------------------------------------------
 
@@ -76,7 +74,8 @@ public class NegocioService {
 		result.setNegocioActivo(true);
 		
 		result.setReservas(new ArrayList<Reserva>());
-		result.setCalendarioNegocios(new ArrayList<CalendarioNegocio>());
+		result.setMesas(new ArrayList<domain.Mesa>());
+		result.setCierres(new ArrayList<domain.Cierre>());
 		result.setEventos(new ArrayList<Evento>());
 		result.setEmpresario(principal);
 		
@@ -131,7 +130,6 @@ public class NegocioService {
 		Assert.isTrue(sePuedeBorrar(negocio));
 
 		reservaRepository.deleteAll(negocio.getReservas());
-		calendarioNegocioRepository.deleteAll(negocio.getCalendarioNegocios());
 		if (negocio.getPlaya() != null)
 			negocio.getPlaya().getNegocios().remove(negocio);
 		negocioRepository.delete(negocio);

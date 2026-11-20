@@ -203,4 +203,69 @@ class FuncionesMemoriaWebTest extends AbstractWebTest {
 		assertEquals(1, contar("select count(*) from pagopremium where estado = 'CANCELADO'"));
 		assertEquals(0, contar("select count(*) from empresario where id = 3 and premiumhasta is not null"));
 	}
+
+	// Calendario: horario, mesas y días cerrados -------------------------------------
+
+	private org.springframework.test.web.servlet.ResultActions reservar(String usuario, String fecha, int comensales, String comentario) throws Exception {
+		return mvc.perform(post("/negocios/1/reservas").with(como(usuario)).with(csrf())
+			.param("fecha", fecha).param("comensales", String.valueOf(comensales)).param("fumadores", "false").param("comentarios", comentario));
+	}
+
+	@Test
+	void elCalendarioSeVe() throws Exception {
+		mvc.perform(get("/empresario/negocios/1/calendario").with(como("empresario1"))).andExpect(status().isOk());
+		mvc.perform(get("/empresario/negocios/1/calendario").param("dia", LocalDate.now().plusDays(3).toString()).with(como("empresario1")))
+			.andExpect(status().isOk());
+		mvc.perform(get("/empresario/negocios/2/calendario").with(como("empresario1"))).andExpect(status().isForbidden());
+	}
+
+	@Test
+	void conMesasCadaReservaOcupaUna() throws Exception {
+		mvc.perform(post("/empresario/negocios/1/mesas").with(como("empresario1")).with(csrf()).param("nombre", "Terraza 1").param("capacidad", "4"));
+		mvc.perform(post("/empresario/negocios/1/mesas").with(como("empresario1")).with(csrf()).param("nombre", "Salón").param("capacidad", "8"));
+		String hora = dentroDeDias(4, 14);
+
+		// 2 personas: la mesa pequeña; 3 personas: la grande; la tercera ya no cabe
+		reservar("usuario1", hora, 2, "Mesa A").andExpect(redirectedUrl("/mis/reservas"));
+		reservar("usuario2", hora, 3, "Mesa B").andExpect(redirectedUrl("/mis/reservas"));
+		reservar("usuario1", hora, 2, "Mesa C").andExpect(status().isOk())
+			.andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.model().attribute("message", "reserva.error.sinMesa"));
+
+		assertEquals(1, contar("select count(*) from reserva r join mesa m on m.id = r.mesa_id where r.comentarios = 'Mesa A' and m.nombre = 'Terraza 1'"));
+		assertEquals(1, contar("select count(*) from reserva r join mesa m on m.id = r.mesa_id where r.comentarios = 'Mesa B' and m.nombre = 'Salón'"));
+
+		// Una hora y media después (la reserva dura 60 min) vuelve a haber mesa
+		reservar("usuario1", dentroDeDias(4, 14).replace("T14:00", "T15:30"), 2, "Mesa D").andExpect(redirectedUrl("/mis/reservas"));
+	}
+
+	@Test
+	void unDiaCerradoNoAdmiteReservas() throws Exception {
+		LocalDate dia = LocalDate.now().plusDays(6);
+		mvc.perform(post("/empresario/negocios/1/cierres").with(como("empresario1")).with(csrf()).param("fecha", dia.toString()).param("motivo", "Inventario"))
+			.andExpect(redirectedUrl("/empresario/negocios/1/calendario?dia=" + dia));
+
+		reservar("usuario1", dentroDeDias(6, 14), 2, "Cerrado").andExpect(status().isOk())
+			.andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.model().attribute("message", "reserva.error.cerrado"));
+	}
+
+	@Test
+	void noSeCierraUnDiaConReservas() throws Exception {
+		reservar("usuario1", dentroDeDias(7, 14), 2, "Antes");
+		mvc.perform(post("/empresario/negocios/1/cierres").with(como("empresario1")).with(csrf()).param("fecha", LocalDate.now().plusDays(7).toString()))
+			.andExpect(flash().attribute("message", "calendario.cierre.conReservas"));
+		assertEquals(0, contar("select count(*) from cierre"));
+	}
+
+	@Test
+	void elHorarioDecideCuandoSeReserva() throws Exception {
+		// Abre de 20:00 a 02:00 (cierra al día siguiente)
+		mvc.perform(post("/empresario/negocios/1/horario").with(como("empresario1")).with(csrf()).param("_method", "put")
+			.param("horaApertura", "20:00").param("horaCierre", "02:00").param("duracionReserva", "90"))
+			.andExpect(redirectedUrl("/empresario/negocios/1/calendario"));
+
+		reservar("usuario1", dentroDeDias(5, 14), 2, "Mediodía").andExpect(status().isOk());
+		reservar("usuario1", dentroDeDias(5, 23), 2, "Noche").andExpect(redirectedUrl("/mis/reservas"));
+		reservar("usuario1", dentroDeDias(6, 1), 2, "Madrugada").andExpect(redirectedUrl("/mis/reservas"));
+		assertEquals(0, contar("select count(*) from reserva where comentarios = 'Mediodía'"));
+	}
 }

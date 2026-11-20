@@ -64,6 +64,7 @@
 						<th:block sec:authorize="hasAuthority('EMPRESARIO')" th:if="${row.empresario != null and row.empresario.userAccount.id == #authentication.principal.id}">
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/editar(id=${row.id})}" th:text="#{negocio.edit}">Editar</a>
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/imagen(id=${row.id})}" th:text="#{negocio.uploadImage}">Imagen</a>
+							<a class="btn btn-sm btn-outline-primary" th:href="@{/empresario/negocios/{id}/calendario(id=${row.id})}" th:text="#{calendario.titulo}">Calendario</a>
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/valoraciones(id=${row.id})}" th:text="#{negocio.valoracionesNegocio.list}">Valoraciones</a>
 							<th:block th:if="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'post', #{negocio.baja}, 'btn-outline-danger', #{negocio.confirmBaja})}"></form></th:block>
 							<th:block th:unless="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'delete', #{negocio.alta}, 'btn-outline-success', #{negocio.confirmaAlta})}"></form></th:block>
