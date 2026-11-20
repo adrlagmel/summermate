@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import jakarta.persistence.LockModeType;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -48,12 +49,15 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 
 	// Fase 3: versiones paginadas (Pageable) para los listados ------------
 
+	@EntityGraph(attributePaths = { "playa", "empresario" })
 	@Query("select s from Negocio s where lower(s.playa.localizacion.ciudad) like lower(concat('%', ?1, '%'))")
 	Page<Negocio> search(String s, Pageable pageable);
 
+	@EntityGraph(attributePaths = { "playa", "empresario" })
 	@Query("select s from Negocio s where s.empresario.id = ?1")
 	Page<Negocio> findByEmpresario(int empresarioId, Pageable pageable);
 
+	@EntityGraph(attributePaths = { "playa", "empresario" })
 	@Query("select n from Negocio n where n.playa.id = ?1")
 	Page<Negocio> findByPlaya(int playaId, Pageable pageable);
 
@@ -63,5 +67,15 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select n from Negocio n where n.id = ?1")
 	Negocio findByIdParaReservar(int negocioId);
+
+	// Fase 5: playa y empresario en la misma consulta (ver EventoRepository)
+	@Override
+	@EntityGraph(attributePaths = { "playa", "empresario" })
+	Page<Negocio> findAll(Pageable pageable);
+
+	// Ids de las playas indicadas que tienen algún negocio (para saber cuáles
+	// se pueden mover o borrar sin cargar los negocios de cada una)
+	@Query("select distinct n.playa.id from Negocio n where n.playa.id in ?1")
+	java.util.Set<Integer> findPlayasConNegocios(java.util.Collection<Integer> playaIds);
 
 }

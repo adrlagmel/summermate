@@ -47,7 +47,11 @@ public class PlayasController {
 
 	@GetMapping
 	public String lista(Paginacion paginacion, Model model) {
-		model.addAttribute("playas", playaService.findAll(paginacion.playas()));
+		org.springframework.data.domain.Page<Playa> playas = playaService.findAll(paginacion.playas());
+
+		model.addAttribute("playas", playas);
+		// Una consulta para saber qué playas tienen negocios (no se pueden mover ni borrar)
+		model.addAttribute("conNegocios", negocioService.playasConNegocios(playas.map(Playa::getId).getContent()));
 		model.addAttribute("puntos", playaService.findPuntosMapa());
 
 		return "playas/lista";

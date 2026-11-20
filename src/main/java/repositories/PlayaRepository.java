@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import services.PuntoMapa;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -52,5 +53,10 @@ public interface PlayaRepository extends JpaRepository<Playa, Integer> {
 		+ "sin(radians(p.localizacion.latitud - ?1) / 2) * sin(radians(p.localizacion.latitud - ?1) / 2)"
 		+ " + cos(radians(?1)) * cos(radians(p.localizacion.latitud))"
 		+ " * sin(radians(p.localizacion.longitud - ?2) / 2) * sin(radians(p.localizacion.longitud - ?2) / 2)))";
+
+	// Fase 5: el administrador de cada playa en la misma consulta
+	@Override
+	@EntityGraph(attributePaths = { "administrador" })
+	org.springframework.data.domain.Page<Playa> findAll(org.springframework.data.domain.Pageable pageable);
 
 }

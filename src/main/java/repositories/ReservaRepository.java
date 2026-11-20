@@ -34,7 +34,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	// Fase 3: versiones paginadas (Pageable) para los listados ------------
 
 	// Con "join fetch" Spring Data no sabe derivar el recuento: se le da aparte.
-	@Query(value = "select b from Reserva b left join fetch b.valoracionNegocio join fetch b.negocio where b.negocio.empresario.id = ?1",
+	@Query(value = "select b from Reserva b left join fetch b.valoracionNegocio join fetch b.negocio join fetch b.usuario where b.negocio.empresario.id = ?1",
 		countQuery = "select count(b) from Reserva b where b.negocio.empresario.id = ?1")
 	Page<Reserva> findReservasPorEmpresario(int id, Pageable pageable);
 
@@ -42,7 +42,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 		countQuery = "select count(b) from Reserva b where b.usuario.id = ?1")
 	Page<Reserva> findReservasPorUsuario(int usuarioId, Pageable pageable);
 
-	@Query(value = "select s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3",
+	@Query(value = "select s from Reserva s left join fetch s.valoracionNegocio join fetch s.negocio join fetch s.usuario where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3",
 		countQuery = "select count(s) from Reserva s where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
 	Page<Reserva> search(int empresarioId, LocalDateTime desde, LocalDateTime hasta, Pageable pageable);
 

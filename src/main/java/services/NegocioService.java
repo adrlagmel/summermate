@@ -272,4 +272,11 @@ public class NegocioService {
 		return result;
 	}
 
+	// Fase 5: de las playas indicadas, las que tienen algún negocio
+	public java.util.Set<Integer> playasConNegocios(java.util.Collection<Integer> playaIds) {
+		if (playaIds.isEmpty())
+			return java.util.Collections.emptySet();
+		return negocioRepository.findPlayasConNegocios(playaIds);
+	}
+
 }

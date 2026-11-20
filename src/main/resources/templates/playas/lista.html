@@ -44,7 +44,7 @@
 						<th:block sec:authorize="hasAuthority('ADMINISTRADOR')" th:if="${row.administrador.userAccount.id == #authentication.principal.id}">
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/editar(id=${row.id})}" th:text="#{playa.editar}">Editar</a>
 							<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/imagen(id=${row.id})}" th:text="#{playa.uploadImage}">Imagen</a>
-							<th:block th:if="${#lists.isEmpty(row.negocios)}">
+							<th:block th:if="${!conNegocios.contains(row.id)}">
 								<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/ubicacion(id=${row.id})}" th:text="#{playa.uploadCoordenates}">Ubicación</a>
 								<form th:replace="~{fragments/ui :: boton(@{/admin/playas/{id}(id=${row.id})}, 'delete', #{playa.delete}, 'btn-outline-danger', #{playa.confirmDelete})}"></form>
 							</th:block>
