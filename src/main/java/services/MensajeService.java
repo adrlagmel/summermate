@@ -23,6 +23,9 @@ public class MensajeService {
 	// Managed repository ----------------------------------------------------
 	
 	@Autowired
+	private services.correo.Avisos avisos;
+
+	@Autowired
 	private MensajeRepository mensajeRepository;
 	
 	// Supporting services ---------------------------------------------------
@@ -98,6 +101,7 @@ public class MensajeService {
 		copia.setFechaEnvio(fecha);
 		copia.setCarpeta(carpetaService.findEntradaActor(mensaje.getBeneficiario()));
 		mensajeRepository.save(copia);
+		avisos.mensajeRecibido(copia);
 
 	}
 	// Cada actor solo ve las copias que están en sus carpetas.

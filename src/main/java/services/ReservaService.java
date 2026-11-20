@@ -50,6 +50,9 @@ public class ReservaService {
 	
 	@Autowired
 	private AgendaService agendaService;
+
+	@Autowired
+	private services.correo.Avisos avisos;
 	
 	@Autowired
 	private NegocioService negocioService;
@@ -93,7 +96,11 @@ public class ReservaService {
 		// Fase 6: horario, días cerrados, aforo o mesa (ver AgendaService)
 		agendaService.comprobarYAsignar(reserva, negocio);
 
-		return reservaRepository.save(reserva);
+		boolean nueva = reserva.getId() == 0;
+		Reserva saved = reservaRepository.save(reserva);
+		if (nueva)
+			avisos.reservaConfirmada(saved);
+		return saved;
 	}
 	
 	public void delete(Reserva reserva){

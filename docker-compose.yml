@@ -30,14 +30,29 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     environment:
       DB_URL: jdbc:postgresql://db:5432/${DB_NAME:-summermate}
       DB_USER: ${DB_USER:-summermate}
       DB_PASSWORD: ${DB_PASSWORD:-summermate}
       # dev carga los datos de ejemplo; déjalo vacío para arrancar sin ellos
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE-dev}
+      # Avisos por correo: se quedan en Mailpit (http://localhost:8025)
+      CORREO_ACTIVO: "true"
+      MAIL_HOST: mailpit
+      MAIL_PORT: "1025"
     ports:
       - "${APP_PORT:-8080}:8080"
+
+  # Fase 6: recoge los correos de la aplicación para verlos en el navegador
+  # (http://localhost:8025) sin mandar nada a nadie.
+  mailpit:
+    image: axllent/mailpit:v1.21
+    container_name: summermate-mailpit
+    profiles: ["app"]
+    ports:
+      - "${MAILPIT_PORT:-8025}:8025"
 
 volumes:
   summermate-data:

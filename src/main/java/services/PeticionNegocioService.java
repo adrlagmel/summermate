@@ -30,6 +30,9 @@ public class PeticionNegocioService {
 	// Managed repository ----------------------------------------------------
 	
 	@Autowired
+	private services.correo.Avisos avisos;
+
+	@Autowired
 	private PeticionNegocioRepository peticionNegocioRepository;
 	
 	// Supporting services ---------------------------------------------------
@@ -176,6 +179,7 @@ public class PeticionNegocioService {
 		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.PENDIENTE);
 		peticionNegocio.setEstado(EstadoPeticion.RECHAZADO);
 		peticionNegocioRepository.save(peticionNegocio);
+		avisos.peticionResuelta(peticionNegocio);
 	}
 	
 	public void accept(PeticionNegocio peticionNegocio){
@@ -186,6 +190,7 @@ public class PeticionNegocioService {
 		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.PENDIENTE);
 		peticionNegocio.setEstado(EstadoPeticion.ACEPTADO);
 		peticionNegocioRepository.save(peticionNegocio);
+		avisos.peticionResuelta(peticionNegocio);
 	}
 	
 		
