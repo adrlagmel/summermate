@@ -19,6 +19,7 @@ public class ImagenService {
 	public static final String	JPEG	= "image/jpeg";
 	public static final String	PNG		= "image/png";
 	public static final String	WEBP	= "image/webp";
+	public static final int		MAX_BYTES	= 3 * 1024 * 1024;
 
 
 	// Devuelve null si no se ha subido nada (así se borraba la imagen antes).
@@ -29,6 +30,9 @@ public class ImagenService {
 		if (datos == null || datos.length == 0)
 			return null;
 
+		// Fase 6: el límite de subida general es 10 MB (por el CSV de playas);
+		// las imágenes siguen limitadas a 3 MB.
+		Assert.isTrue(datos.length <= MAX_BYTES, "La imagen ocupa más de 3 MB");
 		tipo = detectarTipo(datos);
 		Assert.notNull(tipo, "Formato de imagen no admitido: solo JPEG, PNG o WebP");
 

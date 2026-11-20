@@ -46,8 +46,9 @@ spring:
       mail.smtp.writetimeout: 5000
   servlet:
     multipart:
-      max-file-size: 3MB
-      max-request-size: 4MB
+      # 10 MB por el CSV de playas; las imágenes se limitan a 3 MB en ImagenService
+      max-file-size: 10MB
+      max-request-size: 11MB
 
 server:
   error:

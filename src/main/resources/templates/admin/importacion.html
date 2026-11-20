@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- admin/importacion.html: importar playas desde un CSV (Fase 6) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{importacion.titulo}">Importar playas</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-2" th:text="#{importacion.titulo}">Importar playas</h1>
+		<p th:text="#{importacion.explicacion}">Sube un CSV con una playa por fila.</p>
+		<p class="small text-body-secondary">
+			<span th:text="#{importacion.columnas}">Columnas</span>:
+			<code>nombre</code>, <code>latitud</code>, <code>lon</code> / <code>coordenada_x</code>,
+			<code>municipio</code>, <code>provincia</code>, <code>longitud</code> (m), <code>composicion</code>,
+			<code>descripcion</code>, <code>servicios</code>, <code>codigo_postal</code>.
+			<a href="https://datos.gob.es/es/catalogo?q=playas" th:text="#{importacion.catalogo}">Catálogo de datos abiertos</a>
+		</p>
+
+		<form th:action="@{/admin/playas/importacion}" method="post" enctype="multipart/form-data" class="card card-body mb-4">
+			<label class="form-label" for="fichero" th:text="#{importacion.fichero}">Fichero CSV</label>
+			<input class="form-control mb-3" type="file" id="fichero" name="fichero" accept=".csv,text/csv" required>
+			<div><button type="submit" class="btn btn-primary" th:text="#{importacion.importar}">Importar</button></div>
+		</form>
+
+		<section th:if="${resultado}">
+			<div class="alert alert-success" role="status" th:text="#{importacion.creadas(${resultado.creadas()})}">12 playas creadas</div>
+			<th:block th:unless="${#lists.isEmpty(resultado.omitidas())}">
+				<h2 class="h5" th:text="#{importacion.omitidas(${resultado.omitidas().size()})}">Omitidas</h2>
+				<div class="table-responsive">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{importacion.fila}">Fila</th>
+								<th scope="col" th:text="#{playa.nombre}">Nombre</th>
+								<th scope="col" th:text="#{importacion.motivo}">Motivo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="o : ${resultado.omitidas()}">
+								<td class="puntuacion" th:text="${o.fila()}">3</td>
+								<td th:text="${o.nombre()}">Playa</td>
+								<td th:text="${o.motivo()}">ya existe</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+		</section>
+	</div>
+</div>
+</body>
+</html>

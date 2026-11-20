@@ -86,6 +86,9 @@ public class AdminController {
 	private services.ValoracionNegocioService	valoracionNegocioService;
 
 	@Autowired
+	private services.ImportadorPlayas	importadorPlayas;
+
+	@Autowired
 	private SmartValidator			validator;
 
 
@@ -150,6 +153,23 @@ public class AdminController {
 	}
 
 	// Playas ----------------------------------------------------------------
+
+	// Importación de playas desde CSV (Fase 6) ----------------------------------
+
+	@GetMapping("/playas/importacion")
+	public String importacion() {
+		return "admin/importacion";
+	}
+
+	@PostMapping("/playas/importacion")
+	public String importar(@RequestParam("fichero") MultipartFile fichero, Model model) throws IOException {
+		if (fichero.isEmpty()) {
+			model.addAttribute("message", "importacion.sinFichero");
+			return "admin/importacion";
+		}
+		model.addAttribute("resultado", importadorPlayas.importar(fichero.getBytes()));
+		return "admin/importacion";
+	}
 
 	@GetMapping("/playas/nueva")
 	public String nuevaPlaya(Model model) {
