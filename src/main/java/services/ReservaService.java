@@ -1,5 +1,8 @@
 package services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.Collection;
@@ -132,7 +135,23 @@ public class ReservaService {
 	public Collection<Reserva> searchByDate(String fecha){
 		Empresario empresario = empresarioService.findByPrincipal();
 		
-		Collection<Reserva> result = reservaRepository.search(empresario.getId(), fecha);
+		Collection<Reserva> result;
+		Date desde;
+		Calendar hasta;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+		formato.setLenient(false);
+		try {
+			desde = formato.parse(fecha.trim());
+		} catch (ParseException e) {
+			// Una fecha mal escrita nunca coincidía con ninguna reserva.
+			return new ArrayList<Reserva>();
+		}
+		hasta = Calendar.getInstance();
+		hasta.setTime(desde);
+		hasta.add(Calendar.DAY_OF_MONTH, 1);
+
+		result = reservaRepository.search(empresario.getId(), desde, hasta.getTime());
 		Assert.notNull(result);
 		
 		return result;

@@ -1,0 +1,24 @@
+# Base de datos de desarrollo de SummerMate.
+#   docker compose up -d
+# Los valores por defecto coinciden con los de spring/config/data.xml; se
+# pueden cambiar en un fichero .env (ver .env.example).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: summermate-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-summermate}
+      POSTGRES_USER: ${DB_USER:-summermate}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-summermate}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - summermate-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  summermate-data:

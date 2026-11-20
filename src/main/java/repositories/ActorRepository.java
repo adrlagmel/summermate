@@ -15,7 +15,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a where a.userAccount.id=?1")
 	Actor findByUserAccountId(int id);
 	
-	@Query("select distinct a from Actor a where a.apellidos like %?1%")
+	@Query("select distinct a from Actor a where lower(a.apellidos) like lower(concat('%', ?1, '%'))")
 	Collection<Actor> searchUsuarioForApellidos(String apellidos);
 	
 	@Query("select a from Actor a where a.userAccount.id!=?1")

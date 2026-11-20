@@ -18,14 +18,12 @@
 
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		
+		<!-- La conexión (URL, usuario y contraseña) la inyecta
+		     utilities.internal.DatabaseUtil a partir de DB_URL, DB_USER
+		     y DB_PASSWORD; aquí solo queda lo que no es secreto. -->
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/SummerMate" />
-			<property name="javax.persistence.jdbc.user" value="acme-manager" />
-			<property name="javax.persistence.jdbc.password" value="ACME-M@n@ger-6874" />
-
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<!-- <property name="hibernate.hbm2ddl.auto" value="none" /> -->
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
 		</properties>
 
 	</persistence-unit>

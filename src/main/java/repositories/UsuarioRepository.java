@@ -18,7 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	@Query("select distinct a from Usuario a")
 	Collection<Usuario> findAllUsuarios();
 	
-	@Query("select distinct u from Usuario u where u.apellidos like %?1%")
+	@Query("select distinct u from Usuario u where lower(u.apellidos) like lower(concat('%', ?1, '%'))")
 	Collection<Usuario> searchUsuarioForApellidos(String apellidos);
 	
 }

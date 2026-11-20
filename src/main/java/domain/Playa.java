@@ -8,7 +8,6 @@ import javax.persistence.Access;
 
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -105,7 +104,6 @@ public class Playa extends DomainEntity{
 		this.localizacion = localizacion;
 	}
 	
-	@Column(columnDefinition = "LONGBLOB")
 	public byte[] getImagen() {
 		return imagen;
 	}

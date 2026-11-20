@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("select b from Reserva b where b.usuario.id=?1 order by b.fecha asc")
 	Collection<Reserva> findReservasPorUsuario(int usuarioId);
 	
-	@Query("select distinct s from Reserva s where s.negocio.empresario.id = ?1 and DATE_FORMAT(s.fecha,'%d/%m/%Y') = ?2")
-	Collection<Reserva> search(int empresarioId, String s);
+	// Reservas de un empresario en el intervalo [desde, hasta). Antes usaba
+	// DATE_FORMAT, que es exclusivo de MySQL y además impedía usar índices.
+	@Query("select distinct s from Reserva s where s.negocio.empresario.id = ?1 and s.fecha >= ?2 and s.fecha < ?3")
+	Collection<Reserva> search(int empresarioId, Date desde, Date hasta);
 	
 }

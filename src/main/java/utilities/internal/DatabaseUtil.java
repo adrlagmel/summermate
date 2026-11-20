@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,13 +49,13 @@ public class DatabaseUtil {
 		// entityManagerFactory = Persistence.createEntityManagerFactory(PersistenceUnit);
 		
 		persistenceProvider = new HibernatePersistenceProvider();
-		entityManagerFactory = persistenceProvider.createEntityManagerFactory(DatabaseConfig.PersistenceUnit, null);		
+		entityManagerFactory = persistenceProvider.createEntityManagerFactory(DatabaseConfig.PersistenceUnit, connectionProperties());		
 		entityManager = entityManagerFactory.createEntityManager();
 		
 		properties = entityManagerFactory.getProperties();
 		
 		databaseUrl = findProperty("javax.persistence.jdbc.url");
-		databaseName = StringUtils.substringAfterLast(databaseUrl, "/");
+		databaseName = StringUtils.substringBefore(StringUtils.substringAfterLast(databaseUrl, "/"), "?");
 		databaseDialectName = findProperty("hibernate.dialect");
 		databaseDialect = (Dialect)ReflectHelper.classForName(databaseDialectName).newInstance();
 		
@@ -115,20 +116,42 @@ public class DatabaseUtil {
 	}
 
 	public void recreateDatabase() throws Throwable {
-		List<String> databaseScript;
 		List<String> schemaScript;
-		String[] statements;		
-		
-		databaseScript = new ArrayList<String>();
-		databaseScript.add(String.format("drop database `%s`", databaseName));
-		databaseScript.add(String.format("create database `%s`", databaseName));
-		executeScript(databaseScript);
-		
+		String[] statements;
+
+		// En PostgreSQL no se puede borrar la base de datos a la que se está
+		// conectado, así que se vacía el esquema "public" y se regenera.
 		schemaScript = new ArrayList<String>();
-		schemaScript.add(String.format("use `%s`", databaseName));
+		schemaScript.add("drop schema if exists public cascade");
+		schemaScript.add("create schema public");
 		statements = configuration.generateSchemaCreationScript(databaseDialect);
 		schemaScript.addAll(Arrays.asList(statements));
 		executeScript(schemaScript);
+	}
+
+	// Lee la conexión de propiedades del sistema o de variables de entorno,
+	// con los mismos nombres y valores por defecto que spring/config/data.xml.
+	private static Map<String, String> connectionProperties() {
+		Map<String, String> result;
+
+		result = new HashMap<String, String>();
+		result.put("javax.persistence.jdbc.url", setting("DB_URL", "jdbc:postgresql://localhost:5432/summermate"));
+		result.put("javax.persistence.jdbc.user", setting("DB_USER", "summermate"));
+		result.put("javax.persistence.jdbc.password", setting("DB_PASSWORD", "summermate"));
+
+		return result;
+	}
+
+	private static String setting(String name, String defaultValue) {
+		String result;
+
+		result = System.getProperty(name);
+		if (StringUtils.isBlank(result))
+			result = System.getenv(name);
+		if (StringUtils.isBlank(result))
+			result = defaultValue;
+
+		return result;
 	}
 
 	private void executeScript(final List<String> script) {
