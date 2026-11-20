@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- usuarios/lista.html: búsqueda de usuarios por apellidos (antes usuario/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.search.users}">Usuarios</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-3" th:text="#{master.page.search.users}">Buscar usuarios</h1>
+
+	<form method="get" class="row g-2 mb-3" role="search">
+		<div class="col-sm-8 col-md-6">
+			<label class="visually-hidden" for="apellidos" th:text="#{usuario.apellidos}">Apellidos</label>
+			<input class="form-control" id="apellidos" name="apellidos" th:value="${apellidos}" th:placeholder="#{fase5.usuarios.buscar}">
+		</div>
+		<div class="col-auto">
+			<button type="submit" class="btn btn-outline-primary"><i class="bi bi-search" aria-hidden="true"></i> <span th:text="#{negocio.search}">Buscar</span></button>
+		</div>
+	</form>
+
+	<p th:if="${usuarios.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay resultados.</p>
+
+	<div class="table-responsive" th:unless="${usuarios.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{usuario.nombre})}">Nombre</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('apellidos', #{usuario.apellidos})}">Apellidos</th>
+					<!-- El email solo con sesión iniciada (Fase 1) -->
+					<th scope="col" sec:authorize="isAuthenticated()" th:insert="~{fragments/ui :: orden('email', #{usuario.email})}">Email</th>
+					<th scope="col" sec:authorize="isAuthenticated()"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${usuarios}">
+					<td th:text="${row.nombre}">Ana</td>
+					<td th:text="${row.apellidos}">García</td>
+					<td sec:authorize="isAuthenticated()" th:text="${row.email}">ana@example.com</td>
+					<td sec:authorize="isAuthenticated()" class="text-end">
+						<a class="btn btn-sm btn-outline-primary" th:href="@{/mensajes/nuevo(para=${row.id})}" th:text="#{master.page.messages.send}">Escribir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${usuarios})}"></nav>
+</div>
+</body>
+</html>

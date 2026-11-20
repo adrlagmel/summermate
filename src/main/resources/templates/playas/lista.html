@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- playas/lista.html: listado paginado de playas con su mapa (antes playa/list.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.playa}">Playas</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h1 class="mb-0" th:text="#{master.page.playa}">Playas</h1>
+		<div class="d-flex gap-2">
+			<a class="btn btn-outline-primary" th:href="@{/playas/cercanas}"><i class="bi bi-geo-alt" aria-hidden="true"></i> <span th:text="#{master.page.playa.nearToMe}">Cerca de mí</span></a>
+			<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="btn btn-primary" th:href="@{/admin/playas/nueva}"><i class="bi bi-plus-lg" aria-hidden="true"></i> <span th:text="#{master.page.playa.create}">Crear playa</span></a>
+		</div>
+	</div>
+
+	<div class="mb-4" th:insert="~{fragments/mapa :: mapa(${puntos}, null, 7)}"></div>
+
+	<p th:if="${playas.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay resultados.</p>
+
+	<div class="table-responsive" th:unless="${playas.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col"><span class="visually-hidden" th:text="#{playa.foto}">Foto</span></th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{playa.nombre})}">Nombre</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('localizacion.provincia', #{playa.provincia})}">Provincia</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('localizacion.ciudad', #{playa.municipio})}">Municipio</th>
+					<th scope="col" class="text-end" th:insert="~{fragments/ui :: orden('valoracionMedia', #{playa.valoracionMedia})}">Valoración</th>
+					<th scope="col"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${playas}">
+					<td th:insert="~{fragments/ui :: imagen('playas', ${row.id}, ${row.imagen != null}, 'miniatura')}"></td>
+					<td><a th:href="@{/playas/{id}(id=${row.id})}" th:text="${row.nombre}">Playa</a></td>
+					<td th:text="${row.localizacion.provincia}">Cádiz</td>
+					<td th:text="${row.localizacion.ciudad}">Chipiona</td>
+					<td class="text-end puntuacion" th:text="${row.valoracionMedia} ? ${#numbers.formatDecimal(row.valoracionMedia, 1, 1)} : '—'">8,0</td>
+					<td class="text-end text-nowrap">
+						<a class="btn btn-sm btn-outline-primary" th:href="@{/playas/{id}/negocios(id=${row.id})}" th:text="#{playa.negocios}">Negocios</a>
+						<a sec:authorize="hasAuthority('USUARIO')" class="btn btn-sm btn-outline-primary" th:href="@{/playas/{id}/valoraciones/nueva(id=${row.id})}" th:text="#{valoracionPlaya.valoracionPlaya}">Valorar</a>
+						<th:block sec:authorize="hasAuthority('ADMINISTRADOR')" th:if="${row.administrador.userAccount.id == #authentication.principal.id}">
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/editar(id=${row.id})}" th:text="#{playa.editar}">Editar</a>
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/imagen(id=${row.id})}" th:text="#{playa.uploadImage}">Imagen</a>
+							<th:block th:if="${#lists.isEmpty(row.negocios)}">
+								<a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/playas/{id}/ubicacion(id=${row.id})}" th:text="#{playa.uploadCoordenates}">Ubicación</a>
+								<form th:replace="~{fragments/ui :: boton(@{/admin/playas/{id}(id=${row.id})}, 'delete', #{playa.delete}, 'btn-outline-danger', #{playa.confirmDelete})}"></form>
+							</th:block>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${playas})}"></nav>
+</div>
+</body>
+</html>

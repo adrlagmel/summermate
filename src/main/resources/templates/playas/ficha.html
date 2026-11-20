@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- playas/ficha.html: detalle de una playa (antes playa/display.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${playa.nombre}">Playa</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/playas}" th:text="#{master.page.playa}">Playas</a></li>
+			<li class="breadcrumb-item active" aria-current="page" th:text="${playa.nombre}">Playa</li>
+		</ol>
+	</nav>
+
+	<div class="row g-4">
+		<div class="col-lg-7">
+			<h1 th:text="${playa.nombre}">Playa</h1>
+			<p class="text-body-secondary">
+				<i class="bi bi-geo-alt" aria-hidden="true"></i>
+				<span th:text="|${playa.localizacion.via} ${playa.localizacion.nombreVia}, ${playa.localizacion.ciudad} (${playa.localizacion.provincia})|">Paseo Marítimo, Chipiona (Cádiz)</span>
+			</p>
+			<th:block th:replace="~{fragments/ui :: imagen('playas', ${playa.id}, ${playa.imagen != null}, 'foto mb-3')}"></th:block>
+			<p th:text="${playa.descripcion}">Descripción</p>
+			<dl class="ficha row">
+				<dt class="col-sm-4" th:text="#{playa.servicios}">Servicios</dt>
+				<dd class="col-sm-8" th:text="${playa.servicios}">Duchas</dd>
+				<dt class="col-sm-4" th:text="#{playa.composicion}">Composición</dt>
+				<dd class="col-sm-8" th:text="${playa.composicion}">Arena</dd>
+				<dt class="col-sm-4" th:text="#{playa.extension}">Extensión</dt>
+				<dd class="col-sm-8" th:text="|${playa.extension} m|">500 m</dd>
+				<dt class="col-sm-4" th:text="#{playa.valoracionMedia}">Valoración media</dt>
+				<dd class="col-sm-8 puntuacion" th:text="${playa.valoracionMedia} ? ${#numbers.formatDecimal(playa.valoracionMedia, 1, 1)} : '—'">8,0</dd>
+			</dl>
+			<div class="d-flex flex-wrap gap-2">
+				<a class="btn btn-primary" th:href="@{/playas/{id}/negocios(id=${playa.id})}" th:text="#{playa.negocios}">Negocios</a>
+				<a sec:authorize="hasAuthority('USUARIO')" class="btn btn-outline-primary" th:href="@{/playas/{id}/valoraciones/nueva(id=${playa.id})}" th:text="#{valoracionPlaya.valoracionPlaya}">Valorar</a>
+			</div>
+		</div>
+		<div class="col-lg-5">
+			<div th:replace="~{fragments/mapa :: mapa(${puntos}, ${ {'lat': playa.localizacion.latitud, 'lng': playa.localizacion.longitud} }, 12)}"></div>
+		</div>
+	</div>
+
+	<section class="mt-5">
+		<h2 class="h4" th:text="#{fase5.valoraciones}">Valoraciones</h2>
+		<p th:if="${#lists.isEmpty(valoraciones)}" class="text-body-secondary" th:text="#{fase5.valoraciones.ninguna}">Todavía no hay valoraciones.</p>
+		<div class="list-group" th:unless="${#lists.isEmpty(valoraciones)}">
+			<article class="list-group-item" th:each="v : ${valoraciones}">
+				<div class="d-flex justify-content-between gap-2">
+					<strong th:text="${v.titulo}">Título</strong>
+					<span class="badge text-bg-primary puntuacion" th:text="|${v.puntuacion}/10|">8/10</span>
+				</div>
+				<p class="mb-1" th:text="${v.comentario}">Comentario</p>
+				<small class="text-body-secondary" th:text="|${v.usuario.nombre} · ${#temporals.format(v.fecha, 'dd/MM/yyyy')}|">Ana · 01/08/2026</small>
+			</article>
+		</div>
+	</section>
+</div>
+</body>
+</html>

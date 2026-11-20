@@ -21,7 +21,7 @@ import org.springframework.data.domain.Sort;
 
 public class Paginacion {
 
-	public static final int	TAMANO	= 5;
+	public static final int	TAMANO	= 10;
 
 	// Columnas ordenables de cada listado (las que tienen sortable="true" en
 	// la JSP) y orden por defecto.

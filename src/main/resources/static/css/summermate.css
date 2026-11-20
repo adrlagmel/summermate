@@ -1,0 +1,167 @@
+/* summermate.css: ajustes propios sobre Bootstrap 5.
+ *
+ * Paleta: azul mar como color principal y arena como acento. Se aplica
+ * redefiniendo las variables de Bootstrap, así que botones, enlaces y
+ * paginación la toman solos.
+ */
+
+:root {
+	--sm-mar: #0b6e79;
+	--sm-mar-oscuro: #08525a;
+	--sm-arena: #e8c78f;
+	--sm-arena-suave: #fbf5ea;
+	--sm-tinta: #18303a;
+
+	--bs-primary: var(--sm-mar);
+	--bs-primary-rgb: 11, 110, 121;
+	--bs-link-color: var(--sm-mar);
+	--bs-link-color-rgb: 11, 110, 121;
+	--bs-link-hover-color: var(--sm-mar-oscuro);
+	--bs-body-color: var(--sm-tinta);
+}
+
+.btn-primary {
+	--bs-btn-bg: var(--sm-mar);
+	--bs-btn-border-color: var(--sm-mar);
+	--bs-btn-hover-bg: var(--sm-mar-oscuro);
+	--bs-btn-hover-border-color: var(--sm-mar-oscuro);
+	--bs-btn-active-bg: var(--sm-mar-oscuro);
+	--bs-btn-active-border-color: var(--sm-mar-oscuro);
+	--bs-btn-disabled-bg: var(--sm-mar);
+	--bs-btn-disabled-border-color: var(--sm-mar);
+}
+
+.btn-outline-primary {
+	--bs-btn-color: var(--sm-mar);
+	--bs-btn-border-color: var(--sm-mar);
+	--bs-btn-hover-bg: var(--sm-mar);
+	--bs-btn-hover-border-color: var(--sm-mar);
+	--bs-btn-active-bg: var(--sm-mar-oscuro);
+}
+
+.pagination {
+	--bs-pagination-color: var(--sm-mar);
+	--bs-pagination-active-bg: var(--sm-mar);
+	--bs-pagination-active-border-color: var(--sm-mar);
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+h1, .h1 {
+	font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+	font-weight: 650;
+	text-wrap: balance;
+}
+
+.pie {
+	background: var(--sm-arena-suave);
+}
+
+/* Portada y login: foto de la playa de fondo */
+body.con-fondo {
+	background: url("../images/fondo-playa.jpg") center / cover fixed no-repeat;
+}
+
+body.con-fondo > header .navbar {
+	background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.tarjeta-cristal {
+	background: rgba(255, 255, 255, 0.94);
+	border-radius: 1rem;
+	box-shadow: 0 0.5rem 2rem rgba(8, 82, 90, 0.18);
+}
+
+.mapa {
+	height: 420px;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	background: #dbe9ea;
+}
+
+.mapa-aviso {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 1rem;
+	color: var(--sm-mar-oscuro);
+}
+
+/* Fichas con imagen */
+.foto {
+	width: 100%;
+	max-height: 360px;
+	object-fit: cover;
+	border-radius: 0.75rem;
+	background: var(--sm-arena-suave);
+}
+
+.miniatura {
+	width: 72px;
+	height: 54px;
+	object-fit: cover;
+	border-radius: 0.4rem;
+	background: var(--sm-arena-suave);
+}
+
+.sin-foto {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #8aa3a8;
+}
+
+.puntuacion {
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+}
+
+.estado {
+	font-size: 0.75rem;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+/* Tablas: que se puedan desplazar en el móvil sin ensanchar la página */
+.table-responsive {
+	border-radius: 0.5rem;
+}
+
+.table th a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Botones de acción dentro de tablas: formularios en línea */
+form.en-linea {
+	display: inline;
+}
+
+.aviso-cookies {
+	position: fixed;
+	right: 1rem;
+	bottom: 1rem;
+	max-width: 22rem;
+	padding: 1rem;
+	background: #fff;
+	border-radius: 0.75rem;
+	z-index: 1080;
+}
+
+dl.ficha dt {
+	font-weight: 600;
+	color: #4f6a71;
+}
+
+dl.ficha dd {
+	margin-bottom: 0.75rem;
+}

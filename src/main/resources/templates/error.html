@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!--
+  error.html: página de error común (la usan VistasAdvice y el BasicErrorController
+  de Spring Boot). No muestra detalles internos: antes panic.jsp enseñaba la
+  traza de pila.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{fase5.error.titulo}">Error</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="py-5 text-center">
+	<p class="display-4 fw-semibold text-body-tertiary" th:text="${status}">404</p>
+	<h1 th:text="${mensajeError != null} ? #{${mensajeError}} : (${status == 404} ? #{fase5.error.404} : (${status == 403} ? #{fase5.error.403} : #{fase5.error.500}))">No se encontró la página</h1>
+	<p class="mt-4"><a class="btn btn-primary" th:href="@{/}" th:text="#{fase5.volver.inicio}">Volver al inicio</a></p>
+</div>
+</body>
+</html>

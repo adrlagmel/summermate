@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+  terminos.html: aviso legal (antes una ventana modal en register/terms.jsp).
+  El texto es el original del TFG: cita la Ley 15/1999 (LOPD), derogada por el
+  RGPD y la LOPDGDD (2018), y una URL de ejemplo. Pendiente de actualizar.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{legal.link}">Aviso legal</title>
+</head>
+<body>
+<article layout:fragment="contenido" class="mx-auto" style="max-width: 72ch">
+	<h1 class="mb-4" th:text="#{legal.link}">Aviso legal</h1>
+	<h2 class="h5" th:text="#{terms.line1}"></h2>
+	<p th:text="#{terms.line2}"></p>
+	<h2 class="h5" th:text="#{terms.line3}"></h2>
+	<p th:text="#{terms.line4}"></p>
+	<h2 class="h5" th:text="#{terms.line5}"></h2>
+	<p th:text="#{terms.line6}"></p>
+	<p th:text="#{terms.line7}"></p>
+	<h2 class="h5" th:text="#{terms.line8}"></h2>
+	<p th:text="#{terms.line9}"></p>
+	<h2 class="h5" th:text="#{terms.line10}"></h2>
+	<p th:text="#{terms.line11}"></p>
+	<h2 class="h5" th:text="#{terms.line12}"></h2>
+	<p th:text="#{terms.line13}"></p>
+	<p><span th:text="#{terms.line14}"></span> (<a href="https://www.us.es">www.us.es</a>)</p>
+</article>
+</body>
+</html>

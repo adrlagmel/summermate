@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  playas/cercanas.html: playas cerca de mí (antes playa/nearToMe.jsp). Si no
+  llegan coordenadas, se piden al navegador y se recarga la página con ellas.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{master.page.playa.nearToMe}">Cerca de mí</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<h1 class="mb-3" th:text="#{master.page.playa.nearToMe}">Playas cerca de mí</h1>
+
+	<!-- Sin ubicación: se pide al navegador -->
+	<div th:if="${lat == null}" id="pedir-ubicacion" class="alert alert-info">
+		<p class="mb-2" th:text="#{fase5.cercanas.pidiendo}">Buscando tu ubicación…</p>
+		<p class="mb-0 small" id="ubicacion-error" hidden th:text="#{fase5.cercanas.sinubicacion}">No se pudo obtener tu ubicación.</p>
+	</div>
+
+	<th:block th:if="${lat != null}">
+		<form th:action="@{/playas/cercanas}" method="get" class="row g-2 align-items-end mb-3">
+			<input type="hidden" name="lat" th:value="${lat}">
+			<input type="hidden" name="lon" th:value="${lon}">
+			<div class="col-auto">
+				<label class="form-label" for="radio" th:text="#{playa.radio}">Radio</label>
+				<select class="form-select" id="radio" name="radio" onchange="this.form.submit()">
+					<option th:each="r : ${radios}" th:value="${r}" th:text="|${r} km|" th:selected="${r == radio}">25 km</option>
+				</select>
+			</div>
+			<div class="col-auto">
+				<noscript><button type="submit" class="btn btn-outline-primary" th:text="#{negocio.search}">Buscar</button></noscript>
+			</div>
+			<div class="col-auto text-body-secondary" th:text="#{playa.radio.encontradas(${#lists.size(playas)})}">3 playas encontradas</div>
+		</form>
+
+		<div class="row g-4">
+			<div class="col-lg-7">
+				<div th:replace="~{fragments/mapa :: mapa(${puntos}, ${ {'lat': lat, 'lng': lon} }, 10)}"></div>
+			</div>
+			<div class="col-lg-5">
+				<div class="list-group">
+					<a class="list-group-item list-group-item-action" th:each="p : ${playas}" th:href="@{/playas/{id}(id=${p.id})}">
+						<strong th:text="${p.nombre}">Playa</strong>
+						<span class="d-block small text-body-secondary" th:text="|${p.localizacion.ciudad} (${p.localizacion.provincia})|">Chipiona</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</th:block>
+</div>
+
+<th:block layout:fragment="scripts">
+	<script th:if="${lat == null}" th:inline="javascript">
+		(function () {
+			var error = document.getElementById('ubicacion-error');
+			var url = /*[[@{/playas/cercanas}]]*/ '/playas/cercanas';
+			if (!navigator.geolocation) { error.hidden = false; return; }
+			navigator.geolocation.getCurrentPosition(function (pos) {
+				window.location.href = url + '?lat=' + pos.coords.latitude.toFixed(6) + '&lon=' + pos.coords.longitude.toFixed(6);
+			}, function () { error.hidden = false; });
+		})();
+	</script>
+</th:block>
+</body>
+</html>

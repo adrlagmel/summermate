@@ -35,6 +35,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<bootstrap.version>5.3.8</bootstrap.version>
 		<bootstrap-icons.version>1.13.2</bootstrap-icons.version>
+		<leaflet.version>1.9.4</leaflet.version>
 		<jsoup.version>1.17.2</jsoup.version>
 	</properties>
 
@@ -82,6 +83,12 @@
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>bootstrap-icons</artifactId>
 			<version>${bootstrap-icons.version}</version>
+		</dependency>
+		<!-- Mapas con Leaflet y teselas de OpenStreetMap (sin clave de API) -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>leaflet</artifactId>
+			<version>${leaflet.version}</version>
 		</dependency>
 
 		<!-- Persistencia -->

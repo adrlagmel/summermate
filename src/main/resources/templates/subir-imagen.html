@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+  subir-imagen.html: subida de la imagen de una playa, un negocio, un evento o
+  la foto de perfil (antes cuatro uploadImage.jsp casi iguales).
+  Variables: imagen.titulo, imagen.accion, imagen.tipo, imagen.id,
+  imagen.tiene, imagen.volver.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{fase5.imagen.titulo}">Imagen</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-7">
+		<h1 class="mb-1" th:text="#{fase5.imagen.titulo}">Imagen</h1>
+		<p class="text-body-secondary" th:text="${imagen.titulo}">Nombre</p>
+
+		<th:block th:replace="~{fragments/ui :: imagen(${imagen.tipo}, ${imagen.id}, ${imagen.tiene}, 'foto mb-3')}"></th:block>
+
+		<form th:action="${imagen.accion}" method="post" enctype="multipart/form-data">
+			<div class="mb-3">
+				<label class="form-label" for="foto" th:text="#{fase5.imagen.elegir}">Imagen (JPEG, PNG o WebP, hasta 3 MB)</label>
+				<input class="form-control" type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp">
+				<div class="form-text" th:text="#{fase5.imagen.quitar}">Envía el formulario sin elegir archivo para quitar la imagen.</div>
+			</div>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{fase5.guardar}">Guardar</button>
+				<a class="btn btn-outline-secondary" th:href="${imagen.volver}" th:text="#{fase5.cancelar}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

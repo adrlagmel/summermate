@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+  negocios/ficha.html: detalle de un negocio con sus valoraciones (antes
+  negocio/display.jsp y valoracionNegocio/list.jsp). Si quien mira es su
+  empresario, cada valoración tiene el botón de denunciarla.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${negocio.nombre}">Negocio</title>
+</head>
+<body>
+<div layout:fragment="contenido"
+	th:with="esMio=${#authorization.expression('hasAuthority(''EMPRESARIO'')') and negocio.empresario != null and negocio.empresario.userAccount.id == #authentication.principal.id}">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/negocios}" th:text="#{master.page.negocios}">Negocios</a></li>
+			<li class="breadcrumb-item active" aria-current="page" th:text="${negocio.nombre}">Negocio</li>
+		</ol>
+	</nav>
+
+	<div class="row g-4">
+		<div class="col-lg-5 order-lg-2">
+			<th:block th:replace="~{fragments/ui :: imagen('negocios', ${negocio.id}, ${negocio.imagen != null}, 'foto')}"></th:block>
+		</div>
+		<div class="col-lg-7">
+			<h1>
+				<span th:text="${negocio.nombre}">Negocio</span>
+				<span th:unless="${negocio.negocioActivo}" class="badge text-bg-secondary estado align-middle" th:text="#{fase5.negocio.suspendido}">Suspendido</span>
+			</h1>
+			<p class="text-body-secondary" th:text="${negocio.tipo}">Chiringuito</p>
+			<p th:text="${negocio.descripcion}">Descripción</p>
+			<dl class="ficha row">
+				<dt class="col-sm-4" th:text="#{negocio.playa}">Playa</dt>
+				<dd class="col-sm-8"><a th:if="${negocio.playa}" th:href="@{/playas/{id}(id=${negocio.playa.id})}" th:text="${negocio.playa.nombre}">Playa</a></dd>
+				<dt class="col-sm-4" th:text="#{negocio.telefono}">Teléfono</dt>
+				<dd class="col-sm-8" th:text="${negocio.telefono}">+34600000000</dd>
+				<dt class="col-sm-4" th:if="${negocio.paginaWeb}" th:text="#{negocio.paginaweb}">Web</dt>
+				<dd class="col-sm-8" th:if="${negocio.paginaWeb}"><a th:href="${negocio.paginaWeb}" th:text="${negocio.paginaWeb}" rel="nofollow noopener" target="_blank">web</a></dd>
+				<dt class="col-sm-4" th:text="#{negocio.aforo}">Aforo</dt>
+				<dd class="col-sm-8 puntuacion" th:text="${negocio.aforo}">50</dd>
+				<dt class="col-sm-4" th:text="#{negocio.valoracionMedia}">Valoración media</dt>
+				<dd class="col-sm-8 puntuacion" th:text="${negocio.valoracionMedia} ? ${#numbers.formatDecimal(negocio.valoracionMedia, 1, 1)} : '—'">8,0</dd>
+			</dl>
+			<a sec:authorize="hasAuthority('USUARIO')" th:if="${negocio.negocioActivo}" class="btn btn-primary"
+				th:href="@{/negocios/{id}/reservas/nueva(id=${negocio.id})}" th:text="#{negocio.reserva.create}">Reservar</a>
+			<a th:if="${esMio}" class="btn btn-outline-secondary" th:href="@{/empresario/negocios/{id}/editar(id=${negocio.id})}" th:text="#{negocio.edit}">Editar</a>
+		</div>
+	</div>
+
+	<section id="valoraciones" class="mt-5">
+		<h2 class="h4" th:text="#{fase5.valoraciones}">Valoraciones</h2>
+		<p th:if="${#lists.isEmpty(valoraciones)}" class="text-body-secondary" th:text="#{fase5.valoraciones.ninguna}">Todavía no hay valoraciones.</p>
+		<div class="list-group" th:unless="${#lists.isEmpty(valoraciones)}">
+			<article class="list-group-item" th:each="v : ${valoraciones}">
+				<div class="d-flex justify-content-between gap-2">
+					<strong th:text="${v.titulo}">Título</strong>
+					<span class="badge text-bg-primary puntuacion" th:text="|${v.puntuacion}/10|">8/10</span>
+				</div>
+				<p class="mb-1" th:text="${v.comentario}">Comentario</p>
+				<div class="d-flex justify-content-between align-items-center">
+					<small class="text-body-secondary" th:text="|${v.reserva.usuario.nombre} · ${#temporals.format(v.fecha, 'dd/MM/yyyy')}|">Ana · 01/08/2026</small>
+					<a th:if="${esMio}" class="btn btn-sm btn-outline-danger" th:href="@{/empresario/valoraciones/{id}/denuncias/nueva(id=${v.id})}" th:text="#{fase5.denunciar}">Denunciar</a>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+</body>
+</html>

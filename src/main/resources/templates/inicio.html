@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- inicio.html: portada con el mapa de playas (antes welcome/index.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{fase5.inicio.titulo}">Playas y chiringuitos</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="d-grid gap-4">
+	<section class="tarjeta-cristal p-4 p-lg-5">
+		<h1 class="mb-2" th:text="#{fase5.inicio.titulo}">Playas y chiringuitos de la costa</h1>
+		<p class="lead mb-4" th:text="#{fase5.inicio.subtitulo}">Encuentra playa, reserva mesa y apúntate a los eventos del verano.</p>
+		<div class="d-flex flex-wrap gap-2">
+			<a class="btn btn-primary" th:href="@{/playas}"><i class="bi bi-umbrella" aria-hidden="true"></i> <span th:text="#{master.page.playa}">Playas</span></a>
+			<a class="btn btn-outline-primary" th:href="@{/playas/cercanas}"><i class="bi bi-geo-alt" aria-hidden="true"></i> <span th:text="#{master.page.playa.nearToMe}">Cerca de mí</span></a>
+			<a class="btn btn-outline-primary" th:href="@{/negocios}" th:text="#{master.page.negocios}">Negocios</a>
+			<a class="btn btn-outline-primary" th:href="@{/eventos}" th:text="#{master.page.eventos}">Eventos</a>
+			<a sec:authorize="isAnonymous()" class="btn btn-link" th:href="@{/registro/usuario}" th:text="#{master.page.registro}">Regístrate</a>
+		</div>
+	</section>
+
+	<section class="tarjeta-cristal p-2">
+		<div th:replace="~{fragments/mapa :: mapa(${puntos}, null, 7)}"></div>
+	</section>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  eventos/lista.html: eventos (antes evento/list.jsp). La usan /eventos,
+  /mis/eventos (inscritos del usuario) y /empresario/eventos (con "mios").
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${titulo} ? #{${titulo}} : #{master.page.eventos}">Eventos</title>
+</head>
+<body>
+<div layout:fragment="contenido" th:with="ahora=${#temporals.createNow()}, base=${base} ?: '/eventos'">
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h1 class="mb-0" th:text="${titulo} ? #{${titulo}} : #{master.page.eventos}">Eventos</h1>
+		<a th:if="${mios}" class="btn btn-primary" th:href="@{/empresario/eventos/nuevo}">
+			<i class="bi bi-plus-lg" aria-hidden="true"></i> <span th:text="#{master.page.eventos.register}">Registrar evento</span>
+		</a>
+	</div>
+
+	<ul class="nav nav-pills mb-3" th:unless="${sinFiltro}">
+		<li class="nav-item"><a class="nav-link" th:classappend="${cuando == null} ? 'active'" th:href="@{${base}}" th:text="#{fase5.eventos.todos}">Todos</a></li>
+		<li class="nav-item"><a class="nav-link" th:classappend="${cuando == 'proximos'} ? 'active'" th:href="@{${base}(cuando='proximos')}" th:text="#{master.page.eventos.listActivos}">Próximos</a></li>
+		<li class="nav-item"><a class="nav-link" th:classappend="${cuando == 'pasados'} ? 'active'" th:href="@{${base}(cuando='pasados')}" th:text="#{master.page.eventos.listInactivos}">Pasados</a></li>
+	</ul>
+
+	<p th:if="${eventos.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay resultados.</p>
+
+	<div class="table-responsive" th:unless="${eventos.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col"><span class="visually-hidden" th:text="#{negocio.imagen}">Imagen</span></th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{evento.nombre})}">Nombre</th>
+					<th scope="col" th:text="#{evento.fechaCelebracion}">Fecha</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('negocio.playa.localizacion.ciudad', #{evento.ciudad})}">Ciudad</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('negocio.playa.nombre', #{evento.playa})}">Playa</th>
+					<th scope="col"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${eventos}" th:with="futuro=${row.fechaCelebracion.isAfter(ahora)}">
+					<td th:insert="~{fragments/ui :: imagen('eventos', ${row.id}, ${row.imagen != null}, 'miniatura')}"></td>
+					<td><a th:href="@{/eventos/{id}(id=${row.id})}" th:text="${row.nombre}">Evento</a></td>
+					<td class="text-nowrap" th:text="${#temporals.format(row.fechaCelebracion, 'dd/MM/yyyy HH:mm')}">01/08/2026 18:00</td>
+					<td th:text="${row.negocio.playa?.localizacion?.ciudad}">Chipiona</td>
+					<td th:text="${row.negocio.playa?.nombre}">Playa</td>
+					<td class="text-end text-nowrap">
+						<th:block sec:authorize="hasAuthority('USUARIO')" th:if="${futuro}">
+							<th:block th:unless="${inscritos.contains(row.id)}"><form th:replace="~{fragments/ui :: boton(@{/eventos/{id}/inscripcion(id=${row.id})}, 'post', #{evento.signup}, 'btn-primary', null)}"></form></th:block>
+							<th:block th:if="${inscritos.contains(row.id)}"><form th:replace="~{fragments/ui :: boton(@{/eventos/{id}/inscripcion(id=${row.id})}, 'delete', #{evento.unregister}, 'btn-outline-danger', #{evento.confirmDelete})}"></form></th:block>
+						</th:block>
+						<th:block sec:authorize="hasAuthority('EMPRESARIO')" th:if="${row.negocio.empresario != null and row.negocio.empresario.userAccount.id == #authentication.principal.id}">
+							<a th:if="${futuro}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/editar(id=${row.id})}" th:text="#{evento.edit}">Editar</a>
+							<a th:if="${futuro}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/imagen(id=${row.id})}" th:text="#{evento.uploadImage}">Imagen</a>
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/eventos/{id}/participantes(id=${row.id})}" th:text="#{evento.participantes}">Participantes</a>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${eventos})}"></nav>
+</div>
+</body>
+</html>

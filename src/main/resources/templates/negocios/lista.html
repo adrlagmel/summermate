@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  negocios/lista.html: listado y búsqueda por ciudad de negocios (antes
+  negocio/list.jsp). La usan /negocios, /playas/{id}/negocios y la lista del
+  empresario (con "mios" a true).
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${mios} ? #{master.page.negocio.mylist} : (${playa} ? ${playa.nombre} : #{master.page.negocios})">Negocios</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h1 class="mb-0">
+			<th:block th:if="${mios}" th:text="#{master.page.negocio.mylist}">Mis negocios</th:block>
+			<th:block th:unless="${mios}" th:text="${playa} ? |#{master.page.negocios} · ${playa.nombre}| : #{master.page.negocios}">Negocios</th:block>
+		</h1>
+		<a th:if="${mios == true and puedeCrear == true}" class="btn btn-primary" th:href="@{/empresario/negocios/nuevo}">
+			<i class="bi bi-plus-lg" aria-hidden="true"></i> <span th:text="#{negocio.create}">Crear negocio</span>
+		</a>
+	</div>
+
+	<form th:unless="${playa}" method="get" class="row g-2 mb-3" role="search">
+		<div class="col-sm-8 col-md-6">
+			<label class="visually-hidden" for="ciudad" th:text="#{negocio.searchByTown}">Ciudad</label>
+			<input class="form-control" id="ciudad" name="ciudad" th:value="${ciudad}" th:placeholder="#{negocio.searchByTown}">
+		</div>
+		<div class="col-auto">
+			<button type="submit" class="btn btn-outline-primary"><i class="bi bi-search" aria-hidden="true"></i> <span th:text="#{negocio.search}">Buscar</span></button>
+		</div>
+	</form>
+
+	<p th:if="${negocios.empty}" class="text-body-secondary" th:text="#{fase5.vacio}">No hay resultados.</p>
+
+	<div class="table-responsive" th:unless="${negocios.empty}">
+		<table class="table align-middle">
+			<thead>
+				<tr>
+					<th scope="col"><span class="visually-hidden" th:text="#{negocio.imagen}">Imagen</span></th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('nombre', #{negocio.nombre})}">Nombre</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('playa.localizacion.ciudad', #{negocio.ciudad})}">Ciudad</th>
+					<th scope="col" th:insert="~{fragments/ui :: orden('playa.nombre', #{negocio.playa})}">Playa</th>
+					<th scope="col" class="text-end" th:insert="~{fragments/ui :: orden('aforo', #{negocio.aforo})}">Aforo</th>
+					<th scope="col" class="text-end" th:insert="~{fragments/ui :: orden('valoracionMedia', #{negocio.valoracionMedia})}">Valoración</th>
+					<th scope="col"><span class="visually-hidden" th:text="#{fase5.acciones}">Acciones</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${negocios}">
+					<td th:insert="~{fragments/ui :: imagen('negocios', ${row.id}, ${row.imagen != null}, 'miniatura')}"></td>
+					<td>
+						<a th:href="@{/negocios/{id}(id=${row.id})}" th:text="${row.nombre}">Negocio</a>
+						<span th:unless="${row.negocioActivo}" class="badge text-bg-secondary estado ms-1" th:text="#{fase5.negocio.suspendido}">Suspendido</span>
+					</td>
+					<td th:text="${row.playa?.localizacion?.ciudad}">Chipiona</td>
+					<td th:text="${row.playa?.nombre}">Playa de Regla</td>
+					<td class="text-end puntuacion" th:text="${row.aforo}">50</td>
+					<td class="text-end puntuacion" th:text="${row.valoracionMedia} ? ${#numbers.formatDecimal(row.valoracionMedia, 1, 1)} : '—'">8,0</td>
+					<td class="text-end text-nowrap">
+						<a sec:authorize="hasAuthority('USUARIO')" th:if="${row.negocioActivo}" class="btn btn-sm btn-primary"
+							th:href="@{/negocios/{id}/reservas/nueva(id=${row.id})}" th:text="#{negocio.reserva.create}">Reservar</a>
+						<th:block sec:authorize="hasAuthority('EMPRESARIO')" th:if="${row.empresario != null and row.empresario.userAccount.id == #authentication.principal.id}">
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/editar(id=${row.id})}" th:text="#{negocio.edit}">Editar</a>
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/imagen(id=${row.id})}" th:text="#{negocio.uploadImage}">Imagen</a>
+							<a class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/negocios/{id}/valoraciones(id=${row.id})}" th:text="#{negocio.valoracionesNegocio.list}">Valoraciones</a>
+							<th:block th:if="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'post', #{negocio.baja}, 'btn-outline-danger', #{negocio.confirmBaja})}"></form></th:block>
+							<th:block th:unless="${row.negocioActivo}"><form th:replace="~{fragments/ui :: boton(@{/empresario/negocios/{id}/suspension(id=${row.id})}, 'delete', #{negocio.alta}, 'btn-outline-success', #{negocio.confirmaAlta})}"></form></th:block>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav th:replace="~{fragments/ui :: paginacion(${negocios})}"></nav>
+
+	<!-- Empresario sin petición aceptada todavía -->
+	<div th:if="${mios == true and puedeCrear != true}" class="alert alert-info mt-3">
+		<span th:text="#{negocio.register.necesario}">Necesitas una petición aceptada.</span>
+		<a class="alert-link" th:href="@{/empresario/peticion}" th:text="#{master.page.peticionnegocio.empresario.list}">Petición de negocio</a>
+	</div>
+</div>
+</body>
+</html>

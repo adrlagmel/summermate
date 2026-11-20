@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- eventos/ficha.html: detalle de un evento (antes evento/display.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${evento.nombre}">Evento</title>
+</head>
+<body>
+<div layout:fragment="contenido" th:with="futuro=${evento.fechaCelebracion.isAfter(#temporals.createNow())}">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/eventos}" th:text="#{master.page.eventos}">Eventos</a></li>
+			<li class="breadcrumb-item active" aria-current="page" th:text="${evento.nombre}">Evento</li>
+		</ol>
+	</nav>
+
+	<div class="row g-4">
+		<div class="col-lg-5 order-lg-2">
+			<th:block th:replace="~{fragments/ui :: imagen('eventos', ${evento.id}, ${evento.imagen != null}, 'foto')}"></th:block>
+		</div>
+		<div class="col-lg-7">
+			<h1 th:text="${evento.nombre}">Evento</h1>
+			<p th:text="${evento.descripcion}">Descripción</p>
+			<dl class="ficha row">
+				<dt class="col-sm-4" th:text="#{evento.fechaCelebracion}">Fecha</dt>
+				<dd class="col-sm-8" th:text="${#temporals.format(evento.fechaCelebracion, 'dd/MM/yyyy HH:mm')}">01/08/2026 18:00</dd>
+				<dt class="col-sm-4" th:text="#{evento.negocio}">Negocio</dt>
+				<dd class="col-sm-8"><a th:href="@{/negocios/{id}(id=${evento.negocio.id})}" th:text="${evento.negocio.nombre}">Negocio</a></dd>
+				<dt class="col-sm-4" th:if="${evento.negocio.playa}" th:text="#{evento.playa}">Playa</dt>
+				<dd class="col-sm-8" th:if="${evento.negocio.playa}"><a th:href="@{/playas/{id}(id=${evento.negocio.playa.id})}" th:text="${evento.negocio.playa.nombre}">Playa</a></dd>
+				<dt class="col-sm-4" th:text="#{evento.precio}">Precio</dt>
+				<dd class="col-sm-8 puntuacion" th:text="${evento.precio} ? |${#numbers.formatDecimal(evento.precio, 1, 2)} €| : '—'">5,00 €</dd>
+				<dt class="col-sm-4" th:text="#{evento.codigo}">Código</dt>
+				<dd class="col-sm-8 font-monospace" th:text="${evento.codigo}">ABC123</dd>
+			</dl>
+			<th:block sec:authorize="hasAuthority('USUARIO')" th:if="${futuro}">
+				<th:block th:unless="${inscritos.contains(evento.id)}"><form th:replace="~{fragments/ui :: boton(@{/eventos/{id}/inscripcion(id=${evento.id})}, 'post', #{evento.signup}, 'btn-primary', null)}"></form></th:block>
+				<th:block th:if="${inscritos.contains(evento.id)}"><form th:replace="~{fragments/ui :: boton(@{/eventos/{id}/inscripcion(id=${evento.id})}, 'delete', #{evento.unregister}, 'btn-outline-danger', #{evento.confirmDelete})}"></form></th:block>
+			</th:block>
+		</div>
+	</div>
+</div>
+</body>
+</html>

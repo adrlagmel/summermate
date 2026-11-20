@@ -58,7 +58,7 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.GET, "/playas", "/playas/cercanas", "/playas/{id}", "/playas/{id}/negocios").permitAll()
 			.requestMatchers(HttpMethod.GET, "/negocios", "/negocios/{id}", "/negocios/{id}/valoraciones").permitAll()
 			.requestMatchers(HttpMethod.GET, "/eventos", "/eventos/{id}").permitAll()
-			.requestMatchers(HttpMethod.GET, "/usuarios", "/usuarios/{id}").permitAll()
+			.requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 			.requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
 
 			// Usuario

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+  fragments/mapa.html: mapa con las playas (Leaflet + OpenStreetMap).
+
+  Fase 5: antes era Google Maps con una clave de API escrita en las JSP. Ahora
+  es Leaflet con teselas de OpenStreetMap, que no necesitan clave; la
+  atribución a OpenStreetMap es obligatoria y se muestra en el mapa.
+
+  Fallo S6 del análisis: los nombres de las playas se escribían dentro del
+  código JavaScript (var name="${playa.nombre}"), así que un nombre con
+  comillas podía romper la página o inyectar código. Ahora los datos se pasan
+  como JSON con th:inline="javascript", que los escapa, y el globo del
+  marcador se construye con nodos del DOM (textContent), sin concatenar HTML.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="mapa(puntos, centro, zoom)">
+	<link rel="stylesheet" th:href="@{/webjars/leaflet/dist/leaflet.css}">
+	<div id="mapa" class="mapa shadow-sm" role="region" th:attr="aria-label=#{fase5.mapa}"></div>
+	<script th:inline="javascript">
+		window.SM_MAPA = {
+			puntos: /*[[${puntos}]]*/ [],
+			centro: /*[[${centro}]]*/ null,
+			zoom: /*[[${zoom}]]*/ 7,
+			enlace: /*[[@{/playas/}]]*/ '/playas/',
+			textoEnlace: /*[[#{playa.display}]]*/ 'Ver playa',
+			editable: /*[[${mapaEditable} ?: false]]*/ false
+		};
+	</script>
+	<script th:src="@{/webjars/leaflet/dist/leaflet.js}"></script>
+	<script th:src="@{/js/mapa.js}"></script>
+</th:block>
+
+</body>
+</html>

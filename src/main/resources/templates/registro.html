@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- registro.html: alta de usuario o empresario (antes register/register.jsp) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="${tipo == 'empresario'} ? #{master.page.register.empresario} : #{master.page.register.usuario}">Registro</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8 col-xl-7">
+		<h1 class="mb-4" th:text="${tipo == 'empresario'} ? #{master.page.register.empresario} : #{master.page.register.usuario}">Registro</h1>
+
+		<form th:action="@{/registro/{t}(t=${tipo})}" th:object="${form}" method="post" novalidate>
+			<fieldset class="mb-4">
+				<legend class="h5" th:text="#{fase5.registro.cuenta}">Cuenta</legend>
+				<div th:replace="~{fragments/ui :: campo('registroForm.username', #{register.username}, 'text')}"></div>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.password', #{register.password}, 'password')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.verifyPassword', #{register.verify.password}, 'password')}"></div>
+				</div>
+			</fieldset>
+
+			<fieldset class="mb-4">
+				<legend class="h5" th:text="#{fase5.registro.datos}">Datos personales</legend>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.nombre', #{register.name}, 'text')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.apellidos', #{register.surname}, 'text')}"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.email', #{register.email}, 'email')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.telefono', #{register.phone}, 'tel')}"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.fechaNacimiento', #{register.birthDate}, 'date')}"></div>
+					<div class="col-md-6 mb-3">
+						<label class="form-label" for="registroForm.sexo" th:text="#{register.sex}">Sexo</label>
+						<select class="form-select" th:field="*{registroForm.sexo}" th:classappend="${#fields.hasErrors('registroForm.sexo')} ? 'is-invalid'">
+							<option value="HOMBRE" th:text="#{fase5.sexo.hombre}">Hombre</option>
+							<option value="MUJER" th:text="#{fase5.sexo.mujer}">Mujer</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.nacionalidad', #{register.nacionality}, 'text')}"></div>
+					<div class="col-md-6" th:insert="~{fragments/ui :: campo('registroForm.direccion', #{register.address}, 'text')}"></div>
+				</div>
+				<th:block th:if="${tipo == 'empresario'}"><div th:replace="~{fragments/ui :: campo('cif', #{register.cif}, 'text')}"></div></th:block>
+				<th:block th:if="${tipo == 'usuario'}"><div th:replace="~{fragments/ui :: area('estadoActual', #{register.actualstate})}"></div></th:block>
+			</fieldset>
+
+			<div class="form-check mb-4">
+				<input class="form-check-input" type="checkbox" th:field="*{registroForm.contractAccepted}"
+					th:classappend="${#fields.hasErrors('registroForm.contractAccepted')} ? 'is-invalid'">
+				<label class="form-check-label" for="registroForm.contractAccepted1">
+					<span th:text="#{register.contract.accepted1}">Estoy de acuerdo con</span>
+					<a th:href="@{/terminos}" target="_blank" th:text="#{register.contract.accepted2}">los términos</a>
+					<span th:text="#{register.contract.accepted3}">de este sitio.</span>
+				</label>
+				<div class="invalid-feedback" th:errors="*{registroForm.contractAccepted}">Error</div>
+			</div>
+
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-primary" th:text="#{register.save}">Registrar</button>
+				<a class="btn btn-outline-secondary" th:href="@{/}" th:text="#{register.cancel}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

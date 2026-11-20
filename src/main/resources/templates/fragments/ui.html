@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  fragments/ui.html: piezas reutilizables de las páginas.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Paginación de un Page de Spring Data. Sustituye a displaytag. -->
+<nav th:fragment="paginacion(pagina)" th:if="${pagina.totalPages > 1}" th:attr="aria-label=#{fase5.paginacion}"
+	class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
+	<span class="text-body-secondary small"
+		th:text="#{fase5.paginacion.resumen(${pagina.number * pagina.size + 1}, ${pagina.number * pagina.size + pagina.numberOfElements}, ${pagina.totalElements})}">1–10 de 60</span>
+	<ul class="pagination pagination-sm mb-0">
+		<li class="page-item" th:classappend="${pagina.first} ? 'disabled'">
+			<a class="page-link" th:href="${enlaces.pagina(pagina.number)}" th:attr="aria-label=#{fase5.anterior}">&laquo;</a>
+		</li>
+		<th:block th:each="n : ${enlaces.ventana(pagina)}">
+			<li class="page-item" th:classappend="${n == pagina.number + 1} ? 'active'">
+				<a class="page-link" th:href="${enlaces.pagina(n)}" th:text="${n}"
+					th:attr="aria-current=${n == pagina.number + 1} ? 'page'">1</a>
+			</li>
+		</th:block>
+		<li class="page-item" th:classappend="${pagina.last} ? 'disabled'">
+			<a class="page-link" th:href="${enlaces.pagina(pagina.number + 2)}" th:attr="aria-label=#{fase5.siguiente}">&raquo;</a>
+		</li>
+	</ul>
+</nav>
+
+<!-- Cabecera de columna ordenable (solo campos de la lista blanca de Paginacion) -->
+<a th:fragment="orden(campo, texto)" th:href="${enlaces.orden(campo)}" th:with="icono=${enlaces.icono(campo)}">
+	<span th:text="${texto}">Columna</span> <i th:class="|bi ${icono}|" aria-hidden="true"></i>
+</a>
+
+<!--
+  Botón que lanza una acción que cambia datos. Es un formulario POST (con el
+  token CSRF, que Thymeleaf añade solo) y, si hace falta, un campo _method
+  para PUT o DELETE. Sustituye a acme:postbutton.
+-->
+<form th:fragment="boton(accion, metodo, texto, clase, confirmar)" th:action="${accion}" method="post"
+	class="en-linea" th:attr="data-confirmar=${confirmar}">
+	<input th:if="${metodo != 'post'}" type="hidden" name="_method" th:value="${metodo}">
+	<button type="submit" class="btn btn-sm" th:classappend="${clase}" th:text="${texto}">Acción</button>
+</form>
+
+<!-- Campo de texto de un formulario con th:object, con su etiqueta y errores -->
+<div th:fragment="campo(nombre, etiqueta, tipo)" class="mb-3">
+	<label class="form-label" th:for="${nombre}" th:text="${etiqueta}">Campo</label>
+	<input class="form-control" th:type="${tipo}" th:field="*{__${nombre}__}"
+		th:classappend="${#fields.hasErrors(nombre)} ? 'is-invalid'">
+	<div class="invalid-feedback" th:if="${#fields.hasErrors(nombre)}" th:errors="*{__${nombre}__}">Error</div>
+</div>
+
+<div th:fragment="area(nombre, etiqueta)" class="mb-3">
+	<label class="form-label" th:for="${nombre}" th:text="${etiqueta}">Campo</label>
+	<textarea class="form-control" rows="4" th:field="*{__${nombre}__}"
+		th:classappend="${#fields.hasErrors(nombre)} ? 'is-invalid'"></textarea>
+	<div class="invalid-feedback" th:if="${#fields.hasErrors(nombre)}" th:errors="*{__${nombre}__}">Error</div>
+</div>
+
+<!-- Puntuación de 1 a 10 (antes, diez radio buttons sueltos sin th:field) -->
+<div th:fragment="puntuacion(etiqueta)" class="mb-3">
+	<label class="form-label d-block" th:text="${etiqueta}">Puntuación</label>
+	<div class="btn-group flex-wrap" role="group">
+		<th:block th:each="n : ${#numbers.sequence(1, 10)}">
+			<input type="radio" class="btn-check" th:field="*{puntuacion}" th:value="${n}" th:id="'puntuacion' + ${n}">
+			<label class="btn btn-outline-primary btn-sm" th:for="'puntuacion' + ${n}" th:text="${n}">1</label>
+		</th:block>
+	</div>
+	<div class="text-danger small mt-1" th:if="${#fields.hasErrors('puntuacion')}" th:errors="*{puntuacion}">Error</div>
+</div>
+
+<!-- Imagen de una entidad o un hueco si no tiene -->
+<th:block th:fragment="imagen(tipo, id, tiene, clase)">
+	<img th:if="${tiene}" th:src="@{/imagenes/{t}/{id}(t=${tipo},id=${id})}" th:class="${clase}" alt="" loading="lazy">
+	<div th:unless="${tiene}" th:class="${clase} + ' sin-foto'"><i class="bi bi-image fs-3" aria-hidden="true"></i></div>
+</th:block>
+
+</body>
+</html>
