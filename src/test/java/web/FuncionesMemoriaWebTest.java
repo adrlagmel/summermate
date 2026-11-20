@@ -169,4 +169,38 @@ class FuncionesMemoriaWebTest extends AbstractWebTest {
 			.andExpect(status().isOk())
 			.andExpect(model().attribute("colaboracion", new services.Colaboracion(1, 1, 0, 1)));
 	}
+
+	// Cuenta premium (pasarela simulada) -------------------------------------------
+
+	@Test
+	void contratarPremiumConLaPasarelaSimulada() throws Exception {
+		String pasarela = mvc.perform(post("/empresario/premium").param("plan", "MENSUAL").with(como("empresario1")).with(csrf()))
+			.andExpect(status().is3xxRedirection()).andReturn().getResponse().getRedirectedUrl();
+		assertEquals(1, contar("select count(*) from pagopremium where estado = 'PENDIENTE' and importe = 9.99"));
+
+		mvc.perform(get(pasarela).with(como("empresario1"))).andExpect(status().isOk());
+		// Otro empresario no puede ver ni pagar el pago ajeno
+		mvc.perform(post(pasarela).with(como("empresario2")).with(csrf())).andExpect(status().isForbidden());
+
+		mvc.perform(post(pasarela).with(como("empresario1")).with(csrf()))
+			.andExpect(redirectedUrl("/empresario/premium"));
+		assertEquals(1, contar("select count(*) from empresario where id = 3 and premiumhasta = current_date + interval '1 month' - interval '1 day'"));
+
+		// La ficha del negocio lo muestra como destacado
+		mvc.perform(get("/negocios/1")).andExpect(status().isOk())
+			.andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("bi-star-fill")));
+
+		// Un pago ya pagado no se paga dos veces
+		mvc.perform(post(pasarela).with(como("empresario1")).with(csrf())).andExpect(status().isForbidden());
+	}
+
+	@Test
+	void cancelarElPagoNoActivaPremium() throws Exception {
+		String pasarela = mvc.perform(post("/empresario/premium").param("plan", "ANUAL").with(como("empresario1")).with(csrf()))
+			.andReturn().getResponse().getRedirectedUrl();
+		mvc.perform(post(pasarela).with(como("empresario1")).with(csrf()).param("_method", "delete"))
+			.andExpect(redirectedUrl("/empresario/premium"));
+		assertEquals(1, contar("select count(*) from pagopremium where estado = 'CANCELADO'"));
+		assertEquals(0, contar("select count(*) from empresario where id = 3 and premiumhasta is not null"));
+	}
 }

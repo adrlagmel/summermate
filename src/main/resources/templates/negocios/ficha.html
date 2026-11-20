@@ -27,6 +27,7 @@
 			<h1>
 				<span th:text="${negocio.nombre}">Negocio</span>
 				<span th:unless="${negocio.negocioActivo}" class="badge text-bg-secondary estado align-middle" th:text="#{fase5.negocio.suspendido}">Suspendido</span>
+				<span th:if="${negocio.empresario.premium}" class="badge text-bg-warning estado align-middle"><i class="bi bi-star-fill" aria-hidden="true"></i> <span th:text="#{premium.destacado}">Destacado</span></span>
 			</h1>
 			<p class="text-body-secondary" th:text="${negocio.tipo}">Chiringuito</p>
 			<p th:text="${negocio.descripcion}">Descripción</p>

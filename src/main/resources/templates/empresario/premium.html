@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- empresario/premium.html: cuenta premium (Fase 6) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{premium.titulo}">Cuenta premium</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-lg-8">
+		<h1 class="mb-2" th:text="#{premium.titulo}">Cuenta premium</h1>
+		<p class="text-body-secondary" th:text="#{premium.explicacion}">Tus negocios aparecen como destacados.</p>
+
+		<div class="alert" th:classappend="${empresario.premium} ? 'alert-success' : 'alert-secondary'" role="status">
+			<span th:if="${empresario.premium}" th:text="#{premium.activa(${#temporals.format(empresario.premiumHasta, 'dd/MM/yyyy')})}">Activa hasta el 01/09/2027</span>
+			<span th:unless="${empresario.premium}" th:text="#{premium.inactiva}">No tienes la cuenta premium.</span>
+		</div>
+
+		<div class="row g-3 mb-4">
+			<div class="col-sm-6" th:each="p : ${planes}">
+				<div class="card h-100">
+					<div class="card-body d-flex flex-column">
+						<h2 class="h5" th:text="#{|premium.plan.${p}|}">Mensual</h2>
+						<p class="fs-4 puntuacion mb-1" th:text="|${#numbers.formatDecimal(p.importe, 1, 2)} €|">9,99 €</p>
+						<p class="small text-body-secondary" th:text="#{premium.meses(${p.meses})}">1 mes</p>
+						<form class="mt-auto" th:action="@{/empresario/premium(plan=${p})}" method="post">
+							<button type="submit" class="btn btn-primary w-100" th:text="${empresario.premium} ? #{premium.ampliar} : #{premium.contratar}">Contratar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<h2 class="h5" th:text="#{premium.pagos}">Pagos</h2>
+		<p th:if="${#lists.isEmpty(pagos)}" class="text-body-secondary" th:text="#{fase5.vacio}">Ninguno.</p>
+		<div class="table-responsive" th:unless="${#lists.isEmpty(pagos)}">
+			<table class="table align-middle">
+				<thead>
+					<tr>
+						<th scope="col" th:text="#{premium.fecha}">Fecha</th>
+						<th scope="col" th:text="#{premium.plan}">Plan</th>
+						<th scope="col" class="text-end" th:text="#{premium.importe}">Importe</th>
+						<th scope="col" th:text="#{premium.estado}">Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="pago : ${pagos}">
+						<td class="text-nowrap" th:text="${#temporals.format(pago.fecha, 'dd/MM/yyyy HH:mm')}">01/08/2026</td>
+						<td th:text="#{|premium.plan.${pago.plan}|}">Mensual</td>
+						<td class="text-end puntuacion" th:text="|${#numbers.formatDecimal(pago.importe, 1, 2)} €|">9,99 €</td>
+						<td>
+							<span class="badge estado" th:classappend="${pago.estado.name() == 'PAGADO'} ? 'text-bg-success' : (${pago.estado.name() == 'PENDIENTE'} ? 'text-bg-warning' : 'text-bg-secondary')"
+								th:text="#{|premium.estado.${pago.estado}|}">Pagado</span>
+							<a th:if="${pago.estado.name() == 'PENDIENTE'}" class="ms-2 small" th:href="@{/empresario/premium/pagos/{r}(r=${pago.referencia})}" th:text="#{premium.continuar}">Continuar el pago</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>
