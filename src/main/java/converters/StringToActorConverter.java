@@ -26,7 +26,7 @@ public class StringToActorConverter implements Converter<String, Actor> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = actorRepository.findOne(id);
+				result = actorRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

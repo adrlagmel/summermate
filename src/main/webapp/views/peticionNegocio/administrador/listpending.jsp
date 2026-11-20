@@ -42,7 +42,7 @@
 		sortable="false" />
 		
 	
-	<security:authorize access="hasRole('ADMINISTRADOR')">
+	<security:authorize access="hasAuthority('ADMINISTRADOR')">
 	<display:column>
 		<a href="peticionNegocio/administrador/aceptar.do?peticionNegocioId=${row.id}" class="btn btn-success" ><spring:message code="peticionNegocio.aceptar.link" /></a>
 	</display:column>

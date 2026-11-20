@@ -5,8 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 
 public class EmpresarioRegistroForm {
@@ -17,7 +16,7 @@ public class EmpresarioRegistroForm {
 	private RegistroForm registroForm;
 
 	@Pattern(regexp = "^\\w+$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getCif() {
 		return cif;
 	}

@@ -16,8 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 
 
@@ -45,7 +44,7 @@ public class Playa extends DomainEntity{
 	}	
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getComposicion() {
 		return composicion;
 	}
@@ -55,7 +54,7 @@ public class Playa extends DomainEntity{
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getServicios() {
 		return servicios;
 	}
@@ -75,7 +74,7 @@ public class Playa extends DomainEntity{
 	}	
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}
@@ -85,7 +84,7 @@ public class Playa extends DomainEntity{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getDescripcion() {
 		return descripcion;
 	}

@@ -24,7 +24,7 @@
 	<display:column property="tipo" title="${tipo}" 
 		sortable="true" />
 		
-	<security:authorize access="hasRole('EMPRESARIO')">	
+	<security:authorize access="hasAuthority('EMPRESARIO')">	
 	<spring:message code="denunciaValoracion.editar" var="editar" />
 	<display:column>
 		<a  href="denunciaValoracion/empresario/edit.do?denunciaValoracionId=${row.id}" class="btn btn-warning">
@@ -37,7 +37,7 @@
 		<a href="denunciaValoracion/empresario/borrar.do?denunciaValoracionId=${row.id}" class="btn btn-danger" onclick="return confirm('<spring:message code="msg.delete.denunciaValoracion" />')"><spring:message code="valoracionNegocio.borrar" /></a>
 	</display:column>
 	</security:authorize>	
-	<security:authorize access="hasRole('USUARIO')">
+	<security:authorize access="hasAuthority('USUARIO')">
 	<display:column sortable="false">
 		<a href="valoracionNegocio/usuario/list.do" class="btn btn-danger" ><spring:message code="valoracionNegocio.atras" /></a>
 	</display:column>

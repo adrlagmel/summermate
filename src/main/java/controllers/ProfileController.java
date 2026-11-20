@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,6 +43,9 @@ public class ProfileController extends AbstractController {
 
 	// Services -------------------------------------------------------------------
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	private ActorService actorService;
 	
@@ -199,10 +202,6 @@ public class ProfileController extends AbstractController {
 		ModelAndView result;
 		
 		Actor actor = actorService.findByPrincipal();
-		String passwordOld = actorForm.getOldPassword();
-		
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		passwordOld = encoder.encodePassword(actorForm.getOldPassword(), null);
 		
 		if(binding.hasErrors()){
 				result = createEditModelAndViewActor(actorForm);
@@ -210,7 +209,7 @@ public class ProfileController extends AbstractController {
 			
 			
 			try{
-				if (!passwordOld.equals(actor.getUserAccount().getPassword())){
+				if (!passwordEncoder.matches(actorForm.getOldPassword(), actor.getUserAccount().getPassword())){
 					result = createEditModelAndViewActor(actorForm, "actor.password.error");
 				}
 				

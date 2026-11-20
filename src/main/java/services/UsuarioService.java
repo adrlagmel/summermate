@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -37,6 +37,9 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	
 	@Autowired
@@ -79,8 +82,7 @@ public class UsuarioService {
 		Assert.notNull(usuario);
 		
 		String password = usuario.getUserAccount().getPassword();
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		password = encoder.encodePassword(password, null);
+		password = passwordEncoder.encode(password);
 		
 		usuario.getUserAccount().setPassword(password);
 		
@@ -127,7 +129,7 @@ public class UsuarioService {
 		Assert.isTrue(id != 0);
 		Usuario res;
 		 
-		 res = this.usuarioRepository.findOne(id);
+		 res = this.usuarioRepository.findById(id).orElse(null);
 		 Assert.notNull(res);
 		 
 		 return res;
@@ -138,7 +140,7 @@ public class UsuarioService {
 		Assert.isTrue(id != 0);
 		Usuario res;
 		 
-		res = this.usuarioRepository.findOne(id);
+		res = this.usuarioRepository.findById(id).orElse(null);
 		Assert.notNull(res);
 		 
 		return res;
@@ -212,8 +214,7 @@ public class UsuarioService {
 		Assert.notNull(usuario);
 		
 		String password = usuario.getUserAccount().getPassword();
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		password = encoder.encodePassword(password, null);
+		password = passwordEncoder.encode(password);
 		usuario.getUserAccount().setPassword(password);
 		checkPrincipal(usuario);
 		usuarioRepository.save(usuario);

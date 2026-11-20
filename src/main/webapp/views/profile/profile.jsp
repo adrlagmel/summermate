@@ -50,7 +50,7 @@
 		</jstl:if>
 	</jstl:if>
 	<div style="width:50%; margin: auto;" >
-	<security:authorize access="hasRole('USUARIO')">
+	<security:authorize access="hasAuthority('USUARIO')">
 		<a href="usuario/uploadImageUsuario.do?usuarioId=${actor.id}" class="btn btn-success" style = "margin: auto;"><spring:message code="profile.uploadImage" /></a>
 	</security:authorize>
 		

@@ -24,10 +24,10 @@ public interface NegocioRepository extends JpaRepository<Negocio, Integer> {
 	@Query("select s from Negocio s where s.reservas.size=(select max(s2.reservas.size) from Negocio s2)")
 	Collection<Negocio> negocioConMasReservas();
 	
-	@Query("select distinct n from Negocio n where n.playa.id=?1)")
+	@Query("select distinct n from Negocio n where n.playa.id=?1")
 	Collection<Negocio> NegociosDeLaPlaya(int playaId);
 	
-	@Query("select distinct n from Negocio n where n.empresario.id=?1 and n.negocioActivo = true)")
+	@Query("select distinct n from Negocio n where n.empresario.id=?1 and n.negocioActivo = true")
 	Collection<Negocio> findNegociosActivos(int empresarioId);
 	
 	@Query("select distinct n from Negocio n where n.valoracionMedia=(select max(valoracionMedia) from Negocio)")

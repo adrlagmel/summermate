@@ -26,7 +26,7 @@ public class StringToMensajeConverter implements Converter<String, Mensaje> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = mensajeRepository.findOne(id);
+				result = mensajeRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

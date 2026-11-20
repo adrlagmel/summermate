@@ -26,7 +26,7 @@ public class StringToValoracionPlayaConverter implements Converter<String, Valor
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = valoracionPlayaRepository.findOne(id);
+				result = valoracionPlayaRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

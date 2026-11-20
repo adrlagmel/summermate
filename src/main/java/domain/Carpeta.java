@@ -12,8 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -30,7 +29,7 @@ public class Carpeta extends DomainEntity{
 	private String nombre;
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}

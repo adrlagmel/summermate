@@ -12,27 +12,29 @@ package utilities;
 
 import java.io.IOException;
 
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import security.PasswordEncoderConfig;
 
 import utilities.internal.ConsoleReader;
 
 public class HashPassword {
 
 	public static void main(String[] args) throws IOException {
-		Md5PasswordEncoder encoder;
+		PasswordEncoder encoder;
 		ConsoleReader reader;
 		String line, hash;
 
 		try {
-			System.out.printf("HashPassword 1.3%n");
+			System.out.printf("HashPassword 2.0 (BCrypt)%n");
 			System.out.printf("----------------%n%n");
 			
-			encoder = new Md5PasswordEncoder();
+			encoder = new PasswordEncoderConfig().passwordEncoder();
 			reader = new ConsoleReader(); 
 				
 			line = reader.readLine();
 			while (!line.equals("quit")) {				
-				hash = encoder.encodePassword(line, null);
+				hash = encoder.encode(line);
 				System.out.println(hash);
 				line = reader.readLine();
 			} 

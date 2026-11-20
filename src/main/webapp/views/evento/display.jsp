@@ -38,12 +38,12 @@
 </form:form>
 	<div style="width:50%; margin: auto;" >
 	<a href="playa/display.do?playaId=${evento.negocio.playa.id}" class="btn btn-success"><spring:message code="evento.playa" /></a>
-<security:authorize access="hasRole('EMPRESARIO')">
+<security:authorize access="hasAuthority('EMPRESARIO')">
 		
 		<acme:cancel code="evento.return" url="/evento/empresario/list.do" /> 
 	</security:authorize> 
 	
-	<security:authorize access="!hasRole('EMPRESARIO')">
+	<security:authorize access="!hasAuthority('EMPRESARIO')">
 		<acme:cancel code="evento.return" url="/evento/list.do" /> 
 	</security:authorize> 
 </div>

@@ -26,7 +26,7 @@ public class StringToPeticionNegocioConverter implements Converter<String, Petic
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = peticionNegocioRepository.findOne(id);
+				result = peticionNegocioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

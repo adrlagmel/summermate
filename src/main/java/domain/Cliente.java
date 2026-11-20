@@ -17,8 +17,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,7 +33,7 @@ public abstract class Cliente extends Actor{
 	
 	@NotBlank
 	@Pattern(regexp = "^\\+\\d{2,3}\\d{7,14}$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTelefono(){
 		return telefono;
 	}
@@ -54,7 +53,7 @@ public abstract class Cliente extends Actor{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNacionalidad(){
 		return nacionalidad;
 	}
@@ -63,7 +62,7 @@ public abstract class Cliente extends Actor{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getDireccion(){
 		return direccion;
 	}
@@ -72,7 +71,7 @@ public abstract class Cliente extends Actor{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getSexo(){
 		return sexo;
 	}

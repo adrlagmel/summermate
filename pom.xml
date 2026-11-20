@@ -23,17 +23,23 @@
 	<packaging>war</packaging>
 	
 	<properties>
-	    	<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-	    	<java.version>1.8</java.version>
-	    	<argLine>-XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED</argLine>
-	    	<testcontainers.version>1.21.3</testcontainers.version>
-  	</properties>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+
+		<spring.version>5.3.39</spring.version>
+		<spring-security.version>5.8.16</spring-security.version>
+		<spring-data-jpa.version>2.7.18</spring-data-jpa.version>
+		<hibernate.version>5.6.15.Final</hibernate.version>
+		<tiles.version>3.0.8</tiles.version>
+		<jetty.version>9.4.56.v20240826</jetty.version>
+		<testcontainers.version>1.21.3</testcontainers.version>
+	</properties>
 
 	<!-- Indexing information -->
 
 	<name>SummerMate</name>
 	<url>http://www.summermate.com</url>
-	
+
 	<!-- Build commands -->
 
 	<build>
@@ -46,22 +52,31 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.13.0</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
 					<showWarnings>true</showWarnings>
 					<compilerArgs>
 						<arg>-Xlint</arg>
-						<arg>-Xlint:-options</arg>
 					</compilerArgs>
 				</configuration>
 			</plugin>
 
-			<!-- Population -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+			</plugin>
+
+			<!-- Population: mvn compile exec:java (o mvn install) -->
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1</version>
+				<version>3.5.0</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
@@ -75,278 +90,224 @@
 				</configuration>
 			</plugin>
 
-			<!-- Tomcat 7 -->
+			<!-- Servidor de desarrollo: mvn jetty:run
+			     (Spring 5 necesita Servlet 3.1; el plugin de Tomcat 7 solo llega a 3.0) -->
 
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.version}</version>
 				<configuration>
-					<server>tomcat-development-server</server>
-					<port>8080</port>
-					<path>/${project.artifactId}</path>
+					<httpConnector>
+						<port>8080</port>
+					</httpConnector>
+					<webApp>
+						<contextPath>/${project.artifactId}</contextPath>
+					</webApp>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
-	
-	<!-- Spring 4.0 y Hibernate 4.3 generan proxies por reflexión sobre
-	     java.lang.ClassLoader; desde Java 9 hay que abrir ese paquete.
-	     Java 8 no conoce la opción y la ignora gracias al -XX previo.
-	     Lo mismo se aplica a la JVM de Maven en .mvn/jvm.config. -->
-
-	<!--  Dependencies -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-bom</artifactId>
+				<version>${spring-security.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
-	<dependency>
-  		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
-  		<groupId>org.jsoup</groupId>
-  		<artifactId>jsoup</artifactId>
-  		<version>1.8.2</version>
-	</dependency>
 
 		<!-- Spring Framework -->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.0.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.0.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>4.0.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>4.0.0.RELEASE</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-			<version>4.0.0.RELEASE</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.aspectj</groupId>
-					<artifactId>aspectjweaver</artifactId>									
-			</exclusion>
-			</exclusions>
-		</dependency>
-				
-		<!-- Spring Framework - Data -->
-
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.4.3.RELEASE</version>
+			<version>${spring-data-jpa.version}</version>
 		</dependency>
 
-		<!-- Spring Framework - Security -->
+		<!-- Spring Security -->
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.2.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>3.2.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>3.2.0.RELEASE</version>
 		</dependency>
-		
-		<!-- Spring Framework - Testing -->
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>4.0.0.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<!-- Apache -->
 
-		<dependency>
-		    <groupId>org.apache.tiles</groupId>
-		    <artifactId>tiles-core</artifactId>
-		    <version>2.2.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.tiles</groupId>
-			<artifactId>tiles-servlet</artifactId>
-			<version>2.2.2</version>
-		</dependency>
+		<!-- Vistas: Tiles 3, JSTL y Display Tag -->
 
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-jsp</artifactId>
-			<version>2.2.2</version>
+			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-servlet</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>displaytag</groupId>
+			<artifactId>displaytag</artifactId>
+			<version>1.2</version>
+			<exclusions>
+				<!-- displaytag arrastra slf4j-log4j12 1.4 -->
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-		<!-- PostgreSQL -->
+		<!-- Persistencia -->
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.7.4</version>
 		</dependency>
 
-		<!-- Hibernate -->
-	
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.0.Final</version>
-		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-ehcache</artifactId> -->
-<!-- 			<version>4.3.0.CR2</version> -->
-<!-- 		</dependency> -->
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-core</artifactId> -->
-<!-- 			<version>4.3.0.Final</version> -->
-<!-- 		</dependency> -->
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.3.1.Final</version>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>4.2.3.Final</version>
-		</dependency>
-			
-		<!-- Javax -->
+		<!-- Validación (Hibernate Validator 6 necesita una implementación de EL) -->
 
-		<!-- JAXB salió del JDK en Java 11 y Hibernate Validator 4.3 lo necesita -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.5.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.el</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+		<dependency>
+			<!-- Usado por @SafeHtml -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.17.2</version>
+		</dependency>
+
+		<!-- JAXB salió del JDK en Java 11 -->
+
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
 
+		<!-- Subida de ficheros -->
+
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.5</version>
 		</dependency>
 
+		<!-- Utilidades -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- Logging: reload4j es el sustituto mantenido de log4j 1.x y lee el
+		     mismo log4j.properties -->
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-reload4j</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+
+		<!-- Proporcionadas por el contenedor (Servlet 3.1 / JSP 2.3) -->
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
-		<!-- Display Tag -->
+		<!-- Tests -->
 
 		<dependency>
-			<groupId>displaytag</groupId>
-			<artifactId>displaytag</artifactId>
-			<version>1.2</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
 		</dependency>
-
-		<!-- Standard taglibs -->
-								
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>			
-			<version>1.1.2</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- JUnit -->
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- Testcontainers: PostgreSQL desechable para los tests -->
-
 		<dependency>
+			<!-- PostgreSQL desechable para los tests -->
 			<groupId>org.testcontainers</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Dependency patches -->
-
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.2</version>
-		</dependency>
-	            
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjweaver</artifactId>
-		    <version>1.7.4</version>
-		</dependency>
-		
-		<!-- Para añadir imágenes -->
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		
 	</dependencies>
-
-	<description>SummerMate project</description>
-</project> 
+</project>

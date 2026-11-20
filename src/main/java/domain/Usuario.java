@@ -10,8 +10,7 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -30,7 +29,7 @@ public class Usuario extends Cliente{
 			this.imagen= imagen;
 		}
 		
-		@SafeHtml(whitelistType = WhiteListType.NONE)
+		@SafeHtml
 		public String getEstadoActual() {
 			return estadoActual;
 		}

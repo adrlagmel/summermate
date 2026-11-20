@@ -26,7 +26,7 @@ public class StringToClienteConverter implements Converter<String, Cliente> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = clienteRepository.findOne(id);
+				result = clienteRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

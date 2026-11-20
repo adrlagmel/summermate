@@ -15,8 +15,7 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -37,7 +36,7 @@ public class ValoracionPlaya extends DomainEntity{
 	private Integer puntuacion;
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTitulo() {
 		return titulo;
 	}
@@ -67,7 +66,7 @@ public class ValoracionPlaya extends DomainEntity{
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getComentario() {
 		return comentario;
 	}

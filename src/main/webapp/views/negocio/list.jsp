@@ -30,7 +30,7 @@
 <div class="table-responsive">
 <display:table pagesize="5" class="table table-condensed" keepStatus="false" name="negocios" requestURI="${requestURI}" id="row">
 	<!-- Attributes -->
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<display:column>
 		<security:authentication var="user" property="principal.id" />
 
@@ -61,7 +61,7 @@
 	<spring:message code="negocio.valoracionMedia" var="valoracionMedia" />
 	<display:column property="valoracionMedia" title="${valoracionMedia}" sortable="true" />
 	
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 	<display:column>
 	<security:authentication var="user" property="principal.id" />
 		<a href="valoracionNegocio/empresario/listValoraciones.do?negocioId=${row.id}" class="btn btn-default"><spring:message code="negocio.valoracionesNegocio.list" /></a>
@@ -69,7 +69,7 @@
 	
 	</security:authorize> 
 	
-	<security:authorize access="hasRole('USUARIO')">
+	<security:authorize access="hasAuthority('USUARIO')">
 		<display:column>
 		<jstl:if test="${row.negocioActivo}">
 			<a href="reserva/usuario/create.do?negocioId=${row.id}" class="btn btn-success"><spring:message code="negocio.reserva.create" /></a>
@@ -80,7 +80,7 @@
 			<a href="negocio/empresario/display.do?negocioId=${row.id}" class="btn btn-info"><spring:message code="negocio.display" /></a>
 	</display:column>
 	
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 	<security:authentication var="user" property="principal.id" />
 		<display:column>
 			
@@ -108,7 +108,7 @@
 	
 </display:table>
 
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		
 		<jstl:if test="${estado == true}">
 		<a href="negocio/empresario/register.do" class="btn btn-primary">

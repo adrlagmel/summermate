@@ -125,7 +125,7 @@ public class NegocioService {
 	
 	
 	public Negocio findOneToEdit(int negocioId){
-		Negocio negocio = negocioRepository.findOne(negocioId);
+		Negocio negocio = negocioRepository.findById(negocioId).orElse(null);
 		checkPrincipal(negocio);
 		return negocio;
 	}
@@ -161,7 +161,7 @@ public class NegocioService {
 	
 	public Negocio findOneToDisplay(int negocioId){
 		
-		Negocio result = negocioRepository.findOne(negocioId);
+		Negocio result = negocioRepository.findById(negocioId).orElse(null);
 		Assert.notNull(result);
 		
 		return result;

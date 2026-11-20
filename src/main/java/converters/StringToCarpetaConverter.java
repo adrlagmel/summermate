@@ -26,7 +26,7 @@ public class StringToCarpetaConverter implements Converter<String, Carpeta> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = carpetaRepository.findOne(id);
+				result = carpetaRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

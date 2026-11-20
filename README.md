@@ -4,13 +4,13 @@ Aplicación web para descubrir playas y reservar en los negocios de playa
 (chiringuitos, heladerías…), con eventos, valoraciones y mensajería entre
 usuarios, empresarios y administradores.
 
-> El proyecto se está modernizando por fases. Stack actual: Java 8,
-> Spring MVC 4.0, Spring Security 3.2, Hibernate 4.3 (JPA), JSP + Tiles y
+> El proyecto se está modernizando por fases. Stack actual: Java 17,
+> Spring MVC 5.3, Spring Security 5.8, Hibernate 5.6 (JPA), JSP + Tiles 3 y
 > PostgreSQL 16.
 
 ## Requisitos
 
-- JDK 8 o superior (probado con 8 y 21)
+- JDK 17 o superior
 - Maven 3.6+
 - Docker (para la base de datos y para los tests)
 
@@ -32,7 +32,7 @@ usuarios, empresarios y administradores.
 3. Arranca la aplicación en <http://localhost:8080/SummerMate/>:
 
    ```bash
-   mvn tomcat7:run
+   mvn jetty:run
    ```
 
 Usuarios de ejemplo (la contraseña es igual que el nombre de usuario):
@@ -64,11 +64,3 @@ Los tests arrancan un PostgreSQL desechable con
 [Testcontainers](https://testcontainers.com/), así que solo necesitan
 Docker en marcha: no usan la base de datos de `docker compose`. Antes de
 cada test se recrea el esquema y se cargan los datos de ejemplo.
-
-## Notas para Java 9+
-
-Spring 4.0 e Hibernate 4.3 generan proxies por reflexión, algo que los JDK
-modernos bloquean por defecto. `.mvn/jvm.config` y la propiedad `argLine`
-del `pom.xml` añaden `--add-opens=java.base/java.lang=ALL-UNNAMED` (Java 8
-ignora esa opción). Si lanzas la app desde un IDE, añade el mismo argumento
-a la JVM.

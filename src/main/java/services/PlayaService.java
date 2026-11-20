@@ -57,13 +57,13 @@ public class PlayaService {
 	}
 
 	public Playa findOneToEdit(int playaId) {
-		Playa result = playaRepository.findOne(playaId);
+		Playa result = playaRepository.findById(playaId).orElse(null);
 					
 		return result;
 	}
 	
 	public Playa findOne(int playaId) {
-		Playa result = playaRepository.findOne(playaId);
+		Playa result = playaRepository.findById(playaId).orElse(null);
 					
 		return result;
 	}

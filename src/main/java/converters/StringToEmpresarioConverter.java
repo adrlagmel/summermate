@@ -26,7 +26,7 @@ public class StringToEmpresarioConverter implements Converter<String, Empresario
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = empresarioRepository.findOne(id);
+				result = empresarioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

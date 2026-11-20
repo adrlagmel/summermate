@@ -26,7 +26,7 @@ public class StringToCalendarioNegocioConverter implements Converter<String, Cal
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = calendarioNegocioRepository.findOne(id);
+				result = calendarioNegocioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

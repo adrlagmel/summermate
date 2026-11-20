@@ -16,13 +16,13 @@
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-	    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
-	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
-	    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 	">
 
 	<!-- Context -->
@@ -31,8 +31,14 @@
 
 	<context:annotation-config />
 
+	<!-- Las URLs terminan en .do (servlet-mapping *.do) pero los controladores
+	     mapean "/index", "/list"... Spring 5.3 desactivó por defecto la
+	     coincidencia por sufijo, así que se reactiva aquí. Desaparecerá en la
+	     Fase 4, cuando se eliminen las extensiones .do. -->
 	<mvc:annotation-driven validator="validator"
-		conversion-service="conversionService" />
+		conversion-service="conversionService">
+		<mvc:path-matching suffix-pattern="true" />
+	</mvc:annotation-driven>
 
 	<!-- Converters -->
 
@@ -68,11 +74,6 @@
 		<property name="databasePlatform" ref="sqlDialect" />
 	</bean>
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
 	<bean id="openEntityManagerInViewInterceptor"
 		class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor" />
 
@@ -106,13 +107,6 @@
 		<property name="paramName" value="language" />
 	</bean>
 
-	<bean id="handlerMapping"
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-		<property name="interceptors">
-			<ref bean="localeChangeInterceptor" />
-		</property>
-	</bean>
-
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.do" />
@@ -132,10 +126,7 @@
 	<import resource="config/security.xml" />
 
 	<security:authentication-manager>
-		<security:authentication-provider
-			user-service-ref="loginService">
-			<security:password-encoder ref="passwordEncoder" />
-		</security:authentication-provider>
+		<security:authentication-provider ref="daoAuthenticationProvider" />
 	</security:authentication-manager>
 
 	<!-- Tiles -->
@@ -143,14 +134,14 @@
 	<import resource="config/tiles.xml" />
 
 	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions" ref="tiles" />
 	</bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
 	
 	<!-- Cache -->

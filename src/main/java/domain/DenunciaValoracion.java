@@ -9,8 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -28,7 +27,7 @@ public class DenunciaValoracion extends DomainEntity {
 	private String 	tipo;
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTitulo() {
 		return titulo;
 	}
@@ -37,7 +36,7 @@ public class DenunciaValoracion extends DomainEntity {
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getComentario() {
 		return comentario;
 	}

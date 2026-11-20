@@ -26,7 +26,7 @@ public class StringToEventoConverter implements Converter<String, Evento> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = eventoRepository.findOne(id);
+				result = eventoRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

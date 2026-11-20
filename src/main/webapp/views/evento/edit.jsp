@@ -77,7 +77,7 @@
 		<img class="img-responsive img-rounded" id="foto" src="foto/displayImageEvento.do?eventoId=${evento.id}" height="30%" width="30%"/><br /><br />
  	</jstl:if><br/>
     	
-    <security:authorize access="hasRole('EMPRESARIO')">
+    <security:authorize access="hasAuthority('EMPRESARIO')">
     	<jstl:if test="${evento.id != 0}">
 			<a href="evento/empresario/uploadImageEvento.do?eventoId=${evento.id}" class="btn btn-info" ><spring:message code="evento.uploadImage" /></a>
 		</jstl:if>

@@ -26,7 +26,7 @@ public class StringToUserAccountConverter implements Converter<String, UserAccou
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = userAccountRepository.findOne(id);
+				result = userAccountRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

@@ -9,8 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -28,7 +27,7 @@ public class Localizacion{
 	private double  longitud;
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getVia() {
 		return via;
 	}
@@ -38,7 +37,7 @@ public class Localizacion{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getNombreVia() {
 		return nombreVia;
 	}
@@ -67,7 +66,7 @@ public class Localizacion{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -77,7 +76,7 @@ public class Localizacion{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getProvincia() {
 		return provincia;
 	}

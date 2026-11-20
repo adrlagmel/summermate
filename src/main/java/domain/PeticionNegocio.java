@@ -17,8 +17,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -35,7 +34,7 @@ public class PeticionNegocio extends DomainEntity{
 	private String 	comentarios;
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getCodigo() {
 		return codigo;
 	}
@@ -57,7 +56,7 @@ public class PeticionNegocio extends DomainEntity{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTitulo() {
 		return titulo;
 	}
@@ -68,7 +67,7 @@ public class PeticionNegocio extends DomainEntity{
 	
 	@NotBlank
 	@Pattern(regexp="^PENDIENTE|RECHAZADO|ACEPTADO$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEstado() {
 		return estado;
 	}
@@ -77,7 +76,7 @@ public class PeticionNegocio extends DomainEntity{
 		this.estado = estado;
 	}
 	
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getComentarios() {
 		return comentarios;
 	}

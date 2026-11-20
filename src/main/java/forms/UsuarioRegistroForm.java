@@ -5,8 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 public class UsuarioRegistroForm {
 	
@@ -17,7 +16,7 @@ public class UsuarioRegistroForm {
 	private RegistroForm registroForm;
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEstadoActual() {
 		return estadoActual;
 	}

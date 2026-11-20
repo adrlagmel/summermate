@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import org.springframework.util.Assert;
 
 @Service
 @Transactional
-public class LoginService implements UserDetailsService {
+public class LoginService implements UserDetailsService, UserDetailsPasswordService {
 	
 	// Managed repository -----------------------------------------------------
 
@@ -45,6 +46,20 @@ public class LoginService implements UserDetailsService {
 		result.getAuthorities().size();
 
 		return result;
+	}
+
+	// Spring Security llama a este método tras un login correcto cuando el
+	// hash guardado no usa el algoritmo actual (p. ej. un MD5 antiguo), para
+	// guardarlo de nuevo con BCrypt.
+	@Override
+	public UserDetails updatePassword(UserDetails user, String newPassword) {
+		UserAccount account;
+
+		account = userRepository.findByUsername(user.getUsername());
+		Assert.notNull(account);
+		account.setPassword(newPassword);
+
+		return userRepository.save(account);
 	}
 
 	public static UserAccount getPrincipal() {

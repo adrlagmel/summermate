@@ -35,7 +35,7 @@
 	<spring:message code="valoracionNegocio.negocio" var="negocio" />
 	<display:column property="reserva.negocio.nombre" title="${negocio}"
 		sortable="true" />
-	<security:authorize access="hasRole('USUARIO')">	
+	<security:authorize access="hasAuthority('USUARIO')">	
 	
 	<display:column>
 		<security:authentication var="user" property="principal.id" />
@@ -53,7 +53,7 @@
 	</display:column>
 	</security:authorize>
 	
-	<security:authorize access="hasRole('EMPRESARIO')">	
+	<security:authorize access="hasAuthority('EMPRESARIO')">	
 	<spring:message code="denunciaValoracion.create" var="create" />
 	<display:column>
 		<security:authentication var="user" property="principal.id" />

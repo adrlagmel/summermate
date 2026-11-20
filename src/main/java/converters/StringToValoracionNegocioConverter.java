@@ -26,7 +26,7 @@ public class StringToValoracionNegocioConverter implements Converter<String, Val
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = valoracionNegocioRepository.findOne(id);
+				result = valoracionNegocioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

@@ -20,6 +20,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -61,7 +62,9 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.username = username;
 	}
 
-	@Size(min = 5, max = 32)
+	// Aquí se guarda el hash ({bcrypt}...), no la contraseña: la longitud
+	// de la contraseña en claro la validan los formularios.
+	@NotBlank
 	@Override
 	public String getPassword() {
 		return password;

@@ -25,7 +25,7 @@
 	<form:hidden path="empresario" />
 	<form:hidden path="estado" />
 	<br>
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<form:hidden path="comentarios" />
 	</security:authorize>
 
@@ -33,7 +33,7 @@
 	<acme:textbox code="peticionNegocio.fecha" path="fecha" readonly="true"/><br/>
 	<acme:textbox code="peticionNegocio.titulo" path="titulo"/><br/>
 	
-	<security:authorize access="hasRole('ADMINISTRADOR')">
+	<security:authorize access="hasAuthority('ADMINISTRADOR')">
 		<acme:textarea code="peticionNegocio.comentarios" path="comentarios"/><br/>
 	</security:authorize>
 	<div style="width:50%; margin: auto;" >

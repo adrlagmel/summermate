@@ -162,21 +162,21 @@ public class ReservaService {
 	
 	
 	public Reserva findOneToEdit(int reservaId){
-		Reserva result = reservaRepository.findOne(reservaId);
+		Reserva result = reservaRepository.findById(reservaId).orElse(null);
 		checkPrincipal(result);
 		
 		return result;
 	}
 	
 	public Reserva findOne(int reservaId){
-		Reserva result = reservaRepository.findOne(reservaId);
+		Reserva result = reservaRepository.findById(reservaId).orElse(null);
 		
 		return result;
 	}
 	
 	public Reserva findOneToEditMesa(int reservaId){
 		
-		Reserva result = reservaRepository.findOne(reservaId);
+		Reserva result = reservaRepository.findById(reservaId).orElse(null);
 		Assert.isTrue(result.getFecha() == null);
 		checkPrincipal(result);
 		

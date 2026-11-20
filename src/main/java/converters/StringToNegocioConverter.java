@@ -26,7 +26,7 @@ public class StringToNegocioConverter implements Converter<String, Negocio> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = negocioRepository.findOne(id);
+				result = negocioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

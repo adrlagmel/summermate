@@ -28,7 +28,7 @@
 </jstl:if>
 <div style="width:50%; margin: auto;" >
 	<jstl:if test="${peticionNegocio == null}">
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<a href="peticionNegocio/empresario/enviar.do" class = "btn btn-primary"> <spring:message code="peticionNegocio.enviar" /></a>
 	</security:authorize>
 	</jstl:if>

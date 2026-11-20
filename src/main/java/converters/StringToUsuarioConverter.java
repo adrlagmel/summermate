@@ -26,7 +26,7 @@ public class StringToUsuarioConverter implements Converter<String, Usuario> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = usuarioRepository.findOne(id);
+				result = usuarioRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

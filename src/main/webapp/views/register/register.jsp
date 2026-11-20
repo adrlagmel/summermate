@@ -101,7 +101,7 @@
 	</jstl:if>
 		<div style="width:50%; margin: auto;" >
 	<jstl:if test="${isAdministrador==false}">
-	<security:authorize access="!hasRole('ADMINISTRADOR')">
+	<security:authorize access="!hasAuthority('ADMINISTRADOR')">
 			<form:checkbox path="registroForm.contractAccepted" />
 		<form:label path="registroForm.contractAccepted"><spring:message code="register.contract.accepted1" />
 			<a href="javascript: void(0);" id="termsLink" data-toggle="modal" data-target="#terms"><spring:message code="register.contract.accepted2" /></a>

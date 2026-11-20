@@ -100,7 +100,7 @@ public class EventoService {
 	}
 	
 	public Evento findOneToEdit(int eventoId){
-		Evento evento = eventoRepository.findOne(eventoId);
+		Evento evento = eventoRepository.findById(eventoId).orElse(null);
 				
 		checkPrincipal(evento);
 		Assert.isTrue(evento.getFechaCelebracion().compareTo(new Date()) >= 0);
@@ -109,7 +109,7 @@ public class EventoService {
 	}
 	
 	public Evento findOne(int eventoId){		
-		return eventoRepository.findOne(eventoId);
+		return eventoRepository.findById(eventoId).orElse(null);
 	}
 	
 	public void participate(Evento evento, Usuario usuario) {
@@ -159,7 +159,7 @@ public class EventoService {
 	
 	public Evento findOneToDisplay(int eventoId){
 		
-		Evento result = eventoRepository.findOne(eventoId);
+		Evento result = eventoRepository.findById(eventoId).orElse(null);
 		Assert.notNull(result);
 		
 		return result;

@@ -26,7 +26,7 @@ public class StringToPlayaConverter implements Converter<String, Playa> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = playaRepository.findOne(id);
+				result = playaRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

@@ -64,14 +64,14 @@ public class ValoracionPlayaService {
 	public ValoracionPlaya findOne(int id) {
 
 		ValoracionPlaya vp = valoracionPlayaRepository
-				.findOne(id);
+				.findById(id).orElse(null);
 
 		return vp;
 
 	}
 	
 	public ValoracionPlaya findOneToEdit(int valoracionPlayaId) {
-		ValoracionPlaya result = valoracionPlayaRepository.findOne(valoracionPlayaId);
+		ValoracionPlaya result = valoracionPlayaRepository.findById(valoracionPlayaId).orElse(null);
 		return result;
 	}
 

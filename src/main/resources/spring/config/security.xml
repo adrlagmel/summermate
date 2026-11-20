@@ -14,16 +14,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"	
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd		
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
     ">
 
 	<!-- Security infrastructure -->
 
 	<bean id="loginService" class="security.LoginService" />
 
-	<bean id="passwordEncoder"
-		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<!-- passwordEncoder se define en security.PasswordEncoderConfig (BCrypt
+	     con compatibilidad para los hashes MD5 antiguos). Al pasarle
+	     loginService como UserDetailsPasswordService, cada hash antiguo se
+	     reescribe en BCrypt la primera vez que su usuario inicia sesión. -->
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="loginService" />
+		<property name="userDetailsPasswordService" ref="loginService" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
 
 	<!-- Access control -->
 
@@ -47,24 +56,24 @@
 		<security:intercept-url pattern="/empresario/register.do" access="isAnonymous()" /> 
 		
 		<security:intercept-url pattern="/perfil/usuario.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/perfil/empresario.do" access="hasRole('ADMINISTRADOR') || hasRole('EMPRESARIO')" /> 
-		<security:intercept-url pattern="/perfil/empresario/edit.do" access="hasRole('EMPRESARIO')" /> 
-		<security:intercept-url pattern="/perfil/usuario/edit.do" access="hasRole('USUARIO')" /> 
+		<security:intercept-url pattern="/perfil/empresario.do" access="hasAuthority('ADMINISTRADOR') || hasAuthority('EMPRESARIO')" /> 
+		<security:intercept-url pattern="/perfil/empresario/edit.do" access="hasAuthority('EMPRESARIO')" /> 
+		<security:intercept-url pattern="/perfil/usuario/edit.do" access="hasAuthority('USUARIO')" /> 
 		<security:intercept-url pattern="/perfil/actor/editPassword.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/usuario/uploadImageUsuario.do" access="hasRole('USUARIO')" /> 
-		<security:intercept-url pattern="/usuario/displayImagePerfil.do" access="hasRole('USUARIO')" /> 
+		<security:intercept-url pattern="/usuario/uploadImageUsuario.do" access="hasAuthority('USUARIO')" /> 
+		<security:intercept-url pattern="/usuario/displayImagePerfil.do" access="hasAuthority('USUARIO')" /> 
 		<security:intercept-url pattern="/usuario/search.do" access="permitAll"/>
 		<security:intercept-url pattern="/usuario/list.do" access="permitAll"/>
 		
 		<security:intercept-url pattern="/playa/list.do" access="permitAll"/> 
-		<security:intercept-url pattern="/playa/admin/edit.do" access="hasRole('ADMINISTRADOR')"/>
-		<security:intercept-url pattern="/playa/admin/create.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/edit.do" access="hasAuthority('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/create.do" access="hasAuthority('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/display.do" access="permitAll"/>
-		<security:intercept-url pattern="/playa/admin/uploadCoordenates.do" access="hasRole('ADMINISTRADOR')"/>
-		<security:intercept-url pattern="/playa/admin/uploadImage.do" access="hasRole('ADMINISTRADOR')"/>
-		<security:intercept-url pattern="/playa/admin/delete.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/uploadCoordenates.do" access="hasAuthority('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/uploadImage.do" access="hasAuthority('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/admin/delete.do" access="hasAuthority('ADMINISTRADOR')"/>
 		<security:intercept-url pattern="/playa/nearToMe.do" access="permitAll"/>
-		<security:intercept-url pattern="/playa/coordenates/save.do" access="hasRole('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/playa/coordenates/save.do" access="hasAuthority('ADMINISTRADOR')"/>
 		
 		<security:intercept-url pattern="/mensaje/actor/lista.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/mensaje/actor/mostrar.do" access="isAuthenticated()" />
@@ -78,89 +87,91 @@
 		<security:intercept-url pattern="/negocio/empresario/display.do" access="permitAll"/>
 		<security:intercept-url pattern="/negocio/search.do" access="permitAll"/>
 		<!-- <security:intercept-url pattern="/negocio/nearToMe.do" access="permitAll"/> -->
-		<security:intercept-url pattern="/negocio/empresario/register.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/search.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/list.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/edit.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/suspender.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/alta.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/negocio/empresario/uploadImageNegocio.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/negocio/empresario/register.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/search.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/list.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/edit.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/suspender.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/alta.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/negocio/empresario/uploadImageNegocio.do" access="hasAuthority('EMPRESARIO')"/>
 		
 		<security:intercept-url pattern="/evento/list.do" access="permitAll"/>
 		<security:intercept-url pattern="/evento/search.do" access="permitAll"/>
 		<security:intercept-url pattern="/evento/display.do" access="permitAll"/>
-		<security:intercept-url pattern="/evento/usuario/list.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/evento/usuario/signup.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/evento/usuario/unregister.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/evento/usuario/listActivos.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/evento/usuario/listInactivos.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/evento/empresario/register.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/search.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/list.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/listParticipantes.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/edit.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/uploadImageEvento.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/evento/empresario/listActivos.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/evento/empresario/listInactivos.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/usuario/list.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/signup.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/unregister.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/listActivos.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/evento/usuario/listInactivos.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/evento/empresario/register.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/search.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/list.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/listParticipantes.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/edit.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/uploadImageEvento.do" access="hasAuthority('EMPRESARIO')"/>
+		<security:intercept-url pattern="/evento/empresario/listActivos.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/evento/empresario/listInactivos.do" access="hasAuthority('EMPRESARIO')" />
 		
 		<security:intercept-url pattern="/foto/displayImageEvento.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImageNegocio.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImage.do" access="permitAll"/>
 		<security:intercept-url pattern="/foto/displayImagePerfil.do" access="permitAll"/>
-		<security:intercept-url pattern="/administrador/dashboard.do" access="hasRole('ADMINISTRADOR')" />
-		<security:intercept-url pattern="/peticionNegocio/administrador/listapendiente.do" access="hasRole('ADMINISTRADOR')" />
-		<security:intercept-url pattern="/peticionNegocio/administrador/aceptar.do" access="hasRole('ADMINISTRADOR')" />
-		<security:intercept-url pattern="/peticionNegocio/administrador/rechazar.do" access="hasRole('ADMINISTRADOR')"/>
-		<security:intercept-url pattern="/peticionNegocio/empresario/list.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/peticionNegocio/empresario/enviar.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/administrador/dashboard.do" access="hasAuthority('ADMINISTRADOR')" />
+		<security:intercept-url pattern="/peticionNegocio/administrador/listapendiente.do" access="hasAuthority('ADMINISTRADOR')" />
+		<security:intercept-url pattern="/peticionNegocio/administrador/aceptar.do" access="hasAuthority('ADMINISTRADOR')" />
+		<security:intercept-url pattern="/peticionNegocio/administrador/rechazar.do" access="hasAuthority('ADMINISTRADOR')"/>
+		<security:intercept-url pattern="/peticionNegocio/empresario/list.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/peticionNegocio/empresario/enviar.do" access="hasAuthority('EMPRESARIO')" />
 		
 		<security:intercept-url pattern="/carpeta/actor/lista.do" access="isAuthenticated()" />
 		
-		<security:intercept-url pattern="/reserva/usuario/lista.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/reserva/usuario/create.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/reserva/usuario/edit.do" access="hasRole('USUARIO')" />
-		<security:intercept-url pattern="/reserva/usuario/delete.do" access="hasRole('USUARIO')" />
+		<security:intercept-url pattern="/reserva/usuario/lista.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/reserva/usuario/create.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/reserva/usuario/edit.do" access="hasAuthority('USUARIO')" />
+		<security:intercept-url pattern="/reserva/usuario/delete.do" access="hasAuthority('USUARIO')" />
 		
-		<security:intercept-url pattern="/reserva/empresario/search.do" access="hasRole('EMPRESARIO')" />
-		<security:intercept-url pattern="/reserva/empresario/lista.do" access="hasRole('EMPRESARIO')" />
+		<security:intercept-url pattern="/reserva/empresario/search.do" access="hasAuthority('EMPRESARIO')" />
+		<security:intercept-url pattern="/reserva/empresario/lista.do" access="hasAuthority('EMPRESARIO')" />
 		
 		<security:intercept-url pattern="/carpeta/actor/list.do" access="isAuthenticated()" /> 
 		
-		<security:intercept-url pattern="/valoracionPlaya/usuario/create.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionPlaya/usuario/edit.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/create.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/edit.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionPlaya/usuario/list.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionPlaya/usuario/borrar.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/list.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/delete.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasRole('USUARIO')"/>
-		<security:intercept-url pattern="/valoracionNegocio/listValoracionesNot.do" access="!hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/create.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/edit.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/create.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/edit.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/list.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionPlaya/usuario/borrar.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/list.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/delete.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/borrar.do" access="hasAuthority('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/listValoracionesNot.do" access="!hasAuthority('EMPRESARIO')"/>
 		
-		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/usuario/display.do" access="hasAuthority('USUARIO')"/>
 		
-		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/denunciaValoracion/empresario/listDenuncias.do" access="hasRole('USUARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/list.do" access="hasAuthority('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/listDenuncias.do" access="hasAuthority('USUARIO')"/>
 		
-		<security:intercept-url pattern="/denunciaValoracion/empresario/create.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/denunciaValoracion/empresario/edit.do" access="hasRole('EMPRESARIO')"/>
-		<security:intercept-url pattern="/denunciaValoracion/empresario/borrar.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/create.do" access="hasAuthority('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/edit.do" access="hasAuthority('EMPRESARIO')"/>
+		<security:intercept-url pattern="/denunciaValoracion/empresario/borrar.do" access="hasAuthority('EMPRESARIO')"/>
 		
-		<security:intercept-url pattern="/valoracionNegocio/empresario/listValoraciones.do" access="hasRole('EMPRESARIO')"/>
+		<security:intercept-url pattern="/valoracionNegocio/empresario/listValoraciones.do" access="hasAuthority('EMPRESARIO')"/>
 		
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 		
-		<security:intercept-url pattern="/**" access="hasRole('NONE')" /> 
+		<security:intercept-url pattern="/**" access="denyAll" /> 
 
 		<security:form-login 
 			login-page="/security/login.do"
+			login-processing-url="/security/login.do"
 			password-parameter="password" 
 			username-parameter="username"
 			authentication-failure-url="/security/loginFailure.do" />
 
 		<security:logout 
+			logout-url="/security/logout.do"
 			logout-success-url="/" 
 			invalidate-session="true" />
 	</security:http>

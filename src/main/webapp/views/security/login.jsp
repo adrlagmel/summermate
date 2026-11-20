@@ -60,7 +60,7 @@ h4 {
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <br><br><br><br><br><br>
-<form:form action="j_spring_security_check" modelAttribute="credentials" class="form-horizontal" role="form">
+<form:form action="security/login.do" modelAttribute="credentials" class="form-horizontal" role="form">
 <br>
 <br>
 <div style="width:150%; margin: center;" >

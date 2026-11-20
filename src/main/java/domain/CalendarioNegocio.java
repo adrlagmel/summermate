@@ -13,8 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -29,7 +28,7 @@ public class CalendarioNegocio extends DomainEntity{
 	private String codigoNegocio;
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getCodigoNegocio() {
 		return codigoNegocio;
 	}
@@ -59,7 +58,7 @@ public class CalendarioNegocio extends DomainEntity{
 		this.fechaFin = fechaFin;
 	}
 	
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml
 	public String getAnotacionesReserva() {
 		return anotacionesReserva;
 	}

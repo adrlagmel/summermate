@@ -51,7 +51,7 @@ public class CarpetaService {
 	
 	public Carpeta findOne(int carpetaId){
 
-		Carpeta carpeta = carpetaRepository.findOne(carpetaId);
+		Carpeta carpeta = carpetaRepository.findById(carpetaId).orElse(null);
 
 		checkPrincipal(carpeta);
 

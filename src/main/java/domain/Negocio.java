@@ -13,8 +13,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -41,7 +40,7 @@ public class Negocio extends DomainEntity{
 		
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}
@@ -52,7 +51,7 @@ public class Negocio extends DomainEntity{
 	
 	@NotBlank
 	@Pattern(regexp = "^\\+\\d{2,3}\\d{7,14}$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTelefono(){
 		return telefono;
 	}
@@ -62,7 +61,7 @@ public class Negocio extends DomainEntity{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTipo() {
 		return tipo;
 	}
@@ -72,7 +71,7 @@ public class Negocio extends DomainEntity{
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getDescripcion() {
 		return descripcion;
 	}

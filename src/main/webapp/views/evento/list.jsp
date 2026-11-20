@@ -35,7 +35,7 @@
 		</jstl:if>
 	</display:column>
 	
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<display:column>
 		<security:authentication var="user" property="principal.id" />
 		<jsp:useBean id="now1" class="java.util.Date"/>	
@@ -61,7 +61,7 @@
 		<a href="evento/display.do?eventoId=${row.id}" class="btn btn-info"><spring:message code="evento.display" /></a>
 	</display:column>
 	
-	<security:authorize access="hasRole('USUARIO')">
+	<security:authorize access="hasAuthority('USUARIO')">
 	<jsp:useBean id="now" class="java.util.Date"/>	
 	<display:column>
 		<jstl:if test="${!row.usuarios.contains(usuario) && row.fechaCelebracion > now}">
@@ -77,7 +77,7 @@
 	</display:column>	
 	</security:authorize>
 	
-	<security:authorize access="hasRole('EMPRESARIO')">
+	<security:authorize access="hasAuthority('EMPRESARIO')">
 		<display:column>
 			<security:authentication var="user2" property="principal.id" />
 			<jstl:if test="${row.negocio.empresario.userAccount.id == user2}">
@@ -100,7 +100,7 @@
 </display:table>
 </div>
 
-		<security:authorize access="hasRole('EMPRESARIO')">
+		<security:authorize access="hasAuthority('EMPRESARIO')">
 		<security:authentication var="user" property="principal.id" />
 		<jstl:if test="${!row.negocio.negocioActivo}">
 			<a href="evento/empresario/register.do" class="btn btn-info" ><spring:message code="evento.create" /></a>

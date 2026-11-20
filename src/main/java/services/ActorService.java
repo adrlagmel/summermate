@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -26,6 +26,9 @@ public class ActorService {
 	private ActorRepository actorRepository;
 	
 	// Supporting services ---------------------------------------------------
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	// Constructor -----------------------------------------------------------
@@ -65,8 +68,7 @@ public Collection<Actor> searchUsuarioForApellido(String apellidos){
 		Assert.notNull(actor);
 					
 		String password = actor.getUserAccount().getPassword();
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		password = encoder.encodePassword(password, null);
+		password = passwordEncoder.encode(password);
 		
 		actor.getUserAccount().setPassword(password);
 		

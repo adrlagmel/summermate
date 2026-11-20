@@ -36,7 +36,7 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		
 		
-		<security:authorize access="hasRole('EMPRESARIO')">
+		<security:authorize access="hasAuthority('EMPRESARIO')">
 			
 			<li><a href="playa/list.do"><spring:message code="master.page.playa" /></a></li>
 			<li><a href="denunciaValoracion/empresario/list.do"><spring:message code="master.page.denuncia.listAll" /></a></li>
@@ -79,7 +79,7 @@
 						
 		</security:authorize>
 		
-		<security:authorize access="hasRole('USUARIO')">
+		<security:authorize access="hasAuthority('USUARIO')">
 			<li><a href="playa/list.do"><spring:message code="master.page.playa" /></a></li>
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" ><spring:message code="master.page.valoraciones" /><b class="caret"></b></a>
@@ -104,7 +104,7 @@
 		</security:authorize>	
 		
 		
-		<security:authorize access="hasRole('ADMINISTRADOR')">
+		<security:authorize access="hasAuthority('ADMINISTRADOR')">
 			<li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.playa" /><span class="caret"></span></a>
               <ul class="dropdown-menu" >
@@ -137,16 +137,24 @@
 	              <a class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.profile" />  (<security:authentication property="principal.username" />)<span class="caret"></span></a>
 	              
 	              <ul class="dropdown-menu" >
-					<security:authorize access="hasRole('USUARIO')">
+					<security:authorize access="hasAuthority('USUARIO')">
 					<li><a href="perfil/usuario.do"><spring:message code="master.page.profile.usuario" /></a></li>
 					</security:authorize>
-					<security:authorize access="hasRole('EMPRESARIO')">
+					<security:authorize access="hasAuthority('EMPRESARIO')">
 						<li><a href="perfil/empresario.do"><spring:message code="master.page.profile.empresario" /></a></li>
 					</security:authorize>
 					<li><a href="perfil/actor/editPassword.do"><spring:message code="master.page.profile.editPassword" /></a></li>
 					
 					
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+					<%-- Desde Spring Security 4 el logout debe ser POST con el token CSRF --%>
+					<li>
+						<form action="security/logout.do" method="post" style="margin: 0; padding: 3px 20px;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<button type="submit" class="btn btn-link" style="padding: 0; color: inherit;">
+								<spring:message code="master.page.logout" />
+							</button>
+						</form>
+					</li>
 				</ul>
 			</li>
 		</security:authorize>

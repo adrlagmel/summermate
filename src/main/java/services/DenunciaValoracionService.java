@@ -54,14 +54,14 @@ public class DenunciaValoracionService {
 	public DenunciaValoracion findOne(int id) {
 
 		DenunciaValoracion dv = denunciaValoracionRepository
-				.findOne(id);
+				.findById(id).orElse(null);
 
 		return dv;
 
 	}
 	
 	public DenunciaValoracion findOneToEdit(int denunciaValoracionId) {
-		DenunciaValoracion result = denunciaValoracionRepository.findOne(denunciaValoracionId);
+		DenunciaValoracion result = denunciaValoracionRepository.findById(denunciaValoracionId).orElse(null);
 		return result;
 	}
 

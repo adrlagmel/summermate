@@ -6,8 +6,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 
 public class AdministradorRegistroForm {
 	
@@ -48,7 +47,7 @@ public class AdministradorRegistroForm {
 	}
 		
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,7 +56,7 @@ public class AdministradorRegistroForm {
 		this.nombre = nombre;
 	}
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -67,7 +66,7 @@ public class AdministradorRegistroForm {
 	}
 	@NotBlank
 	@Email
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEmail() {
 		return email;
 	}

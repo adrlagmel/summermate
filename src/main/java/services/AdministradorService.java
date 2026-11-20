@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -29,6 +29,9 @@ public class AdministradorService {
 	private AdministradorRepository administradorRepository;
 	
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	
 	@Autowired
@@ -67,8 +70,7 @@ public class AdministradorService {
 		Assert.notNull(admin);
 		
 		String password = admin.getUserAccount().getPassword();
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		password = encoder.encodePassword(password, null);
+		password = passwordEncoder.encode(password);
 		
 		admin.getUserAccount().setPassword(password);
 		

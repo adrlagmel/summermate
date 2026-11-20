@@ -14,8 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import utilities.validators.NotFalse;
@@ -67,7 +66,7 @@ public class RegistroForm {
 	}
 		
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}
@@ -76,7 +75,7 @@ public class RegistroForm {
 		this.nombre = nombre;
 	}
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -86,7 +85,7 @@ public class RegistroForm {
 	}
 	@NotBlank
 	@Email
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEmail() {
 		return email;
 	}
@@ -97,7 +96,7 @@ public class RegistroForm {
 	
 	@NotBlank
 	@Pattern(regexp = "^\\+\\d{2,3}\\d{7,14}$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTelefono() {
 		return telefono;
 	}
@@ -107,7 +106,7 @@ public class RegistroForm {
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getSexo() {
 		return sexo;
 	}
@@ -130,7 +129,7 @@ public class RegistroForm {
 	
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
@@ -140,7 +139,7 @@ public class RegistroForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getDireccion() {
 		return direccion;
 	}

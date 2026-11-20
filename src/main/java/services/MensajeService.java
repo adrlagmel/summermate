@@ -93,7 +93,7 @@ public class MensajeService {
 	
 	public Mensaje findOne(int mensajeId){
 
-		Mensaje mensaje = mensajeRepository.findOne(mensajeId);
+		Mensaje mensaje = mensajeRepository.findById(mensajeId).orElse(null);
 
 		checkPrincipal(mensaje);
 

@@ -28,7 +28,7 @@
 
 <body>
 
-<security:authorize access="hasRole('EMPRESARIO')">	
+<security:authorize access="hasAuthority('EMPRESARIO')">	
 <form class="form-inline" action="${actionURI}">
     
     <div class="form-group">  

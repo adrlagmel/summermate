@@ -79,13 +79,13 @@ public class ValoracionNegocioService {
 	}
 	
 	public ValoracionNegocio findOne(int id) {
-		ValoracionNegocio vn = valoracionNegocioRepository.findOne(id);
+		ValoracionNegocio vn = valoracionNegocioRepository.findById(id).orElse(null);
 
 		return vn;
 	}
 	
 	public ValoracionNegocio findOneToEdit(int valoracionNegocioId) {
-		ValoracionNegocio result = valoracionNegocioRepository.findOne(valoracionNegocioId);
+		ValoracionNegocio result = valoracionNegocioRepository.findById(valoracionNegocioId).orElse(null);
 		
 		Assert.notNull(result);
 		

@@ -11,8 +11,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class UsuarioEditForm {
@@ -65,7 +64,7 @@ public class UsuarioEditForm {
 //	}
 		
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNombre() {
 		return nombre;
 	}
@@ -74,7 +73,7 @@ public class UsuarioEditForm {
 		this.nombre = nombre;
 	}
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getApellidos() {
 		return apellidos;
 	}
@@ -84,7 +83,7 @@ public class UsuarioEditForm {
 	}
 	@NotBlank
 	@Email
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEmail() {
 		return email;
 	}
@@ -95,7 +94,7 @@ public class UsuarioEditForm {
 	
 	@NotBlank
 	@Pattern(regexp = "^\\+\\d{2,3}\\d{7,14}$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getTelefono() {
 		return telefono;
 	}
@@ -105,7 +104,7 @@ public class UsuarioEditForm {
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getSexo() {
 		return sexo;
 	}
@@ -128,7 +127,7 @@ public class UsuarioEditForm {
 	
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
@@ -138,7 +137,7 @@ public class UsuarioEditForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getDireccion() {
 		return direccion;
 	}
@@ -148,7 +147,7 @@ public class UsuarioEditForm {
 	}
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getEstadoActual() {
 		return estadoActual;
 	}

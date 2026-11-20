@@ -84,14 +84,14 @@ public class PeticionNegocioService {
 	}
 	
 	public PeticionNegocio findOneToEdit(int peticionNegocioId){
-		PeticionNegocio peticionNegocio = peticionNegocioRepository.findOne(peticionNegocioId);
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findById(peticionNegocioId).orElse(null);
 		checkPrincipal(peticionNegocio);
 		
 		return peticionNegocio;
 	}
 	
 	public PeticionNegocio findOneToChangeStatus(int peticionNegocioId){
-		PeticionNegocio peticionNegocio = peticionNegocioRepository.findOne(peticionNegocioId);
+		PeticionNegocio peticionNegocio = peticionNegocioRepository.findById(peticionNegocioId).orElse(null);
 		administradorService.checkPrincipal(peticionNegocio.getAdministrador());
 		return peticionNegocio;
 	}

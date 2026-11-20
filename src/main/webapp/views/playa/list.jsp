@@ -81,7 +81,7 @@
 				<a href="negocio/listNegocios.do?playaId=${row.id}" class="btn btn-success"><spring:message code="playa.negocios" /></a>
 		</display:column>
 	
-	<security:authorize access="hasRole('ADMINISTRADOR')">
+	<security:authorize access="hasAuthority('ADMINISTRADOR')">
 		<display:column>
 			<jstl:if test="${row.imagen==null && row.administrador.userAccount.id == user}">
 				<a href="playa/admin/uploadImage.do?playaId=${row.id}" class="btn btn-primary"><spring:message code="playa.uploadImage" /></a>
@@ -104,7 +104,7 @@
 		</display:column>
 	</security:authorize>
 		
-	<security:authorize access="hasRole('USUARIO')">
+	<security:authorize access="hasAuthority('USUARIO')">
 		<spring:message code="valoracionPlaya.valoracionPlaya" var="valorarPlaya" />
 		<display:column sortable="false">
 			<a href="valoracionPlaya/usuario/create.do?playaId=${row.id}" class="btn btn-success"><spring:message code="valoracionPlaya.valoracionPlaya" /></a>	

@@ -26,7 +26,7 @@ public class StringToAdministradorConverter implements Converter<String, Adminis
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = administradorRepository.findOne(id);
+				result = administradorRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

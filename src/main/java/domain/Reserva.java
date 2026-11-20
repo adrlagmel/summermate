@@ -16,8 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -42,7 +41,7 @@ public class Reserva extends DomainEntity{
 	private Boolean fumadores;
 	
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getCodigo() {
 		return codigo;
 	}
@@ -71,7 +70,7 @@ public class Reserva extends DomainEntity{
 		this.fecha = fecha;
 	}
 	
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml
 	public String getComentarios() {
 		return comentarios;
 	}

@@ -52,7 +52,7 @@ public class CalendarioNegocioService {
 	}
 	
 	public CalendarioNegocio findOneToEdit(int sportCenterCalendarId){
-		CalendarioNegocio sportCenterCalendar = calendarioNegocioRepository.findOne(sportCenterCalendarId);
+		CalendarioNegocio sportCenterCalendar = calendarioNegocioRepository.findById(sportCenterCalendarId).orElse(null);
 		checkPrincipal(sportCenterCalendar);
 		
 		return sportCenterCalendar;

@@ -14,8 +14,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,15 +23,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.metamodel.EmbeddableType;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.dialect.Dialect;
-import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.jdbc.Work;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
@@ -42,25 +34,20 @@ import domain.DomainEntity;
 
 public class DatabaseUtil {
 	
-	public DatabaseUtil() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// Due to a bug in Hibernate 4.3.0.Final, the old Hibernate persistence provider's selected
-		// by default, which causes a deprecation warning to be output to the console. That means that
-		// we shouldn't use Persistence to create the entity manager factory.
-		// entityManagerFactory = Persistence.createEntityManagerFactory(PersistenceUnit);
-		
+	public DatabaseUtil() {
+		openEntityManager(connectionProperties());
+	}
+
+	private void openEntityManager(Map<String, String> settings) {
 		persistenceProvider = new HibernatePersistenceProvider();
-		entityManagerFactory = persistenceProvider.createEntityManagerFactory(DatabaseConfig.PersistenceUnit, connectionProperties());		
+		entityManagerFactory = persistenceProvider.createEntityManagerFactory(DatabaseConfig.PersistenceUnit, settings);
 		entityManager = entityManagerFactory.createEntityManager();
-		
+
 		properties = entityManagerFactory.getProperties();
-		
 		databaseUrl = findProperty("javax.persistence.jdbc.url");
 		databaseName = StringUtils.substringBefore(StringUtils.substringAfterLast(databaseUrl, "/"), "?");
 		databaseDialectName = findProperty("hibernate.dialect");
-		databaseDialect = (Dialect)ReflectHelper.classForName(databaseDialectName).newInstance();
-		
-		configuration = buildConfiguration();	
-		
+
 		entityTransaction = entityManager.getTransaction();
 	}
 	
@@ -71,8 +58,6 @@ public class DatabaseUtil {
 	private String databaseUrl;
 	private String databaseName;
 	private String databaseDialectName;
-	private Dialect databaseDialect;
-	private Configuration configuration;
 	private EntityTransaction entityTransaction;
 		
 	public HibernatePersistenceProvider getPersistenceProvider() {
@@ -103,30 +88,27 @@ public class DatabaseUtil {
 		return databaseDialectName;
 	}
 
-	public Dialect getDatabaseDialect() {
-		return databaseDialect;
-	}
-
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
 	public EntityTransaction getEntityTransaction() {
 		return entityTransaction;
 	}
 
 	public void recreateDatabase() throws Throwable {
 		List<String> schemaScript;
-		String[] statements;
+		Map<String, String> settings;
 
 		// En PostgreSQL no se puede borrar la base de datos a la que se está
-		// conectado, así que se vacía el esquema "public" y se regenera.
+		// conectado, así que se vacía el esquema "public"...
 		schemaScript = new ArrayList<String>();
 		schemaScript.add("drop schema if exists public cascade");
 		schemaScript.add("create schema public");
-		statements = configuration.generateSchemaCreationScript(databaseDialect);
-		schemaScript.addAll(Arrays.asList(statements));
 		executeScript(schemaScript);
+
+		// ... y se vuelve a abrir la unidad de persistencia pidiendo a JPA que
+		// cree las tablas (generación de esquema estándar de JPA 2.1).
+		close();
+		settings = connectionProperties();
+		settings.put("javax.persistence.schema-generation.database.action", "create");
+		openEntityManager(settings);
 	}
 
 	// Lee la conexión de propiedades del sistema o de variables de entorno,
@@ -198,25 +180,6 @@ public class DatabaseUtil {
 	}
 	
 
-	private Configuration buildConfiguration() {
-		Configuration result;
-		Metamodel metamodel;
-		Collection<EntityType<?>> entities;
-		Collection<EmbeddableType<?>> embeddables;
-		
-		result = new Configuration();		
-		metamodel = entityManagerFactory.getMetamodel();
-				
-		entities = metamodel.getEntities();
-		for (EntityType<?> entity : entities) 
-			result.addAnnotatedClass(entity.getJavaType());
-		
-		embeddables = metamodel.getEmbeddables();
-		for (EmbeddableType<?> embeddable : embeddables) 
-			result.addAnnotatedClass(embeddable.getJavaType());
-		
-		return result;
-	}
 	
 	private String findProperty(String property) {
 		String result;		

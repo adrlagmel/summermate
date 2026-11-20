@@ -26,7 +26,7 @@ public class StringToDenunciaValoracionConverter implements Converter<String, De
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = denunciaRepository.findOne(id);
+				result = denunciaRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){

@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+
 
 import repositories.AdministradorRepository;
 import services.AdministradorService;
@@ -28,7 +28,6 @@ import utilities.AbstractTest;
 		"classpath:spring/datasource.xml",
 		"classpath:spring/config/packages.xml"})
 @Transactional
-@TransactionConfiguration(defaultRollback=true)
 public class AdministradorServiceNegativeTest extends AbstractTest{
 	
 	// System under test ---------------------------------------

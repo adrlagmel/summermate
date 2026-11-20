@@ -26,7 +26,7 @@ public class StringToReservaConverter implements Converter<String, Reserva> {
 				result = null;
 			else{
 				id = Integer.valueOf(text);
-				result = reservaRepository.findOne(id);
+				result = reservaRepository.findById(id).orElse(null);
 			}
 			
 		} catch(Throwable oops){
