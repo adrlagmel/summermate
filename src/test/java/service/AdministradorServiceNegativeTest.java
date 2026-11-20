@@ -60,7 +60,8 @@ public class AdministradorServiceNegativeTest extends AbstractTest{
 				Collection<PeticionNegocio> peticiones = new ArrayList<PeticionNegocio>();
 				
 				
-				admin.setNombre("AdministradorTest");
+				// Sin nombre (campo @NotBlank): debe fallar la validación.
+				admin.setNombre(null);
 				admin.setApellidos("apellidosTest");
 				admin.setEmail("test@test.test");
 				admin.setCarpetas(carpetas);
