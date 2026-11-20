@@ -127,4 +127,35 @@ class FuncionesMemoriaWebTest extends AbstractWebTest {
 		mvc.perform(post("/admin/negocios/2/suspension").with(como("admin")).with(csrf()).param("_method", "delete"));
 		assertEquals(1, contar("select count(*) from negocio where id = 2 and negocioactivo"));
 	}
+
+	// Votos de "comentario útil" ---------------------------------------------------
+
+	@Test
+	void votarYQuitarElVotoUtil() throws Exception {
+		// La valoración 1 es de usuario1; vota usuario2
+		mvc.perform(post("/valoraciones/negocios/1/util").with(como("usuario2")).with(csrf()))
+			.andExpect(redirectedUrl("/negocios/1#valoraciones"));
+		assertEquals(1, contar("select comentarioutil from valoracionnegocio where id = 1"));
+
+		mvc.perform(get("/negocios/1").with(como("usuario2"))).andExpect(status().isOk());
+
+		mvc.perform(post("/valoraciones/negocios/1/util").with(como("usuario2")).with(csrf()).param("_method", "delete"))
+			.andExpect(redirectedUrl("/negocios/1#valoraciones"));
+		assertEquals(0, contar("select comentarioutil from valoracionnegocio where id = 1"));
+	}
+
+	@Test
+	void nadieVotaDosVecesNiSuPropiaValoracion() throws Exception {
+		mvc.perform(post("/valoraciones/negocios/1/util").with(como("empresario1")).with(csrf()));
+		mvc.perform(post("/valoraciones/negocios/1/util").with(como("empresario1")).with(csrf()))
+			.andExpect(status().isForbidden());
+		mvc.perform(post("/valoraciones/negocios/1/util").with(como("usuario1")).with(csrf()))
+			.andExpect(status().isForbidden());
+		assertEquals(1, contar("select comentarioutil from valoracionnegocio where id = 1"));
+	}
+
+	@Test
+	void laFichaDelNegocioSinSesion() throws Exception {
+		mvc.perform(get("/negocios/1")).andExpect(status().isOk());
+	}
 }

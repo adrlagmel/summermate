@@ -47,12 +47,17 @@ public class NegociosController {
 		return "negocios/lista";
 	}
 
+	@Autowired
+	private services.VotoUtilService	votoUtilService;
+
 	@GetMapping("/{id}")
 	public String ficha(@PathVariable int id, Model model) {
 		Negocio negocio = negocioService.findOneToDisplay(id);
 
 		model.addAttribute("negocio", negocio);
-		model.addAttribute("valoraciones", valoracionNegocioService.valoracionesNegocioDeUnNegocio(id));
+		java.util.Collection<domain.ValoracionNegocio> valoraciones = valoracionNegocioService.valoracionesNegocioDeUnNegocio(id);
+		model.addAttribute("valoraciones", valoraciones);
+		model.addAttribute("votadas", votoUtilService.votadas(valoraciones.stream().map(v -> v.getId()).toList()));
 
 		return "negocios/ficha";
 	}

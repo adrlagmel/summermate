@@ -68,7 +68,7 @@ public class SecurityConfig {
 			.requestMatchers("/eventos/{id}/inscripcion").hasAuthority(USUARIO)
 
 			// Empresario y administrador
-			.requestMatchers("/denuncias/**", "/denuncias").hasAnyAuthority(USUARIO, EMPRESARIO)
+			.requestMatchers("/denuncias/**", "/denuncias", "/valoraciones/negocios/{id}/util").hasAnyAuthority(USUARIO, EMPRESARIO)
 			.requestMatchers("/empresario/**").hasAuthority(EMPRESARIO)
 			.requestMatchers("/admin/**").hasAuthority(ADMIN)
 

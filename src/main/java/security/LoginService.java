@@ -62,6 +62,12 @@ public class LoginService implements UserDetailsService, UserDetailsPasswordServ
 		return userRepository.save(account);
 	}
 
+	// Hay una sesión con un usuario de la aplicación (no anónima)
+	public static boolean isAuthenticated() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication != null && authentication.getPrincipal() instanceof UserAccount;
+	}
+
 	public static UserAccount getPrincipal() {
 		UserAccount result;
 		SecurityContext context;

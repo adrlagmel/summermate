@@ -58,11 +58,18 @@
 					<span class="badge text-bg-primary puntuacion" th:text="|${v.puntuacion}/10|">8/10</span>
 				</div>
 				<p class="mb-1" th:text="${v.comentario}">Comentario</p>
-				<div class="d-flex justify-content-between align-items-center">
-					<small class="text-body-secondary" th:text="|${v.reserva.usuario.nombre} · ${#temporals.format(v.fecha, 'dd/MM/yyyy')}|">Ana · 01/08/2026</small>
-					<span class="d-flex gap-2">
+				<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+					<small class="text-body-secondary">
+						<span th:text="|${v.reserva.usuario.nombre} · ${#temporals.format(v.fecha, 'dd/MM/yyyy')}|">Ana · 01/08/2026</span>
+						· <span th:text="#{voto.util.total(${v.comentarioUtil ?: 0})}">2 personas lo encuentran útil</span>
+					</small>
+					<span class="d-flex gap-2" th:with="mia=${#authorization.expression('isAuthenticated()') and v.reserva.usuario.userAccount.id == #authentication.principal.id}">
+						<th:block sec:authorize="hasAnyAuthority('USUARIO', 'EMPRESARIO')" th:unless="${mia}">
+							<th:block th:unless="${votadas.contains(v.id)}"><form th:replace="~{fragments/ui :: boton(@{/valoraciones/negocios/{id}/util(id=${v.id})}, 'post', #{voto.util}, 'btn-outline-primary', null)}"></form></th:block>
+							<th:block th:if="${votadas.contains(v.id)}"><form th:replace="~{fragments/ui :: boton(@{/valoraciones/negocios/{id}/util(id=${v.id})}, 'delete', #{voto.util.quitar}, 'btn-primary', null)}"></form></th:block>
+						</th:block>
 						<a th:if="${esMio}" class="btn btn-sm btn-outline-secondary" th:href="@{/empresario/valoraciones/{id}/denuncias(id=${v.id})}" th:text="#{denuncia.verDenuncias}">Ver denuncias</a>
-						<a sec:authorize="hasAnyAuthority('USUARIO', 'EMPRESARIO')" th:if="${v.reserva.usuario.userAccount.id != #authentication.principal.id}"
+						<a sec:authorize="hasAnyAuthority('USUARIO', 'EMPRESARIO')" th:unless="${mia}"
 							class="btn btn-sm btn-outline-danger" th:href="@{/denuncias/nueva(valoracion=${v.id})}" th:text="#{fase5.denunciar}">Denunciar</a>
 					</span>
 				</div>

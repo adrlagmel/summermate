@@ -14,3 +14,6 @@ update Empresario set cif = 'B27997741' where id = 9;
 -- Los eventos de ejemplo eran de 2016 y no se podían editar ni apuntarse a
 -- ellos. Se pasan al próximo verano, salvo el 1, que queda como evento pasado.
 update Evento set fechaCelebracion = date_trunc('year', now()) + interval '1 year 6 months 6 days 10 hours' where id <> 1;
+
+-- El contador de "comentario útil" lo mantienen ahora los votos (VotoUtil).
+update ValoracionNegocio set comentarioUtil = 0;
