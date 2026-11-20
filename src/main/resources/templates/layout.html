@@ -157,12 +157,6 @@
 	</div>
 </footer>
 
-<!-- Aviso de cookies: solo informativo; se recuerda en localStorage -->
-<div id="aviso-cookies" class="aviso-cookies shadow" hidden>
-	<p class="mb-2 small"><span th:text="#{cookies.policy}">Este sitio usa cookies.</span> <span th:text="#{cookies.policy.confirm}"></span></p>
-	<button type="button" class="btn btn-sm btn-primary" id="cerrar-cookies" th:text="#{cookies.policy.close}">Cerrar</button>
-</div>
-
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/summermate.js}"></script>
 <th:block layout:fragment="scripts"></th:block>

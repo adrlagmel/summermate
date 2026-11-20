@@ -3,28 +3,8 @@
 (function () {
 	'use strict';
 
-	// Aviso de cookies: se muestra hasta que se cierra una vez.
-	var aviso = document.getElementById('aviso-cookies');
-	var recordar = function () {
-		try {
-			localStorage.setItem('summermate.cookies', '1');
-		} catch (e) {
-			// Navegación privada o almacenamiento bloqueado: se vuelve a mostrar
-		}
-	};
-	try {
-		if (aviso && !localStorage.getItem('summermate.cookies'))
-			aviso.hidden = false;
-	} catch (e) {
-		if (aviso)
-			aviso.hidden = false;
-	}
-	var cerrar = document.getElementById('cerrar-cookies');
-	if (cerrar)
-		cerrar.addEventListener('click', function () {
-			aviso.hidden = true;
-			recordar();
-		});
+	// Fase 6: sin aviso de cookies. Solo hay cookies técnicas (sesión, CSRF
+	// e idioma), que no necesitan consentimiento (ver /terminos).
 
 	// Confirmación antes de enviar formularios que borran o cambian datos:
 	// <form data-confirmar="¿Seguro?">. El texto llega como atributo (ya

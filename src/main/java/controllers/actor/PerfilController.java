@@ -59,6 +59,9 @@ public class PerfilController {
 	@Autowired
 	private PasswordEncoder		passwordEncoder;
 
+	@Autowired
+	private services.CuentaService	cuentaService;
+
 
 	@GetMapping
 	public String ver(Model model) {
@@ -140,6 +143,34 @@ public class PerfilController {
 		actorService.savePassword(actorService.reconstructPassword(form));
 		redirect.addFlashAttribute("aviso", "fase5.contrasena.ok");
 		return "redirect:/perfil";
+	}
+
+	// RGPD (Fase 6) ------------------------------------------------------------
+
+	@GetMapping(value = "/datos", produces = "application/json")
+	@org.springframework.web.bind.annotation.ResponseBody
+	public org.springframework.http.ResponseEntity<java.util.Map<String, Object>> datos() {
+		return org.springframework.http.ResponseEntity.ok()
+			.header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"summermate-mis-datos.json\"")
+			.body(cuentaService.exportar());
+	}
+
+	@GetMapping("/baja")
+	public String baja() {
+		return "perfil/baja";
+	}
+
+	@org.springframework.web.bind.annotation.DeleteMapping
+	public String borrarCuenta(@RequestParam(required = false) String password, Model model,
+		jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, RedirectAttributes redirect) {
+		if (!cuentaService.borrarCuenta(password)) {
+			model.addAttribute("message", "baja.contrasenaMal");
+			return "perfil/baja";
+		}
+		new org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler()
+			.logout(request, response, org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication());
+		redirect.addFlashAttribute("aviso", "baja.hecha");
+		return "redirect:/";
 	}
 
 	@GetMapping("/foto")

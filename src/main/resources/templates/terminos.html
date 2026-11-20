@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <!--
-  terminos.html: aviso legal (antes una ventana modal en register/terms.jsp).
-  El texto es el original del TFG: cita la Ley 15/1999 (LOPD), derogada por el
-  RGPD y la LOPDGDD (2018), y una URL de ejemplo. Pendiente de actualizar.
+  terminos.html: aviso legal y política de privacidad. Fase 6: sustituye al
+  texto de 2016, que citaba la Ley 15/1999 (derogada) y www.acme.com. El
+  titular y el contacto salen de summermate.legal en application.yml.
+  Es un texto de partida para un proyecto académico: antes de publicar la
+  aplicación de verdad conviene que lo revise alguien con formación jurídica.
 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
 	<title th:text="#{legal.link}">Aviso legal</title>
 </head>
 <body>
-<article layout:fragment="contenido" class="mx-auto" style="max-width: 72ch">
-	<h1 class="mb-4" th:text="#{legal.link}">Aviso legal</h1>
-	<h2 class="h5" th:text="#{terms.line1}"></h2>
-	<p th:text="#{terms.line2}"></p>
-	<h2 class="h5" th:text="#{terms.line3}"></h2>
-	<p th:text="#{terms.line4}"></p>
-	<h2 class="h5" th:text="#{terms.line5}"></h2>
-	<p th:text="#{terms.line6}"></p>
-	<p th:text="#{terms.line7}"></p>
-	<h2 class="h5" th:text="#{terms.line8}"></h2>
-	<p th:text="#{terms.line9}"></p>
-	<h2 class="h5" th:text="#{terms.line10}"></h2>
-	<p th:text="#{terms.line11}"></p>
-	<h2 class="h5" th:text="#{terms.line12}"></h2>
-	<p th:text="#{terms.line13}"></p>
-	<p><span th:text="#{terms.line14}"></span> (<a href="https://www.us.es">www.us.es</a>)</p>
-</article>
+<div layout:fragment="contenido" class="row justify-content-center"
+	th:with="titular=${@environment.getProperty('summermate.legal.titular')}, contacto=${@environment.getProperty('summermate.legal.contacto')}">
+	<article class="col-lg-8" th:if="${#locale.language != 'en'}">
+		<h1 class="mb-4">Aviso legal y privacidad</h1>
+
+		<h2 class="h5">Titular</h2>
+		<p>Este sitio lo gestiona <strong th:text="${titular}">titular</strong>, de acuerdo con la Ley 34/2002 de servicios de la sociedad de la información (LSSI-CE). Contacto: <span class="font-monospace" th:text="${contacto}">correo</span>.</p>
+
+		<h2 class="h5">Qué datos tratamos y para qué</h2>
+		<ul>
+			<li>Datos de la cuenta (nombre, apellidos, correo, teléfono, fecha de nacimiento, nacionalidad, dirección y, si eres empresario, CIF): para identificarte y gestionar tus reservas, eventos, negocios y mensajes. El sexo es opcional.</li>
+			<li>Reservas, valoraciones, denuncias, votos e inscripciones a eventos: para prestar el servicio que pides. Tus valoraciones son públicas con tu nombre de pila.</li>
+			<li>Ubicación: solo en "Cerca de mí", se usa en tu navegador para buscar playas cercanas y no se guarda.</li>
+		</ul>
+		<p>La base jurídica es la ejecución del servicio que solicitas al registrarte (artículo 6.1.b del Reglamento General de Protección de Datos, RGPD). No cedemos tus datos a terceros salvo obligación legal. Si contratas la cuenta premium, el pago lo procesa la pasarela de pago y Summermate no ve los datos de tu tarjeta.</p>
+
+		<h2 class="h5">Cuánto tiempo los guardamos</h2>
+		<p>Mientras tengas la cuenta. Si la borras, tus datos personales se eliminan y tus valoraciones quedan anónimas.</p>
+
+		<h2 class="h5">Tus derechos</h2>
+		<p>Según el RGPD y la Ley Orgánica 3/2018 (LOPDGDD) puedes acceder a tus datos, rectificarlos, suprimirlos, oponerte a su tratamiento, limitarlo y pedir su portabilidad. Desde tu perfil puedes <strong>descargar tus datos</strong> y <strong>borrar tu cuenta</strong> tú mismo. Para lo demás, escribe a <span class="font-monospace" th:text="${contacto}">correo</span>. Si no estás de acuerdo con la respuesta, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es">www.aepd.es</a>).</p>
+
+		<h2 class="h5">Cookies</h2>
+		<p>Solo usamos cookies técnicas imprescindibles: la de sesión y la de protección contra falsificación de peticiones (CSRF), además de recordar tu idioma. No hay cookies de analítica ni de publicidad, así que no hace falta pedirte consentimiento.</p>
+
+		<h2 class="h5">Mapas</h2>
+		<p>Los mapas usan teselas de OpenStreetMap (© colaboradores de OpenStreetMap). Al verlos, tu navegador las pide directamente a sus servidores.</p>
+	</article>
+
+	<article class="col-lg-8" th:if="${#locale.language == 'en'}">
+		<h1 class="mb-4">Legal notice and privacy</h1>
+
+		<h2 class="h5">Owner</h2>
+		<p>This site is run by <strong th:text="${titular}">owner</strong> under Spanish Law 34/2002 on information society services (LSSI-CE). Contact: <span class="font-monospace" th:text="${contacto}">email</span>.</p>
+
+		<h2 class="h5">What data we process and why</h2>
+		<ul>
+			<li>Account data (name, surname, email, phone, date of birth, nationality, address and, for business owners, tax ID): to identify you and manage your bookings, events, businesses and messages. Gender is optional.</li>
+			<li>Bookings, reviews, reports, votes and event sign-ups: to provide the service you ask for. Your reviews are public with your first name.</li>
+			<li>Location: only in "Near me", used in your browser to find nearby beaches and never stored.</li>
+		</ul>
+		<p>The legal basis is the performance of the service you request when you sign up (article 6.1.b of the General Data Protection Regulation, GDPR). We do not share your data with third parties unless required by law. If you buy a premium account, the payment is processed by the payment gateway and Summermate never sees your card details.</p>
+
+		<h2 class="h5">How long we keep it</h2>
+		<p>While you have an account. If you delete it, your personal data is erased and your reviews become anonymous.</p>
+
+		<h2 class="h5">Your rights</h2>
+		<p>Under the GDPR and Spanish Organic Law 3/2018 (LOPDGDD) you can access, rectify and erase your data, object to or restrict its processing, and ask for portability. From your profile you can <strong>download your data</strong> and <strong>delete your account</strong> yourself. For anything else, write to <span class="font-monospace" th:text="${contacto}">email</span>. You can also complain to the Spanish Data Protection Agency (<a href="https://www.aepd.es">www.aepd.es</a>).</p>
+
+		<h2 class="h5">Cookies</h2>
+		<p>We only use strictly necessary cookies: the session cookie, the cross-site request forgery (CSRF) protection and your language choice. There are no analytics or advertising cookies, so no consent is needed.</p>
+
+		<h2 class="h5">Maps</h2>
+		<p>Maps use OpenStreetMap tiles (© OpenStreetMap contributors). When you view them, your browser requests them directly from their servers.</p>
+	</article>
+</div>
 </body>
 </html>

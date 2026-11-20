@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- perfil/baja.html: borrar la cuenta (derecho de supresión del RGPD, Fase 6) -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+	<title th:text="#{baja.titulo}">Borrar mi cuenta</title>
+</head>
+<body>
+<div layout:fragment="contenido" class="row justify-content-center">
+	<div class="col-md-8 col-lg-6">
+		<h1 class="mb-3" th:text="#{baja.titulo}">Borrar mi cuenta</h1>
+		<p th:text="#{baja.explicacion}">Se borran tus datos personales...</p>
+		<ul>
+			<li th:text="#{baja.borra1}">Tu nombre, correo, teléfono, dirección y foto.</li>
+			<li th:text="#{baja.borra2}">Tus mensajes, denuncias, votos, reservas pendientes e inscripciones a eventos futuros.</li>
+			<li th:text="#{baja.queda}">Tus valoraciones se quedan, pero como "Usuario eliminado".</li>
+			<li sec:authorize="hasAuthority('EMPRESARIO')" th:text="#{baja.empresario}">Tus negocios quedan suspendidos.</li>
+		</ul>
+		<p><a th:href="@{/perfil/datos}" download th:text="#{baja.antes}">Descarga antes una copia de tus datos.</a></p>
+		<form th:action="@{/perfil}" method="post" class="card card-body">
+			<input type="hidden" name="_method" value="delete">
+			<label class="form-label" for="password" th:text="#{baja.confirma}">Escribe tu contraseña para confirmar</label>
+			<input class="form-control mb-3" type="password" id="password" name="password" autocomplete="current-password" required>
+			<div class="d-flex gap-2">
+				<button type="submit" class="btn btn-danger" th:text="#{baja.boton}">Borrar mi cuenta</button>
+				<a class="btn btn-outline-secondary" th:href="@{/perfil}" th:text="#{booking.cancel}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -54,6 +54,13 @@
 			<a th:if="${esCliente}" class="btn btn-primary" th:href="@{/perfil/editar}" th:text="#{profile.editar}">Editar</a>
 			<a class="btn btn-outline-secondary" th:href="@{/perfil/contrasena}" th:text="#{master.page.profile.editPassword}">Cambiar contraseña</a>
 		</div>
+		<section th:if="${esCliente}" class="mt-5 pt-3 border-top" aria-labelledby="tus-datos">
+			<h2 id="tus-datos" class="h6" th:text="#{baja.tusDatos}">Tus datos</h2>
+			<div class="d-flex flex-wrap gap-2">
+				<a class="btn btn-sm btn-outline-secondary" th:href="@{/perfil/datos}" download th:text="#{baja.descargar}">Descargar mis datos</a>
+				<a class="btn btn-sm btn-outline-danger" th:href="@{/perfil/baja}" th:text="#{baja.titulo}">Borrar mi cuenta</a>
+			</div>
+		</section>
 	</div>
 </div>
 </body>

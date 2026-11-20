@@ -50,6 +50,21 @@ logging:
   level:
     org.hibernate.orm.deprecation: error
 
+# Fase 6 ------------------------------------------------------------------------
+summermate:
+  # Quién es responsable de los datos (aviso legal y política de privacidad)
+  legal:
+    titular: ${LEGAL_TITULAR:Summermate (Trabajo Fin de Grado, Universidad de Sevilla)}
+    contacto: ${LEGAL_CONTACTO:privacidad@summermate.example}
+  # Pasarela de pago de la cuenta premium: "simulada" no cobra nada
+  pagos:
+    pasarela: ${PAGOS_PASARELA:simulada}
+  # Avisos por correo. Sin activar, los correos solo se escriben en el log.
+  correo:
+    activo: ${CORREO_ACTIVO:false}
+    remitente: ${CORREO_REMITENTE:Summermate <no-responder@summermate.example>}
+    url-base: ${URL_BASE:http://localhost:8080}
+
 ---
 # Perfil de desarrollo: carga los datos de ejemplo (antes PopulateDatabase.xml)
 # y desactiva la caché de plantillas. mvn spring-boot:run lo activa.
