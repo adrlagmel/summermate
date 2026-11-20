@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +17,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_carpeta_actor", columnList = "actor_id")
+})
 @Access(AccessType.PROPERTY)
 public class Carpeta extends DomainEntity{
 	

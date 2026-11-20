@@ -5,13 +5,21 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_denunciavaloracion_cliente", columnList = "cliente_id"),
+	@Index(name = "idx_denunciavaloracion_valoracionnegocio", columnList = "valoracionNegocio_id")
+})
 @Access(AccessType.PROPERTY)
 public class DenunciaValoracion extends DomainEntity {
 
@@ -24,7 +32,7 @@ public class DenunciaValoracion extends DomainEntity {
 	
 	private String 	titulo;
 	private String 	comentario;
-	private String 	tipo;
+	private TipoDenuncia 	tipo;
 	
 	@NotBlank
 	@SafeHtml
@@ -44,12 +52,14 @@ public class DenunciaValoracion extends DomainEntity {
 		this.comentario = comentario;
 	}
 	
-	@NotBlank
-	@Pattern(regexp="^FALSEDAD|RECHAZO|BURLA$")
-	public String getTipo() {
+	// Se guarda como texto (no como número de orden) para que añadir o
+	// reordenar valores no cambie el significado de los datos existentes.
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	public TipoDenuncia getTipo() {
 		return tipo;
 	}
-	public void setTipo(String tipo) {
+	public void setTipo(TipoDenuncia tipo) {
 		this.tipo = tipo;
 	}
 	

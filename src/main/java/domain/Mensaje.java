@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -17,6 +19,11 @@ import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_mensaje_carpeta", columnList = "carpeta_id"),
+	@Index(name = "idx_mensaje_remitente", columnList = "remitente_id"),
+	@Index(name = "idx_mensaje_beneficiario", columnList = "beneficiario_id")
+})
 @Access(AccessType.PROPERTY)
 public class Mensaje extends DomainEntity{
 	

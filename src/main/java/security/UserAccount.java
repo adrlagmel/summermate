@@ -19,6 +19,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import javax.persistence.CollectionTable;
+import javax.persistence.Index;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -77,6 +79,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@NotEmpty
 	@Valid
 	@ElementCollection
+	@CollectionTable(indexes = @Index(name = "idx_useraccount_authorities_useraccount", columnList = "UserAccount_id"))
 	@Override
 	public Collection<Authority> getAuthorities() {
 		// WARNING: Should return an unmodifiable copy, but it's not possible with hibernate!

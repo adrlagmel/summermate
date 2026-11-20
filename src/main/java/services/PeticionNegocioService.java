@@ -19,6 +19,7 @@ import utilities.validators.RandomString;
 import domain.Administrador;
 import domain.Empresario;
 import domain.PeticionNegocio;
+import domain.EstadoPeticion;
 import forms.PeticionNegocioResolucionForm;
 import forms.PeticionNegocioForm;
 
@@ -60,7 +61,7 @@ public class PeticionNegocioService {
 		
 		res.setFecha(new Date(System.currentTimeMillis()-1000));
 		res.setCodigo(randomStr);
-		res.setEstado("PENDIENTE");
+		res.setEstado(EstadoPeticion.PENDIENTE);
 		res.setEmpresario(empresario);
 		
 		return res;
@@ -73,7 +74,7 @@ public class PeticionNegocioService {
 		if(peticionNegocio.getId() == 0){
 			Assert.isTrue(canCreatePeticionNegocio());
 			peticionNegocio.setFecha(new Date(System.currentTimeMillis()-1000));
-			peticionNegocio.setEstado("PENDIENTE");
+			peticionNegocio.setEstado(EstadoPeticion.PENDIENTE);
 		}
 		
 		return peticionNegocioRepository.save(peticionNegocio);
@@ -118,7 +119,7 @@ public class PeticionNegocioService {
 		
 		PeticionNegocio peticionNegocio = peticionNegocioRepository.findByEmpresarioId(empresario.getId());
 		
-		if(peticionNegocio != null && peticionNegocio.getEstado().equals("ACEPTADO"))
+		if(peticionNegocio != null && peticionNegocio.getEstado() == EstadoPeticion.ACEPTADO)
 			result = true;
 				
 		return result;
@@ -162,7 +163,7 @@ public class PeticionNegocioService {
 		Administrador administrador = administradorService.findByPrincipal();
 		
 		peticionNegocio.setAdministrador(administrador);
-		peticionNegocio.setEstado("RECHAZADO");
+		peticionNegocio.setEstado(EstadoPeticion.RECHAZADO);
 		peticionNegocioRepository.save(peticionNegocio);
 	}
 	
@@ -171,7 +172,7 @@ public class PeticionNegocioService {
 		Administrador administrator = administradorService.findByPrincipal();
 		
 		peticionNegocio.setAdministrador(administrator);
-		peticionNegocio.setEstado("ACEPTADO");
+		peticionNegocio.setEstado(EstadoPeticion.ACEPTADO);
 		peticionNegocioRepository.save(peticionNegocio);
 	}
 	

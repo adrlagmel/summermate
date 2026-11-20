@@ -25,6 +25,7 @@ import domain.Empresario;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Playa;
+import domain.EstadoPeticion;
 import forms.NegocioForm;
 
 @Controller
@@ -71,7 +72,7 @@ public class NegocioEmpresarioController extends AbstractController{
 				
 			}else{
 			
-				if(pet.getEstado().equals("ACEPTADO")){
+				if(pet.getEstado() == EstadoPeticion.ACEPTADO){
 					estado = true;
 				}
 				

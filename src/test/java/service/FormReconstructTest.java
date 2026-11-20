@@ -25,6 +25,8 @@ import domain.PeticionNegocio;
 import domain.Playa;
 import domain.ValoracionNegocio;
 import domain.ValoracionPlaya;
+import domain.EstadoPeticion;
+import domain.TipoDenuncia;
 import forms.DenunciaValoracionForm;
 import forms.NegocioForm;
 import forms.PeticionNegocioResolucionForm;
@@ -164,7 +166,7 @@ public class FormReconstructTest extends AbstractTest {
 		form.setValoracionNegocio(valoracion("Falta de higiene!"));
 		form.setTitulo("Título");
 		form.setComentario("Comentario");
-		form.setTipo("BURLA");
+		form.setTipo(TipoDenuncia.BURLA);
 
 		denunciaValoracionService.reconstruct(form);
 	}
@@ -176,7 +178,7 @@ public class FormReconstructTest extends AbstractTest {
 		form.setValoracionNegocio(valoracion("Falta de higiene!"));
 		form.setTitulo("Título");
 		form.setComentario("Comentario");
-		form.setTipo("BURLA");
+		form.setTipo(TipoDenuncia.BURLA);
 
 		DenunciaValoracion denuncia = denunciaValoracionService.reconstruct(form);
 		denunciaValoracionService.save(denuncia);
@@ -196,7 +198,7 @@ public class FormReconstructTest extends AbstractTest {
 		peticionNegocioService.accept(peticionNegocioService.reconstruct(form));
 
 		PeticionNegocio guardada = peticionNegocioService.findOneToEdit(peticion.getId());
-		assertEquals("ACEPTADO", guardada.getEstado());
+		assertEquals(EstadoPeticion.ACEPTADO, guardada.getEstado());
 		assertEquals("Todo correcto", guardada.getComentarios());
 		assertEquals(titulo, guardada.getTitulo());
 	}

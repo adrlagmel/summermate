@@ -14,6 +14,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +26,10 @@ import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_evento_negocio", columnList = "negocio_id"),
+	@Index(name = "idx_evento_fechacelebracion", columnList = "fechaCelebracion")
+})
 @Access(AccessType.PROPERTY)
 public class Evento extends DomainEntity{
 		
@@ -74,6 +82,7 @@ public class Evento extends DomainEntity{
 	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
 	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(unique = true)
 	public Imagen getImagen() {
 		return imagen;
 	}
@@ -124,6 +133,10 @@ public class Evento extends DomainEntity{
 	@NotNull
 	@Valid
 	@ManyToMany()
+	@JoinTable(indexes = {
+		@Index(name = "idx_evento_usuario_evento", columnList = "eventos_id"),
+		@Index(name = "idx_evento_usuario_usuario", columnList = "usuarios_id")
+	})
 	public Collection<Usuario> getUsuarios() {
 		return usuarios;
 	}

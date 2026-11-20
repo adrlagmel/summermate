@@ -21,6 +21,7 @@ import services.ValoracionNegocioService;
 import controllers.AbstractController;
 import domain.DenunciaValoracion;
 import domain.ValoracionNegocio;
+import domain.TipoDenuncia;
 import forms.DenunciaValoracionForm;
 
 
@@ -146,13 +147,9 @@ public class DenunciaEmpresarioController extends AbstractController {
 	protected ModelAndView createModelAndView(DenunciaValoracionForm dv, String message) {
 		ModelAndView result;
 		
-		ArrayList<String> tiposDenuncia = new ArrayList<String>();
-		tiposDenuncia.add("FALSEDAD"); 
-		tiposDenuncia.add("RECHAZO");
-		tiposDenuncia.add("BURLA");
 		
 		result = new ModelAndView("denunciaValoracion/edit");
-		result.addObject("tiposDenuncia", tiposDenuncia);
+		result.addObject("tiposDenuncia", TipoDenuncia.values());
 		result.addObject("denunciaValoracion", dv);
 		result.addObject("message", message);
 

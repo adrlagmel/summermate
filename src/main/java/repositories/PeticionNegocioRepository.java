@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.PeticionNegocio;
+import domain.EstadoPeticion;
 
 @Repository
 public interface PeticionNegocioRepository extends JpaRepository<PeticionNegocio, Integer> {
@@ -14,7 +15,7 @@ public interface PeticionNegocioRepository extends JpaRepository<PeticionNegocio
 	@Query("select pn from PeticionNegocio pn where pn.empresario.id=?1")
 	PeticionNegocio findByEmpresarioId(int sportPartnerId);
 	
-	@Query("select pn from PeticionNegocio pn where pn.estado='PENDIENTE'")
+	@Query("select pn from PeticionNegocio pn where pn.estado = domain.EstadoPeticion.PENDIENTE")
 	Collection<PeticionNegocio> findPeticionesNegociosPendientes();
 	
 }

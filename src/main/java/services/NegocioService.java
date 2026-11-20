@@ -22,6 +22,7 @@ import domain.Evento;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Reserva;
+import domain.EstadoPeticion;
 import forms.NegocioForm;
 
 @Service
@@ -61,7 +62,7 @@ public class NegocioService {
 		
 		PeticionNegocio peticionNegocio = peticionNegocioService.findByEmpresarioId(principal.getId());
 		Assert.notNull(peticionNegocio);
-		Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
+		Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.ACEPTADO);
 		
 		result.setNegocioActivo(true);
 		
@@ -102,7 +103,7 @@ public class NegocioService {
 		Assert.notNull(peticionNegocio);
 		
 		if(peticionNegocio != null)
-			Assert.isTrue(peticionNegocio.getEstado().equals("ACEPTADO"));
+			Assert.isTrue(peticionNegocio.getEstado() == EstadoPeticion.ACEPTADO);
 		
 		negocioRepository.save(negocio);
 	}

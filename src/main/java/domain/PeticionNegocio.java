@@ -11,10 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
@@ -22,7 +24,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(uniqueConstraints={@UniqueConstraint(columnNames="codigo")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "codigo")}, indexes = {
+	@Index(name = "idx_peticionnegocio_administrador", columnList = "administrador_id"),
+	@Index(name = "idx_peticionnegocio_estado", columnList = "estado")
+})
 public class PeticionNegocio extends DomainEntity{
 
 	// Attributes ----------------------------
@@ -30,7 +35,7 @@ public class PeticionNegocio extends DomainEntity{
 	private String 	codigo;
 	private Date 	fecha;
 	private String 	titulo;
-	private String 	estado;
+	private EstadoPeticion 	estado;
 	private String 	comentarios;
 	
 	@NotBlank
@@ -65,14 +70,15 @@ public class PeticionNegocio extends DomainEntity{
 		this.titulo = titulo;
 	}
 	
-	@NotBlank
-	@Pattern(regexp="^PENDIENTE|RECHAZADO|ACEPTADO$")
-	@SafeHtml
-	public String getEstado() {
+	// Se guarda como texto (no como número de orden) para que añadir o
+	// reordenar valores no cambie el significado de los datos existentes.
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	public EstadoPeticion getEstado() {
 		return estado;
 	}
 	
-	public void setEstado(String estado) {
+	public void setEstado(EstadoPeticion estado) {
 		this.estado = estado;
 	}
 	

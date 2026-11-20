@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +28,7 @@ public class Usuario extends Cliente{
 		// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
 		// orphanRemoval: al cambiarla o quitarla se borra la anterior.
 		@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+		@JoinColumn(unique = true)
 		public Imagen getImagen() {
 			return imagen;
 		}

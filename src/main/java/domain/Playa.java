@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,6 +26,9 @@ import utilities.validators.SafeHtml;
 
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_playa_administrador", columnList = "administrador_id")
+})
 @Access(AccessType.PROPERTY)
 public class Playa extends DomainEntity{
 
@@ -108,6 +114,7 @@ public class Playa extends DomainEntity{
 	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
 	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(unique = true)
 	public Imagen getImagen() {
 		return imagen;
 	}

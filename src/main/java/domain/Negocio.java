@@ -10,6 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -20,6 +23,10 @@ import utilities.validators.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_negocio_empresario", columnList = "empresario_id"),
+	@Index(name = "idx_negocio_playa", columnList = "playa_id")
+})
 @Access(AccessType.PROPERTY)
 public class Negocio extends DomainEntity{
 		
@@ -94,6 +101,7 @@ public class Negocio extends DomainEntity{
 	// La imagen va en su propia tabla y se carga solo cuando se usa (LAZY).
 	// orphanRemoval: al cambiarla o quitarla se borra la anterior.
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(unique = true)
 	public Imagen getImagen() {
 		return imagen;
 	}

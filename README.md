@@ -52,7 +52,7 @@ si no están definidas usa los valores del `docker-compose.yml`:
 | `DB_PASSWORD` | `summermate`                                   |
 
 Para cambiar la configuración de Docker Compose, copia `.env.example` como
-`.env`. Maven y Tomcat **no** leen `.env`: exporta las variables en la
+`.env`. Maven y Jetty **no** leen `.env`: exporta las variables en la
 terminal si cambias la URL, el usuario o la contraseña.
 
 ## Tests

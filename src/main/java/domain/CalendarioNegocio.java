@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +19,10 @@ import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(indexes = {
+	@Index(name = "idx_calendarionegocio_negocio", columnList = "negocio_id"),
+	@Index(name = "idx_calendarionegocio_codigonegocio", columnList = "codigoNegocio")
+})
 @Access(AccessType.PROPERTY)
 public class CalendarioNegocio extends DomainEntity{
 

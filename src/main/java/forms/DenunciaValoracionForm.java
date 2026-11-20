@@ -10,8 +10,8 @@ package forms;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import utilities.validators.SafeHtml;
-import javax.validation.constraints.Pattern;
 import domain.DenunciaValoracion;
+import domain.TipoDenuncia;
 import domain.ValoracionNegocio;
 
 public class DenunciaValoracionForm extends EntityForm {
@@ -19,7 +19,7 @@ public class DenunciaValoracionForm extends EntityForm {
 	private ValoracionNegocio	valoracionNegocio;
 	private String	titulo;
 	private String	comentario;
-	private String	tipo;
+	private TipoDenuncia	tipo;
 
 	public DenunciaValoracionForm() {
 	}
@@ -61,13 +61,12 @@ public class DenunciaValoracionForm extends EntityForm {
 		this.comentario = comentario;
 	}
 
-	@NotBlank
-	@Pattern(regexp = "^FALSEDAD|RECHAZO|BURLA$")
-	public String getTipo() {
+	@NotNull
+	public TipoDenuncia getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoDenuncia tipo) {
 		this.tipo = tipo;
 	}
 

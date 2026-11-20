@@ -27,6 +27,7 @@ import domain.Evento;
 import domain.Negocio;
 import domain.PeticionNegocio;
 import domain.Usuario;
+import domain.EstadoPeticion;
 import forms.EventoForm;
 
 @Controller
@@ -151,7 +152,7 @@ public class EventoEmpresarioController extends AbstractController{
 					
 					PeticionNegocio pet = peticionService.findPeticionNegocioPorEmpresario(empresario);
 					
-					if(pet.getEstado().equals("ACEPTADO")){
+					if(pet.getEstado() == EstadoPeticion.ACEPTADO){
 					ModelAndView result;
 									
 					result = new ModelAndView("redirect:../../negocio/empresario/register.do");
