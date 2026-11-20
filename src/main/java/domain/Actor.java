@@ -6,6 +6,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -17,8 +19,12 @@ import utilities.validators.SafeHtml;
 
 import security.UserAccount;
 
+// Raíz de la jerarquía de actores: una tabla "actor" con los campos comunes y
+// una tabla por subclase (administrador, cliente, usuario, empresario) unidas
+// por el id. Las consultas sobre Actor hacen JOIN, no UNION de tablas enteras.
 @Entity
 @Access(AccessType.PROPERTY)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Actor extends DomainEntity {
 	
 	// Constructor ----------------------------------------------------------
