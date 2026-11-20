@@ -49,6 +49,18 @@ O todo con Docker (imagen en dos etapas, ver `Dockerfile`):
 docker compose --profile app up -d --build
 ```
 
+Con Docker Compose también arranca [Mailpit](https://mailpit.axllent.org/):
+los avisos por correo de la aplicación se ven en <http://localhost:8025> y no
+salen a ningún sitio.
+
+Si tu base de datos de desarrollo es anterior a la Fase 4 (creada por
+Hibernate, sin tabla `flyway_schema_history`), Flyway no arrancará sobre ella.
+Bórrala y deja que la cree de nuevo:
+
+```bash
+docker compose down -v
+```
+
 Usuarios de ejemplo (la contraseña es igual que el nombre de usuario):
 `admin`, `administrador2`, `usuario1`…`usuario8` y `empresario1`…`empresario7`
 (salvo `empresario4`, cuya contraseña es `empresario`). Se guardan con BCrypt;
@@ -64,6 +76,11 @@ y, si no están definidas, usa los valores del `docker-compose.yml`:
 | `DB_URL`      | `jdbc:postgresql://localhost:5432/summermate`  |
 | `DB_USER`     | `summermate`                                   |
 | `DB_PASSWORD` | `summermate`                                   |
+| `CORREO_ACTIVO` | `false`: los correos solo se escriben en el log |
+| `MAIL_HOST`, `MAIL_PORT` | `localhost`, `1025` (Mailpit)          |
+| `URL_BASE`    | `http://localhost:8080` (enlaces de los correos) |
+| `PAGOS_PASARELA` | `simulada`: no cobra nada                   |
+| `LEGAL_TITULAR`, `LEGAL_CONTACTO` | Titular y contacto del aviso legal |
 
 Perfiles de Spring:
 
@@ -77,7 +94,43 @@ Para cambiar la configuración de Docker Compose, copia `.env.example` como
 cambias la URL, el usuario o la contraseña.
 
 El esquema de la base de datos lo gestiona Flyway: cualquier cambio es una
-migración nueva (`V3__...sql`), nunca una edición de las que ya existen.
+migración nueva (`V8__...sql`), nunca una edición de las que ya existen. Los
+datos de ejemplo van en `db/dev` con números a partir de `V1000`; el perfil
+`dev` usa `out-of-order` para que una base ya creada reciba las migraciones
+nuevas del esquema.
+
+## Funciones añadidas en la Fase 6
+
+Sacadas de la memoria del TFG, que describía más de lo que se llegó a
+programar:
+
+- **Calendario del negocio** (`/empresario/negocios/{id}/calendario`):
+  horario propio (puede cerrar de madrugada), duración de cada reserva, mesas
+  y días cerrados. Con mesas, cada reserva ocupa la mesa libre más pequeña en
+  la que cabe; sin mesas, se limita por aforo. Muestra la ocupación por
+  franjas de media hora.
+- **Borrar** eventos sin inscritos y negocios sin eventos ni reservas
+  pendientes; **retirar** una petición de negocio pendiente.
+- **Denuncias** de valoraciones por cualquier usuario o empresario, una vez
+  por valoración, y **moderación** del administrador (`/admin/denuncias`,
+  `/admin/negocios`).
+- **Votos de "comentario útil"** en las valoraciones de negocio y **nivel de
+  colaboración** del usuario (Turista, Veraneante, Local, Embajador).
+- **Cuenta premium** del empresario: sus negocios salen como destacados. La
+  pasarela de pago es simulada (`PasarelaSimulada`, no cobra nada); para
+  cobrar de verdad hay que añadir otra implementación de `PasarelaPago`, por
+  ejemplo con Stripe Checkout y su webhook.
+
+Y para ponerla al día:
+
+- **RGPD**: desde el perfil se descargan los datos (JSON) y se borra la
+  cuenta (se anonimiza). Aviso legal y privacidad nuevos; sin aviso de
+  cookies porque solo hay cookies técnicas.
+- **Avisos por correo**: reserva confirmada, petición resuelta y mensaje
+  nuevo.
+- **Importar playas** desde un CSV (`/admin/playas/importacion`), pensado
+  para la guía de playas del catálogo de datos abiertos. Ejemplo en
+  `scripts/playas-ejemplo.csv`.
 
 ## Tests
 

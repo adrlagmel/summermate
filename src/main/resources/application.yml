@@ -83,6 +83,10 @@ spring:
       on-profile: dev
   flyway:
     locations: classpath:db/migration,classpath:db/dev
+    # Los datos de ejemplo (V1000...) llevan números altos; sin esto, una base
+    # de desarrollo ya creada no aplicaría las migraciones nuevas del esquema
+    # (V3, V4...), que tienen un número menor.
+    out-of-order: true
   thymeleaf:
     cache: false
 

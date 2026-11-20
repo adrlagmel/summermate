@@ -48,7 +48,8 @@ pedir anonimo /no-existe 302
 entrar usuario1
 echo "Usuario (usuario1)"
 for r in / /playas /mis/reservas /mis/eventos /mis/valoraciones/playas /mis/valoraciones/negocios /negocios/1/reservas/nueva \
-	/playas/1/valoraciones/nueva /perfil /perfil/editar /perfil/contrasena /perfil/foto /carpetas /mensajes/nuevo /eventos /usuarios; do
+	/playas/1/valoraciones/nueva /perfil /perfil/editar /perfil/contrasena /perfil/foto /carpetas /mensajes/nuevo /eventos /usuarios \
+	/denuncias "/denuncias/nueva?valoracion=2" /perfil/baja /perfil/datos /negocios/1; do
 	pedir usuario1 "$r"
 done
 # Recursos propios y ajenos (ids de los datos de ejemplo)
@@ -78,7 +79,8 @@ pedir empresario1 /mis/reservas 403
 
 entrar admin
 echo "Administrador (admin)"
-for r in / /admin/dashboard /admin/playas/nueva /admin/peticiones /admin/administradores/nuevo /playas /perfil /carpetas; do
+for r in / /admin/dashboard /admin/playas/nueva /admin/peticiones /admin/administradores/nuevo /playas /perfil /carpetas \
+	/admin/negocios /admin/denuncias /admin/playas/importacion; do
 	pedir admin "$r"
 done
 for r in /admin/playas/1/editar /admin/playas/1/imagen /admin/playas/3/ubicacion /admin/peticiones/3/aceptacion /admin/peticiones/3/rechazo; do
