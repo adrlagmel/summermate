@@ -264,4 +264,12 @@ public class NegocioService {
 		return negocioRepository.findByEmpresario(empresario.getId(), pageable);
 	}
 
+	// Ver NegocioRepository.findByIdParaReservar
+	public Negocio bloquearParaReservar(int negocioId){
+		Negocio result = negocioRepository.findByIdParaReservar(negocioId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

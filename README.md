@@ -65,3 +65,40 @@ Los tests arrancan un PostgreSQL desechable con
 [Testcontainers](https://testcontainers.com/), así que solo necesitan
 Docker en marcha: no usan la base de datos de `docker compose`. Antes de
 cada test se recrea el esquema y se cargan los datos de ejemplo.
+
+## Medir el rendimiento
+
+Los datos de ejemplo son pocos (6 eventos, 8 usuarios) y con ellos no se
+ven los problemas de rendimiento. Para medir con un volumen realista:
+
+1. Carga los datos de ejemplo y añade volumen (500 usuarios, 400 negocios,
+   600 eventos, 10.000 reservas…):
+
+   ```bash
+   mvn compile exec:java -Dexec.mainClass=utilities.PopulateDatabase
+   ```
+
+   ```bash
+   docker exec -i summermate-db psql -U summermate -d summermate < scripts/volumen.sql
+   ```
+
+2. Arranca la aplicación registrando cada consulta SQL en `target/sql.log`:
+
+   ```bash
+   mvn jetty:run -Dlog4j.configuration=file:scripts/log4j-sql.properties
+   ```
+
+3. En otra terminal, mide consultas y tiempo por página:
+
+   ```bash
+   bash scripts/medir.sh
+   ```
+
+Resultado de la Fase 3 con ese volumen (consultas SQL por página):
+
+| Página                        | Antes | Después |
+|-------------------------------|------:|--------:|
+| `evento/list.do`              |   407 |       9 |
+| `usuario/list.do`             |   518 |       2 |
+| `reserva/empresario/lista.do` | 1.776 |       8 |
+| `administrador/dashboard.do`  |   523 |       7 |

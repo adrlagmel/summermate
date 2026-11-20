@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,29 +42,35 @@ public class FotoController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/displayImage")
-	public void displayImage(HttpServletResponse response, @RequestParam int playaId) throws IOException {
-		write(response, () -> playaService.findOne(playaId).getImagen());
+	public void displayImage(HttpServletRequest request, HttpServletResponse response, @RequestParam int playaId) throws IOException {
+		write(request, response, () -> playaService.findOne(playaId).getImagen());
 	}
 
 	@RequestMapping(value = "/displayImageNegocio")
-	public void displayImageNegocio(HttpServletResponse response, @RequestParam int negocioId) throws IOException {
-		write(response, () -> negocioService.findOneToDisplay(negocioId).getImagen());
+	public void displayImageNegocio(HttpServletRequest request, HttpServletResponse response, @RequestParam int negocioId) throws IOException {
+		write(request, response, () -> negocioService.findOneToDisplay(negocioId).getImagen());
 	}
 
 	@RequestMapping(value = "/displayImageEvento")
-	public void displayImageEvento(HttpServletResponse response, @RequestParam int eventoId) throws IOException {
-		write(response, () -> eventoService.findOneToDisplay(eventoId).getImagen());
+	public void displayImageEvento(HttpServletRequest request, HttpServletResponse response, @RequestParam int eventoId) throws IOException {
+		write(request, response, () -> eventoService.findOneToDisplay(eventoId).getImagen());
 	}
 
 	@RequestMapping(value = "/displayImagePerfil")
-	public void displayImagePerfil(HttpServletResponse response, @RequestParam int usuarioId) throws IOException {
-		write(response, () -> usuarioService.findOne(usuarioId).getImagen());
+	public void displayImagePerfil(HttpServletRequest request, HttpServletResponse response, @RequestParam int usuarioId) throws IOException {
+		write(request, response, () -> usuarioService.findOne(usuarioId).getImagen());
 	}
 
 	// Si la entidad no existe (los servicios lanzan IllegalArgumentException o
 	// devuelven null) o no tiene imagen, responde 404.
-	private void write(HttpServletResponse response, Supplier<Imagen> lookup) throws IOException {
+	//
+	// Fase 3: caché HTTP. Cada imagen tiene su propio id y al sustituirla se
+	// crea otra (orphanRemoval borra la anterior), así que el id sirve de ETag.
+	// Si el navegador ya la tiene (If-None-Match), se responde 304 sin leer los
+	// bytes: el proxy perezoso de Imagen da el id sin consultar la base de datos.
+	private void write(HttpServletRequest request, HttpServletResponse response, Supplier<Imagen> lookup) throws IOException {
 		Imagen imagen;
+		String etag;
 
 		try {
 			imagen = lookup.get();
@@ -73,6 +80,16 @@ public class FotoController extends AbstractController {
 
 		if (imagen == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+
+		etag = "\"imagen-" + imagen.getId() + "\"";
+		// no-cache: el navegador la guarda, pero pregunta antes de reutilizarla
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("ETag", etag);
+
+		if (etag.equals(request.getHeader("If-None-Match"))) {
+			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 			return;
 		}
 

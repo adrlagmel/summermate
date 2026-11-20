@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,10 @@ import domain.ValoracionPlaya;
 @Controller
 @RequestMapping("/playa")
 public class PlayaController extends AbstractController {
+
+	// Radios (km) que se ofrecen en "Playas cerca de mí"
+	private static final List<Integer>	RADIOS_KM	= Arrays.asList(5, 10, 25, 50, 100, 200);
+
 
 	// Supporting services ----------------------------------------------------
 
@@ -88,7 +94,8 @@ public class PlayaController extends AbstractController {
 	
     @RequestMapping(value="/nearToMe", method = RequestMethod.GET)
 	public ModelAndView nearToMe(@RequestParam(required=false) Double lat,
-			@RequestParam(required=false) Double lon){
+			@RequestParam(required=false) Double lon,
+			@RequestParam(required=false) Integer radio){
 		
 		ModelAndView result;
 		Boolean mostrarMapa;
@@ -102,13 +109,19 @@ public class PlayaController extends AbstractController {
 			
 		}else{
 			
-			playas = playaService.nearToMe(lat,lon);
+			// Solo se admiten los radios del desplegable
+			if(radio == null || !RADIOS_KM.contains(radio))
+				radio = (int) PlayaService.RADIO_POR_DEFECTO_KM;
+
+			playas = playaService.nearToMe(lat, lon, radio);
 			result = new ModelAndView("playa/nearToMe");
 			result.addObject("playas", playas);
 			result.addObject("lat1",lat);
 			result.addObject("lon1",lon);
 			result.addObject("requestURI", "playa/nearToMe.do");
 			result.addObject("tabla",true);
+			result.addObject("radio", radio);
+			result.addObject("radios", RADIOS_KM);
 		}
 		
 		return result;	

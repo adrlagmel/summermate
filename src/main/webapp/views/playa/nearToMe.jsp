@@ -20,6 +20,21 @@
 <input type="hidden" id="playas" value="${playas}"/>
 </form>
 
+<%-- Fase 3: el radio de búsqueda lo elige el usuario (por defecto, 25 km) --%>
+<jstl:if test="${tabla}">
+<form action="playa/nearToMe.do" method="get" class="form-inline" style="margin: 10px 0;">
+	<input type="hidden" name="lat" value="${lat1}"/>
+	<input type="hidden" name="lon" value="${lon1}"/>
+	<label for="radio"><spring:message code="playa.radio"/></label>
+	<select name="radio" id="radio" class="form-control" onchange="this.form.submit()">
+		<jstl:forEach var="r" items="${radios}">
+			<option value="${r}" <jstl:if test="${r == radio}">selected="selected"</jstl:if>>${r} km</option>
+		</jstl:forEach>
+	</select>
+	<span><spring:message code="playa.radio.encontradas" arguments="${playas.size()}"/></span>
+</form>
+</jstl:if>
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBBrx34wk6LRo3M4xsVJEe3U9umurfaMik" ></script>
 <script>
 // In the following example, markers appear when the user clicks on the map.
@@ -73,7 +88,7 @@ function initialize() {
 			x.value = marker.getPosition().lat();
 			y.value = marker.getPosition().lng();
 			marker.setMap(null);
-			window.location.href = "playa/nearToMe.do?lat=" + marker.getPosition().lat() + "&lon=" + marker.getPosition().lng();
+			window.location.href = "playa/nearToMe.do?lat=" + marker.getPosition().lat() + "&lon=" + marker.getPosition().lng() + "&radio=${radio}";
 		});
 	console.log(playas);
 	<jstl:forEach var="playa" items="${playas}">

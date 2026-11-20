@@ -80,7 +80,12 @@ public class ReservaService {
 			reserva.setFechaCreacion(new Date(System.currentTimeMillis()-1000));
 		}
 		
-		Assert.isTrue(reserva.getNegocio().getNegocioActivo());
+		// Fase 3: se bloquea el negocio antes de contar los comensales. Sin
+		// esto, dos reservas a la vez leían la misma ocupación y ambas pasaban
+		// la comprobación aunque juntas superasen el aforo. La segunda espera
+		// a que la primera termine y ya la ve.
+		Negocio negocio = negocioService.bloquearParaReservar(reserva.getNegocio().getId());
+		Assert.isTrue(negocio.getNegocioActivo());
 		
 		Calendar stMoment = Calendar.getInstance();
 		stMoment.setTime(reserva.getFecha());
@@ -92,14 +97,11 @@ public class ReservaService {
 		Date startMoment = stMoment.getTime();
 		Date endMoment = enMoment.getTime();
 		
-		Collection<CalendarioNegocio> negocioCalendars = calendarioNegocioService.findNegocioCalendarByBookingDates(startMoment, endMoment, reserva.getNegocio().getId());
-		
-		if (negocioCalendars.size() > 0) {
-			Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, reserva.getNegocio().getId());
-			comensales = comensales + reserva.getComensales();
-			
-			Assert.isTrue(comensales.compareTo(reserva.getNegocio().getAforo())<=0);		
-		}
+		// Antes solo se comprobaba si ya había reservas en esa franja, así que
+		// la primera podía superar el aforo ella sola.
+		Integer comensales = calendarioNegocioService.findComensalesPorFechaDeReserva(startMoment, endMoment, negocio.getId());
+		comensales = comensales + reserva.getComensales();
+		Assert.isTrue(comensales.compareTo(negocio.getAforo())<=0);
 		
 		Assert.isTrue(reserva.getFecha().compareTo(new Date()) >= 0);
 		

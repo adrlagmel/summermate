@@ -2,14 +2,13 @@ package services;
 
 import java.util.ArrayList;
 
-
-
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -126,15 +125,26 @@ public class PlayaService {
 		save(p);
 	}
 	
+	public static final double	RADIO_POR_DEFECTO_KM	= 25;
+	public static final double	RADIO_MAXIMO_KM			= 200;
+
 	public Collection<Playa> nearToMe(Double lat, Double lon) {
-		Collection<Playa> res = new ArrayList<Playa>();
-		for(Playa sp:findAllBeaches()){
-			if(distance(lat,lon,sp.getLocalizacion().getLatitud(),sp.getLocalizacion().getLongitud())<=10000000){
-				res.add(sp);
-			}
-		}
-		
-		return res;
+		return nearToMe(lat, lon, RADIO_POR_DEFECTO_KM);
+	}
+
+	// Playas a menos de radioKm, de la más cercana a la más lejana.
+	public List<Playa> nearToMe(double lat, double lon, double radioKm) {
+		double margenLatitud, margenLongitud;
+
+		Assert.isTrue(lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180);
+		Assert.isTrue(radioKm > 0 && radioKm <= RADIO_MAXIMO_KM);
+
+		// Un grado de latitud son unos 111 km; uno de longitud, menos cuanto
+		// más lejos del ecuador (se multiplica por el coseno de la latitud).
+		margenLatitud = radioKm / 111.0;
+		margenLongitud = radioKm / (111.0 * Math.max(Math.cos(Math.toRadians(lat)), 0.01));
+
+		return playaRepository.findCercanas(lat, lon, margenLatitud, margenLongitud, radioKm);
 	}
 	
 	
@@ -153,36 +163,13 @@ public class PlayaService {
 	}
 	
 	public Integer masValoraciones(){
-		Integer res = 0;
-		res = playaRepository.masValoraciones();		
-		return res;
+		List<Long> maximo = playaRepository.valoracionesPorPlaya(PageRequest.of(0, 1));
+
+		return maximo.isEmpty() ? 0 : maximo.get(0).intValue();
 	}
 	
 	
 	
-	private static double distance(double lat1, double lon1, double lat2, double lon2) {
-
-		double theta = lon1 - lon2;
-		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
-				+ Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-				* Math.cos(deg2rad(theta));
-
-		dist = Math.acos(dist);
-		dist = rad2deg(dist);
-		dist = dist * 60 * 1.1515;
-		dist = dist * 1.609344;
-		
-		return (dist);
-
-	}
-
-	private static double deg2rad(double deg) {
-		return (deg * Math.PI / 180.0);
-	}
-
-	private static double rad2deg(double rad) {
-		return (rad * 180 / Math.PI);
-	}
 
 	// Fase 3: listados paginados en la base de datos ---------------------
 
