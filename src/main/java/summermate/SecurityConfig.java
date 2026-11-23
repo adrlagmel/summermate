@@ -50,6 +50,9 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth
 			// Recursos estáticos y páginas de error
 			.requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/error").permitAll()
+			// Fase 7: Actuator solo se sirve en el puerto de gestión (8081), que
+			// no se publica; en el puerto de la aplicación estas rutas dan 404.
+			.requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll()
 
 			// Portada, acceso y registro
 			.requestMatchers(HttpMethod.GET, "/", "/login", "/terminos").permitAll()

@@ -18,5 +18,9 @@ RUN addgroup -S summermate && adduser -S summermate -G summermate
 WORKDIR /app
 COPY --from=compilacion /src/target/SummerMate-*.jar summermate.jar
 USER summermate
-EXPOSE 8080
+# 8080: la aplicación. 8081: salud y métricas (Actuator), solo para uso interno.
+EXPOSE 8080 8081
+# Docker marca el contenedor como sano cuando la aplicación responde
+HEALTHCHECK --interval=15s --timeout=3s --start-period=60s --retries=3 \
+	CMD wget -q -O /dev/null http://localhost:8081/actuator/health/readiness || exit 1
 ENTRYPOINT ["java", "-jar", "/app/summermate.jar"]

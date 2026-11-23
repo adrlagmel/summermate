@@ -157,6 +157,30 @@ comprueba el código HTTP de las páginas principales:
 bash scripts/recorrer.sh http://localhost:8080
 ```
 
+## Salud y métricas
+
+Actuator escucha en un puerto aparte, el 8081, que no se publica a Internet
+(en Docker Compose solo en `127.0.0.1`):
+
+| Ruta | Para qué |
+|------|----------|
+| `/actuator/health` | Estado general (UP o DOWN) |
+| `/actuator/health/liveness`, `/actuator/health/readiness` | Si el proceso vive y si puede atender peticiones (lo usa el `HEALTHCHECK` de la imagen) |
+| `/actuator/info` | Versión y fecha de compilación |
+| `/actuator/prometheus` | Métricas para Prometheus: peticiones HTTP, JVM, conexiones a la base de datos… |
+
+```bash
+curl -s localhost:8081/actuator/health
+```
+
+## Integración continua
+
+`.github/workflows/ci.yml` pasa todos los tests en cada push y pull request
+(GitHub trae Docker, así que Testcontainers funciona igual que en local) y
+comprueba que la imagen de Docker se construye. Dependabot
+(`.github/dependabot.yml`) abre pull requests cuando salen versiones nuevas de
+las dependencias, las acciones o las imágenes base.
+
 ## Medir el rendimiento
 
 Los datos de ejemplo son pocos (6 eventos, 8 usuarios) y con ellos no se

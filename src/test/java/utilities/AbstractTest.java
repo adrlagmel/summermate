@@ -43,10 +43,17 @@ import security.LoginService;
 public abstract class AbstractTest {
 
 	@ServiceConnection
-	protected static final PostgreSQLContainer	POSTGRES	= new PostgreSQLContainer("postgres:17-alpine");
+	protected static final PostgreSQLContainer	POSTGRES	= contenedor();
 
-	static {
-		POSTGRES.start();
+	// Un único PostgreSQL para todos los tests (también los que no heredan de aquí)
+	private static PostgreSQLContainer			compartido;
+
+	public static synchronized PostgreSQLContainer contenedor() {
+		if (compartido == null) {
+			compartido = new PostgreSQLContainer("postgres:17-alpine");
+			compartido.start();
+		}
+		return compartido;
 	}
 
 	@Autowired

@@ -44,6 +44,8 @@ services:
       MAIL_PORT: "1025"
     ports:
       - "${APP_PORT:-8080}:8080"
+      # Salud y métricas: solo desde este equipo, nunca hacia fuera
+      - "127.0.0.1:${MANAGEMENT_PORT:-8081}:8081"
 
   # Fase 6: recoge los correos de la aplicación para verlos en el navegador
   # (http://localhost:8025) sin mandar nada a nadie.

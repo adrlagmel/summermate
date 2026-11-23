@@ -59,6 +59,31 @@ logging:
   level:
     org.hibernate.orm.deprecation: error
 
+# Fase 7: salud y métricas ------------------------------------------------------
+# Actuator va en su propio puerto (8081), que no se publica a Internet: en
+# Docker Compose solo escucha en 127.0.0.1. Ahí están /actuator/health (con
+# /liveness y /readiness), /actuator/info y /actuator/prometheus.
+management:
+  server:
+    port: ${MANAGEMENT_PORT:8081}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+  info:
+    env:
+      enabled: false
+  health:
+    # Si el correo falla la aplicación sigue funcionando (los avisos solo se
+    # registran): no debe marcarla como caída.
+    mail:
+      enabled: false
+
 # Fase 6 ------------------------------------------------------------------------
 summermate:
   # Quién es responsable de los datos (aviso legal y política de privacidad)
