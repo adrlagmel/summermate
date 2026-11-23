@@ -42,6 +42,7 @@
 		<leaflet.version>1.9.4</leaflet.version>
 		<jsoup.version>1.17.2</jsoup.version>
 		<awssdk.version>2.58.0</awssdk.version>
+		<springdoc.version>3.2.0</springdoc.version>
 	</properties>
 
 	<dependencyManagement>
@@ -160,6 +161,13 @@
 					<artifactId>netty-nio-client</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- Fase 8: documentación OpenAPI de la API en /api/docs -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 
 		<!-- Usado por utilities.validators.SafeHtml -->

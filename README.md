@@ -157,6 +157,39 @@ comprueba el código HTTP de las páginas principales:
 bash scripts/recorrer.sh http://localhost:8080
 ```
 
+## API para la app móvil
+
+La app móvil usa una API REST en `/api/v1` (Fase 8), separada de la web:
+sin cookies ni sesión, con tokens JWT. La documentación navegable está en
+<http://localhost:8080/api/docs> y la especificación OpenAPI en
+`/api/docs/openapi.json` (sirve para generar el cliente de la app).
+
+```bash
+curl -s -X POST localhost:8080/api/v1/auth/login -H 'Content-Type: application/json' -d '{"username":"usuario1","password":"usuario1"}'
+```
+
+```bash
+curl -s localhost:8080/api/v1/yo -H "Authorization: Bearer <accessToken>"
+```
+
+- El token de acceso dura 15 minutos; `POST /api/v1/auth/refresh` con el de
+  renovación (30 días, de un solo uso) da un par nuevo. Reutilizar un token de
+  renovación ya gastado cierra esa sesión.
+- 5 intentos de login fallidos seguidos bloquean al usuario 15 minutos.
+- Los errores son `application/problem+json`. Una reserva que no cabe da 409
+  con el `motivo` (`AFORO`, `SIN_MESA`, `CERRADO`, `FUERA_DE_HORARIO`).
+- En producción hay que definir `JWT_SECRET` (al menos 32 caracteres:
+  `openssl rand -base64 48`).
+
+## Imágenes en Cloudflare R2
+
+Por defecto las imágenes se guardan en la base de datos. Con
+`IMAGENES_ALMACEN=s3` y las variables `S3_*` de `.env.example` se suben a un
+cubo de Cloudflare R2 (o cualquier almacén compatible con S3). Si el cubo
+tiene dominio público (`S3_URL_PUBLICA`), `/imagenes/...` redirige a la CDN.
+Para pasar a R2 las imágenes que ya hay, arranca una vez con
+`IMAGENES_MIGRAR=true`.
+
 ## Salud y métricas
 
 Actuator escucha en un puerto aparte, el 8081, que no se publica a Internet

@@ -59,6 +59,15 @@ logging:
   level:
     org.hibernate.orm.deprecation: error
 
+# Fase 8: documentación de la API (solo de /api/v1)
+springdoc:
+  api-docs:
+    path: /api/docs/openapi.json
+  swagger-ui:
+    path: /api/docs
+  paths-to-match: /api/v1/**
+  default-produces-media-type: application/json
+
 # Fase 7: salud y métricas ------------------------------------------------------
 # Actuator va en su propio puerto (8081), que no se publica a Internet: en
 # Docker Compose solo escucha en 127.0.0.1. Ahí están /actuator/health (con

@@ -214,4 +214,14 @@ class ApiTest extends AbstractWebTest {
 		mvc.perform(get("/api/v1/yo").header("Authorization", "Bearer " + acceso)).andExpect(status().isUnauthorized());
 		postJson("/api/v1/auth/refresh", "{\"refreshToken\":\"" + renovacion + "\"}", null).andExpect(status().isUnauthorized());
 	}
+
+	@Test
+	void laDocumentacionOpenApiEsPublica() throws Exception {
+		mvc.perform(get("/api/docs/openapi.json")).andExpect(status().isOk())
+			.andExpect(jsonPath("$.info.title").value("Summermate API"))
+			.andExpect(jsonPath("$.paths['/api/v1/yo/reservas']").exists())
+			.andExpect(jsonPath("$.paths['/playas']").doesNotExist());
+		String destino = mvc.perform(get("/api/docs")).andExpect(status().is3xxRedirection()).andReturn().getResponse().getRedirectedUrl();
+		mvc.perform(get(destino)).andExpect(status().isOk());
+	}
 }

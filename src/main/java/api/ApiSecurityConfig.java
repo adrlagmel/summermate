@@ -42,7 +42,7 @@ public class ApiSecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth
 			.requestMatchers("/api/v1/auth/**").permitAll()
-			.requestMatchers("/api/docs/**", "/api/docs").permitAll()
+			.requestMatchers("/api/docs/**", "/api/docs", "/api/swagger-ui/**").permitAll()
 			// Consulta pública, como en la web
 			.requestMatchers(HttpMethod.GET, "/api/v1/playas", "/api/v1/playas/**", "/api/v1/negocios", "/api/v1/negocios/**",
 				"/api/v1/eventos", "/api/v1/eventos/**").permitAll()
