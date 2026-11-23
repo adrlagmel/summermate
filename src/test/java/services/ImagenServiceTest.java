@@ -14,7 +14,8 @@ import domain.Imagen;
  */
 public class ImagenServiceTest {
 
-	private final ImagenService service = new ImagenService();
+	// Sin almacén de objetos: las imágenes van a la base de datos
+	private final ImagenService service = new ImagenService(new org.springframework.beans.factory.support.StaticListableBeanFactory().getBeanProvider(services.imagenes.AlmacenImagenes.class));
 
 	@Test
 	public void detectaJpegPngYWebp() {

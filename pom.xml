@@ -41,7 +41,20 @@
 		<bootstrap-icons.version>1.13.2</bootstrap-icons.version>
 		<leaflet.version>1.9.4</leaflet.version>
 		<jsoup.version>1.17.2</jsoup.version>
+		<awssdk.version>2.58.0</awssdk.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>${awssdk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 
@@ -128,6 +141,20 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
+
+		<!-- Fase 8: imágenes en Cloudflare R2 (API compatible con S3) -->
+
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<exclusions>
+				<!-- Solo se usa el cliente HTTP síncrono -->
+				<exclusion>
+					<groupId>software.amazon.awssdk</groupId>
+					<artifactId>netty-nio-client</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Usado por utilities.validators.SafeHtml -->

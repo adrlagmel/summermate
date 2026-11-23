@@ -69,7 +69,10 @@ public class ImagenesController {
 		return imagen(() -> usuarioService.findOne(id).getImagen(), etag);
 	}
 
-	private static ResponseEntity<byte[]> imagen(Supplier<Imagen> buscar, String ifNoneMatch) {
+	@Autowired
+	private services.ImagenService	imagenService;
+
+	private ResponseEntity<byte[]> imagen(Supplier<Imagen> buscar, String ifNoneMatch) {
 		Imagen imagen;
 		String etag;
 
@@ -81,6 +84,13 @@ public class ImagenesController {
 		if (imagen == null)
 			return ResponseEntity.notFound().build();
 
+		// Fase 8: si el cubo de R2 es público, la imagen se sirve desde allí
+		// (CDN de Cloudflare) y esta ruta solo redirige.
+		java.util.Optional<String> publica = imagenService.urlPublica(imagen);
+		if (publica.isPresent())
+			return ResponseEntity.status(HttpStatus.FOUND).location(java.net.URI.create(publica.get()))
+				.cacheControl(CacheControl.maxAge(java.time.Duration.ofHours(1))).build();
+
 		// El proxy perezoso de Imagen da el id sin leer los bytes
 		etag = "\"imagen-" + imagen.getId() + "\"";
 		if (etag.equals(ifNoneMatch))
@@ -91,7 +101,7 @@ public class ImagenesController {
 			.cacheControl(CacheControl.noCache())
 			.contentType(MediaType.parseMediaType(imagen.getTipo()))
 			.header("X-Content-Type-Options", "nosniff")
-			.body(imagen.getDatos());
+			.body(imagenService.datos(imagen));
 	}
 
 }

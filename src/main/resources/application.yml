@@ -86,6 +86,18 @@ management:
 
 # Fase 6 ------------------------------------------------------------------------
 summermate:
+  # Fase 8: dónde se guardan las imágenes. "bd" (por defecto) las deja en la
+  # base de datos; "s3" las sube a Cloudflare R2 u otro almacén compatible.
+  imagenes:
+    almacen: ${IMAGENES_ALMACEN:bd}
+    migrar: ${IMAGENES_MIGRAR:false}
+    s3:
+      endpoint: ${S3_ENDPOINT:}
+      bucket: ${S3_BUCKET:summermate-imagenes}
+      region: ${S3_REGION:auto}
+      access-key: ${S3_ACCESS_KEY:}
+      secret-key: ${S3_SECRET_KEY:}
+      url-publica: ${S3_URL_PUBLICA:}
   # Quién es responsable de los datos (aviso legal y política de privacidad)
   legal:
     titular: ${LEGAL_TITULAR:Summermate (Trabajo Fin de Grado, Universidad de Sevilla)}

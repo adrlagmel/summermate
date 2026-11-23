@@ -8,6 +8,13 @@
 
 package services;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+
+import services.imagenes.AlmacenImagenes;
 import org.springframework.stereotype.Service;
 import utilities.Assert;
 
@@ -20,6 +27,13 @@ public class ImagenService {
 	public static final String	PNG		= "image/png";
 	public static final String	WEBP	= "image/webp";
 	public static final int		MAX_BYTES	= 3 * 1024 * 1024;
+
+	private final ObjectProvider<AlmacenImagenes>	almacen;
+
+
+	public ImagenService(ObjectProvider<AlmacenImagenes> almacen) {
+		this.almacen = almacen;
+	}
 
 
 	// Devuelve null si no se ha subido nada (así se borraba la imagen antes).
@@ -36,7 +50,46 @@ public class ImagenService {
 		tipo = detectarTipo(datos);
 		Assert.notNull(tipo, "Formato de imagen no admitido: solo JPEG, PNG o WebP");
 
-		return new Imagen(datos, tipo);
+		AlmacenImagenes almacen = this.almacen.getIfAvailable();
+		if (almacen == null)
+			return new Imagen(datos, tipo);
+
+		// Fase 8: los bytes van al almacén de objetos (R2). Si la transacción
+		// se deshace, el objeto ya subido se borra.
+		String clave = "imagenes/" + UUID.randomUUID() + extension(tipo);
+		almacen.guardar(clave, datos, tipo);
+		if (TransactionSynchronizationManager.isSynchronizationActive())
+			TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+
+				@Override
+				public void afterCompletion(int estado) {
+					if (estado == STATUS_ROLLED_BACK)
+						almacen.borrar(clave);
+				}
+			});
+		return Imagen.enAlmacen(clave, tipo, datos.length);
+	}
+
+	// Bytes de la imagen, estén en la base de datos o en el almacén
+	public byte[] datos(Imagen imagen) {
+		if (imagen.getClave() == null)
+			return imagen.getDatos();
+		return almacen.getObject().leer(imagen.getClave());
+	}
+
+	public java.util.Optional<String> urlPublica(Imagen imagen) {
+		AlmacenImagenes almacen = this.almacen.getIfAvailable();
+		if (imagen.getClave() == null || almacen == null)
+			return java.util.Optional.empty();
+		return almacen.urlPublica(imagen.getClave());
+	}
+
+	private static String extension(String tipo) {
+		return switch (tipo) {
+			case JPEG -> ".jpg";
+			case PNG -> ".png";
+			default -> ".webp";
+		};
 	}
 
 	public static String detectarTipo(byte[] d) {
