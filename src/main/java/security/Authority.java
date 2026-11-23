@@ -18,7 +18,7 @@ import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 
 @Embeddable

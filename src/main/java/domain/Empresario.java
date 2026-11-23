@@ -59,7 +59,6 @@ public class Empresario extends Cliente{
 	private Collection<Negocio> negocios;
 	
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy="empresario")
 	public Collection<Negocio> getNegocios() {
 		return negocios;

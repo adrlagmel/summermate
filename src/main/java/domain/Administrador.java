@@ -22,7 +22,6 @@ public class Administrador extends Actor{
 	private Collection<Playa> playas;
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy="administrador")
 	public Collection<PeticionNegocio> getPeticionNegocios() {
 		return peticionNegocios;
@@ -33,7 +32,6 @@ public class Administrador extends Actor{
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy="administrador")
 	public Collection<Playa> getPlayas() {
 		return playas;

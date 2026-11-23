@@ -65,7 +65,7 @@ public class ImagenLazyTest extends AbstractTest {
 		entityManager.flush();
 
 		Number imagenes = (Number) entityManager.createQuery("select count(i) from Imagen i").getSingleResult();
-		org.junit.Assert.assertEquals(1, imagenes.intValue());
+		org.junit.jupiter.api.Assertions.assertEquals(1, imagenes.intValue());
 	}
 
 	private int negocioConImagen() {

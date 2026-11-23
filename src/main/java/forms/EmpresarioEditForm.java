@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Email;
+import jakarta.validation.constraints.Email;
 import utilities.validators.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 

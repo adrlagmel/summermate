@@ -34,7 +34,7 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import security.LoginService;
 
@@ -43,7 +43,7 @@ import security.LoginService;
 public abstract class AbstractTest {
 
 	@ServiceConnection
-	protected static final PostgreSQLContainer<?>	POSTGRES	= new PostgreSQLContainer<>("postgres:16-alpine");
+	protected static final PostgreSQLContainer	POSTGRES	= new PostgreSQLContainer("postgres:17-alpine");
 
 	static {
 		POSTGRES.start();

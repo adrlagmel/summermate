@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import utilities.Assert;
 
@@ -77,7 +77,6 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	}
 
 	@NotEmpty
-	@Valid
 	@ElementCollection
 	@CollectionTable(indexes = @Index(name = "idx_useraccount_authorities_useraccount", columnList = "UserAccount_id"))
 	@Override

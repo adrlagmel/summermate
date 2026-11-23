@@ -4,14 +4,14 @@ Aplicación web para descubrir playas y reservar en los negocios de playa
 (chiringuitos, heladerías…), con eventos, valoraciones y mensajería entre
 usuarios, empresarios y administradores.
 
-> El proyecto se está modernizando por fases. Stack actual: Java 21,
-> Spring Boot 3.5 (Spring MVC 6, Spring Security 6, Hibernate 6), Thymeleaf
+> El proyecto se está modernizando por fases. Stack actual: Java 25,
+> Spring Boot 4.1 (Spring MVC 7, Spring Security 7, Hibernate 7), Thymeleaf
 > con Bootstrap 5, Leaflet con OpenStreetMap para los mapas, Flyway y
-> PostgreSQL 16.
+> PostgreSQL 17.
 
 ## Requisitos
 
-- JDK 21
+- JDK 25
 - Maven 3.9+
 - Docker (para la base de datos y para los tests)
 
@@ -60,6 +60,11 @@ Bórrala y deja que la cree de nuevo:
 ```bash
 docker compose down -v
 ```
+
+Lo mismo si vienes de la Fase 6 o anterior: la base de datos pasó de
+PostgreSQL 16 a 17 (Fase 7) y los datos de un volumen de la 16 no los abre la
+17. En desarrollo basta con borrar el volumen; con datos reales habría que
+volcarlos con `pg_dump` y cargarlos en la 17.
 
 Usuarios de ejemplo (la contraseña es igual que el nombre de usuario):
 `admin`, `administrador2`, `usuario1`…`usuario8` y `empresario1`…`empresario7`

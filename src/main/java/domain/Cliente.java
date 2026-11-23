@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 
 @Entity
@@ -81,7 +81,6 @@ public abstract class Cliente extends Actor{
 	private Collection <DenunciaValoracion> denuncias;
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy="cliente")
 	public Collection<DenunciaValoracion> getDenuncias() {
 		return denuncias;

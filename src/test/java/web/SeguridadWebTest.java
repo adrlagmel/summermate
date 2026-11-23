@@ -44,7 +44,7 @@ class SeguridadWebTest extends AbstractWebTest {
 	@ParameterizedTest
 	@ValueSource(strings = { "/mis/reservas", "/empresario/negocios", "/admin/dashboard", "/perfil", "/carpetas" })
 	void zonasPrivadasLlevanAlLogin(String ruta) throws Exception {
-		mvc.perform(get(ruta)).andExpect(status().is3xxRedirection()).andExpect(redirectedUrlPattern("**/login"));
+		mvc.perform(get(ruta)).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/login"));
 	}
 
 	@Test

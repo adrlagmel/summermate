@@ -46,8 +46,7 @@ public class PasswordMigrationTest extends AbstractTest {
 
 	@BeforeEach
 	public void configurarProveedor() {
-		provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(loginService);
+		provider = new DaoAuthenticationProvider(loginService);
 		provider.setUserDetailsPasswordService(loginService);
 		provider.setPasswordEncoder(passwordEncoder);
 

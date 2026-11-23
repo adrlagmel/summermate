@@ -54,7 +54,6 @@ public class Usuario extends Cliente{
 		private Collection <ValoracionPlaya> valoracionPlayas;
 		
 		@NotNull
-		@Valid
 		@OneToMany(mappedBy="usuario")
 		public Collection<Reserva> getReservas() {
 			return reservas;
@@ -65,7 +64,6 @@ public class Usuario extends Cliente{
 		}
 		
 		@NotNull
-		@Valid
 		@ManyToMany(mappedBy="usuarios")
 		public Collection<Evento> getEventos() {
 			return eventos;
@@ -76,7 +74,6 @@ public class Usuario extends Cliente{
 		}
 		
 		@NotNull
-		@Valid
 		@OneToMany(mappedBy="usuario")
 		public Collection<ValoracionPlaya> getValoracionPlayas() {
 			return valoracionPlayas;

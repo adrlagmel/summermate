@@ -34,9 +34,10 @@ public class SecurityConfig {
 	// se reescribe en BCrypt la primera vez que su usuario inicia sesión.
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider(LoginService loginService, PasswordEncoder passwordEncoder) {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(passwordEncoder);
+		// Spring Security 7: el UserDetailsService va en el constructor
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(loginService);
 
-		provider.setUserDetailsService(loginService);
+		provider.setPasswordEncoder(passwordEncoder);
 		provider.setUserDetailsPasswordService(loginService);
 
 		return provider;

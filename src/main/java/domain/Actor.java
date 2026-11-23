@@ -14,8 +14,8 @@ import jakarta.persistence.FetchType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import utilities.validators.SafeHtml;
 
 import security.UserAccount;
@@ -90,7 +90,6 @@ public abstract class Actor extends DomainEntity {
 	 }
 	 
 	 @NotNull
-	 @Valid
 	 @OneToMany(mappedBy="actor")
 	 public Collection<Carpeta> getCarpetas() {
 		return carpetas;

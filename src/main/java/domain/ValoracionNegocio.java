@@ -15,7 +15,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import utilities.validators.SafeHtml;
 
@@ -103,7 +103,6 @@ public class ValoracionNegocio extends DomainEntity{
 	
 	// Al borrar la valoración se borran sus denuncias; antes el borrado fallaba
 	// por la clave ajena en cuanto alguien la había denunciado.
-	@Valid
 	@OneToMany(mappedBy="valoracionNegocio", cascade = CascadeType.REMOVE)
 	public Collection<DenunciaValoracion> getDenuncias() {
 		return denuncias;
