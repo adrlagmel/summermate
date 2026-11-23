@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = { "summermate", "controllers", "services", "repositories", "security", "forms", "utilities" })
+@SpringBootApplication(scanBasePackages = { "summermate", "api", "controllers", "services", "repositories", "security", "forms", "utilities" })
 @EntityScan({ "domain", "security" })
 @EnableJpaRepositories({ "repositories", "security" })
 public class SummerMateApplication {

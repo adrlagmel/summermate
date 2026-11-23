@@ -13,6 +13,7 @@ package summermate;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +44,9 @@ public class SecurityConfig {
 		return provider;
 	}
 
+	// La API (/api/**) tiene su propia cadena, que va antes (ver ApiSecurityConfig)
 	@Bean
+	@Order(2)
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider daoAuthenticationProvider) throws Exception {
 		http.authenticationProvider(daoAuthenticationProvider);
 

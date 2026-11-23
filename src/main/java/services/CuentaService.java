@@ -144,6 +144,8 @@ public class CuentaService {
 		em.createQuery("delete from Mensaje m where m.carpeta.id in (select c.id from Carpeta c where c.actor.id = :id)").setParameter("id", id).executeUpdate();
 		em.createQuery("delete from DenunciaValoracion d where d.cliente.id = :id").setParameter("id", id).executeUpdate();
 		em.createQuery("delete from VotoUtil v where v.cliente.id = :id").setParameter("id", id).executeUpdate();
+		// Fase 8: se cierran las sesiones abiertas en el móvil
+		em.createQuery("update TokenRefresco t set t.revocado = true where t.userAccount.id = :cuenta").setParameter("cuenta", cuenta.getId()).executeUpdate();
 
 		if (c instanceof Usuario u) {
 			for (Reserva r : new ArrayList<>(u.getReservas()))

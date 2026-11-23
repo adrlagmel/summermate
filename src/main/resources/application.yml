@@ -86,6 +86,10 @@ management:
 
 # Fase 6 ------------------------------------------------------------------------
 summermate:
+  # Fase 8: clave para firmar los JWT de la API del móvil (al menos 32
+  # caracteres; en producción, obligatoria). Sin ella se genera una al arrancar.
+  api:
+    jwt-secret: ${JWT_SECRET:}
   # Fase 8: dónde se guardan las imágenes. "bd" (por defecto) las deja en la
   # base de datos; "s3" las sube a Cloudflare R2 u otro almacén compatible.
   imagenes:

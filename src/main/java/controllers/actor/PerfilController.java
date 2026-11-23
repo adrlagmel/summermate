@@ -62,6 +62,9 @@ public class PerfilController {
 	@Autowired
 	private services.CuentaService	cuentaService;
 
+	@Autowired
+	private api.ApiTokens			apiTokens;
+
 
 	@GetMapping
 	public String ver(Model model) {
@@ -141,6 +144,8 @@ public class PerfilController {
 			return "perfil/contrasena";
 
 		actorService.savePassword(actorService.reconstructPassword(form));
+		// Fase 8: con la contraseña nueva, fuera las sesiones abiertas en el móvil
+		apiTokens.revocarTodo(security.LoginService.getPrincipal().getId());
 		redirect.addFlashAttribute("aviso", "fase5.contrasena.ok");
 		return "redirect:/perfil";
 	}
